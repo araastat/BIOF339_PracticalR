@@ -1,0 +1,12 @@
+name: "BIOF 339"
+output_dir: "."
+navbar:
+  title: "Bioinformatics 339: Practical R"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: Syllabus
+      href: syllabus1.html
+    - text: Instructor bio
+      href: bio.html
+

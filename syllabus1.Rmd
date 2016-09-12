@@ -1,0 +1,113 @@
+---
+title: Syllabus
+subtitle: BIOF 339, Fall 2016
+output: html_document
+---
+
+-------
+
+### Instructors
+
+<table style="width:80%;">
+<tr><td>Abhijit Dasgupta, PhD </td><td>Phone: (301) 385-3067 (Office)</td></tr>
+<tr><td></td><td>Email: <a href="mailto:adasgupta+biof339@araastat.com">adasgupta@araastat.com</a></td></tr>
+<tr><td>Eugen Buehler, PhD </td><td>Phone: (301) 637-9774 (Office)</td></tr>
+<tr><td></td><td>Email: <a href="mailto:eugen.buehler@nih.gov">eugen.buehler@nih.gov</a></td></tr>
+</table>
+
+-----
+
+**Lectures:** Mondays, 5:30PM-6:30PM, NIH Campus, Building 60, Room 162.
+
+**Course Description**
+
+The goal of this course is to introduce biomedical research scientists
+to R as an analysis platform rather than a programming language.
+Throughout the course, emphasis will be placed on example-driven
+learning. Topics to be covered include: installation of R and R
+packages; command line R; R data types; loading data in R; manipulating
+data; exploring data through visualization; statistical tests;
+correcting for multiple comparisons; building models; and. generating
+publication-quality graphics. No prior programming experience is
+required.
+
+**Learning Objectives**
+
+-   Run R GUI and make use of command line features, including command
+    > history and help pages
+
+-   Find and make use of the extensive libraries (R add-ons) available
+    > for analyzing biological and other forms of data
+
+-   Load, manipulate, and combine data to make it amenable to further
+    > analyses
+
+-   Visualize data with extensive graphics capabilities of R
+    > (including ggplot)
+
+-   Use appropriate statistical tests on data within R that will conform
+    > to standards expected in scientific journals
+
+**Required Books**
+
+There are no required books for this class. We will recommend online
+resources for the use of R in data analysis.
+
+------
+
+**Course Schedule and Tentative Lecture Topics**
+
+  Date       Topic
+  ---------- ------------------------------------------------------------------------------------------------
+  Sept. 12   Introduction to R and RStudio. Basic Data Types
+  Sept. 19   Data Frames, Matrices and Lists
+  Sept. 26   Exploring Data through Visualization.
+  Oct. 3     Basic Statistical Analysis with R: Summary statistics, Hypothesis tests
+  Oct. 10    HOLIDAY
+  Oct. 17    Building Statistical Models with R: Linear Regression, Formula interface
+  Oct. 24    R Packages. Finding, loading, and using packages in R. Popular R packages. CRAN and Task Views
+  Oct. 31    Importing and exporting data. Data manipulation. “Apply” family of functions. Missing data
+  Nov. 7     Advanced data manipulation. dplyr and related packages
+  Nov. 14    RMarkdown and other reporting packages
+  Nov. 21    Basic graphics with ggplot.
+  Nov. 28    Advanced Graphics with ggplot (facets, etc). Generating publication quality graphics.
+  Dec. 5     Bioconductor: Bioinformatics in R . Multiple Comparisons
+  Dec. 12    Project Presentations
+
+**Class Project**
+
+Grading will be based on your class project, to be completed by and
+presented at our final class. Each student will demonstrate the learning
+objectives of the class on their own set of data. Ideally, the data used
+will actually be the student’s own data, or at least data familiar to
+them. Within their presentation, students will describe the data and how
+it was loaded and analyzed within R/RStudio. Instructors will evaluate
+the projects based on whether they demonstrate the learning objectives,
+with one point for each of following demonstrated: importing data, data
+manipulation, statistical analysis, use of a package, and data
+visualization. The point total will then be translated to a letter
+grade: 0 or 1 =F, 2=D, 3=C, 4=B, 5=A.
+
+**POLICY ON ACADEMIC INTEGRITY**
+
+The FAES Graduate School at NIH prides itself on providing quality
+educational experiences and upholds the highest level of honesty,
+integrity, and mutual respect. It is our policy that cheating,
+fabrication or plagiarism by students is\
+not acceptable in any form. If a student is found to be in violation of
+any, or all of the below, his/her credits will be forfeited, and he/she
+will not be allowed to enroll in future courses or education programs
+administered by FAES.
+
+• Cheating is defined as an attempt to give or obtain inappropriate/
+unauthorized assistance during any academic exercise, such as during
+examination, homework assignment, class presentation.\
+• Fabrication is defined as the falsification of data, information or
+citations in any academic materials.\
+• Plagiarism is defined as using the ideas, methods, or written words of
+another, without proper acknowledgment and with the intention that they
+be taken as the work of the deceiver. These include, but are not limited
+to, the use of published articles, paraphrasing, copying someone else’s
+homework and turning it in as one’s own and failing to reference
+footnotes. Procuring information from online sources without proper
+attribution also constitutes plagiarism.
