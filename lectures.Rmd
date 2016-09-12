@@ -8,7 +8,7 @@ Last updated: `r format(Sys.Date(), '%B %d, %Y')`
 
 ----
 
-#### Lecture 1
+### Lecture 1
 
 Presentation  
 
@@ -20,7 +20,7 @@ Supplemental Material
 
 In-built datasets in R: `data()`
 
-#### Lecture 2
+### Lecture 2
 
 Presentation
 
