@@ -25,6 +25,15 @@ The instructors have both been using R in their daily work at NIH and earlier fo
 many many years and have a pretty detailed knowledge of R's advantages, pitfalls, tricks 
 and shortcuts. Don't hesitate to reach out and ask your questions. 
 
+------
+
+```{r, fig.width=5, fig.height=4}
+data(iris)
+plot(Sepal.Length ~ Sepal.Width, data=iris, col=Species, 
+     xlab='Sepal Width', ylab='Sepal Length')
+legend('topright', legend=levels(iris$Species), pch=1, col=1:3, title='Species')
+```
+
 -----
 
 <p style="font-size: 80%"> This website is written using R, <a href="http://rmarkdown.rstudio.com/index.html" target="_blank">R Markdown</a> and various packages provided by <a href="http://www.rstudio.com" target="_blank">RStudio</a>. 

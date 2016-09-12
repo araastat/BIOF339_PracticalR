@@ -219,6 +219,12 @@ $(document).ready(function () {
 <p>In this course we will provide a practical approach to learning R using examples, with the intention to get you using R for your data analyses, data visualization and reporting as quickly as possible. We will try to avoid the more esoteric and “computer science-y” aspects of this programming language. We hope this approach and personal practice enables you to get started using R for your own work, find resources you may need beyond this course to help you answer your particular questions, and develop workflows for your data analyses that allow you to generate tables and figures for research papers, for example.</p>
 <p>The instructors have both been using R in their daily work at NIH and earlier for many many years and have a pretty detailed knowledge of R’s advantages, pitfalls, tricks and shortcuts. Don’t hesitate to reach out and ask your questions.</p>
 <hr />
+<pre class="r"><code>data(iris)
+plot(Sepal.Length ~ Sepal.Width, data=iris, col=Species, 
+     xlab=&#39;Sepal Width&#39;, ylab=&#39;Sepal Length&#39;)
+legend(&#39;topright&#39;, legend=levels(iris$Species), pch=1, col=1:3, title=&#39;Species&#39;)</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" width="480" /></p>
+<hr />
 <p style="font-size: 80%">
 This website is written using R, <a href="http://rmarkdown.rstudio.com/index.html" target="_blank">R Markdown</a> and various packages provided by <a href="http://www.rstudio.com" target="_blank">RStudio</a>. The source code is available on <a href="https://github.com/araastat/BIOF339_PracticalR/tree/gh-pages" target="_blank">GitHub</a>
 </p>
