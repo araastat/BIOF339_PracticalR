@@ -5,7 +5,7 @@ date: "Fall 2016"
 output: html_document
 ---
 
-[R](http://www.r-project.org) is one of the most popular programming languages for 
+<a href="http://www.r-project.org" target="_blank">R</a> is one of the most popular programming languages for 
 data science and statistics. It is a free and open source language available for 
 all major operating systems. It is extensible through a packaging system that has resulted
 in over 9000 user-contribued packages available on [CRAN](http://cran.r-project.org). 
