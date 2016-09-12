@@ -1,9 +1,12 @@
 ---
-title: "Bioinformatics 339: Practical R"
+title: "BIOF 339: Practical R"
 author: "Abhijit Dasgupta & Eugen Buehler"
 date: "Fall 2016"
 output: html_document
 ---
+This course is part of the [FAES Graduate School](https://faes.org/content/graduate-school) and is being offered Fall 2016. 
+
+----
 
 <a href="http://www.r-project.org" target="_blank">R</a> is one of the most popular programming languages for 
 data science and statistics. It is a free and open source language available for 
