@@ -1,7 +1,7 @@
 name: "BIOF 339"
 output_dir: "."
 navbar:
-  title: "Bioinformatics 339: Practical R"
+  title: "Practical R"
   left:
     - text: "Home"
       href: index.html
