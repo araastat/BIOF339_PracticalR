@@ -25,6 +25,7 @@ The instructors have both been using R in their daily work at NIH and earlier fo
 many many years and have a pretty detailed knowledge of R's advantages, pitfalls, tricks 
 and shortcuts. Don't hesitate to reach out and ask your questions. 
 
+
 ------
 
 ```{r, fig.width=5, fig.height=4}
