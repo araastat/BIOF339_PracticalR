@@ -11,6 +11,8 @@ navbar:
       href: bio.html
     - text: Lectures
       href: lectures.html
+    - text: Resources
+      href: resources.html
 output:
   html_document:
     theme: cosmo

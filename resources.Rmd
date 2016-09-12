@@ -1,0 +1,9 @@
+---
+title: "Resources"
+---
+
+#### General resources
+
++ [Quick-R](http://www.statmethods.net)
++ [Twotorials](http://www.twotorials.com)
++ [UCLA IDRE R resources](http://www.ats.ucla.edu/stat/r/)

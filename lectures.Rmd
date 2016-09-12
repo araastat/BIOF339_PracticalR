@@ -14,6 +14,10 @@ Presentation
 
 Supplemental Material
 
++ Installing R: <a href="http://cran.r-project.org" target="_blank">http://cran.r-project.org</a>
++ Installing RStudio: <a href="https://www.rstudio.com/products/rstudio/download3/" target="_blank" >http://www.rstudio.com/products/rstudio</a>
++ Searching for information about R: <a href="http://www.rseek.org" target="_blank">rseek.org</a>
+
 #### Lecture 2
 
 Presentation
