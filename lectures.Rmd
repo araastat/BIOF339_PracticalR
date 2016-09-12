@@ -4,6 +4,10 @@ date: "Fall 2016"
 output: html_document
 ---
 
+Last updated: `r Sys.Date()`
+
+----
+
 #### Lecture 1
 
 Presentation  
