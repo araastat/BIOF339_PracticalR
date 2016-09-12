@@ -22,9 +22,3 @@ The instructors have both been using R in their daily work at NIH and earlier fo
 many many years and have a pretty detailed knowledge of R's advantages, pitfalls, tricks 
 and shortcuts. Don't hesitate to reach out and ask your questions. 
 
---------
-
-**DISCLAIMER:** This course and material on this website is not reflective nor a part of 
-professional activities at ARAASTAT. This is a course run under the auspices of the FAES Graduate School. 
-All material on this course site is authored by the instructors, who bear sole responsibility for the contents and any errors
-thereof. We thank ARAASTAT for hosting this site. 
