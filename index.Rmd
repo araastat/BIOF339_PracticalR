@@ -24,5 +24,5 @@ and shortcuts. Don't hesitate to reach out and ask your questions.
 
 -----
 
-<p style="font-size: 80%"> This website is written using R and various packages provided by [RStudio](http://www.rstudio.com). 
+<p style="font-size: 80%"> This website is written using R, [RMarkdown](http://rmarkdown.rstudio.com/index.html) and various packages provided by [RStudio](http://www.rstudio.com). 
 The source code is available on <a href="https://github.com/araastat/BIOF339_PracticalR/tree/gh-pages" target="_blank">GitHub</a> </p>
