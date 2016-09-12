@@ -10,7 +10,7 @@ Last updated: `r format(Sys.Date(), '%B %d, %Y')`
 
 ### Lecture 1
 
-Presentation  
+[Presentation](Lectures/lecture1.pdf)
 
 Supplemental Material
 
