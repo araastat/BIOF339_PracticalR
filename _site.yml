@@ -11,4 +11,8 @@ navbar:
       href: bio.html
     - text: Lectures
       href: lectures.html
-
+output:
+  html_document:
+    theme: cosmo
+    highlight: textmate
+    css: styles.css
