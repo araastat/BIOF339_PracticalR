@@ -1,8 +1,9 @@
 ---
+title: Instructor bios
 output: html_document
 ---
 
-## Eugen Buehler, PhD
+#### Eugen Buehler, PhD
 
 Dr. Buehler is a bioinformatician with wide-ranging experience in the computational analysis
 of genomic studies. He holds a PhD in Computer Science with earlier training in Physics. He
@@ -11,7 +12,7 @@ bioinformatics. He has over 20 years experience working in academia, the pharmac
 industry and government, and specializes in mathematical modeling, statistics, machine 
 learning, and the analysis and integration of large-scale biological data sets. 
 
-## Abhijit Dasgupta, PhD
+#### Abhijit Dasgupta, PhD
 
 Dr. Dasgupta is a biostatistician and data scientist with experience in statistical 
 modeling and machine learning, bioinformatics, optimization, signal processing, and 

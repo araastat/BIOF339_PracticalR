@@ -1,0 +1,17 @@
+---
+title: "Lectures"
+date: "Fall 2016"
+output: html_document
+---
+
+#### Lecture 1
+
+Presentation  
+
+Supplemental Material
+
+#### Lecture 2
+
+Presentation
+
+Supplemental Material

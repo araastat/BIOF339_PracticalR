@@ -9,4 +9,6 @@ navbar:
       href: syllabus1.html
     - text: Instructor bio
       href: bio.html
+    - text: Lectures
+      href: lectures.html
 
