@@ -1,0 +1,69 @@
+---
+title: "Lecture 2: \nData Frame, Matrix, List"
+author: "Abhijit Dasgupta"
+date: "September 13, 2016"
+output: 
+  revealjs::revealjs_presentation:
+    theme: league
+    highlight: zenburn
+    transition: fade
+---
+
+# Preamble
+
+## Practice makes perfect
+
++ Start using [RSeek](http://www.rseek.org) 
++ Other resources on website [http://www.araastat.com/BIOF339_PracticalR](http://www.araastat.com/BIOF339_PracticalR)
++ Beg, Borrow, Steal code that you need 
+    
+    + R is open-source, so is meant to be shared
+
+## R packages
+
+R packages live on [CRAN](http://cran.r-project.org) and its mirrors. To install
+an R package:
+```{r, eval=FALSE}
+install.packages('dplyr', repos='http://cran.r-project.org')
+```
+or
+![](lecture2_img/install_package.png)
+
+## R Packages
+
+To use a package, or rather, use the functions from the package, you have to load it into R
+
+```{r, eval=FALSE}
+library(dplyr)
+```
+We'll talk about packages later in the semester. 
+
+We will 
+concentrate now on what is known as __Base R__, that is, the functions that are available
+when R is installed
+
+## Loading data
+
+We will usually load CSV files, since they are the easiest for R. The typical suggestion if you 
+have Excel data is to save the sheet as a CSV and then import it into R. 
+
+> You can 
+  also load Excel files directly using either the `readxl` or `rio` packages
+
+# The structure of data sets
+
+## Tables
++ Data is typically in a rectangular format
+  
+    + spreadsheet
+    + database table
+    + CSV (comma-separated values) or TSV (tab-separated values) files
+
++ Characteristic
+  
+    + Rows are observations
+    + Columns are variables
+    + Each column has the same number of observations
+
+> [__Tidy data__](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html) is a particularly amenable format for data analysis. 
+  
