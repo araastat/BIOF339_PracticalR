@@ -22,6 +22,6 @@ In-built datasets in R: `data()`
 
 ### Lecture 2
 
-[Presentation](Lectures/lecture2.html) ([Source](Lectures/lecture2.Rmd))
+<a href="Lectures/lecture2.html" target="_blank">Presentation</a> ([Source](Lectures/lecture2.Rmd))
 
 Supplemental Material

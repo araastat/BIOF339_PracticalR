@@ -7,11 +7,12 @@ output:
     theme: league
     highlight: zenburn
     transition: fade
+    slide_level: 1
 ---
 
 # Preamble
 
-## Practice makes perfect
+# Practice makes perfect
 
 + Start using [RSeek](http://www.rseek.org) 
 + Other resources on website [http://www.araastat.com/BIOF339_PracticalR](http://www.araastat.com/BIOF339_PracticalR)
@@ -19,7 +20,7 @@ output:
     
     + R is open-source, so is meant to be shared
 
-## R packages
+# R packages
 
 R packages live on [CRAN](http://cran.r-project.org) and its mirrors. To install
 an R package:
@@ -29,7 +30,7 @@ install.packages('dplyr', repos='http://cran.r-project.org')
 or
 ![](lecture2_img/install_package.png)
 
-## R Packages
+# R Packages
 
 To use a package, or rather, use the functions from the package, you have to load it into R
 
@@ -42,7 +43,7 @@ We will
 concentrate now on what is known as __Base R__, that is, the functions that are available
 when R is installed
 
-## Loading data
+# Loading data
 
 We will usually load CSV files, since they are the easiest for R. The typical suggestion if you 
 have Excel data is to save the sheet as a CSV and then import it into R. 
@@ -52,11 +53,10 @@ have Excel data is to save the sheet as a CSV and then import it into R.
 
 # The structure of data sets
 
-## Tables
+# Tables
 + Data is typically in a rectangular format
   
-    + spreadsheet
-    + database table
+    + spreadsheet, database table
     + CSV (comma-separated values) or TSV (tab-separated values) files
 
 + Characteristic
@@ -67,3 +67,144 @@ have Excel data is to save the sheet as a CSV and then import it into R.
 
 > [__Tidy data__](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html) is a particularly amenable format for data analysis. 
   
+#
+
+![](lecture2_img/spreadsheet3.png)
+<div style="font-size:small; text-align="center">
+An example [GEO](http://www.ncbi.nlm.nih.gov/geo/) dataset
+</div>
+
+#
+
+![](lecture2_img/spreadsheet2.png)
+<div style="font-size:small;text-align:center;">
+[Lower back pain symptoms dataset](https://www.kaggle.com/sammy123/lower-back-pain-symptoms-dataset) on _Kaggle.com_
+</div>
+
+# 
+![](lecture2_img/spreadsheet.png)
+<div style="font-size:small;text-align:center;">
+[Breast Cancer Proteome dataset](https://www.kaggle.com/piotrgrabo/breastcancerproteomes) on _Kaggle.com_
+</div>
+
+# Let's look at a dataset
+
+![](lecture2_img/spreadsheet2.png)
+
+# Let's look at a dataset
+
+```{r}
+data_spine <- read.csv('lecture2_data/Dataset_spine.csv')
+```
+
+```{r}
+head(data_spine)
+```
+
+<div style="font-size:small">
+Ignore the first `##`; it denotes that this is R output
+</div>
+
+# Let's look at a dataset
+
++ Assumes that the first row has variable names
++ Replaces spaces with .
++ Keeps numeric and character variables together
+
+# Let's look at a dataset
+
+```{r, eval=FALSE}
+View(data_spine)  # It looks like a matrix
+```
+![](lecture2_img/View.png)
+
+
+# Let's look at a dataset
+
+```{r}
+str(data_spine) # Structure of a dataset
+```
+
+<div style="font-size:small">
+So this is a `data.frame` object with `r nrow(data_spine)` observations and 
+`r ncol(data_spine)` variables, of which one is a __factor__ and the rest are __numeric__
+</div>
+It looks like a __list of things__
+
+# Dataframes
+
+Dataframes are the primary mode of storing datasets in R
+
+They were revolutionary in that they kept heterogeneous data together
+
+They share properties of both a __matrix__ and a __list__
+
+```{r}
+class(data_spine)
+```
+
+> Technically, a data.frame is a list of vectors (or objects, generally) of the same length  
+
+# Matrices
+
+A __matrix__ is a rectangular array of data _of the same type_
+
+```{r}
+matrix(0, nrow=2, ncol=4)
+```
+```{r}
+matrix(letters, nrow=2)
+```
+```{r}
+matrix(letters, nrow=2, byrow=T)
+```
+
+# Matrices
+
+You can create a matrix from a set of _vectors_ of the same length
+```{r}
+x <- c(1,2,3,4)
+y <- c(10,20,30,40)
+```
+Put columns together
+```{r}
+cbind(x,y) # Column bind
+```
+
+# Matrices
+
+You can create a matrix from a set of _vectors_ of the same length
+```{r}
+x <- c(1,2,3,4)
+y <- c(10,20,30,40)
+```
+Put rows together
+```{r}
+rbind(x,y) # Row bind
+```
+
+# Extracting elements
+
+```{r}
+example_matrix = rbind(x,y)
+example_matrix
+example_matrix[1,] # Extracts 1st row
+example_matrix[,2] # extracts 2nd column as a vector, prints horizontally
+example_matrix[1,4]
+```
+
+# Matrix properties
+```{r}
+example_matrix
+nrow(example_matrix) # Number of rows
+ncol(example_matrix) # Number of columns
+dim(example_matrix) # shortcut for above
+```
+
+# Matrix arithmetic
+```{r}
+example_matrix
+example_matrix + 5 # Add 5 to each element
+example_matrix * 2 # Multiply each element by 2
+```
+
