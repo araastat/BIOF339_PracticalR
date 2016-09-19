@@ -4,8 +4,8 @@ author: "Abhijit Dasgupta"
 date: "September 19, 2016"
 output: 
   revealjs::revealjs_presentation:
-    theme: league
-    highlight: zenburn
+    theme: default
+    highlight: default
     transition: fade
     slide_level: 1
 ---
