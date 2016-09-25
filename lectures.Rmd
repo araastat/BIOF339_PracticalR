@@ -24,7 +24,7 @@ In-built datasets in R: `data()`
 
 <a href="Lectures/lecture2.html" target="_blank">Presentation</a> ([source](Lectures/lecture2.Rmd); [data](Lectures/lecture2_data/Dataset_spine.csv); [R code](Lectures/lecture2_data/lecture2.R))
 
-<a href="Lectures/lecture2_data/Assign1.html">Practice Assignment 1</a>
+<a href="Lectures/lecture2_data/Assign1.html">Practice Assignment 1</a>, and [solution](Lectures/lecture2_data/Assign1Solution.html)
 
 Supplemental Material
 
