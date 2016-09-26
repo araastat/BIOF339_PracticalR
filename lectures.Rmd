@@ -37,5 +37,7 @@ Supplemental Material
 
 Supplemental Material:
 
-+ The ggplot2 documentation: <a href="http://docs.ggplot2.org/current/", target="_blank">link</a>
-+ <a href = "http://flowingdata.com", target="_blank">Flowing Data</a>, a data visualization blog
++ The ggplot2 documentation: <a href="http://docs.ggplot2.org/current/" target="_blank">link</a>
++ R Graph Gallery: <a href="http://rgraphgallery.blogspot.com" target="_blank">link</a>
++ UBC R Graph Gallery: <a href="http://shinyapps.stat.ubc.ca/r-graph-catalog/" target="_blank">link</a>
++ <a href = "http://flowingdata.com" target="_blank">Flowing Data</a>, a data visualization blog

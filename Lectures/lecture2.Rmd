@@ -2,17 +2,18 @@
 title: "Lecture 2: \nData Frame, Matrix, List"
 author: "Abhijit Dasgupta"
 date: "September 19, 2016"
-output: 
-  revealjs::revealjs_presentation:
-    theme: default
-    highlight: default
-    transition: fade
-    slide_level: 1
+# output: 
+  # revealjs::revealjs_presentation:
+    # theme: default
+    # highlight: default
+    # transition: fade
+    # slide_level: 1
+output: ioslides_presentation
 ---
 
 # Preamble
 
-# Practice makes perfect
+## Practice makes perfect
 
 + Start using [RSeek](http://www.rseek.org) 
 + Other resources on website [http://www.araastat.com/BIOF339_PracticalR](http://www.araastat.com/BIOF339_PracticalR)
@@ -20,7 +21,7 @@ output:
     
     + R is open-source, so is meant to be shared
 
-# R coding conventions
+## R coding conventions
 ```{r}
 # This is a comment, which doesn't get evaluated
 
@@ -37,7 +38,7 @@ x
 Google has a <a href="https://google.github.io/styleguide/Rguide.xml" target="_blank">style guide</a> for
 how to write R code
 
-# R packages
+## R packages
 
 R packages live on [CRAN](http://cran.r-project.org) and its mirrors. To install
 an R package:
@@ -45,9 +46,12 @@ an R package:
 install.packages('dplyr', repos='http://cran.r-project.org')
 ```
 or
-![](lecture2_img/install_package.png)
+```{r}
+knitr::include_graphics('lecture2_img/install_package.png')
+```
 
-# R Packages
+
+## R Packages
 
 To use a package, or rather, use the functions from the package, you have to load it into R
 
@@ -60,7 +64,7 @@ We will
 concentrate now on what is known as __Base R__, that is, the functions that are available
 when R is installed
 
-# Loading data
+## Loading data
 
 We will usually load CSV files, since they are the easiest for R. The typical suggestion if you 
 have Excel data is to save the sheet as a CSV and then import it into R. 
@@ -68,9 +72,9 @@ have Excel data is to save the sheet as a CSV and then import it into R.
 > You can 
   also load Excel files directly using either the `readxl` or `rio` packages
 
-# The structure of data sets
+## The structure of data sets
 
-# Tables
+## Tables
 + Data is typically in a rectangular format
   
     + spreadsheet, database table
@@ -84,31 +88,39 @@ have Excel data is to save the sheet as a CSV and then import it into R.
 
 > [__Tidy data__](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html) is a particularly amenable format for data analysis. 
   
-#
+##
 
-![](lecture2_img/spreadsheet3.png)
+```{r, echo=F}
+knitr::include_graphics('lecture2_img/spreadsheet3.png')
+```
+
 <div style="font-size:small; text-align="center">
 An example [GEO](http://www.ncbi.nlm.nih.gov/geo/) dataset
 </div>
 
-#
-
-![](lecture2_img/spreadsheet2.png)
+##
+```{r, echo=F}
+knitr::include_graphics('lecture2_img/spreadsheet2.png')
+```
 <div style="font-size:small;text-align:center;">
 [Lower back pain symptoms dataset](https://www.kaggle.com/sammy123/lower-back-pain-symptoms-dataset) on _Kaggle.com_
 </div>
 
-# 
-![](lecture2_img/spreadsheet.png)
+## 
+```{r, echo=F}
+knitr::include_graphics('lecture2_img/spreadsheet.png')
+```
 <div style="font-size:small;text-align:center;">
 [Breast Cancer Proteome dataset](https://www.kaggle.com/piotrgrabo/breastcancerproteomes) on _Kaggle.com_
 </div>
 
-# Let's look at a dataset
+## Let's look at a dataset
+```{r, echo=F}
+knitr::include_graphics('lecture2_img/spreadsheet2.png')
+```
 
-![](lecture2_img/spreadsheet2.png)
 
-# Let's look at a dataset
+## Let's look at a dataset
 
 ```{r}
 data_spine <- read.csv('lecture2_data/Dataset_spine.csv')
@@ -122,24 +134,26 @@ head(data_spine)
 Ignore the first `##`; it denotes that this is R output
 </div>
 
-# Let's look at a dataset
+## Let's look at a dataset
 
 + Assumes that the first row has variable names
 + Replaces spaces with .
 + Keeps numeric and character variables together
 
-# Let's look at a dataset
+## Let's look at a dataset
 
 ```{r, eval=FALSE}
-View(data_spine)  # It looks like a matrix
+View(data_spine)  ## It looks like a matrix
 ```
-![](lecture2_img/View.png)
+```{r}
+knitr::include_graphics('lecture2_img/View.png')
+```
 
 
-# Let's look at a dataset
+## Let's look at a dataset
 
 ```{r}
-str(data_spine) # Structure of a dataset
+str(data_spine) ## Structure of a dataset
 ```
 
 <div style="font-size:small">
@@ -148,7 +162,7 @@ So this is a `data.frame` object with `r nrow(data_spine)` observations and
 </div>
 It looks like a __list of things__
 
-# Dataframes
+## Dataframes
 
 Dataframes are the primary mode of storing datasets in R
 
@@ -162,7 +176,7 @@ class(data_spine)
 
 > Technically, a data.frame is a list of vectors (or objects, generally) of the same length  
 
-# Matrices
+## Matrices
 
 A __matrix__ is a rectangular array of data _of the same type_
 
@@ -176,7 +190,7 @@ matrix(letters, nrow=2)
 matrix(letters, nrow=2, byrow=T)
 ```
 
-# Matrices
+## Matrices
 
 You can create a matrix from a set of _vectors_ of the same length
 ```{r}
@@ -185,10 +199,10 @@ y <- c(10,20,30,40)
 ```
 Put columns together
 ```{r}
-cbind(c(1,2,3,4), c(10,20,30,40)) # Column bind
+cbind(c(1,2,3,4), c(10,20,30,40)) ## Column bind
 ```
 
-# Matrices
+## Matrices
 
 You can create a matrix from a set of _vectors_ of the same length
 ```{r}
@@ -197,61 +211,61 @@ y <- c(10,20,30,40)
 ```
 Put rows together
 ```{r}
-example_matrix <- rbind(c(1,2,3,4), c(10,20,30,40)) # Row bind
+example_matrix <- rbind(c(1,2,3,4), c(10,20,30,40)) ## Row bind
 example_matrix
 ```
 
-# Extracting elements
+## Extracting elements
 
 ```{r}
 example_matrix 
-example_matrix[1,] # Extracts 1st row
-example_matrix[,2:3] # extracts 2nd & 3rd columns
+example_matrix[1,] ## Extracts 1st row
+example_matrix[,2:3] ## extracts 2nd & 3rd columns
 example_matrix[1,4]
 ```
 
-# Matrix properties
+## Matrix properties
 ```{r}
 example_matrix
-nrow(example_matrix) # Number of rows
-ncol(example_matrix) # Number of columns
-dim(example_matrix) # shortcut for above
+nrow(example_matrix) ## Number of rows
+ncol(example_matrix) ## Number of columns
+dim(example_matrix) ## shortcut for above
 ```
 
-# Matrix arithmetic
+## Matrix arithmetic
 ```{r}
 example_matrix
-example_matrix + 5 # Add 5 to each element
-example_matrix * 2 # Multiply each element by 2
+example_matrix + 5 ## Add 5 to each element
+example_matrix * 2 ## Multiply each element by 2
 ```
 
-# Two matrices
+## Two matrices
 ```{r}
 example_matrix
 example_matrix2 <- rbind(3:6, 9:12)
 example_matrix2
 example_matrix + example_matrix2
 ```
-# Two matrices
+## Two matrices
 ```{r}
 example_matrix
 example_matrix2
-example_matrix * example_matrix2 # Not matrix multiplication, but element-wise multiplication
+example_matrix * example_matrix2 ## Not matrix multiplication, but element-wise multiplication
 ```
 
-# Two matrices
+## Two matrices
 ```{r}
 rbind(example_matrix, example_matrix2)
 cbind(example_matrix, example_matrix2)
 ```
-# Two matrices
+## Two matrices
 ```{r}
 dim(example_matrix2)
-t(example_matrix2) # Transpose of a matrix
-example_matrix %*% t(example_matrix2) # Matrix multiplication
+t(example_matrix2) ## Transpose of a matrix
+example_matrix %*% t(example_matrix2) ## Matrix multiplication
 ```
 
-# Lists
+## Lists
 
 Lists are collections of arbitrary objects in R
 ```{r}
@@ -262,7 +276,7 @@ example_list <- list(c('Andy','Brian','Harry'),
 example_list
 ```
 
-# Extracting elements from lists
+## Extracting elements from lists
 ```{r}
 example_list[[3]]
 ```
@@ -270,14 +284,14 @@ example_list[[3]]
 example_list[1:2]
 ```
 
-# Extracting elements from lists
+## Extracting elements from lists
 ```{r}
 example_list[[4]]
 class(example_list[[4]])
 example_list[[4]][1,]
 ```
 
-# Named lists
+## Named lists
 ```{r}
 example_named_list <- list('Names' = c('Andy','Brian','Harry'), 
                      "YearsOfEducation" = c(12, 16, 16), 
@@ -289,38 +303,38 @@ example_named_list$Names
 example_named_list$Names[3]
 ```
 
-# Back to a Data Frame
+## Back to a Data Frame
 
 A data.frame object is a __named list__ where each element is of the same length
 
 You can use both _matrix_ and _list_ functions to operate on data.frame objects!!
 
-# Data Frames
+## Data Frames
 ```{r}
 head(data_spine)
 ```
-# Data Frames
+## Data Frames
 ```{r}
 dim(data_spine)
 nrow(data_spine)
 
-data_spine_small <- data_spine[1:4,] # Matrix operation
+data_spine_small <- data_spine[1:4,] ## Matrix operation
 ```
 
-# Data Frames
+## Data Frames
 ```{r}
-data_spine_small[,2] # Matrix extraction by position
-data_spine_small[[2]] # List extraction by position
+data_spine_small[,2] ## Matrix extraction by position
+data_spine_small[[2]] ## List extraction by position
 ```
 
-# Data Frames
+## Data Frames
 ```{r}
-data_spine_small[['Pelvic.tilt']] # Named list extraction
-data_spine_small[,'Pelvic.tilt'] # Data frame named column extraction
-data_spine_small$Pelvic.tilt # Dollar sign extraction
+data_spine_small[['Pelvic.tilt']] ## Named list extraction
+data_spine_small[,'Pelvic.tilt'] ## Data frame named column extraction
+data_spine_small$Pelvic.tilt ## Dollar sign extraction
 ```
 
-# Data Frames
+## Data Frames
 
 My preference is for
 
@@ -330,16 +344,16 @@ My preference is for
 
 
 
-# Data Frames
+## Data Frames
 ```{r}
 names(data_spine_small)
 
 data_spine_small[,c('Pelvic.tilt', 'Pelvic.slope','Class.attribute')]
 ```
 
-# Filtering data frames
+## Filtering data frames
 
-## Boolean operators
+#### Boolean operators
 
 Operator     |  Meaning
 -------------|----------
@@ -347,17 +361,17 @@ Operator     |  Meaning
  `&`         |  And                                     
  `!`         |  Not                                     
 
-# Filtering data frames
+## Filtering data frames
 
 ```{r}
 data_spine[data_spine$Pelvic.tilt > 20, ]
 ```
 
 ```{r, eval=F}
-subset(data_spine, Pelvic.tilt > 20) # is equivalent
+subset(data_spine, Pelvic.tilt > 20) ## is equivalent
 ```
 
-# Filtering data frames
+## Filtering data frames
 ```{r}
 data_spine[data_spine$Pelvic.tilt > 20 & data_spine$Pelvic.slope > 0.85, ]
 ```
@@ -365,14 +379,14 @@ data_spine[data_spine$Pelvic.tilt > 20 & data_spine$Pelvic.slope > 0.85, ]
 subset(data_spine, Pelvic.tilt > 20 & Pelvic.slope > 0.85)
 ```
 
-# Filtering data frames and selecting variables
+## Filtering data frames and selecting variables
 ```{r}
 data_spine[data_spine$Pelvic.tilt > 20 & data_spine$Pelvic.slope > 0.85, 
            c('Direct.tilt', 'Class.attribute')]
 ```
 
 
-# Adding a variable
+## Adding a variable
 ```{r}
 data_spine_small[,'bad.angle'] <- c('No','Yes','No','No')
 data_spine_small
@@ -382,51 +396,52 @@ data_spine_small$bad.angle <- ...
 data_spine_small[['bad.angle']] <- ...
 ```
 
-# Removing a variable
+## Removing a variable
 ```{r, eval=FALSE}
 data_spine_small[, -c(13,14)]
 
 data_spine_small[,-c('Class.attribute', 'bad.angle')]
 
-# The next two commands change the original data set
+## The next two commands change the original data set
 
 data_spine_small[c('Class.attribute','bad.angle')] <- NULL
 
 data_spine_small[['bad.angle']] <- NULL
 ```
 
-# Creating derived variables
+## Creating derived variables
 ```{r}
-data_spine_small$bad.angle <- ifelse(data_spine_small$Sacrum.angle > 80, 'Yes','No')
+data_spine_small$bad.angle <- ifelse(data_spine_small$Sacrum.angle > 80, 
+                                     'Yes','No')
 ```
 
-# Creating derived variables
+## Creating derived variables
 ```{r}
 data_spine_small <- transform(data_spine_small, 
                               bad.angle = ifelse(Sacrum.angle > 80, 
                                                  'Yes','No'))
 ```
 
-# For deriving multiple variables into a data frame
+## For deriving multiple variables into a data frame
 ```{r}
 head(mtcars)
 ```
 
-# For deriving multiple variables into a data frame
+## For deriving multiple variables into a data frame
 
 ```{r}
 mtcars <- transform(mtcars, 
-                    kmpg = mpg * 1.6, # Numerical vector
-                    low.mpg = ifelse(mpg < 16, 'Yes','No')  # Factor
+                    kmpg = mpg * 1.6, ## Numerical vector
+                    low.mpg = ifelse(mpg < 16, 'Yes','No')  ## Factor
                     )
 ```
 
-# For deriving multiple variables into a data frame
+## For deriving multiple variables into a data frame
 ```{r}
 str(mtcars)
 ```
 
-# Adding new data to a data frame
+## Adding new data to a data frame
 
 You can concatenate two data frames using `rbind` as long as the variable names 
 and orders are the same
@@ -435,12 +450,12 @@ new_data = rbind(data_spine[1:4,], data_spine[c(8,22),])
 new_data
 ```
 
-# Adding new data to a data frame
+## Adding new data to a data frame
 You can add columns of a new data frame to an existing data frame using `cbind` as long as
 the columns have no common names 
 ```{r}
 new_data2 <- cbind(data_spine[1:4, c('Pelvic.slope','Class.attribute')], 
-                   data.frame(Sex = c('M','F','M','M'),    # Creating a new data frame on the fly
+                   data.frame(Sex = c('M','F','M','M'),    ## Creating a new data frame on the fly
                               Race = c('W','B','As','B'))
                    )
 new_data2
