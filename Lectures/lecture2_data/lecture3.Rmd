@@ -1,0 +1,376 @@
+---
+title: "Lecture 3: Data Visualization"
+author: "BIOF 339"
+date: "September 26, 2016"
+# output: 
+#   revealjs::revealjs_presentation:
+#     theme: default
+#     highlight: default
+#     transition: fade
+#     slide_level: 1
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      fig.width=4,
+                      fig.height=4,
+                      comment='#  ',
+                      cache=T)
+```
+
+## Data Visualization in R
+
+One of R's strengths is data visualization. 
+
+R can create static as well as interactive graphs with a rich set of user-contributed packages
+
++ Static graph systems
+    + Base R graphics
+    + `lattice` (Sarkar, et al) 
+    + `ggplot2` (Wickham)
++ Dynamic graphs
+    + `rCharts`
+    + `leaflet`
+    + `plotly`
+    + Many others
+
+## Data visualization in R
+
+I'm making the decision to use `ggplot2` for my graphics
+
++ Makes pretty good formatting choices out of the box
++ Is declarative (tell it what you want) without getting caught up in minutae
++ Strongly leverages data frames (good practice)
++ There are good templates if you want to change the look
+
+# Introduction to ggplot2
+## Introduction to ggplot2
+
+If you haven't installed it yet:
+```{r, eval=FALSE}
+install.packages('ggplot2', 
+                 repos="http://watson.nci.nih.gov/cran_mirror/")
+```
+then
+```{r}
+library(ggplot2)
+```
+
+## Introduction to ggplot2
+
+The `ggplot2` package is a very flexible and (to me) intuitive way of visualizing data.
+It is based on the concept of layering elements on a canvas.
+
+You need:
+
++ A `data.frame` object
++ _Aesthetic mappings_ (aes) to say what data is used for what purpose in the viz
+    + x- and y-direction
+    + shapes, colors, lines
++ A _geometry object_ (geom) to say what to draw
+    + You can "layer" geoms on each other to build plots
+
+## Introduction to ggplot2
+```{r, eval=F}
+library(ggplot2)
+ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
+```
+
++ A `data.frame` object: mtcars
++ Aesthetic mapping: 
+    x-axis: wt
+    y-axis: mpg
++ Geometry:
+    + geom_point: draw points
+
+## Introduction to ggplot2
+```{r, eval=F}
+library(ggplot2)
+ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()+ geom_smooth()
+```
+
++ A `data.frame` object: mtcars
++ Aesthetic mapping: 
+    x-axis: wt
+    y-axis: mpg
++ Geometry:
+    + geom_point: draw points
+    + geom_smooth: Add a layer which draws a best-fitting line
+
+## Introduction to ggplot2
+We will use the two data sets introduced last week:
+
+```{r, eval=F}
+data_spine <- read.csv('http://www.araastat.com/BIOF339_PracticalR/
+                       Lectures/lecture2_data/Dataset_spine.csv')
+
+data_brca <- read.csv('http://www.araastat.com/BIOF339_PracticalR/
+                      Lectures/lecture2_data/
+                      clinical_data_breast_cancer_modified.csv')
+```
+
+```{r, echo=F}
+data_spine <- read.csv('http://www.araastat.com/BIOF339_PracticalR/Lectures/lecture2_data/Dataset_spine.csv')
+
+data_brca <- read.csv('http://www.araastat.com/BIOF339_PracticalR/Lectures/lecture2_data/clinical_data_breast_cancer_modified.csv')
+
+```
+
+# Plotting one variable
+
+## Histograms
+```{r}
+ggplot(data_brca, aes(x = Age.at.Initial.Pathologic.Diagnosis)) + 
+  geom_histogram()
+```
+
+## Histograms
+```{r}
+ggplot(data_brca, aes(x = Age.at.Initial.Pathologic.Diagnosis)) + 
+  geom_histogram(binwidth=4)
+```
+
+## Density plot
+```{r}
+ggplot(data_brca, aes(x = Age.at.Initial.Pathologic.Diagnosis)) + 
+  geom_density()
+```
+
+## Bar plot
+```{r}
+ggplot(data_brca, aes(x = Tumor))+geom_bar()
+```
+
+# Two continuous variables
+
+## Scatter plots
+```{r}
+ggplot(data_spine, aes(x = Lumbar.lordosis.angle, y = Sacral.slope)) + 
+  geom_point()
+```
+
+## Scatter plot with a smooth line
+```{r}
+ggplot(data_spine, aes(x = Lumbar.lordosis.angle, y = Sacral.slope))+
+  geom_point() + 
+  geom_smooth()
+```
+
+## Scatter plot with a smooth straight line
+```{r}
+ggplot(data_spine, aes(x = Lumbar.lordosis.angle, y = Sacral.slope)) +
+  geom_point()+
+  geom_smooth(method='lm')
+```
+
+## Line plot (for time series)
+```{r, warning=F, message=FALSE}
+library(forecast)
+d <- data.frame(x = 1:length(gas), y = gas) # Australian monthly gas production
+ggplot(d, aes(x, y)) + geom_line()
+```
+
+
+# Continuous variable with discrete variable
+
+## Boxplots
+```{r}
+ggplot(data_spine, aes(x = Class.attribute, y = Sacral.slope))+
+  geom_boxplot()
+
+# Factor/discrete variable is always x
+```
+
+## Violin plots
+```{r}
+ggplot(data_spine, aes(x = Class.attribute, y = Sacral.slope)) +
+  geom_violin()
+```
+
+# Flipping axes
+
+## Vertical bars
+```{r}
+ggplot(data_brca, aes(x = Tumor))+geom_bar()
+```
+
+## Horizontal bars
+```{r}
+ggplot(data_brca, aes(x = Tumor))+geom_bar()+
+  coord_flip()
+```
+
+# Resources
+
+## Online resources
+
++ The ggplot [website](http://docs.ggplot2.org) has many resources to help create visualizations
++ There are a lot of blogs showing many capabilities of ggplot2
++ [StackOverflow](http://www.stackoverflow.org) is the place for Q & A. 
+
+# Group-wise descriptives and visualizations
+
+## Grouping
+
++ It is common to look at statistics within subgroups of the data
++ The idea is to see if secondary variables affect your primary outcome or relationship
+
+## Introducing the `dplyr` package
+
+`dplyr` is the most lucid package for manipulating and analyzing data organized in a data frame.
+
++ It has a `group_by` function which creates a _grouped data frame_
+
+
+```{r groupby, message=F, warning=F}
+library(dplyr)
+grouped_data_spine = group_by( data_spine, Class.attribute)
+```
+Note that you have to group using a discrete valued variable (factor, character, integer)
+
+## Grouped summaries
+```{r, eval=F}
+summarize(grouped_data_spine, 
+          mean(Pelvic.incidence), 
+          sd(Pelvic.incidence),
+          min(Pelvic.incidence),
+          max(Pelvic.incidence))
+```
+```{r, echo=F}
+knitr::kable(summarise(grouped_data_spine,
+          mean(Pelvic.incidence), 
+          sd(Pelvic.incidence),
+          min(Pelvic.incidence),
+          max(Pelvic.incidence)))
+```
+
+## Grouped summaries
+```{r, eval=F}
+summarize(grouped_data_spine, 
+          Mean = mean(Pelvic.incidence), 
+          SD = sd(Pelvic.incidence),
+          Min = min(Pelvic.incidence),
+          Max = max(Pelvic.incidence))
+```
+```{r, echo=F}
+knitr::kable(summarize(grouped_data_spine, 
+          Mean = mean(Pelvic.incidence), 
+          SD = sd(Pelvic.incidence),
+          Min = min(Pelvic.incidence),
+          Max = max(Pelvic.incidence)))
+
+```
+
+## Grouped summaries
+
+```{r}
+summarize_all(grouped_data_spine, mean)
+```
+
+# Grouped visualization
+
+## Density plot
+```{r, fig.width=6}
+ggplot(data_spine, aes(x = Sacral.slope, group = Class.attribute, color=Class.attribute))+
+  geom_density()
+```
+
+## Scatter plot
+```{r, fig.width=6}
+ggplot(data_spine, aes(x = Lumbar.lordosis.angle, y = Sacral.slope,
+                       group = Class.attribute, color = Class.attribute))+
+  geom_point()
+```
+
+## Scatter plot with lines
+```{r , fig.width=6}
+ggplot(data_spine, aes(x = Lumbar.lordosis.angle, y = Sacral.slope, 
+                       group = Class.attribute, color=Class.attribute))+
+  geom_point()+
+  geom_smooth(method='lm')
+```
+
+## Scatter plot with lines
+```{r , fig.width=6}
+ggplot(data_spine, aes(x = Lumbar.lordosis.angle, y = Sacral.slope))+
+  geom_point()+
+  geom_smooth(aes(color = Class.attribute), method='lm')
+
+```
+
+# Facetting
+
+## Facetting
+
+Facetted graphs are a panel of graphs, each of which corresponds to a particular 
+subgroup of the data. 
+
+## Facetted scatter plot
+```{r , fig.width=8}
+ggplot(data_spine, aes(x = Lumbar.lordosis.angle, y = Sacral.slope))+
+  geom_point()+
+  facet_wrap( ~ Class.attribute, nrow=1)
+```
+## Facetted scatter plot with lines
+```{r , fig.width=8}
+ggplot(data_spine, aes(x = Lumbar.lordosis.angle, y = Sacral.slope))+
+  geom_point()+ geom_smooth(method='lm')+
+  facet_wrap( ~ Class.attribute, nrow=1)
+```
+
+# Manhattan plot
+
+## Manhattan plot
+```{r manhattan, fig.width=8, message=F, warning=F}
+library(qqman)
+data(gwasResults)
+head(gwasResults)
+```
+```{r }
+gwasResults = transform(gwasResults, x_position = 1:nrow(gwasResults))
+```
+
+## Manhattan plot
+```{r , fig.width=8}
+ggplot(gwasResults, aes(x = x_position, y = -log(P, base=10)))+
+  geom_point(size=0.2)
+```
+
+## Manhattan plot
+```{r , fig.width=8}
+ggplot(gwasResults, aes(x = x_position, y = -log(P, base=10),
+                        group=CHR, color=CHR))+
+  geom_point(size=0.2)
+```
+
+## Manhattan plot
+```{r , fig.width=8}
+ggplot(gwasResults, aes(x = x_position, y = -log(P, base=10),
+                        group=factor(CHR), color=factor(CHR)))+
+  geom_point(size=0.2)
+```
+
+## Manhattan plot
+```{r , fig.width=8}
+ggplot(gwasResults, aes(x = x_position, y = -log(P, base=10),
+                        group=factor(CHR), color=factor(CHR)))+
+  geom_point(size=0.2)+
+  geom_hline(yintercept = 8, color='red', linetype=2)
+```
+
+## Manhattan plot, exploded
+```{r exploded, fig.width=8}
+ggplot(gwasResults, aes(x = BP, y = -log(P, base=10)))+
+  geom_point(size=0.2)+
+  facet_wrap(~ CHR, nrow=4)+
+  geom_hline(yintercept = 8, color='red', linetype=2)
+```
+
+## Manhattan plot, exploded
+```{r exploded1, fig.width=8, echo=F}
+ggplot(gwasResults, aes(x = BP, y = -log(P, base=10)))+
+  geom_point(size=0.2)+
+  facet_wrap(~ CHR, nrow=4)+
+  geom_hline(yintercept = 8, color='red', linetype=2)
+```
