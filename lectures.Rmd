@@ -32,3 +32,10 @@ Supplemental Material
 + Advanced data.frame manipulation: <a href="https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html" target="_blank"> dplyr </a>, which we will visit in a few weeks
 + Hadley Wickham's vignette on <a href="ftp://cran.r-project.org/pub/R/web/packages/tidyr/vignettes/tidy-data.html" target="_blank">tidy data</a>
 
+### Lecture 3
+
+
+Supplemental Material:
+
++ The ggplot2 documentation: <a href="http://docs.ggplot2.org/current/", target="_blank">link</a>
++ <a href = "http://flowingdata.com", target="_blank">Flowing Data</a>, a data visualization blog
