@@ -29,10 +29,10 @@ and shortcuts. Don't hesitate to reach out and ask your questions.
 ------
 
 ```{r, fig.width=5, fig.height=4}
+library(ggplot2)
 data(iris)
-plot(Sepal.Length ~ Sepal.Width, data=iris, col=Species, 
-     xlab='Sepal Width', ylab='Sepal Length')
-legend('topright', legend=levels(iris$Species), pch=1, col=1:3, title='Species')
+ggplot(iris, aes(Sepal.Width, Sepal.Length, color=Species))+geom_point()+
+  labs(x='Sepal Width', y = 'Sepal Length', color='Species')
 ```
 
 -----
