@@ -44,3 +44,9 @@ Supplemental Material:
 + R Graph Gallery: <a href="http://rgraphgallery.blogspot.com" target="_blank">link</a>
 + UBC R Graph Gallery: <a href="http://shinyapps.stat.ubc.ca/r-graph-catalog/" target="_blank">link</a>
 + <a href = "http://flowingdata.com" target="_blank">Flowing Data</a>, a data visualization blog
+
+### Lecture 4
+
+<a href="Lectures/Lecture4.html" target = "_blank">Presentation</a> ([PDF](Lectures/Lecture4.pdf))
+
+
