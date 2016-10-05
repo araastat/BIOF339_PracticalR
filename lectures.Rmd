@@ -47,6 +47,6 @@ Supplemental Material:
 
 ### Lecture 4
 
-<a href="Lectures/Lecture4.html" target = "_blank">Presentation</a> ([PDF](Lectures/Lecture4.pdf))
+<a href="Lectures/Lecture4.html" target = "_blank">Presentation</a> ([PDF](Lectures/lecture4_data/Lecture4.pdf))
 
 
