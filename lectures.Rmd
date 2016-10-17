@@ -51,4 +51,4 @@ Supplemental Material:
 
 ### Lecture 5
 
-<a href="Lectures/Lecture5.html" target="_blank">Presentation</a> ([PDF](Lectures/lecture5_data/Lecture5.pdf))
+<a href="Lectures/Lecture5.html" target="_blank">Presentation</a> 
