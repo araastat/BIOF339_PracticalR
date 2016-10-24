@@ -65,7 +65,7 @@ resources for the use of R in data analysis.
   Oct. 3     Basic Statistical Analysis with R: Summary statistics, Hypothesis tests
   Oct. 10    HOLIDAY
   Oct. 17    Building Statistical Models with R: Linear Regression, Formula interface
-  Oct. 24    R Packages. Finding, loading, and using packages in R. Popular R packages. CRAN and Task Views
+  Oct. 24    R Packages. Importing & exporting data. "Apply" family of functions
   Oct. 31    Importing and exporting data. Data manipulation. “Apply” family of functions. Missing data
   Nov. 7     Advanced data manipulation. dplyr and related packages
   Nov. 14    RMarkdown and other reporting packages
