@@ -11,6 +11,8 @@ knitr::opts_chunk$set(
   cache=F
 )
 ```
+
+# Reshaping a data frame
 ## If there is more rows than I expect after a merge, how can I find out what's going on?
 
 

@@ -121,13 +121,17 @@ $(document).ready(function () {
 
 <div id="TOC">
 <ul>
+<li><a href="#reshaping-a-data-frame">Reshaping a data frame</a><ul>
 <li><a href="#if-there-is-more-rows-than-i-expect-after-a-merge-how-can-i-find-out-whats-going-on">If there is more rows than I expect after a merge, how can I find out what’s going on?</a></li>
 <li><a href="#can-we-melt-a-data.frame-without-selecting-columns-first">Can we melt a data.frame without selecting columns first?</a></li>
 <li><a href="#ways-of-specifying-variables-in-melt">Ways of specifying variables in <code>melt</code></a></li>
 <li><a href="#how-do-you-reverse-a-melt-i.e.go-from-long-to-wide-data">How do you reverse a <code>melt</code>, i.e. go from long to wide data?</a></li>
+</ul></li>
 </ul>
 </div>
 
+<div id="reshaping-a-data-frame" class="section level1">
+<h1>Reshaping a data frame</h1>
 <div id="if-there-is-more-rows-than-i-expect-after-a-merge-how-can-i-find-out-whats-going-on" class="section level2">
 <h2>If there is more rows than I expect after a merge, how can I find out what’s going on?</h2>
 <pre class="r"><code>library(readxl)
@@ -352,6 +356,7 @@ cast_data3 &lt;- spread(reshaped_data3, variable, value)</code></pre>
 <blockquote>
 <p><code>cast_data3</code> and <code>selected_data3</code> are identical except for the fact that the columns are in different orders</p>
 </blockquote>
+</div>
 </div>
 
 
