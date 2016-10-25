@@ -56,3 +56,7 @@ Supplemental Material:
 ### Lecture 6
 
 <a href="Lectures/lecture6.html" target="_blank">Presentation</a>
+
+Supplemental Material:
+
++ A [supplemental document](lecture6_files/lecture6_suppl.html) addressing some questions from class
