@@ -137,9 +137,27 @@ clinical_data &lt;- read.csv(&#39;lecture6_data/BreastCancer_Clinical.csv&#39;,
 #    PR.Status HER2.Final.Status Tumor Tumor..T1.Coded Node Node.Coded
 #  1  Negative          Negative    T2         T_Other   N0   Negative
 #  2  Negative          Negative    T2         T_Other   N1   Positive
-#    Metastasis
-#  1         M0
-#  2         M0</pre>
+#    Metastasis Metastasis.Coded AJCC.Stage Converted.Stage
+#  1         M0         Negative  Stage IIA       Stage IIA
+#  2         M0         Negative  Stage IIB   No_Conversion
+#    Survival.Data.Form Vital.Status Days.to.Date.of.Last.Contact
+#  1           followup     DECEASED                          754
+#  2         enrollment     DECEASED                         1692
+#    Days.to.date.of.Death OS.event OS.Time PAM50.mRNA
+#  1                   754        1     754 Basal-like
+#  2                  1692        1    1692 Basal-like
+#    SigClust.Unsupervised.mRNA SigClust.Intrinsic.mRNA miRNA.Clusters
+#  1                        -12                     -13              4
+#  2                        -12                     -13              5
+#    methylation.Clusters RPPA.Clusters CN.Clusters
+#  1                    4         Basal           4
+#  2                    5         Basal           1
+#    Integrated.Clusters..with.PAM50. Integrated.Clusters..no.exp.
+#  1                                2                            1
+#  2                                2                            2
+#    Integrated.Clusters..unsup.exp.
+#  1                               1
+#  2                               2</pre>
 
 </article></slide><slide class=''><hgroup><h2>The data for today</h2></hgroup><article  id="the-data-for-today-2">
 
@@ -176,23 +194,41 @@ head(final_data,2)</pre>
 #    PR.Status HER2.Final.Status Tumor Tumor..T1.Coded Node Node.Coded
 #  1  Negative          Negative    T2         T_Other   N0   Negative
 #  2  Negative          Negative    T2         T_Other   N0   Negative
-#    Metastasis NP_958782 NP_958785 NP_958786  NP_000436
-#  1         M0 0.6834035 0.6944241 0.6980976 0.68707705
-#  2         M0 0.1074909 0.1041645 0.1074909 0.09751166</pre>
+#    Metastasis Metastasis.Coded AJCC.Stage Converted.Stage
+#  1         M0         Negative  Stage IIA       Stage IIA
+#  2         M0         Negative  Stage IIB       Stage IIA
+#    Survival.Data.Form Vital.Status Days.to.Date.of.Last.Contact
+#  1           followup     DECEASED                          754
+#  2           followup       LIVING                         1027
+#    Days.to.date.of.Death OS.event OS.Time PAM50.mRNA
+#  1                   754        1     754 Basal-like
+#  2                    NA        0    1027 Basal-like
+#    SigClust.Unsupervised.mRNA SigClust.Intrinsic.mRNA miRNA.Clusters
+#  1                        -12                     -13              4
+#  2                        -12                     -13              4
+#    methylation.Clusters RPPA.Clusters CN.Clusters
+#  1                    4         Basal           4
+#  2                    5         Basal           3
+#    Integrated.Clusters..with.PAM50. Integrated.Clusters..no.exp.
+#  1                                2                            1
+#  2                                2                            2
+#    Integrated.Clusters..unsup.exp. NP_958782 NP_958785 NP_958786  NP_000436
+#  1                               1 0.6834035 0.6944241 0.6980976 0.68707705
+#  2                               2 0.1074909 0.1041645 0.1074909 0.09751166</pre>
 
 </article></slide><slide class=''><hgroup><h2>Merging data</h2></hgroup><article  id="merging-data-2">
 
 <pre class = 'prettyprint lang-r'>dim(clinical_data)</pre>
 
-<pre >#  [1] 77 11</pre>
+<pre >#  [1] 77 30</pre>
 
 <pre class = 'prettyprint lang-r'>dim(expression_data)</pre>
 
-<pre >#  [1]  80 101</pre>
+<pre >#  [1] 83 11</pre>
 
 <pre class = 'prettyprint lang-r'>dim(final_data)</pre>
 
-<pre >#  [1] 80 15</pre>
+<pre >#  [1] 80 34</pre>
 
 <p>Note that we have extra rows, which usually means <strong>duplication of rows/ids</strong>. Something to check on.</p>
 
@@ -214,9 +250,27 @@ head(final_data,2)</pre>
 #    PR.Status HER2.Final.Status Tumor Tumor..T1.Coded Node Node.Coded
 #  1  Negative          Negative    T2         T_Other   N0   Negative
 #  2  Negative          Negative    T2         T_Other   N0   Negative
-#    Metastasis NP_958782 NP_958785 NP_958786  NP_000436
-#  1         M0 0.6834035 0.6944241 0.6980976 0.68707705
-#  2         M0 0.1074909 0.1041645 0.1074909 0.09751166</pre>
+#    Metastasis Metastasis.Coded AJCC.Stage Converted.Stage
+#  1         M0         Negative  Stage IIA       Stage IIA
+#  2         M0         Negative  Stage IIB       Stage IIA
+#    Survival.Data.Form Vital.Status Days.to.Date.of.Last.Contact
+#  1           followup     DECEASED                          754
+#  2           followup       LIVING                         1027
+#    Days.to.date.of.Death OS.event OS.Time PAM50.mRNA
+#  1                   754        1     754 Basal-like
+#  2                    NA        0    1027 Basal-like
+#    SigClust.Unsupervised.mRNA SigClust.Intrinsic.mRNA miRNA.Clusters
+#  1                        -12                     -13              4
+#  2                        -12                     -13              4
+#    methylation.Clusters RPPA.Clusters CN.Clusters
+#  1                    4         Basal           4
+#  2                    5         Basal           3
+#    Integrated.Clusters..with.PAM50. Integrated.Clusters..no.exp.
+#  1                                2                            1
+#  2                                2                            2
+#    Integrated.Clusters..unsup.exp. NP_958782 NP_958785 NP_958786  NP_000436
+#  1                               1 0.6834035 0.6944241 0.6980976 0.68707705
+#  2                               2 0.1074909 0.1041645 0.1074909 0.09751166</pre>
 
 </article></slide><slide class=''><hgroup><h2>Selecting variables</h2></hgroup><article  id="selecting-variables-1">
 
