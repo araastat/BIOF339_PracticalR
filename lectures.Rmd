@@ -59,4 +59,4 @@ Supplemental Material:
 
 Supplemental Material:
 
-+ A [supplemental document](lecture6_files/lecture6_suppl.html) addressing some questions from class
++ A [supplemental document](Lectures/lecture6_files/lecture6_suppl.html) addressing some questions from class
