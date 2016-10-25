@@ -1,0 +1,16 @@
+---
+title: "Lecture 6 Supplement"
+author: "Abhijit Dasgupta"
+date: "October 24, 2016"
+output: html_document
+---
+
+## If there is more rows than I expect after a merge, how can I find out what's going on?
+
+The usual reason for this is that there are duplicates in the IDs, or there are duplicate rows. First of all, let's get rid of any possible duplicates
+
+```{r}
+library(readxl)
+expression_data <- read_excel(')
+```
+
