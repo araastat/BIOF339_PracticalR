@@ -365,7 +365,7 @@ cast_data3 &lt;- spread(reshaped_data3, variable, value)</code></pre>
 <h1>Merging two data frames</h1>
 <div id="types-of-mergesjoins" class="section level2">
 <h2>Types of merges/joins</h2>
-<p>Now, there are three main kinds of merges or joins that are mainly used:</p>
+<p>Now, there are three kinds of merges or joins that are mainly used:</p>
 <table>
 <thead>
 <tr class="header">
@@ -393,14 +393,17 @@ cast_data3 &lt;- spread(reshaped_data3, variable, value)</code></pre>
 </tbody>
 </table>
 <p>If you don’t want to remember these kinds of options, <code>dplyr</code> has some more direct functions. Instead of describing them here, I’ll point you to the <a href="http://stat545.com/bit001_dplyr-cheatsheet.html">excellent cheatsheet</a> on this developed by Dr. Jenny Bryan for her STAT 545 class at University of British Columbia</p>
-<p>I’ll just note one thing for <code>dplyr</code> joins. First, they will join automatically on variables with common names in the two data frames. If you want to specify what goes with what, you can use the option <code>by = c('Complete.TCGA.ID'='TCGA_ID')</code>, for example, to be explicit. For example:</p>
-<pre class="r"><code>final_data_dplyr &lt;- dplyr::inner_join(clinical_data, expression_data, 
+<p>I’ll just note one thing for <code>dplyr</code> joins. First, they will join automatically on variables with common names in the two data frames. If you want to specify what goes with what, you can use the option <code>by = c('Complete.TCGA.ID'='TCGA_ID')</code>, for example, to be explicit. We’ll first make sure we don’t have issues with duplicated ids</p>
+<pre class="r"><code>expression_data2 &lt;- expression_data[-(1:3),] # Remove rows with duplicate ids
+final_data2 &lt;- merge(clinical_data, expression_data2,
+                     by.x = 'Complete.TCGA.ID', by.y = 'TCGA_ID')
+final_data2_dplyr &lt;- dplyr::inner_join(clinical_data, expression_data2, 
                                       by=c('Complete.TCGA.ID'='TCGA_ID'))
-final_data &lt;- dplyr::arrange(final_data, Complete.TCGA.ID)
-final_data_dplyr &lt;- dplyr::arrange(final_data, Complete.TCGA.ID)
-identical(final_data, final_data_dplyr)</code></pre>
+final_data2 &lt;- dplyr::arrange(final_data2, Complete.TCGA.ID)
+final_data2_dplyr &lt;- dplyr::arrange(final_data2_dplyr, Complete.TCGA.ID)
+identical(final_data2, final_data2_dplyr)</code></pre>
 <pre><code>&gt;  [1] TRUE</code></pre>
-<p>So the only difference between final_data_dplyr and final_data (without the re-arrangement) is the row-ordering of each data set, which really doesn’t matter.</p>
+<p>So the only difference between final_data2_dplyr and final_data2 (without the re-arrangement) is the row-ordering of each data set, which really doesn’t matter.</p>
 </div>
 </div>
 
