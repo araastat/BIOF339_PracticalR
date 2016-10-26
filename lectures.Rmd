@@ -57,6 +57,10 @@ Supplemental Material:
 
 <a href="Lectures/lecture6.html" target="_blank">Presentation</a>
 
+Practice Assignment (coming 10/27)
+
 Supplemental Material:
 
 + A [supplemental document](Lectures/lecture6_files/lecture6_suppl.html) addressing some questions from class
++ Benchmarking different ways of doing the split-apply-combine from class
++ Reading data from different files with options

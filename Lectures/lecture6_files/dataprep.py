@@ -24,7 +24,7 @@ data.rename(columns=lambda x: "TCGA-%s" % (re.split('[_|-|.]',x)[0]) if bool(re.
 
 ## Transpose data for the clustering algorithm since we want to divide patient samples, not proteins
 data = data.transpose()
-
+data.to_csv('../lecture6_data/BreastCancer_Expression_full.csv', index=True, index_label='TCGA_ID')
 ## Reduce the data
 
 data = data.iloc[:,:10]
