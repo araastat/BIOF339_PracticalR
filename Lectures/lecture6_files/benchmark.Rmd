@@ -5,26 +5,80 @@ date: "10/26/2016"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = F)
+```{r setup, echo=F}
+knitr::opts_chunk$set(echo = T,
+                      eval = T,
+                      warning=F,
+                      message = F,
+                      comment = '> ')
+```
+```{r, message=F, warning=F}
+# Loading packages we will need in this exercise
+
+library(rbenchmark) # Benchmarking package
+library(readr) # Hadley's package for reading data
+library(reshape2)
+library(dplyr)
+library(tidyr) # Hadley's package for reshaping tidy data
+library(data.table) # an alternative package by Matt Dowle
+                    # for storing and manipulating data. It 
+                    # stores data in a data.table object rather
+                    # than a data.frame object
 ```
 
-## R Markdown
+## Introduction
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+We are going to repeat our exercise of getting the p-values of multiple t-tests from an 
+expression data set as we did in [Lecture 6](../lecture6.html). However, now, we will use the full
+dataset, which has 12553 proteins, rather than just the 10 we were looking at before. So we are going to get 12553 p-values by doing 12553 t-tests comparing expression between ER-positive and ER-negative patients. 
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+## Reading the data into R
 
-```{r cars}
-summary(cars)
+This data set is stored as a compressed (zipped) file called _fullExpression.zip_, which is 3.6Mb. The actual data is not huge, but is still 13Mb when stored as a text (csv) file. 
+
+First of all, we actually don't need to uncompress this file to use the dataset. R has functions that will help
+us get the data out of a zipped file. First, let's see what is in the zipped file.
+```{r}
+unzip('../lecture6_data/fullExpression.zip', list=T) # just lists files
+```
+We see that this file only has one csv file named *BreastCancer_Expression_full.csv*. We're going to read this file in a few ways. First, let's use the way we've learnt, that comes with R. 
+```{r}
+datafile <- unz('../lecture6_data/fullExpression.zip',
+                'BreastCancer_Expression_full.csv')
+expression_dat <- read.csv(datafile,
+                           stringsAsFactors=F)
+```
+Next we will use the `read_csv` function from the `readr` package
+```{r}
+datafile <- unz('../lecture6_data/fullExpression.zip',
+                'BreastCancer_Expression_full.csv')
+expression_dat <- read_csv(datafile) # from readr
+```
+Third, we will use the `fread` function from the `data.table` package. Unfortunately, this function cannot
+read zipped files directly, so we'll have to unzip the file first. The `data.table` package works with data in objects called `data.table` rather than the usual `data.frame` object. There are some advantages to this package, like speed, but I personally find the syntax harder. However, the `fread` function is fantastic!!!
+```{r}
+if(!file.exists('BreastCancer_Expression_full.csv')){ # Check if the file already exists
+  unzip('../lecture6_data/fullExpression.zip',
+        'BreastCancer_Expression_full.csv', # Specify the file to be extracted
+        exdir = '.') # Specify the directory where it will be extracted
+}
+expression_dat <- fread('BreastCancer_Expression_full.csv') # fread creates a data.table
+expression_dat <- as.data.frame(expression_dat) # we convert it to a data.frame
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+You can check for yourself whether the data extracted using each of the three methods is the same. Let's find out which one is the fastest, though. 
+```{r, results='as.is'}
+library(rbenchmark)
+benchmark_reading <- benchmark(baseR = read.csv('BreastCancer_Expression_full.csv', stringsAsFactors=F),
+          readr = read_csv('BreastCancer_Expression_full.csv'),
+          data.table = fread('BreastCancer_Expression_full.csv'),
+          columns = c('test', 'elapsed','replications','relative'),
+          order = 'elapsed',
+          replications = 1)
+knitr::kable(benchmark_reading, row.names = F)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+
+
