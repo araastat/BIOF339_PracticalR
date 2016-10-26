@@ -51,11 +51,11 @@ Supplemental Material:
 
 ### Lecture 5
 
-<a href="Lectures/Lecture5.html" target="_blank">Presentation</a>
+<a href="Lectures/Lecture5.html" target="_blank">Presentation</a> ([PDF](Lectures/Lecture5.pdf))
 
 ### Lecture 6
 
-<a href="Lectures/lecture6.html" target="_blank">Presentation</a>
+<a href="Lectures/lecture6.html" target="_blank">Presentation</a> ([PDF](Lectures/lecture6.pdf))
 
 Practice Assignment (coming 10/27)
 
