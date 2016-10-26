@@ -1,0 +1,13 @@
+---
+title: "Assignment (Lecture 6)"
+author: "Abhijit Dasgupta"
+date: "10/26/2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Merging
+

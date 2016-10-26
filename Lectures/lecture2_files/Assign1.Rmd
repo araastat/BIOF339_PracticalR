@@ -1,0 +1,31 @@
+---
+title: "Practice Assignment 1"
+date: "September 19, 2016"
+output: html_document
+---
+
+
+#### Useful functions
+
+1. If you have a continuous variable `x`, you can compute its mean using `mean(x)`, its
+standard deviation by `sd(x)` and its median by `median(x)`
+
+2. If you have a categorical variable `y`, you can find out the frequency 
+distribution of the different levels by `table(y)`
+
+-------------
+
+You can download a data set from a breast cancer study [here](clinical_data_breast_cancer_modified.csv) (right-click on the link to download). 
+This data consists of several numerical and categorical variables, and some character variables. The variables are named in 
+the data set. 
+
+Answer the following questions:
+
+1. How many variables are in this data set?
+2. How many observations are in this data set?
+3. What is the mean and median age of the participants in this study?
+4. How many women are ER-positive, PR-positive and Her2-positive? (use the `table` function on appropriate variables)
+5. How many women are ER-positive __and__ PR-positive? (Filter the dataset and then find the number of rows)
+6. How many women are "triple-negative", i.e. negative for ER, PR and HER2?
+
+Feel free to explore this data set further, to discover other characteristics. 
