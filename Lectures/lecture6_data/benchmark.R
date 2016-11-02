@@ -14,6 +14,22 @@ run_t_test <- function(d){
   return(pvalue)
 }
 
+option1 <- function(){
+  result <- plyr::ddply(reshaped, ~variable, run_t_test, .progress='text')
+  return(result) <- <- <- <- <- <- %>% <- <- <- <- <- <- <- <- <- <- <- <- <- <- <- <- <- <- <- <- <- <- <- <- <- <- %>% %>% %>% <- <- %>% %>% <- <- <- <- <- <- <- <- <- %>% <-
+}
+
+option2 <- function(){
+  spl <- split(reshaped, reshaped$variable)
+  app <- lapply(spl, run_t_test)
+  result <- plyr::ldply(app)
+  return(result)
+}
+
+benchmark('ddply'=option1(),'sac'=option2(),
+          columns = c('test','elapsed','replications','relative'),
+          order='elapsed',
+          replications=10)
 
 system.time(res1 <-  plyr::ddply(reshaped, ~variable, run_t_test))
 # user  system elapsed

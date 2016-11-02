@@ -14,13 +14,13 @@ output: html_document
 
 ```{r setup, echo=F}
 knitr::opts_chunk$set(echo = T,
-                      eval = T,
+                      eval = F,
                       warning=F,
                       message = F,
                       comment = '> ',
                       cache=T)
 ```
-```{r read, eval=T, echo=F}
+```{r read, eval=F, echo=F}
 load('benchmarking.rda')
 ```
 ```{r, message=F, warning=F, cache=F}
@@ -87,14 +87,14 @@ benchmark_reading <-
                                              'BreastCancer_Expression_full.csv')),
           'fread' = fread('BreastCancer_Expression_full.csv'),
           columns = c('test', 'elapsed','replications','relative'),
-          order = 'elapsed',
-          replications = 1)
+          order = 'elapsed'
+  )
 knitr::kable(benchmark_reading, row.names = F)
 ```
 ```{r , echo=F, eval=F, cache=F}
 save(benchmark_reading, file='benchmarking.rda')
 ```
-```{r, echo=F, eval=T, results='as.is'}
+```{r, echo=F, results='as.is'}
 knitr::kable(benchmark_reading, row.names = F)
 ```
 

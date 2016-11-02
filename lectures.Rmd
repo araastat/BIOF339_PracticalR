@@ -64,3 +64,7 @@ Supplemental Material:
 + A [supplemental document](Lectures/lecture6_files/lecture6_suppl.html) addressing some questions from class
 + Benchmarking [reading data](Lectures/lecture6_files/benchmark.html) and split-apply-combine
 + Reading data from different files with options
+
+### Lecture 7
+
+<a href='Lectures/Lecture7.html' target="_blank">Presentation</a> ([PDF](Lectures/lecture7_files/Lecture7.pdf))
