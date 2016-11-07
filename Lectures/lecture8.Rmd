@@ -125,6 +125,15 @@ Essentially, I'm doing modular programming
 + Makes it easier to debug
 + Try to write code for a particular function once
 
+## Saving your work
+
+You learned last lecture that you can save data in .RData files to be used in R again
+
+Actually, you can save __any__ R object in a .RData file. 
+
+Which means you can save all your intermediate data files and models in R-readable format
+
+
 ## Reporting
 
 R allows you to create automated reports that are reproducible.
