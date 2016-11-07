@@ -1,6 +1,6 @@
 ---
-title: "Lecture 7"
-subtitle: "Reports using R"
+title: "Lecture 8"
+subtitle: "Organizing data projects using R"
 author: "BIOF 339"
 date: "November 7, 2016"
 output: ioslides_presentation
@@ -8,8 +8,6 @@ output: ioslides_presentation
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, 
-                      fig.width=4,
-                      fig.height=4,
                       comment = '# ',
                       cache=T,
                       warning=F, message=F)
@@ -18,56 +16,124 @@ knitr::opts_chunk$set(echo = TRUE,
 ## The data science pipeline
 
 ```{r, fig.align='center', fig.height=6, echo=F}
-knitr::include_graphics('lecture7_data/0246OS_00_02.png')
+knitr::include_graphics('lecture8_files/0246OS_00_02.png')
 ```
 
-## The end result of analyses
+## Use a template to organize your projects
 
-Usually this is 
+Before you even get the data
 
-+ A report or paper
-+ A web page
++  Set up a folder structure where
+    + you know what goes where
+    + you can have canned scripts/packages set things up
++ Make sure it's the same structure every time
++ Next time you visit the project, you don't have to go into desperate search mode
 
-We would like our results to be __reproducible__
+## 
+<img src="lecture8_files/template.png" height="600" >
 
-> Reproducible research is the idea that data analyses, and more generally, scientific claims, are published with their data and software code so that others may verify the findings and build upon them. (_Roger Peng, Coursera_)
+## Storing data
 
-## The end result of analyses
+1. Keep one copy of the raw data in the format you received it
+2. Read in the data into R (see Lecture 7) -> `DataAcquisition.R` 
+3. Save a copy of this data in .RData format (use endings .RData or .rda)
 
-Why might this be a good idea?
+## Start working with the data
 
-+ You know exactly how the tables, figures and other results were generated
-+ No mistakes copying or pasting
-+ You can reproduce it at a future date
+Summaries:
 
-    - Think review and revision time
-    
-## Reproducible documents using R
++ `summary`
++ `dplyr::summarise`
++ `mean`, `sd`, `range`
 
-R has always had a method of creating reproducible documents using a package called _Sweave_. This
-used $\LaTeX$ for the text portions and R for the computation.
+Exploratory graphs
 
-$\LaTeX$ has quite a learning curve, but is really good if you want to maintain style (and if 
-the journal provides a $\LaTeX$ style or class file)
++ `ggplot`
++ `plot`
 
-Now there's something much simpler: [_Rmarkdown_](http://rmarkdown.rstudio.com)
+Maybe call this file `DataExploration.R`
 
-## Rmarkdown
+## Data munging 
 
-Rmarkdown allows you to write a document in _markdown_, which is a text markup language that is commonly 
-translated into HTML to create web pages. Additionally, it allows you to include R code in the document, 
-whose results are processed and included in the document.
+Lectures 6 and 7
 
-The current version of the `rmarkdown` package utilizes the very powerful [pandoc](http://www.pandoc.org)
-package, which can translate a markdown document into HTML, PDF (using $\LaTeX$) and MS Word, among other formats. 
++ Reshaping data
++ Aggregating data
++ Split-apply-combine
 
-So, I write one document in Rmarkdown, which includes text and R code, process it using the `rmarkdown` package, and
-produce a HTML page, a MS Word document or a PDF file, as needed. I can also use particular templates so that I can 
-have a consistent style for my documents. 
+Maybe call this file `DataMunging.R`
 
-## Rmarkdown
+## Modeling
 
-I'll use this [example](lecture7_data/ex1.Rmd) file to demonstrate R markdown
+Lectures 4 and 5
 
++ Hypothesis testing
++ Linear models
++ Logistic regression
++ Whatever model you need to run
 
+This process requires a lot of exploration and trial-and-error, so it gets messy
+I'll usually create several files that look at different models, but once I'm done, 
+my "final" models go in `Modeling.R`
 
+## Packages to be used
+
+You can use several packages in a particular project
+
+It's good practice to load them first, and know what they are
+
++ Makes sure packages are installed
++ Makes sure package dependencies are met
++ Makes sure package conflicts are known and fixed
+
+## Packages to be used
+
+```{r packages, echo=T, eval=F}
+reqpackages <- c('dplyr', 'reshape2', 'readxl',
+                 'ggplot2','stringr','ggthemes')
+for(pkg in reqpackages){
+  if(!(pkg %in% row.names(installed.packages()))){
+    install.packages(pkg, repos='http://cran.r-project.org')
+  }
+}
+
+library(dplyr)
+library(reshape2)
+library(readxl)
+library(stringr)
+library(ggplot2)
+library(ggthemes)
+```
+
+This goes in `packages.R`
+
+## Creating a pipeline
+
+Now you can ensure that your analyses are reproducible by creating a pipeline where code is run sequentially in a particular order
+
+```{r , echo=T, eval=F}
+source('packages.R')
+source('DataAcquistion.R')
+source('DataExploration.R')
+source('DataMunging.R')
+source('Modeling.R')
+```
+
+Essentially, I'm doing modular programming
+
++ Separate code by function
++ Makes it easier to debug
++ Try to write code for a particular function once
+
+## Reporting
+
+R allows you to create automated reports that are reproducible.
+
+The idea is to inter-weave text and R code, and have R replace the code with the results of the code
+
++ Computer doesn't make mistakes, so no copy-paste errors
++ The same data and code will always create the same document
+
+R's current solution is Rmarkdown
+
+# Live coding and demo
