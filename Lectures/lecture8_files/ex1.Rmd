@@ -1,0 +1,274 @@
+---
+title: "Lecture 6 <br/>Split-Apply-Combine"
+author: "BIOF 339"
+date: "October 24, 2016"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      fig.width=4,
+                      fig.height=4,
+                      comment = '# ',
+                      cache=F,
+                      warning=F, message=F)
+```
+
+## Goals for today
+
++ Learn how to merge data sets
++ Learn how to reshape data sets from wide to long
++ Split-apply-combine
+    + Split a dataset into a list of several datasets
+    + Do something to each dataset
+    + Put the results back together
++ Use it for 
+    + Running tests for many variables
+    + Visualizing data with p-value annotation
+  
+## The data for today
+
+This data set is taken from a breast cancer proteome database available [here](https://www.kaggle.com/piotrgrabo/breastcancerproteomes) and modified for this exercise.
+
++ Clinical data: [CSV](../lecture6_data/BreastCancer_Clinical.csv)|[XLSX](../lecture6_data/BreastCancer_Clinical.xlsx)
++ Proteome data: [CSV](../lecture6_data/BreastCancer_Expression.csv)|[XLSX](../lecture6_data/BreastCancer_Expression.xlsx)
+
+## The data for today
+```{r, eval=T}
+
+# Excel
+library(readxl)
+clinical_data <- read_excel('../lecture6_data/BreastCancer_Clinical.xlsx')
+
+# CSV
+clinical_data <- read.csv('../lecture6_data/BreastCancer_Clinical.csv', 
+                          stringsAsFactors=F)
+
+```
+```{r, echo=F}
+head(clinical_data,2)
+```
+
+## The data for today
+```{r}
+expression_data <- read.csv('../lecture6_data/BreastCancer_Expression.csv', 
+                            stringsAsFactors=F)
+head(expression_data[,1:5],2)
+```
+
+## Merging data
+
+Note that 
+
+1. The names of the ID columns are different
+2. They are in different orders
+
+The `merge` function takes care of both of these issues
+
+## Merging data
+
+```{r}
+final_data = merge(clinical_data,
+                   expression_data[,1:5],
+                   by.x = 'Complete.TCGA.ID',
+                   by.y = 'TCGA_ID')
+head(final_data,2)
+```
+
+## Merging data
+```{r}
+dim(clinical_data)
+dim(expression_data)
+dim(final_data)
+```
+
+Note that we have extra rows, which usually means __duplication of rows/ids__. Something to check on. 
+
+## Reshaping data
+
+R usually can split data on rows. 
+
+If we want to split on variables (columns), we have to transform the data from _wide_ to _long_ so that each row is the data for one individual _for one variable_. 
+
+First, of course, we have to select the variables we want to include. 
+
+## Selecting variables
+
+```{r}
+head(final_data,2)
+```
+
+## Selecting variables
+
+```{r}
+library(dplyr)
+selected_data <- select(final_data, Complete.TCGA.ID, ER.Status, 
+                        starts_with('NP'))
+head(selected_data,2)
+
+```
+
+
+## Reshaping data
+
+We have two goals here:
+
+1. Keep the ER status aligned with each expression level, so we would need to repeat the column
+2. Make each row have the ER status for an individual and the corresponding expression for one protein
+
+## Reshaping data
+
+```{r}
+library(reshape2)
+
+reshaped_data <- melt(selected_data, 
+                      id.vars=c('Complete.TCGA.ID','ER.Status'))
+head(reshaped_data, 5)
+```
+
+## Reshaping data
+```{r}
+reshaped_data <- arrange(reshaped_data, Complete.TCGA.ID) # from dplyr
+head(reshaped_data,5)
+```
+
+## Split-apply-combine
+
+```{r, out.width=800, echo=F}
+knitr::include_graphics('lecture6_files/split-apply-combine.png')
+```
+
+## Splitting data by protein
+
+```{r}
+split_data <- split(reshaped_data, reshaped_data$variable)
+class(split_data)
+length(split_data)
+names(split_data)
+```
+
+## Splitting data
+
+```{r}
+head(split_data[['NP_958782']],8)
+class(split_data[['NP_958782']])
+```
+
+
+## Applying a function to the split data
+
+```{r, out.width=800, echo=F}
+knitr::include_graphics('lecture6_files/split-apply-combine.png')
+```
+
+## Applying a function to the split data
+
+We're going to run t-tests to see if the expression for each protein differs by ER status
+
+First we create a function that we'll run on every protein-specific data set
+
+```{r}
+run_t_test <- function(d){
+  test <- t.test(value ~ ER.Status, data=d)
+  pvalue <- test$p.value
+  return(pvalue)
+}
+```
+
+## Applying a function to the split data
+
+Now we can apply the same function to each element of the list of data frames using the `lapply` command
+
+```{r}
+pvalues <- lapply(split_data, run_t_test)
+pvalues
+```
+
+## Combining the data
+
+
+```{r, out.width=800, echo=F}
+knitr::include_graphics('lecture6_files/split-apply-combine.png')
+```
+
+## Combining the data
+
+```{r}
+pvalues_final <- unlist(pvalues)
+pvalues_final
+```
+
+## Combining the data
+
+```{r}
+pvalues_final <- plyr::ldply(pvalues) # Use ldply from the plyr package
+pvalues_final
+```
+
+The `ldply` function inputs a list and exports a data.frame with the elements concatenated if possible. 
+
+# Plotting
+
+## The data
+
+```{r}
+head(reshaped_data, 5)
+```
+
+
+## A panel of plots
+
+```{r}
+library(ggplot2)
+ggplot(reshaped_data, aes(x = ER.Status, y = value))+
+  geom_boxplot()+
+  facet_wrap(~variable, ncol=2)
+```
+
+## Adding p-values to the plot
+
+```{r}
+names(pvalues_final) <- c('variable','pvalue')
+ggplot(reshaped_data, aes(x = ER.Status, y = value))+
+  geom_boxplot()+
+  facet_wrap(~variable, ncol=2)+
+  geom_text(data=pvalues_final, aes(x=1.5, y=2, label=pvalue))
+```
+
+## Formatting p-values
+
+```{r}
+pvalues_final[,'pvalue'] <- format.pval(pvalues_final[,'pvalue'],
+                                        digits=3)
+ggplot(reshaped_data, aes(x = ER.Status, y = value))+
+  geom_boxplot()+
+  facet_wrap(~variable, ncol=2)+
+  geom_text(data=pvalues_final, aes(x=1.5, y=2, label=pvalue))
+```
+
+## Formatting p-values
+```{r}
+pvalues_final <- mutate(pvalues_final, 
+                        pvalue = format.pval(pvalue, digits=3))
+ggplot(reshaped_data, aes(x = ER.Status, y = value))+
+  geom_boxplot()+
+  facet_wrap(~variable, ncol=2)+
+  geom_text(data=pvalues_final, aes(x=1.5, y=2, label=pvalue))
+
+```
+
+# The dplyr package
+
+## Action words
+
+`dplyr` basically gives you 6 actions to do on data.frame objects:
+
+1. mutate: Change particular variables
+2. select: Select (or deselect) variables
+3. arrange: Order by some variables
+4. filter: Select rows by some criteria
+5. group_by: Group  by some variable (so the split part of our exercise)
+6. summarise: Summarise a variable using some function
+
