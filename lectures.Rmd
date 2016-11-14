@@ -49,6 +49,8 @@ Supplemental Material:
 
 <a href="Lectures/Lecture4.html" target = "_blank">Presentation</a> ([PDF](Lectures/lecture4_files/Lecture4.pdf))
 
+<a href = "Lectures/lecture4_files/Assignment3.html"> Practice Assignment 3</a>
+
 ### Lecture 5
 
 <a href="Lectures/Lecture5.html" target="_blank">Presentation</a> ([PDF](Lectures/Lecture5.pdf))
