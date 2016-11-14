@@ -5,3 +5,4 @@
 .Ruserdata
 _site/*
 *cache
+.DS_Store
