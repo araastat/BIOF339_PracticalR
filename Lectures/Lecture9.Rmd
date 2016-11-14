@@ -1,0 +1,288 @@
+---
+title: "Lecture 9: Building Functions"
+author: "Eugen Buehler"
+date: "November 14, 2016"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Functions are objects
+
+R is a functional programming language.  This means that functions are "objects", just like data frames, vectors, and other things that are assigned to variables and passed to other functions.
+
+## A rose by any other name
+
+The name of a functions is actually the name of a variable that contains the function, in the same way that the 
+```{r echo=TRUE}
+log
+```
+
+This means that we can create a copy of a function by assigning its value to a new variable.
+
+```{r echo=TRUE}
+myLogFunction <- log
+myLogFunction
+```
+
+## Functions are a kind of data and have a class
+
+```{r}
+myNumber <- 7
+class(myNumber)
+```
+
+```{r}
+class(log)
+```
+
+## Creating a function
+
+We can create a new function using the word "function" followed by the functions arguments and one or more R statements.
+
+```{r}
+myDumbFunction <- function() 42
+myDumbFunction()
+```
+
+## Creating a multi-statement function
+
+If there is more than one statement in a function, they should be enclosed in curly brackets:
+
+```{r}
+doubleIt <- function(x) {
+  myResult <- x * 2
+  myResult
+}
+doubleIt(5)
+```
+
+The last statement within the curly brackets will be the value returned by the function.
+
+## Functions live in their own little world
+
+Inside a function, variables that existed in your environment can be used and even changed.  However, any changes made, including changing data stored in variables and creating new variables, happens solely within the function.  Your environment stays the same.
+
+```{r}
+exists("myResult")
+myResult <- 1000
+doubleItOutput <- doubleIt(2)
+myResult
+```
+
+## Example Data Set
+
+The data set used in today's lecture comes from an siRNA screen that we published a few years ago.  The screen looked for genes that influence parkin translocation.
+
+**High-content genome-wide RNAi screens identify regulators of parkin upstream of mitophagy.**
+Hasson SA, Kane LA, Yamano K, Huang CH, Sliter DA, Buehler E, Wang C,
+Heman-Ackah SM, Hessa T, Guha R, Martin SE, Youle RJ.
+Nature. 2013.
+
+The data set will be available for download from the lectures portion of the class web page.
+
+## Preview the Data
+
+```{r, out.width = "800px", echo=FALSE}
+knitr::include_graphics("excel.preview.png")
+```
+
+## Import the data
+
+```{r echo=TRUE, cache=TRUE}
+ambion <- read.csv("nature.parkin.gw.ambion.csv", stringsAsFactors = FALSE)
+str(ambion)
+```
+
+## Check for missing data
+
+```{r}
+apply(ambion, 2, function(x) sum(is.na(x)))
+```
+
+## Investigate Missing Data
+
+```{r}
+ambion[is.na(ambion[,1]),][1,]
+```
+
+## Eliminate Missing Data
+
+```{r}
+ambion <- ambion[! is.na(ambion[,2]), ]
+apply(ambion, 2, function(x) sum(is.na(x)))
+```
+
+## Simplify the Data
+
+Often it will be helpful to create a new data frame with only the data we wish to analyze.
+
+```{r}
+ambion.simple <- ambion[,c(19,25,1,21,7,13,17)]
+ambion.simple[1,]
+```
+
+## Simplify our Column Names
+
+```{r}
+library(knitr, quietly = TRUE)
+colnames(ambion.simple) <- c("GeneID","siRNA","Symbol","Description",
+                             "PPT","Cells","Mitophagy")
+kable(head(ambion.simple, n=4), format = "markdown")
+```
+
+## Evaluate how our variables interact
+
+```{r}
+library(ggplot2, quietly = TRUE)
+ggplot(ambion.simple, aes(x=PPT, y=Cells)) + geom_point(alpha=0.5)
+```
+
+## Evaluate how our variables interact
+
+```{r}
+ggplot(ambion.simple, aes(x=PPT, y=Cells)) + geom_point(alpha=0.5) +
+    geom_point(data = ambion.simple[ambion.simple$Symbol == "PARK2",],
+               color="blue")
+```
+
+## Refine the plot
+
+```{r}
+ggplot(ambion.simple, aes(x=PPT, y=Cells)) + geom_density2d() +
+    geom_point(data = ambion.simple[ambion.simple$Symbol == "PARK2",],
+               color="blue")
+```
+
+## Further refine the plot
+
+```{r}
+ggplot(ambion.simple, aes(x=PPT, y=Cells)) + geom_density2d() +
+    geom_point(data = ambion.simple[ambion.simple$Symbol == "PARK2",],
+               color="red", shape=17, size =5) +
+        ggtitle("PARK2")
+```
+
+## Adding gene description
+
+```{r}
+description <- ambion.simple$Description[ambion.simple$Symbol == "PARK2"][1]
+description
+myTitle <- paste("PARK2",description,sep=": ")
+myTitle
+```
+
+## Final version of plot
+
+```{r}
+ggplot(ambion.simple, aes(x=PPT, y=Cells)) + geom_density2d() +
+    geom_point(data = ambion.simple[ambion.simple$Symbol == "PARK2",],
+               color="red", shape=17, size =5) +
+        ggtitle(myTitle)
+```
+
+## Making the refined plot into a function
+
+Now that we have our custom plot looking right, we would like to be able to do the same for other genes but without so much typing.  First, make a new R Script in RStudio:
+
+```{r, out.width = "800px", echo=FALSE}
+knitr::include_graphics("new_r_script.png")
+```
+
+## Constructing a new function from your history
+
+Frequently, making a function will simply be a function of selecting the right parts of your history and hitting the "to source" button.
+
+```{r, out.width = "800px", echo=FALSE}
+knitr::include_graphics("to_source.png")
+```
+
+## Function with PARK2 hard coded
+
+```{r, eval=FALSE}
+graphGene <- function(gene) {
+  description <- ambion.simple$Description[ambion.simple$Symbol == "PARK2"][1]
+  myTitle <- paste("PARK2",description,sep=": ")
+  ggplot(ambion.simple, aes(x=PPT, y=Cells)) + geom_density2d() +
+    geom_point(data = ambion.simple[ambion.simple$Symbol == "PARK2",],
+               color="red", shape=17, size =5) +
+    ggtitle(myTitle)
+}
+```
+
+## Function made generic
+
+```{r}
+graphGene <- function(gene) {
+  description <- ambion.simple$Description[ambion.simple$Symbol == gene][1]
+  myTitle <- paste(gene,description,sep=": ")
+  ggplot(ambion.simple, aes(x=PPT, y=Cells)) + geom_density2d() +
+    geom_point(data = ambion.simple[ambion.simple$Symbol == gene,],
+               color="red", shape=17, size =5) +
+    ggtitle(myTitle)
+}
+```
+
+## Our function in action
+
+```{r}
+graphGene("PINK1")
+```
+
+## Default values for function arguments
+
+```{r}
+pdfGene <- function(gene, file=paste(gene,".pdf", sep="")) {
+    pdf(file, width=5, height=5)
+    graphGene(gene)
+    dev.off()
+}
+```
+
+## Passing on extra arguments to our function
+
+We can use the ellipse notation (...) to indicate that extra arguments to our function should be passed on to a function that is inside our function (in this case pdf).
+
+```{r}
+pdfGene <- function(gene, file=paste(gene,".pdf", sep=""), ...) {
+    pdf(file, ...)
+    graphGene(gene)
+    dev.off()
+}
+pdfGene("PINK1", width=10, height=10)
+```
+
+## Control of Flow: If/Else
+
+We can decide whether something happens in our function using "if" and "if/else".
+
+```{r}
+sillyFunction <- function(x) {
+  if (x < 5) {
+    returnValue <- x
+  }
+  else {
+    returnValue <- x / 2
+  }
+  returnValue
+}
+sillyFunction(12)
+```
+
+## Control of Flow: For
+
+```{r, eval=FALSE}
+pdfGenes <- function(genes, file=paste(gene,".pdf", sep=""), ...) {
+    pdf(file, ...)
+    for (gene in genes) {
+      graphGene(gene)
+    }
+    dev.off()
+}
+pdfGenes(c("PLK1","PINK1","BRCA1"))
+```
+
+
+
