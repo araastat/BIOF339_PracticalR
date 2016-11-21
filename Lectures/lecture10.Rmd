@@ -1,0 +1,339 @@
+---
+title: "Lecture 10"
+author: "BIOF 339"
+date: "November 21, 2016"
+output: ioslides_presentation
+---
+
+```{r setup, echo=F}
+knitr::opts_chunk$set(echo = TRUE, 
+                      fig.width=4,
+                      fig.height=4,
+                      comment = '# ',
+                      cache=F,
+                      warning=F, message=F)
+```
+## Goals for today
+
++ Understanding tidy data
++ Using packages in the `tidyverse`
++ Stringing together actions using pipes
+
+# Tidy data
+
+## Tidy data
+
+Tidy data is a concept explicitly stated by Hadley Wickham in [this paper](http://vita.had.co.nz/papers/tidy-data.pdf). It has three essential characteristics
+
+1. Each variable forms a column
+2. Each observation forms a row
+3. Each type of observational unit forms a table. 
+
+## Ways to have messy (i.e. not tidy) data
+
+1. Column headers contain values
+
+Country   |   < $10K    | $10-20K    | $20-50K   | $50-100K    | > $100K
+----------|-------------|------------|-----------|-------------|---------
+India     |   40        |  25        |   25      |  9          |  1
+USA       |   20        |  20        |  20       | 30          |  10
+
+## Ways to have messy (i.e. not tidy) data
+
+1. Column headers contain values
+
+Country   |   Income  | Percentage
+----------|-----------|------------
+India     |  < $10K   |  40
+USA       |  < $10K   | 20
+
+This is a case of reshaping or melting 
+
+## Ways to have messy (i.e. not tidy) data
+
+2. Multiple variables in one column
+
+Country  | Year   | M_0-14  | F_0-14  | M_ 15-60  | F_15-60  | M_60+  | F_60+
+---------|--------|---------|---------|-----------|----------|--------|-------
+UK       |  2010  |         |         |           |          |        | 
+UK       |  2011  |         |         |           |          |        | 
+
+
+Country  | Year   | Gender  | Age    | Count
+---------|--------|---------|--------|-------
+
+
+Separating columns into different variables
+
+## Ways to have messy (i.e. not tidy) data
+
+3. Variables stored in both rows and columns
+4. Multiple types (or multiple levels) of data in one table
+5. One type of data in multiple tables
+
+## Why tidy data
+
+1. Information is captured in usable form
+2. Tidy data is most amenable to modeling
+
+In R, tidy data will most often be stored in a data.frame object
+
+## The tidyverse
+
+The `tidyverse` package is a meta-package bundling several packages commonly used
+to analyze tidy data. The core packages are
+
+1. ggplot2 : Visualization
+2. tibble  : A modern iteration of a data.frame
+3. tidyr   : Easy reshaping of tidy data
+4. readr   : Reading files
+5. dplyr   : Manipulating data frames
+6. purrr   : Functional programming in R
+
+## The tidyverse
+
+Optional related packages are (among several others)
+
+1. stringr  : Easy string manipulation
+5. broom    : Tidying the results of models
+2. lubridate: Easy date manipulation
+3. forcats  : Manipulating factors
+4. DBI      : Working with databases (SQL)
+
+```{r preamble, echo=T}
+library(tidyverse)
+library(stringr)
+library(broom)
+```
+
+## The tidyverse
+
+These packages are syntactically consistent and operationally pretty fast:
+
++ Their functions all typically take a vector or data.frame as the first argument
++ Imposes good practices
++ Reduces ambiguity about data types
++ Wraps common operations into single functions
++ Typically runs C++ code underneath via `Rcpp`
+
+## The tibble
+
+```{r first}
+library(tidyverse)
+tdf <- tibble(x=1:1e4, y = rnorm(1e4))
+tdf
+```
+
+## The tibble
+
+```{r }
+tdf <- tibble(x=1:1e4, y = rnorm(1e4))
+options( tibble.print_min=5)
+tdf
+```
+
+## The tibble
+
+All subsets of tibbles are also tibbles
+
+Tibbles never convert characters into factors implicitly
+
+Reading data into a tibble (using read_csv or the like) doesn't change the
+names into weird strings
+
+## Pipes
+
+Pipes are a relatively new concept in R (about 2 years)
+
+For some, pipes are a more natural way of implementing processes to be done 
+to a data frame
+
+The pipe operator is ` %>% `, which originally is from the packages `magrittr`
+
+## Pipes
+
+Pipes take an object on the left side and pass it to the first argument of a function on the right side
+
+```{r}
+1:10 %>% sqrt()
+```
+However, it's really useful in the tidyverse for working on data frames (or tibbles)
+
+## dplyr
+
+There are 4 core verbs in `dplyr`:
+
+1. mutate : create new variables in columns
+2. filter : create subsets based on variable characteristics
+3. select : extract particular columns
+4. group_by : Group by levels of a variable
+
+## dplyr
+```{r}
+library(dplyr)
+mtcars <- as_tibble(mtcars)
+options(tibble.print_min=4)
+mtcars %>%
+  mutate(kmpg = mpg * 1.6)
+```
+
+## dplyr
+```{r}
+mtcars %>% 
+  mutate(kmpg = mpg * 1.6) %>% 
+  filter(cyl == 4)
+```
+
+## dplyr
+```{r}
+mtcars %>% 
+  mutate(kmpg = mpg * 1.6) %>% 
+  filter(cyl == 4) %>% 
+  select(disp, kmpg)
+```
+
+## dplyr
+
+If you want to pipe the data frame on the left to a non-first argument of a function, you can use `.`
+```{r}
+mtcars %>% 
+  mutate(kmpg = mpg * 1.6) %>% 
+  filter(cyl == 4) %>% 
+  select(disp, kmpg) %>% 
+  lm(kmpg ~ disp, data = .)
+```
+
+## broom
+
+The package `broom` has a function `tidy` that will make the output of models into tidy data sets
+```{r}
+library(broom)
+mtcars %>% 
+  mutate(kmpg = mpg * 1.6) %>% 
+  filter(cyl == 4) %>% 
+  select(disp, kmpg) %>% 
+  lm(kmpg ~ disp, data = .) %>% 
+  tidy()
+```
+
+## tidyr
+
+The `tidyr` package reshapes data from long to wide, much like `reshape2`. It has two core functions:
+
+1. `gather` : Gather multiple columns into two columns
+2. `spread` : Opposite of gather
+
+It also has a function, `separate`, which will separate a composite column out into separate columns. 
+
+## tidyr
+I use `gather` a lot to prep for ggplot panels
+
+```{r}
+mtcars %>% 
+  gather(variable, value, disp:qsec) %>% head()
+```
+
+## Using the tidyverse to run multiple univariate models
+
+Suppose I want to run a series of univariate regressions on the mtcars dataset, seeing how mpg is related to each of the continuous variables. 
+
+Let's build this
+
+## Many models
+
+```{r}
+mtcars %>% select(mpg, disp:qsec)
+```
+
+## Many models
+```{r}
+mtcars %>% select(mpg, disp:qsec) %>% 
+  gather(variable, value, -mpg)
+```
+
+## Many models
+```{r}
+mtcars %>% select(mpg, disp:qsec) %>% 
+  gather(variable, value, -mpg) %>% 
+  group_by(variable) %>% 
+  lm(mpg~value, data=.)
+```
+
+## Many models
+```{r}
+mtcars %>% select(mpg, disp:qsec) %>% 
+  gather(variable, value, -mpg) %>% 
+  nest(-variable)
+```
+
+## Many models
+```{r}
+bl <- mtcars %>% select(mpg, disp:qsec) %>% 
+  gather(variable, value, -mpg) %>% 
+  nest(-variable)
+bl$data[[1]]
+```
+
+## Many models
+```{r}
+mtcars %>% select(mpg, disp:qsec) %>% 
+  gather(variable, value, -mpg) %>% 
+  nest(-variable) %>% 
+  mutate(models = map(data, ~lm(mpg~value, data=.)))
+```
+
+## Many models
+```{r}
+ mtcars %>% select(mpg, disp:qsec) %>% 
+  gather(variable, value, -mpg) %>% 
+  nest(-variable) %>% 
+  mutate(models = map(data, ~lm(mpg~value, data=.)),
+         outputs = map(models, ~tidy(.)))
+```
+
+## Many models
+```{r}
+ mtcars %>% select(mpg, disp:qsec) %>% 
+  gather(variable, value, -mpg) %>% 
+  nest(-variable) %>% 
+  mutate(models = map(data, ~lm(mpg~value, data=.)),
+         outputs = map(models, ~tidy(.))) %>% 
+  select(variable, outputs)
+```
+
+## Many models
+```{r}
+ mtcars %>% select(mpg, disp:qsec) %>% 
+  gather(variable, value, -mpg) %>% 
+  nest(-variable) %>% 
+  mutate(models = map(data, ~lm(mpg~value, data=.)),
+         outputs = map(models, ~tidy(.))) %>% 
+  select(variable, outputs) %>% 
+  unnest()
+```
+
+## Many models
+```{r}
+ mtcars %>% select(mpg, disp:qsec) %>% 
+  gather(variable, value, -mpg) %>% 
+  nest(-variable) %>% 
+  mutate(models = map(data, ~lm(mpg~value, data=.)),
+         outputs = map(models, ~tidy(.))) %>% 
+  select(variable, outputs) %>% 
+  unnest() %>% 
+  filter(term=='value')
+```
+
+## Many models
+```{r}
+ mtcars %>% select(mpg, disp:qsec) %>% 
+  gather(variable, value, -mpg) %>% 
+  nest(-variable) %>% 
+  mutate(models = map(data, ~lm(mpg~value, data=.)),
+         outputs = map(models, ~tidy(.))) %>% 
+  select(variable, outputs) %>% 
+  unnest() %>% 
+  filter(term=='value') %>% 
+  mutate_if(is.numeric, funs(round(., 3)))
+```
+

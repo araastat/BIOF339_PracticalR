@@ -78,3 +78,7 @@ Supplemental Material:
 ### Lecture 9
 
 <a href='Lectures/Lecture9.html' target="_blank">Presentation</a>
+
+### Lecture 10
+
+<a href='Lectures/lecture10.html' target="_blank">Presentation</a>
