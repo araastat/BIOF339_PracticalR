@@ -59,7 +59,7 @@ Supplemental Material:
 
 <a href="Lectures/lecture6.html" target="_blank">Presentation</a> ([PDF](Lectures/lecture6.pdf))
 
-Practice Assignment (coming 10/27)
+[Practice Assignment](lecture6_files/Assignment6.html)(Solutions are in the rmarkdown document [here](lecture6_files/Assignment6.Rmd))
 
 Supplemental Material:
 

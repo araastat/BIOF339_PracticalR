@@ -124,8 +124,34 @@ $(document).ready(function () {
 </div>
 
 
+<p>The World Health Organization provides detailed data on various population health indicators in an Open Data environment. The R package <code>WHO</code> allows you to access that data directly from R. Install this package using <code>install.packages('WHO')</code>.</p>
+<blockquote>
+<p>The package has a nice vignette, which can be accessed using <code>library(WHO); vignette('who_vignette')</code></p>
+</blockquote>
+<p>We will be using this package to download data on infant and under-5 mortality and exploring the merging of data sets and the split-apply-combine paradigm</p>
+<p>You can download these data sets using the following code:</p>
+<pre class="r"><code>library(WHO)
+infant &lt;- get_data('EQ_INFANTMORT')
+child &lt;- get_data('EQ_U5MORT')</code></pre>
 <div id="merging" class="section level2">
 <h2>Merging</h2>
+<ol style="list-style-type: decimal">
+<li><p>Understand the structure of each data set using <code>str</code>, and find common variables</p></li>
+<li><p>For both data sets, we only want to keep the national records and not data for different subsets. This means we want to keep rows with both <code>residenceareatype</code> and <code>wealthquintile</code> having missing values or <code>NA</code></p></li>
+<li><p>We’re not interested in either the <code>gho</code> or <code>publishstate</code> columns, so omit them. Also omit the two variables you filtered on above</p></li>
+<li><p>Merge these two data sets into one, matching on appropriate columns</p></li>
+<li><p>Rename the columns to make sense</p></li>
+</ol>
+</div>
+<div id="split-apply-combine" class="section level2">
+<h2>Split-apply-combine</h2>
+<ol style="list-style-type: decimal">
+<li><p>For each region, find the countries with the highest infant mortality and child mortality rates in 2000. Are they the same country for each region? Similarly find the countries with the lowest rates. (You might want to use <code>which.max</code> and <code>which.min</code>)</p></li>
+<li><p>For each country, find the average infant and child mortality between 1990 and 1995, also between 2000 and 2005. For each period, create one data set merging both the infant and child information (explore the different ways of using the <code>by</code> argument to get the best dataset).</p></li>
+<li><p>Compute the average infant and child mortality rates for each region for each year in the dataset (Ignore the different populations of the countries for this exercise)</p></li>
+<li><p>Create a panel of plots, one for each <strong>indicator</strong>, where each plot shows the average value of the indicator for each region over time</p></li>
+<li><p>Create a panel of plots, one for each <strong>region</strong>, where each plot shows the average value of each indicator over time.</p></li>
+</ol>
 </div>
 
 
