@@ -86,3 +86,7 @@ Supplemental Material:
 ### Lecture 11
 
 <a href='Lectures/Lecture11.html' target="_blank">Presentation</a> ([PDF](Lectures/Lecture11.pdf))
+
+### Lecture 12
+
+<a href = 'Lectures/lecture12.html' target="_blank">Presentation</a>([PDF](Lectures/lecture12.pdf))
