@@ -1,0 +1,195 @@
+---
+title: "Lecture 12"
+author: "BIOF 339"
+date: "December 5, 2016"
+output: ioslides_presentation
+---
+  ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      fig.width=4,
+                      fig.height=4,
+                      comment = '# ',
+                      cache=F,
+                      warning=F, message=F)
+```
+
+# Bioconductor
+
+## Bioconductor
+
+Bioconductor provides tools for the analysis and comprehension of high-throughput genomic data, using R.
+
++ 1296 packages
++ Covers the bioinformatic pipeline
+
++ Software
++ Annotation
++ Experiments
+
+# Explore Bioconductor website
+
+## Installing Bioconductor packages
+
+This is different from the usual `install.packages`
+
+```{r, eval=F}
+source('http://bioconductor.org/biocLite.R')
+biocLite('Biobase','limma','hgu95av2.db')
+```
+
+
+## Data in Bioconductor
+
+The basic structure in a Bioconductor pipeline is the `ExpressionSet`
+
+```{r, eval=T}
+library(Biobase)
+str(sample.ExpressionSet)
+```
+
+## Differences with usual R
+
+Instead of storing data in named lists, ExpressionSet objects store
+data in **slots**, and we can see what the slots are with `slotNames`:
+
+```{r, eval=T}
+slotNames(sample.ExpressionSet)
+```
+
+## Differences with usual R
+
+You can access these slots using `@`, instead of the usual `$`:
+
+```{r, eval=T}
+sample.ExpressionSet@phenoData
+```
+
+## Differences with usual R
+
+However, it's much easier to go with the built-in functions
+```{r , eval=T}
+pData(sample.ExpressionSet)
+```
+
+## Differences with usual R
+
+```{r , eval=T}
+head(exprs(sample.ExpressionSet))
+```
+
+# Making a heatmap
+
+## Heatmaps
+
+There are several ways of doing heatmaps in R:
+
++ [http://sebastianraschka.com/Articles/heatmaps_in_r.html](http://sebastianraschka.com/Articles/heatmaps_in_r.html)
++ [https://plot.ly/r/heatmaps/](https://plot.ly/r/heatmaps/)
++ [http://moderndata.plot.ly/interactive-heat-maps-for-r/](http://moderndata.plot.ly/interactive-heat-maps-for-r/)
++ [http://www.siliconcreek.net/r/simple-heatmap-in-r-with-ggplot2](http://www.siliconcreek.net/r/simple-heatmap-in-r-with-ggplot2)
++ [https://rud.is/b/2016/02/14/making-faceted-heatmaps-with-ggplot2/](https://rud.is/b/2016/02/14/making-faceted-heatmaps-with-ggplot2/)
+
+## Some example data
+
+```{r}
+library(Biobase)
+data(sample.ExpressionSet)
+exdat <-  sample.ExpressionSet
+library(limma)
+design1 <- model.matrix(~type, data=pData(exdat))
+lm1 <- lmFit(exprs(exdat), design1)
+lm1 <- eBayes(lm1) # compute linear model for each probeset
+geneID <- rownames(topTable(lm1, coef=2, num=100, adjust='none',p.value=0.05))
+exdat2 <- exdat[geneID,] # Keep features with p-values < 0.05
+exdat2
+```
+
+## Heatmaps using `Heatplus`
+
+```{r, eval=F}
+source('http://bioconductor.org/biocLite.R')
+biocLite('Heatplus')
+```
+
+---
+
+```{r, echo=T, fig.width=6, fig.height=6, eval=F}
+library(Heatplus)
+reg1 <- regHeatmap(exprs(exdat2), legend=2, col=heat.colors, 
+                   breaks=-3:3)
+plot(reg1)
+```
+
+---
+
+```{r, echo=F, fig.width=6, fig.height=6, eval=T}
+library(Heatplus)
+reg1 <- regHeatmap(exprs(exdat2), legend=2, col=heat.colors, 
+                   breaks=-3:3)
+plot(reg1)
+```
+
+---
+
+```{r, echo=T, fig.width=6, fig.height=6, eval=F}
+library(Heatplus)
+reg1 <- regHeatmap(exprs(exdat2), legend=2, col=heat.colors, 
+                   breaks=-3:3)
+plot(reg1)
+```
+
+```{r, echo=T, eval=F}
+corrdist <- function(x) as.dist(1-cor(x))
+hclust.avl <-  function(x) hclust(x, method='average')
+reg2 <- regHeatmap(exprs(exdat2), legend=2, col=heat.colors,
+                   breaks=-3:3, 
+                   dendrogram = list(clustfun=hclust.avl, distfun=corrdist))
+plot(reg2)
+```
+
+---
+
+```{r, echo=F, eval=T,fig.width=6, fig.height=6}
+corrdist <- function(x) as.dist(1-cor(t(x)))
+hclust.avl <-  function(x) hclust(x, method='average')
+reg2 <- regHeatmap(exprs(exdat2), legend=2, col=heat.colors,
+                   dendrogram = list(clustfun=hclust.avl, distfun=corrdist))
+plot(reg2)
+```
+
+---
+
+```{r, echo=T, eval=F}
+ann1 <- annHeatmap(exprs(exdat2), ann=pData(exdat2))
+plot(ann1)
+```
+
+---
+
+```{r, echo=F, eval=T, fig.width=7, fig.height=7}
+ann1 <- annHeatmap(exprs(exdat2), ann=pData(exdat2))
+plot(ann1)
+```
+
+---
+
+```{r, echo=T, eval=F}
+ann1 <- annHeatmap(exprs(exdat2), ann=pData(exdat2))
+plot(ann1)
+```
+```{r, echo=T, eval=F}
+ann2 <- annHeatmap(exprs(exdat2), ann=pData(exdat2),
+                   cluster = list(cuth=7500,
+                                  label=c('Control-like','Case-like')))
+plot(ann3)
+```
+
+---
+
+```{r, echo=F, eval=T, fig.height=7, fig.width=7}
+ann2 <- annHeatmap(exprs(exdat2), ann=pData(exdat2),
+                   cluster = list(cuth=7500,
+                                  label=c('Control-like','Case-like')))
+plot(ann2)
+```
+
