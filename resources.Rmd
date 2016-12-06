@@ -15,3 +15,19 @@ title: "Resources"
 + [Google R Style Guide](https://google.github.io/styleguide/Rguide.xml)
 + [RStudio Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
 + [GGPlot Quick Reference](http://sape.inf.usi.ch/quick-reference/ggplot2/)
++ [Writing good R code](https://www.rstudio.com/rviews/2016/12/02/writing-good-r-code-and-writing-well/) from RStudio
+
+#### Hadley Wickham's books, available online
+
+1. [Advanced R](http://adv-r.had.co.nz)
+2. [R Packages](http://rpkgs.had.co.nz)
+3. [R for Data Science](http://r4ds.had.co.nz)
+
+
+#### Good practices
+
++ [ASA Best Practices Webinar](http://www.araastat.com/BestPractices)
++ [Software Carpentry](http://software-carpentry.org)
+    + [Git tutorial](http://swcarpentry.github.io/git-novice)
+    + [Databases and SQL](http://swcarpentry.github.io/sql-novice-survey)
+
