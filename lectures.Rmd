@@ -12,6 +12,8 @@ Last updated: `r format(Sys.Date(), '%B %d, %Y')`
 
 [Presentation](Lectures/lecture1.pdf)
 
+<a href="Lectures/lecture1_files/Lecture1Exercises.html" target="_blank">Practice Exercises for Lecture 1</a>
+
 Supplemental Material
 
 + Installing R: <a href="http://cran.r-project.org" target="_blank">http://cran.r-project.org</a>
