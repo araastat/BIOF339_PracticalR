@@ -1,6 +1,6 @@
 ---
 title: "Lectures"
-date: "Fall 2016"
+date: "Fall 2017"
 output: html_document
 ---
 
@@ -22,73 +22,3 @@ Supplemental Material
 
 In-built datasets in R: `data()`
 
-### Lecture 2
-
-<a href="Lectures/lecture2a.html" target="_blank">Presentation</a> ([PDF](Lectures/lecture2a.pdf); [source](Lectures/lecture2.Rmd); [data](Lectures/lecture2_files/Dataset_spine.csv); [R code](Lectures/lecture2_files/lecture2.R))
-
-<a href="Lectures/lecture2_data/Assign1.html">Practice Assignment 1</a>, and [solution](Lectures/lecture2_files/Assign1Solution.html)
-
-Supplemental Material
-
-+ Google R Style Guide: <a href="https://google.github.io/styleguide/Rguide.xml" target="_blank">link</a>
-+ Advanced data.frame manipulation: <a href="https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html" target="_blank"> dplyr </a>, which we will visit in a few weeks
-+ Hadley Wickham's vignette on <a href="ftp://cran.r-project.org/pub/R/web/packages/tidyr/vignettes/tidy-data.html" target="_blank">tidy data</a>
-
-### Lecture 3
-
-<a href="Lectures/lecture3.html" target="_blank">Presentation</a> ([PDF](Lectures/lecture3_files/lecture3.pdf); [source](Lectures/lecture3.Rmd))
-
-<a href = "Lectures/lecture3_files/Assignment2.html"> Practice Assignment 2 with solutions</a>
-
-Supplemental Material:
-
-+ The ggplot2 documentation: <a href="http://docs.ggplot2.org/current/" target="_blank">link</a>
-+ R Graph Gallery: <a href="http://rgraphgallery.blogspot.com" target="_blank">link</a>
-+ UBC R Graph Gallery: <a href="http://shinyapps.stat.ubc.ca/r-graph-catalog/" target="_blank">link</a>
-+ <a href = "http://flowingdata.com" target="_blank">Flowing Data</a>, a data visualization blog
-
-### Lecture 4
-
-<a href="Lectures/Lecture4.html" target = "_blank">Presentation</a> ([PDF](Lectures/lecture4_files/Lecture4.pdf))
-
-<a href = "Lectures/lecture4_files/Assignment3.html"> Practice Assignment 3</a>
-
-### Lecture 5
-
-<a href="Lectures/Lecture5.html" target="_blank">Presentation</a> ([PDF](Lectures/Lecture5.pdf))
-
-### Lecture 6
-
-<a href="Lectures/lecture6.html" target="_blank">Presentation</a> ([PDF](Lectures/lecture6.pdf))
-
-[Practice Assignment](Lectures/lecture6_files/Assignment6.html) (Solutions are in the rmarkdown document [here](Lectures/lecture6_files/Assignment6.Rmd))
-
-Supplemental Material:
-
-+ A [supplemental document](Lectures/lecture6_files/lecture6_suppl.html) addressing some questions from class
-+ Benchmarking [reading data](Lectures/lecture6_files/benchmark.html) and split-apply-combine
-+ Reading data from different files with options
-
-### Lecture 7
-
-<a href='Lectures/Lecture7.html' target="_blank">Presentation</a> ([PDF](Lectures/lecture7_files/Lecture7.pdf))
-
-### Lecture 8
-
-<a href='Lectures/lecture8.html' target="_blank">Presentation</a> ([PDF](Lectures/Lecture8.pdf))
-
-### Lecture 9
-
-<a href='Lectures/Lecture9.html' target="_blank">Presentation</a> ([PDF](Lectures/Lecture9.pdf))
-
-### Lecture 10
-
-<a href='Lectures/lecture10.html' target="_blank">Presentation</a> ([PDF](Lectures/Lecture10.pdf))
-
-### Lecture 11
-
-<a href='Lectures/Lecture11.html' target="_blank">Presentation</a> ([PDF](Lectures/Lecture11.pdf))
-
-### Lecture 12
-
-<a href = 'Lectures/lecture12.html' target="_blank">Presentation</a>([PDF](Lectures/lecture12.pdf))
