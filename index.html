@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -20,12 +20,11 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="site_libs/highlight/textmate.css"
-      type="text/css" />
-<script src="site_libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -153,7 +152,6 @@ $(document).ready(function () {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -208,12 +206,12 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">BIOF 339: Practical R</h1>
 <h4 class="author"><em>Abhijit Dasgupta &amp; Eugen Buehler</em></h4>
-<h4 class="date"><em>Fall 2016</em></h4>
+<h4 class="date"><em>Fall 2017</em></h4>
 
 </div>
 
 
-<p>This course is part of the <a href="https://faes.org/content/graduate-school">FAES Graduate School</a> and is being offered Fall 2016.</p>
+<p>This course is part of the <a href="https://faes.org/content/graduate-school">FAES Graduate School</a> and is being offered Fall 2017. Two sessions are being offered this term, Tuesdays 5-7 and 7-9 pm.</p>
 <hr />
 <p><a href="http://www.r-project.org" target="_blank">R</a> is one of the most popular programming languages for data science and statistics. It is a free and open source language available for all major operating systems. It is extensible through a packaging system that has resulted in over 9000 user-contributed packages available on <a href="http://cran.r-project.org">CRAN</a>.</p>
 <p>In this course we will provide a practical approach to learning R using examples, with the intention to get you using R for your data analyses, data visualization and reporting as quickly as possible. We will try to avoid the more esoteric and “computer science-y” aspects of this programming language. We hope this approach and personal practice enables you to get started using R for your own work, find resources you may need beyond this course to help you answer your particular questions, and develop workflows for your data analyses that allow you to generate tables and figures for research papers, for example.</p>
@@ -237,8 +235,11 @@ This website is written using R, <a href="http://rmarkdown.rstudio.com/index.htm
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
 
 
@@ -249,7 +250,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

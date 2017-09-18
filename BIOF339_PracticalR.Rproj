@@ -14,4 +14,4 @@ LaTeX: pdfLaTeX
 
 StripTrailingWhitespace: Yes
 
-BuildType: Makefile
+BuildType: Website

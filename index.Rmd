@@ -1,10 +1,10 @@
 ---
 title: "BIOF 339: Practical R"
 author: "Abhijit Dasgupta & Eugen Buehler"
-date: "Fall 2016"
+date: "Fall 2017"
 output: html_document
 ---
-This course is part of the [FAES Graduate School](https://faes.org/content/graduate-school) and is being offered Fall 2016. 
+This course is part of the [FAES Graduate School](https://faes.org/content/graduate-school) and is being offered Fall 2017. Two sessions are being offered this term, Tuesdays 5-7 and 7-9 pm.
 
 ----
 
