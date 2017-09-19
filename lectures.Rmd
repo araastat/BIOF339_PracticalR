@@ -22,3 +22,9 @@ Supplemental Material
 
 In-built datasets in R: `data()`
 
+### Lecture 2
+
+[Presentation](Lectures/lecture2.html)
+[Practicum](Lectures/lecture2_practicum.Rmd)
+
+
