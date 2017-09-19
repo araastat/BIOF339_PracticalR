@@ -6,6 +6,7 @@ output: html_document
 
 Last updated: `r format(Sys.Date(), '%B %d, %Y')`
 
+Last years' presentations can be found [here](Lectures2016.zip)
 ----
 
 ### Lecture 1
@@ -24,7 +25,11 @@ In-built datasets in R: `data()`
 
 ### Lecture 2
 
-[Presentation](Lectures/lecture2.html)
-[Practicum](Lectures/lecture2_practicum.Rmd)
+[Presentation](Lectures/lecture2.html)   
+
+[Practicum](Lectures/lecture2_practicum.html)
+
+Datasets: [Breast Cancer data](http://www.araastat.com/Lectures/lecture2_data/clinical_data_breast_cancer_modified.csv)
+
 
 
