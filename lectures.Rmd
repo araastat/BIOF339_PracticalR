@@ -29,7 +29,7 @@ In-built datasets in R: `data()`
 
 [Practicum](Lectures/lecture2_practicum.html)
 
-Datasets: [Breast Cancer data](http://www.araastat.com/Lectures/lecture2_files/BreastCancer.xlsx)
+Datasets: [Breast Cancer data](http://www.araastat.com/BIOF339_PracticalR/Lectures/lecture2_files/BreastCancer.xlsx)
 
 
 
