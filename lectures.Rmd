@@ -43,3 +43,6 @@ Datasets:
 1. [Breast Cancer data](http://www.araastat.com/BIOF339_PracticalR/Lectures/lecture2_data/clinical_data_breast_cancer_modified.csv)
 2. [Spine data]('http://www.araastat.com/BIOF339_PracticalR/Lectures/lecture2_data/Dataset_spine.csv')
 
+Resources:
+
+1. [Do's and Don'ts for Effective Graphs](http://stat545.com/block015_graph-dos-donts.html) from Jenny Bryan's UBC Stat545 course
