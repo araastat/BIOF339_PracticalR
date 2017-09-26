@@ -8,7 +8,10 @@ date: "September 26, 2017"
 #     highlight: default
 #     transition: fade
 #     slide_level: 1
-output: ioslides_presentation
+output: 
+  ioslides_presentation:
+    self_contained: true
+    widescreen: true
 ---
 
 ```{r setup, include=FALSE}
@@ -260,6 +263,11 @@ ggplot(data_brca, aes(x = Tumor))+geom_bar()+
 + The ggplot [website](http://docs.ggplot2.org) has many resources to help create visualizations
 + There are a lot of blogs showing many capabilities of ggplot2
 + [StackOverflow](http://www.stackoverflow.org) is the place for Q & A. 
+
+## Other packages
+
++ The [`cowplot`](http://cran.rstudio.com/package=cowplot) package provides several improvements on ggplot2, including more themes and an easy way to put several graphs together in a panel
+
 
 # Group-wise descriptives and visualizations
 
