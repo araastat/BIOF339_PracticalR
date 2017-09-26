@@ -34,7 +34,8 @@ Datasets: [Breast Cancer data](http://www.araastat.com/BIOF339_PracticalR/Lectur
 
 ### Lecture 3
 
-<a href = "Lectures/lecture3.html" target="_blank">Presentation</a>
+<a href = "Lectures/lecture3.html" target="_blank">Presentation</a><p/>
+<a href = "Lectures/lecture3_files/Lecture3_Practicum.html" target="_blank">Practicum</a>
 
 Datasets: 
 
