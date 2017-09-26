@@ -1,7 +1,7 @@
 ---
 title: "Lecture 3: Data Visualization"
 author: "BIOF 339"
-date: "September 26, 2016"
+date: "September 26, 2017"
 # output: 
 #   revealjs::revealjs_presentation:
 #     theme: default
@@ -37,11 +37,12 @@ R can create static as well as interactive graphs with a rich set of user-contri
 
 ## Data visualization in R
 
-I'm making the decision to use `ggplot2` for my graphics
+We're making the decision to use `ggplot2` for my graphics
 
 + Makes pretty good formatting choices out of the box
 + Is declarative (tell it what you want) without getting caught up in minutae
 + Strongly leverages data frames (good practice)
++ Fast enough
 + There are good templates if you want to change the look
 
 # Introduction to ggplot2
@@ -99,15 +100,17 @@ ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()+ geom_smooth()
     + geom_smooth: Add a layer which draws a best-fitting line
 
 ## Introduction to ggplot2
-We will use the two data sets introduced last week:
+We will use the two data sets:
 
 ```{r, eval=F}
 data_spine <- read.csv('http://www.araastat.com/BIOF339_PracticalR/
-                       Lectures/lecture2_data/Dataset_spine.csv')
+                       Lectures/lecture2_data/Dataset_spine.csv', 
+                       stringsAsFactors = F)
 
 data_brca <- read.csv('http://www.araastat.com/BIOF339_PracticalR/
                       Lectures/lecture2_data/
-                      clinical_data_breast_cancer_modified.csv')
+                      clinical_data_breast_cancer_modified.csv',
+                      stringsAsFactors = F)
 ```
 
 ```{r, echo=F}
@@ -142,6 +145,30 @@ ggplot(data_brca, aes(x = Age.at.Initial.Pathologic.Diagnosis)) +
 ggplot(data_brca, aes(x = Tumor))+geom_bar()
 ```
 
+
+# Exercise
+
+## Exercise
+
+Using the `mtcars` dataset in R, create:
+
+1. A histogram of the fuel efficiences (`mpg`) in the data set
+2. A bar plot of frequencies of number of cylinders (`cyl`) in the car
+
+## Solution
+
+```{r, fig.size=3}
+ggplot(mtcars, aes(x = mpg)) + geom_histogram(binwidth=3)
+# ggplot(mtcars) + geom_histogram(aes(x = mpg), binwidth = 3)
+```
+
+## Solution
+
+```{r}
+ggplot(mtcars, aes(x = factor(cyl))) + geom_bar()
+```
+
+
 # Two continuous variables
 
 ## Scatter plots
@@ -171,6 +198,18 @@ d <- data.frame(x = 1:length(gas), y = gas) # Australian monthly gas production
 ggplot(d, aes(x, y)) + geom_line()
 ```
 
+# Exercise
+
+## Exercise
+
+1. Create a scatter plot of sepal length and sepal width from the `iris` dataset, and 
+add a smooth line through it
+
+## Solution
+
+```{r}
+ggplot(iris, aes(Sepal.Length, Sepal.Width)) + geom_point() + geom_smooth()
+```
 
 # Continuous variable with discrete variable
 
@@ -187,6 +226,19 @@ ggplot(data_spine, aes(x = Class.attribute, y = Sacral.slope))+
 ggplot(data_spine, aes(x = Class.attribute, y = Sacral.slope)) +
   geom_violin()
 ```
+
+# Exercise
+
+## Exercise
+
+1. Plot a boxplot of petal length by species using the `iris` dataset
+
+## Solution
+
+```{r}
+ggplot(iris, aes(x = Species, y = Petal.Length))+geom_boxplot()
+```
+
 
 # Flipping axes
 
@@ -229,6 +281,7 @@ grouped_data_spine = group_by( data_spine, Class.attribute)
 ```
 Note that you have to group using a discrete valued variable (factor, character, integer)
 
+
 ## Grouped summaries
 ```{r, eval=F}
 summarize(grouped_data_spine, 
@@ -268,6 +321,20 @@ knitr::kable(summarize(grouped_data_spine,
 summarize_all(grouped_data_spine, mean)
 ```
 
+## A note on tibbles
+
++ Tibbles are a new-generation object meant to enhance the `data.frame`.
+  + Central to the so-called [__tidyverse__ packages](http://www.tidyverse.org)
++ If you want to just get back to a more familiar `data.frame` object, use `as.data.frame`
++ A tibble is built on a `data.frame`, so all operations on `data.frame`'s will work.
++ To see all columns, set `options(dplyr.width=Inf)`.
+
+Differences between a tibble and a `data.frame`:
+
+1. Printing a tibble is restricted to the first 10 lines, and includes column types
+2. Stricter subsetting rules that make the types of objects created consistent
+
+
 # Grouped visualization
 
 ## Density plot
@@ -282,6 +349,32 @@ ggplot(data_spine, aes(x = Lumbar.lordosis.angle, y = Sacral.slope,
                        group = Class.attribute, color = Class.attribute))+
   geom_point()
 ```
+
+## Scatter plot (Black and White)
+
+```{r}
+ggplot(data_spine, aes(x = Lumbar.lordosis.angle, y = Sacral.slope, 
+                       group = Class.attribute, shape = Class.attribute))+
+  geom_point()
+```
+
+
+## Scatter plot with size representing third variable
+
+```{r}
+ggplot(data_spine, aes(x = Lumbar.lordosis.angle, y = Sacral.slope))+
+  geom_point(aes(size = Pelvic.slope))
+```
+
+## Scatter plot combinations
+
+```{r}
+ggplot(data_spine, aes(x = Lumbar.lordosis.angle, y = Sacral.slope, 
+                       group = Class.attribute, color = Class.attribute))+
+  geom_point(aes(size = Pelvic.slope))
+
+```
+
 
 ## Scatter plot with lines
 ```{r , fig.width=6}
@@ -312,6 +405,7 @@ ggplot(data_spine, aes(x = Lumbar.lordosis.angle, y = Sacral.slope))+
   geom_point()+
   facet_wrap( ~ Class.attribute, nrow=1)
 ```
+
 ## Facetted scatter plot with lines
 ```{r , fig.width=8}
 ggplot(data_spine, aes(x = Lumbar.lordosis.angle, y = Sacral.slope))+
