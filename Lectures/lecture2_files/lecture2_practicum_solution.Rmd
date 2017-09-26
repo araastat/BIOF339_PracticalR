@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r, echo=FALSE}
-knitr::opts_chunk$set(eval = FALSE, echo = FALSE) # Suppress all code and solutions
+knitr::opts_chunk$set(eval = TRUE, echo = TRUE) # Suppress all code and solutions
 ```
 
 
@@ -36,11 +36,11 @@ dat <- read_excel('BreastCancer.xlsx')
 dat <- data.frame(dat, stringsAsFactors = F) # Convert file to a data frame, remove spaces from names
 ```
 
-4. Try to also read the file directly from the web with the `read_excel` package from the web URL __(My bad: this can't be done. You need to download the file first. However, this can be done for a CSV file using read.csv)__
+4. Try to also read the file directly from the web with the `read_excel` package from the web URL __(My bad: this can't be done. You need to download the file first. However, this can be done for a CSV file using read.csv)
 
 
 
-## Data Exploration
+__Data Exploration__
 
 1. Find the structure of this data set
 ```{r}
@@ -65,14 +65,22 @@ dat <- transform(dat, diff.radius = worst.radius - mean.radius)
 dat_malignant <- dat[dat$Status=='malignant',]
 dat_benign <- dat[dat$Status=='benign',]
 ```
+or
+```{r}
+dat_malignant <- subset(dat, Status=='malignant')
+dat_benign <- subset(dat, Status == 'benign')
+```
+
 
 5. In each subset, compute summaries of the different mean variables
 
+__Solution 1__
 ```{r, results='hide'}
 summary(dat_malignant[,1:9])
 summary(dat_benign[,1:9])
 ```
 
+__Solution 2__
 ```{r, results='hide'}
 library(stringr)
 
@@ -81,6 +89,7 @@ summary(dat_malignant[,mean_vars])
 
 ```
 
+__Solution 3__
 ```{r, results='hide', warnings=FALSE, message=FALSE}
 library(dplyr)
 mean_cols <- select(dat_malignant, starts_with('mean'))
