@@ -6,6 +6,11 @@ output: html_document
 ---
 This course is part of the [FAES Graduate School](https://faes.org/content/graduate-school) and is being offered Fall 2017. Two sessions are being offered this term, Tuesdays 5-7 and 7-9 pm.
 
+Contact info: 
+
+- Abhijit Dasgupta: <a href = "mailto:adasgupta@araastat.com">adasgupta@araastat.com</a>
+- Eugen Buehler: <a href = "mailto:eugen.buehler@nih.gov">eugen.buehler@nih.gov</a>
+
 ----
 
 <a href="http://www.r-project.org" target="_blank">R</a> is one of the most popular programming languages for 
