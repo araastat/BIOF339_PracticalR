@@ -25,7 +25,7 @@ In-built datasets in R: `data()`
 
 ### Lecture 2
 
-[Presentation](Lectures/lecture2.html)   
+<a href = "Lectures/lecture2.html" target="_blank">Presentation</a>
 
 [Practicum](Lectures/lecture2_practicum.html)
 
@@ -34,7 +34,7 @@ Datasets: [Breast Cancer data](http://www.araastat.com/BIOF339_PracticalR/Lectur
 
 ### Lecture 3
 
-[Presentation](Lectures/lecture3.html)
+<a href = "Lectures/lecture3.html" target="_blank">Presentation</a>
 
 Datasets: 
 
