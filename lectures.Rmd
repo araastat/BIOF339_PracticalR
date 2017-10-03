@@ -47,3 +47,8 @@ Datasets:
 Resources:
 
 1. [Do's and Don'ts for Effective Graphs](http://stat545.com/block015_graph-dos-donts.html) from Jenny Bryan's UBC Stat545 course
+
+### Lecture 4
+
+<a href = "Lectures/lecture4.html" target ="_blank">Presentation</a>
+<a href = "Lectures/lecture4_files/Assignment3.html">Practicum</a>
