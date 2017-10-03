@@ -50,5 +50,5 @@ Resources:
 
 ### Lecture 4
 
-<a href = "Lectures/lecture4.html" target ="_blank">Presentation</a>
+<a href = "Lectures/Lecture4.html" target ="_blank">Presentation</a>  
 <a href = "Lectures/lecture4_files/Assignment3.html">Practicum</a>
