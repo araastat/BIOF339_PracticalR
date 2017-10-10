@@ -56,4 +56,5 @@ Resources:
 
 ### Lecture 5
 <a href="Lectures/Lecture5.html" target="_blank">Presentation</a> ([pdf](Lectures/Lecture5.pdf)) <br/>
-<a href="Lectures/lecture5_files/Practicum5.html" target="_blank">Practicum 5</a>
+<a href="Lectures/lecture5_files/Practicum5.html" target="_blank">Practicum 5</a> 
+<a href="Lectures/lecture5_files/Practicum5_Solution.html" target="_blank">(Solution)</a>
