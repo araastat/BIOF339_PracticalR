@@ -1,45 +1,29 @@
-<html>
+---
+title: Assignment 3 Solution
+author: BIOF 339
+date: October 10, 2017
+---
 
-<head>
-<style type="text/css">
-h1,h2{
-  font-family:verdana;
-}
-p, ol {
-  font-family: verdana;
-  font-size: 14px;
-}
-code {
-  font-family: courier;
-}
-div.output{
-  font-style: italic;
-}
-</style>
-<title>Assignment 3 </title>
-</head>
-<!--begin.rcode, echo=FALSE
-knitr::opts_chunk$set(eval=F, echo=F)
-end.rcode-->
+```{r, echo=F}
+knitr::opts_chunk$set(eval=T, echo=T)
+```
 
 <body>
-<H1>Assignment 3</H1>
-<H4>BIOF339</H4>
 <p>Using the pbc data set from the last assignment, answer the following questions:</p>
-<!--begin.rcode
+```{r}
 library(survival)
 data(pbc)
-end.rcode-->
+```
 
 <OL>
 <LI>What is the probability of the null hypothesis that the age of the study participants in normally distributed?
-<!--begin.rcode
+```{r}
 swtest <- shapiro.test(pbc$age)
 swtest$p.value
-end.rcode-->
+```
 
 <LI>Is the proportion of women in the study what would be expected if particpants were selcted randomly from the us population (females = 50.8% of population).  What is the p-value associated with that null hypothesis?
-<!--begin.rcode
+```{r}
 p0 = 0.508
 ptest <- prop.test(x = sum(pbc$sex=='f'),
                                n = nrow(pbc),
@@ -48,85 +32,83 @@ ptest.alternative <- prop.test(x = rev(table(pbc$sex)), p=p0)
 # Note, we have to reverse the order, since the table tabulates males first, but we need females first
 ptest$p.value
 ptest.alternative$p.value
-end.rcode-->
+```
 
 <LI>Is there a statistically significant difference between the cholesterol levels of men versus women?
-<!--begin.rcode
+```{r}
 ttest <- t.test(pbc$chol[pbc$sex=='m'], pbc$chol[pbc$sex=='f'])
 ttest1 <- t.test(chol ~ sex, data=pbc)
 ttest$p.value
 ttest1$p.value
-end.rcode-->
-<!--begin.rcode
+```
+```{r}
 wtest <- wilcox.test(pbc$chol[pbc$sex=='m'], pbc$chol[pbc$sex=='f'])
 wtest1 <- wilcox.test(chol ~ sex, data=pbc)
 wtest$p.value
 wtest1$p.value
-end.rcode-->
+```
 
 <LI>Is there a statistically significant relationship between sex and disease stage?  You will need to use the "table" command to put these columns (pbc[,c("sex","stage")]) into a contingency table first.
-<!--begin.rcode
+```{r}
 tab1 <- table(pbc[,c('sex','stage')])
 chitst <- chisq.test(tab1)
 fishertst <- fisher.test(tab1)
 chitst$p.value
 fishertst$p.value
-end.rcode-->
+```
 
 <LI>Is there a statistically significant correlation between serum albumin and serum cholesterol?
-<!--begin.rcode
+```{r}
 cortst <- cor.test(pbc$albumin, pbc$chol)
 cortst1 <- cor.test(~ albumin + chol, data=pbc)
 cortst$p.value
 cortst1$p.value
-end.rcode-->
+```
 
 <LI>Is there a statistically significant correlation between age and cholesterol?
-<!--begin.rcode
+```{r}
 cortst <- cor.test(~age +chol, data=pbc)
 cortst1 <- cor.test(pbc$age, pbc$chol)
 cortst$p.value
 cortst1$p.value
-end.rcode-->
+```
 
 <LI>Did you use parametric or non-parametric statistical tests to answer the previous questions?  If challenged by a reviewer, how would you justify your choice?
-<!---
 <blockquote>
 Typically one chooses parametric tests unless there is an obvious deviation from the assumptions based on descriptive statistics and figures. Generally one should not test for normality (i.e. whether a distribution follows a normal distribution), since it will affect your overall Type I error rate which will no longer be 0.05 (if that's what you planned). Moreover, the tests of normality (Shapiro-Wilks or Kolmogorov-Smirnov) have poor statistical power to detect deviations from normality in small to medium sample sizes. <p/>
 Most parametric tests, including the t-test and chi-square test, are fairly robust to deviations from normality. However if you think the normality assumptions are not met, go ahead and perform the non-parametric versions of your tests, with the knowledge that except for substantial deviations from normality, the statistical power of these tests are lower than the statistical power of the corresponding parametric tests. The Wilcox and Fisher tests are commonly used in small sample situations.
-</blockquote> -->
+</blockquote>
 <LI>When deciding whether your results were statistically significant, what did you use as your threshold p-value?  Why?
-<!--
 <blockquote>
 A threshold of 0.05 is typically chosen for statistical significance. However, in many cases a different threshold is used. For example, in
 GWAS studies, a typical threshold of 5 x 10<sup>-8</sup> is used to
 correct for Type I error.
 
 Generally a p-value should be reported without commenting on statistical significance. The p-value that would meet statistical significance can be decided by the reader based on their understanding of the problem. The traditional thresholds of 0.05, 0.01 and 0.001 are artificial and reflect merely the inability of the founders of statistics to compute critical values of standard distributions for all possible Type I error levels. Current computers make this moot.
-</blockquote> -->
+</blockquote>
 </OL>
 
 <h2> Some further notes</h2>
 <ol>
 <li> The general rubric for hypothesis tests in R is that the p-value can te extracted as <code>testobj$p.value</code>, where the test that is run is stored in <code>testobj</code>. For example,
-<!--begin.rcode, results='hide', eval=T, echo=T
+```{r, results='hide', eval=T, echo=T}
 library(survival)
 data(pbc)
 ttst <- t.test(age ~ sex, data=pbc)
 ttst$p.value
-end.rcode-->
+```
 <p/>
 There is a package called <code>broom</code> which makes extracting information from hypothesis tests (and models) a lot easier. This package has a function <code>tidy</code> that converts the results of a test into a <code>data.frame</code>. For example,
-<!--begin.rcode, eval=T, echo=T
+```{r, eval=T, echo=T}
 if(!('broom' %in% installed.packages()[,'Package'])){
   install.packages('broom')
 }
 library(broom)
 tidy(ttst)
-end.rcode-->
+```
 
 <li> Specially for two-sample tests with small sample sizes, the correct test to do is often the <a href="http://thomasleeper.com/Rcourse/Tutorials/permutationtests.html" target="_blank">permutation test</a>. This test assumes that under the null hypothesis there is no difference in means between the two groups. In that case, under the null hypothesis, we should be able to shuffle the group assignments and see no real difference in the means. To implement this to test, for example, whether in the pbc data, age is different between males and females, we can do the following:
-<!--begin.rcode, eval=T, echo=T, fig.width=6
+```{r, eval=T, echo=T, fig.width=6}
 obs_difference <-  mean(pbc$age[pbc$sex=='m']) - mean(pbc$age[pbc$sex=='f'])
 n <- nrow(pbc)
 n_males <- sum(pbc$sex=='m')
@@ -142,16 +124,16 @@ hist(perm_means, main = 'Permutation null distribution')
 p_value = mean(abs(perm_means) > abs(obs_difference)) # Two-sided alternative
 print(p_value)
 
-end.rcode-->
+```
 The permutation test can also be done by the <code>coin</code> package:
-<!--begin.rcode, eval=T, echo=T
+```{r, eval=T, echo=T}
 if(!('coin' %in% installed.packages()[,'Package'])){
   install.packages('coin')
 }
 library(coin)
 # Permutation test based on 1000 samples
 wilcox_test(age ~ sex, data=pbc, distribution=approximate(B=1000))
-end.rcode-->
+```
 
 </ol>
 </body>
