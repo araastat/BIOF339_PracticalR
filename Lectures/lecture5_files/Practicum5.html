@@ -9,18 +9,20 @@
 <meta name="generator" content="pandoc" />
 
 
+<meta name="author" content="Eugen Buehler" />
 
+<meta name="date" content="2017-10-10" />
 
-<title>Lectures</title>
+<title>Practicum 5</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-1.1/highlight.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -66,7 +68,6 @@ h6 {
 }
 </style>
 
-<link rel="stylesheet" href="styles.css" type="text/css" />
 
 </head>
 
@@ -203,57 +204,27 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Lectures</h1>
-<h4 class="date"><em>Fall 2017</em></h4>
+<h1 class="title toc-ignore">Practicum 5</h1>
+<h4 class="author"><em>Eugen Buehler</em></h4>
+<h4 class="date"><em>October 10, 2017</em></h4>
 
 </div>
 
 
-<p>Last updated: October 10, 2017</p>
-<div id="last-years-presentations-can-be-found-here" class="section level2">
-<h2>Last years’ presentations can be found <a href="Lectures2016.zip">here</a></h2>
-<div id="lecture-1" class="section level3">
-<h3>Lecture 1</h3>
-<p><a href="Lectures/lecture1.pdf">Presentation</a></p>
-<p><a href="Lectures/lecture1_files/Lecture1Exercises.html" target="_blank">Practice Exercises for Lecture 1</a></p>
-<p>Supplemental Material</p>
-<ul>
-<li>Installing R: <a href="http://cran.r-project.org" target="_blank">http://cran.r-project.org</a></li>
-<li>Installing RStudio: <a href="https://www.rstudio.com/products/rstudio/download3/" target="_blank" >http://www.rstudio.com/products/rstudio</a></li>
-<li>Searching for information about R: <a href="http://www.rseek.org" target="_blank">rseek.org</a></li>
-</ul>
-<p>In-built datasets in R: <code>data()</code></p>
-</div>
-<div id="lecture-2" class="section level3">
-<h3>Lecture 2</h3>
-<p><a href = "Lectures/lecture2.html" target="_blank">Presentation</a></p>
-<p><a href="Lectures/lecture2_files/Lecture2_Practicum.html">Practicum</a> (<a href="Lectures/lecture2_files/Lecture2_Practicum_Solution.html">Solution</a>)</p>
-<p>Datasets: <a href="http://www.araastat.com/BIOF339_PracticalR/Lectures/lecture2_files/BreastCancer.xlsx">Breast Cancer data</a></p>
-</div>
-<div id="lecture-3" class="section level3">
-<h3>Lecture 3</h3>
-<a href = "Lectures/lecture3.html" target="_blank">Presentation</a> <a href = "lectures/lecture3_files/Lecture 3_Data Visualization.pdf" target="_blank"> (PDF)</a>
-<p/>
-<p><a href = "Lectures/lecture3_files/Lecture3_Practicum.html" target="_blank">Practicum</a> (<a href = "Lectures/lecture3_files/Lecture3_Practicum_Solutions.html" target="_blank">Solutions</a>)</p>
-<p>Datasets:</p>
 <ol style="list-style-type: decimal">
-<li><a href="Lectures/lecture2_data/clinical_data_breast_cancer_modified.csv">Breast Cancer data</a></li>
-<li><a href="Lectures/lecture2_data/Dataset_spine.csv">Spine data</a></li>
+<li>Install the plsgenomics package. We will use a set of gene expression data from normal and tumor tissue in this package to practice using multiple comparison procedures. To load the data and perform a wilcox test on each gene (is the median tumor gene expression significantly different than the median normal gene expresison?), execute the following commands:</li>
 </ol>
-<p>Resources:</p>
-<ol style="list-style-type: decimal">
-<li><a href="http://stat545.com/block015_graph-dos-donts.html">Do’s and Don’ts for Effective Graphs</a> from Jenny Bryan’s UBC Stat545 course</li>
+<pre class="r"><code>library(plsgenomics)
+data(Colon)
+colon.pvals &lt;- sapply(1:length(Colon$X[1,]), 
+                      function(x) wilcox.test(Colon$X[,x] ~ Colon$Y)$p.value)</code></pre>
+<p>Don’t worry if the use of “sapply” seems complicated. We will cover this powerful command in another lecture. Now we have 2000 p-values from 2000 wilcox tests on 2000 different genes. How many appear signficant at an alpha of 0.01?</p>
+<pre class="r"><code>sum(colon.pvals &lt; 0.01)</code></pre>
+<p>After applying a bonferonni correction, how many are still significant at the same alpha? If we wish instead to use a false discovery rate of 1 in 100 (0.01), how many genes would pass this test?</p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Create a linear model from the “swiss” data set (in the datasets package), predicting Fertility based on Agriculture. Now build a model predicting Fertility based on Education, and finally a model using both variables. Use anova to ask if the combination of Agriculture and Education is statistically significantly better than Education alone. Finally, use the step function to quickly find an optimal model for predicting Fertility, selecting features from all the predictive variables. The easiest way to do this will be to set “object” equal to a model containing all the other variables (lm(Fertility ~ .,data=swiss)) with no other function options specified.</p></li>
+<li><p>Using the “read.csv” function, read in a data frame of data about graduate students acceptance (<a href="https://stats.idre.ucla.edu/stat/data/binary.csv" class="uri">https://stats.idre.ucla.edu/stat/data/binary.csv</a>). Build a logistic regression model that predicts acceptance based on the predictive variable GRE and GPA. Do these two predictive variable seem to have equal importance in the prediction? How do you know? (Adapted from the web tutorial at <a href="https://stats.idre.ucla.edu/r/dae/logit-regression/" class="uri">https://stats.idre.ucla.edu/r/dae/logit-regression/</a>)</p></li>
 </ol>
-</div>
-<div id="lecture-4" class="section level3">
-<h3>Lecture 4</h3>
-<p><a href = "Lectures/Lecture4.html" target ="_blank">Presentation</a> <br/> <a href = "Lectures/lecture4_files/Assignment3.html">Practicum</a> <a href = "Lectures/lecture4_files/Assignment3Solution.html"> (Solution)</a></p>
-</div>
-<div id="lecture-5" class="section level3">
-<h3>Lecture 5</h3>
-<p><a href="Lectures/Lecture5.html" target="_blank">Presentation</a> (<a href="Lectures/Lecture5.pdf">pdf</a>) <br/> <a href="Lectures/lecture5_files/Practicum5.html" target="_blank">Practicum 5</a></p>
-</div>
-</div>
 
 
 

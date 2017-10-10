@@ -55,4 +55,5 @@ Resources:
 <a href = "Lectures/lecture4_files/Assignment3Solution.html"> (Solution)</a>
 
 ### Lecture 5
-<a href="Lectures/Lecture5.html" target="_blank">Presentation</a> ([pdf](Lectures/Lecture5.pdf))
+<a href="Lectures/Lecture5.html" target="_blank">Presentation</a> ([pdf](Lectures/Lecture5.pdf)) <br/>
+<a href="Lectures/lecture5_files/Practicum5.html" target="_blank">Practicum 5</a>
