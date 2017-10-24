@@ -6,30 +6,77 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = F, eval=F)
 ```
 
 ## Exercises
 
 1. Use the "Import Dataset" button within RStudio to download an Excel file from the following URL:</br> http://mbio.asm.org/lookup/suppl/doi:10.1128/mBio.01122-15/-/DCSupplemental/mbo004152416st1.xlsx
 
+
 2. You will have to hit the "Update" button to see a preview of the data before downloading.  Adjust the value of the "skip" option so that the column names will be correct.  If you like, change the name of the variable that the data will be stored in.
+```{r}
+library(readxl)
+url <- "http://mbio.asm.org/lookup/suppl/doi:10.1128/mBio.01122-15/-/DCSupplemental/mbo004152416st1.xlsx"
+destfile <- "mbo004152416st1.xlsx"
+curl::curl_download(url, destfile)
+dat1 <- read_excel(destfile, skip = 1)
+
+```
 
 3. This data set has two other pieces.  Download them using the procedure above (or from the command line, if you like) from these two URLS:</br>
 http://mbio.asm.org/lookup/suppl/doi:10.1128/mBio.01122-15/-/DCSupplemental/mbo004152416st2.xlsx
 http://mbio.asm.org/lookup/suppl/doi:10.1128/mBio.01122-15/-/DCSupplemental/mbo004152416st3.xlsx
+```{r}
+library(readxl)
+url <- "http://mbio.asm.org/lookup/suppl/doi:10.1128/mBio.01122-15/-/DCSupplemental/mbo004152416st2.xlsx"
+destfile <- "mbo004152416st2.xlsx"
+curl::curl_download(url, destfile)
+dat2 <- read_excel(destfile, skip = 1)
+
+
+url <- "http://mbio.asm.org/lookup/suppl/doi:10.1128/mBio.01122-15/-/DCSupplemental/mbo004152416st3.xlsx"
+destfile <- "dat3.xlsx"
+curl::curl_download(url, destfile)
+dat3 <- read_excel(destfile, skip = 1)
+
+```
 
 4. Combine the three tables into a single data table.
+```{r}
+names(dat1)[1] <- names(dat2)[1]
+full_dat <- rbind(dat1,dat2,dat3)
+```
 
 5. Using the "reshape2" package, melt the new single data set so that measured experimental attributes are in a single column.
+```{r}
+library(reshape2)
+melted_data <- melt(full_dat, id.vars = 1:5)
+```
 
 6. Use ggplot to plot density curves for the two assay readouts (percent positive virus and cell count) simultaneuously.
+```{r}
+library(ggplot2)
+ggplot(melted_data, aes(value))+geom_histogram()+facet_wrap(~variable, nrow=2, scales='free_x')
+```
 
 7. Use aggregate or dcast to find the median value of both readouts for each gene (Gene Symbol) and put this aggregation into a new table.  Save that table as a csv file and try opening it in Excel.  Did you get the results you expected?  Try modifying the arguments to write.csv so you get what you would want if you were giving this to a collaborator.
+```{r}
+output <- dcast(melted_data, `Gene Symbol`~variable, median)
+write.csv(output, file='test.csv', row.names = F)
+```
+
 
 8. Make a vector of the top 10 gene symbols associated with the highest median "Percent Positive Virus".
+```{r}
+top_10_genes = arrange(output, desc(`Percent Positive Virus`))[1:10,'Gene Symbol']
+```
 
 9. Make a table that is a subset of the single data table from step 4, keeping only rows in which a gene was in the top 10 (hint: use the %in% operator).
+```{r}
+new_table = filter(full_dat, `Gene Symbol` %in% top_10_genes)
+```
+
 
 10.  Using this new table, generate a scatterplot of the assay results for these 10 genes (using a log axis as appropriate).
 
