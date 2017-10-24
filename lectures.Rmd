@@ -62,3 +62,6 @@ Resources:
 ### Lecture 6
 <a href = "Lectures/lecture6.html" target="_blank">Presentation</a> ([pdf](Lectures/lecture6_files/Lecture 6 Split-Apply-Combine.pdf)) <br/>
 <a href = "Lectures/lecture6_files/Assignment6.html" target="_blank">Practicum</a>
+
+### Lecture 7
+<a href  = "Lectures/Lecture7.html" target = "_blank">Presentation</a>([pdf](Lectures/lecture7_files/Lecture7.pdf))<br/>
