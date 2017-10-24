@@ -1,21 +1,13 @@
 ---
-title: "Lecture 1 Activities"
-author: "Eugen Buehler"
-date: "September 12, 2017"
-output: html_document
+title: "Intro to R: Part 1 Activities"
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-## Setup of your computer
-
-If you have not already, you will want to install R and RStudio on a computer, preferably one that you can bring to class.  It is possible that you will need to to submit a request to your local IT support in order to install this software, if you don't have permission to install things yourself.  Install R first (which RStudio depends on), and then RStudio.
-
-http://lib.stat.cmu.edu/R/CRAN/
-
-https://www.rstudio.com/products/rstudio/download/
 
 ## Class Exercises
 
@@ -27,7 +19,7 @@ https://www.rstudio.com/products/rstudio/download/
 
 4.  Using the colon operator and the sum function, find out what the sum of the integers from 1 to 1000 is.  
 
-5.  Create a variable called myFavoritePies and put the names of your favorite pies in it (if you have no favorite pies, reconsider your life priorities).
+5.  Create a factor vector called myFavoritePies and put the names of your favorite pies in it (if you have no favorite pies, reconsider your life priorities).
 
 6.  Change myPies so that it contains your favorite pies AND tells R about some of the other kinds of pies that exist but are not your favorite.
 

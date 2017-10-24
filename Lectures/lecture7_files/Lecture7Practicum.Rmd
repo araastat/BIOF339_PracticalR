@@ -1,0 +1,40 @@
+---
+title: "Lecture 7 Practicum"
+author: "Eugen Buehler"
+date: "October 24, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Exercises
+
+1. Use the "Import Dataset" button within RStudio to download an Excel file from the following URL:</br> http://mbio.asm.org/lookup/suppl/doi:10.1128/mBio.01122-15/-/DCSupplemental/mbo004152416st1.xlsx
+
+2. You will have to hit the "Update" button to see a preview of the data before downloading.  Adjust the value of the "skip" option so that the column names will be correct.  If you like, change the name of the variable that the data will be stored in.
+
+3. This data set has two other pieces.  Download them using the procedure above (or from the command line, if you like) from these two URLS:</br>
+http://mbio.asm.org/lookup/suppl/doi:10.1128/mBio.01122-15/-/DCSupplemental/mbo004152416st2.xlsx
+http://mbio.asm.org/lookup/suppl/doi:10.1128/mBio.01122-15/-/DCSupplemental/mbo004152416st3.xlsx
+
+4. Combine the three tables into a single data table.
+
+5. Using the "reshape2" package, melt the new single data set so that measured experimental attributes are in a single column.
+
+6. Use ggplot to plot density curves for the two assay readouts (percent positive virus and cell count) simultaneuously.
+
+7. Use aggregate or dcast to find the median value of both readouts for each gene (Gene Symbol) and put this aggregation into a new table.  Save that table as a csv file and try opening it in Excel.  Did you get the results you expected?  Try modifying the arguments to write.csv so you get what you would want if you were giving this to a collaborator.
+
+8. Make a vector of the top 10 gene symbols associated with the highest median "Percent Positive Virus".
+
+9. Make a table that is a subset of the single data table from step 4, keeping only rows in which a gene was in the top 10 (hint: use the %in% operator).
+
+10.  Using this new table, generate a scatterplot of the assay results for these 10 genes (using a log axis as appropriate).
+
+11. Label the points on the graph from step 10 with the Gene Symbol associated with each data point (using aes(label = ) and geom_text)
+
+12. Extra Credit: Download and install the package "ggrepel".  Read its documentation and use it to make it so your labels in step 11 aren't so ovelapping and messy.
+
+13. Extra Credit: Use the pdf command to open graphical output to a pdf file.  Generate the two versions of the graph (from 11 and 12) again (from your command history), so that their output goes to the pdf file.  Close the pdf file using (dev.off()).  Now open the pdf file on your computer to see that the two graphs are on seperate pages.
