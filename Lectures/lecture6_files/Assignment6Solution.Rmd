@@ -8,11 +8,6 @@ output: html_document
 ```{r setup}
 knitr::opts_chunk$set(echo = T, eval=T)
 
-library(WHO)
-infant <- get_data('MDG_0000000001')
-child <- get_data('MDG_0000000007')
-adult <- get_data('WHOSIS_000004')
-
 ```
 
 The World Health Organization provides detailed data on various population health indicators in an Open Data environment. The R package `WHO` allows you to access that data directly from R. Install this package using `install.packages('WHO')`.
@@ -22,7 +17,8 @@ The World Health Organization provides detailed data on various population healt
 We will be using this package to download data on infant and under-5 mortality and exploring the merging of data sets and the split-apply-combine paradigm
 
 You can download these data sets using the following code:
-```{r data, echo=T, eval=F}
+<<<<<<< HEAD
+```{r data, echo=T, eval=T}
 library(WHO)
 infant <- get_data('EQ_INFANTMORT')
 child <- get_data('EQ_U5MORT')
@@ -52,6 +48,16 @@ mortality <- merge(infant, child, by=c('region','country','year'))
 5. Rename the columns to make sense
 ```{r}
 names(mortality)[4:5] <- c('infant','child')
+infant <- infant[,-c(6, 1, 8,9)]
+child <- child[,-c(3, 6, 8,9)]
+```
+4. Merge these two data sets into one, matching on appropriate columns
+```{r}
+mortality <- merge(infant, child, by=c('region','country','year', 'datasource'))
+```
+5. Rename the columns to make sense
+```{r}
+names(mortality)[5:6] <- c('infant','child')
 ```
 
 ## Split-apply-combine
@@ -75,22 +81,69 @@ combine_data2 <- ddply(mortality_2000, ~region, function(d) d$country[which.max(
 ```{r}
 mortality1 <- subset(mortality, year >=1990 & year <= 1995)
 mortality2 <- subset(mortality, year >= 2000 & year <= 2005)
+split1 <- split(mortality1, mortality1$country)
+apply1 <- lapply(split1, function(d) summarize(d, avg_infant90 = mean(infant), avg_child90 = mean(child))) 
+#combined1 <- do.call(rbind, apply1) # This makes the countries row names, which isn't the best solution
+combined1 <- dplyr::bind_rows(apply1, .id = 'Country')
 
-infant1 <- ddply(mortality1, ~country,  function(d) mean(d$infant, na.rm=T))
-child1 <- ddply(mortality2, ~country, function(d) mean(d$child, na.rm=T))
+split2 <- split(mortality2, mortality2$country)
+apply2 <- lapply(split2, function(d) summarize(d, avg_infant00 = mean(infant), avg_child00 = mean(child))) 
+#combined2 <- do.call(rbind, apply2) # This makes the countries row names, which isn't the best solution
+combined2 <- dplyr::bind_rows(apply2, .id = 'Country')
 
-merged1 <- merge(infant1, child1, by='country', all=T)
+
+merged1 <- merge(combined1, combined2, by='Country', all = T)
+
 ```
+### An alternative using the dplyr/tidyverse functions
+```{r, echo=T, eval=F}
+library(tidyverse)
+combined1 <- mortality %>% 
+  filter(year >= 1990, year <=1995) %>% 
+  group_by(country) %>% 
+  summarise(avg_infant90 = mean(infant), avg_child90 = mean(child)) %>% 
+  ungroup()
+
+combined2 <- mortality %>% 
+  filter(year >=2000, year <= 2005) %>% 
+  group_by(country) %>% 
+  summarise(avg_infant00 = mean(infant), avg_child00 = mean(child)) %>% 
+  ungroup()
+
+merged1 <- full_join(combined1, combined2) %>% arrange(country)
+merged1 <- merge(combined1, combined2, by='country', all = T)
+```
+
 
 3. Compute the average infant and child mortality rates for each region for each year in the dataset (Ignore the different populations of the countries for this exercise)
 ```{r}
-mortality_yr_region <- ddply(mortality, ~year+region, function(d) c(infant = mean(d$infant, na.rm=T), child=mean(d$child, na.rm=T)))
+split_data <- split(mortality, list(mortality$region, mortality$year))
+apply_data <- lapply(split_data, function(d) summarise(d, avg_infant = mean(infant, na.rm=T), 
+                                                       avg_child = mean(child, na.rm=T)))
+combined_data <- dplyr::bind_rows(apply_data, .id = 'Region/Year')
+# This solution also includes region/year combinations that don't have any data. You'd have to filter this. 
+# We'll use one of the solutions below.
 ```
+### plyr solution
+```{r, eval=T}
+combined_data <- ddply(mortality, ~year+region, function(d) c(infant = mean(d$infant, na.rm=T), 
+                                                              child=mean(d$child, na.rm=T)))
+```
+### dplyr/tidyverse solution
+```{r, eval=F}
+combined_data <- mortality %>% 
+  group_by(year, region) %>% 
+  summarise(avg_infant = mean(infant, na.rm=T),
+            avg_child = mean(child, na.rm=T))
+
+
+```
+
 
 4. Create a panel of plots, one for each __indicator__, where each plot shows the average value of the indicator for each region over time
 ```{r}
 library(reshape2)
-mortality_yr_region_reshaped = melt(mortality_yr_region, id.vars = 1:2)
+mortality_yr_region_reshaped = melt(combined_data, id.vars = 1:2)
 library(ggplot2)
 ggplot(mortality_yr_region_reshaped, aes(x=year, y=value, group=region, color=region))+geom_point()+geom_line()+facet_wrap(~variable, nrow=2,scales='free_y')
 ```
