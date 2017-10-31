@@ -13,7 +13,7 @@ Last years' presentations can be found [here](Lectures2016.zip)
 
 [Presentation](Lectures/lecture1.pdf)
 
-<a href="Lectures/lecture1_files/Lecture1Exercises.html" target="_blank">Practice Exercises for Lecture 1</a>
+<a href="Lectures/lecture1_files/Lecture1Exercises.html" target="_blank">Practice Exercises for Lecture 1</a> (<a href="Lectures/lecture1_files/Lecture1ExercisesSolution.html" target="_blank">Solution</a>)
 
 Supplemental Material
 
