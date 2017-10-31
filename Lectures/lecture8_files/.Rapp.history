@@ -1,0 +1,3 @@
+load("/Users/abhijit/ARAASTAT/FAES/BIOF339_PracticalR/Lectures/lecture8_files/final_data.rda")
+ls()
+head(final_data)

@@ -12,4 +12,11 @@ Encoding: UTF-8
 RnwWeave: knitr
 LaTeX: pdfLaTeX
 
+<<<<<<< HEAD
 BuildType: Makefile
+=======
+BuildType: Website
+
+QuitChildProcessesOnExit: Yes
+>>>>>>> d9e8d68730a466a72f03bb2e0fd5d779ae9fa95a
+>>>>>>> 81a9299d6269163b4aa0999d05cd6e0f7ff7bf07

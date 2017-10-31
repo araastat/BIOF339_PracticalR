@@ -1,6 +1,6 @@
 ---
 title: "Lecture 8"
-subtitle: "Organizing data projects using R"
+subtitle: "Organizing data projects using R and RStudio"
 author: "BIOF 339"
 date: "November 7, 2016"
 output: ioslides_presentation
@@ -15,9 +15,19 @@ knitr::opts_chunk$set(echo = TRUE,
 
 ## The data science pipeline
 
-```{r, fig.align='center', fig.height=6, echo=F}
+```{r, fig.align='center', out.height=500, echo=F}
 knitr::include_graphics('lecture8_files/0246OS_00_02.png')
 ```
+
+## RStudio Projects
+
++ RStudio allows you to create [Projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects)
++ These encapsulate individual projects
+
+```{r, fig.align='center', out.height=300, echo=F}
+knitr::include_graphics('lecture8_files/newProj.png')
+```
+
 
 ## Use a template to organize your projects
 

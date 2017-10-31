@@ -123,15 +123,42 @@ $(document).ready(function () {
 <div id="class-exercises" class="section level2">
 <h2>Class Exercises</h2>
 <ol style="list-style-type: decimal">
-<li><p>Use the help function to learn about the “colon operator”. Type help(“:”). If you’re using RStudio, you could also type : in the Help pane search box.</p></li>
-<li><p>Using what you learned from the help page for the colon operator, create a variable called first10 with the numbers 1 through 10 in it.</p></li>
-<li><p>Now try multiplying firstTen by 10 (first10 * 10). What was the result?</p></li>
-<li><p>Using the colon operator and the sum function, find out what the sum of the integers from 1 to 1000 is.</p></li>
-<li><p>Create a factor vector called myFavoritePies and put the names of your favorite pies in it (if you have no favorite pies, reconsider your life priorities).</p></li>
-<li><p>Change myPies so that it contains your favorite pies AND tells R about some of the other kinds of pies that exist but are not your favorite.</p></li>
-<li><p>Use the ls function to see the variables you have created. You can also view the variables you have created in the “environment” tab in the upper right hand panel of RStudio.</p></li>
-<li><p>Use the history function to view the commands you have typed (or just click on the “History” tab in the upper right panel of RStudio). Double click on the line you used to calculate the answer to question 4. Now modify the command to find the sum of the EVEN numbers from 1 to 1000.</p></li>
+<li>Use the help function to learn about the “colon operator”. Type help(“:”). If you’re using RStudio, you could also type : in the Help pane search box.</li>
 </ol>
+<pre class="r"><code>help(&quot;:&quot;)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Using what you learned from the help page for the colon operator, create a variable called first10 with the numbers 1 through 10 in it.</li>
+</ol>
+<pre class="r"><code>first10 &lt;- 1:10</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Now try multiplying firstTen by 10 (first10 * 10). What was the result?</li>
+</ol>
+<pre class="r"><code>first10*10</code></pre>
+<pre><code>##  [1]  10  20  30  40  50  60  70  80  90 100</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Using the colon operator and the sum function, find out what the sum of the integers from 1 to 1000 is.</li>
+</ol>
+<pre class="r"><code>sum(1:1000)</code></pre>
+<pre><code>## [1] 500500</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Create a factor vector called myFavoritePies and put the names of your favorite pies in it (if you have no favorite pies, reconsider your life priorities).</li>
+</ol>
+<pre class="r"><code>myFavoritePies &lt;- factor(c('Pumpkin','Pecan'))</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Change myPies so that it contains your favorite pies AND tells R about some of the other kinds of pies that exist but are not your favorite.</li>
+</ol>
+<pre class="r"><code>myPies &lt;- factor(c('Pumpkin','Pecan','Chocolate','Banana Cream','Mincemeat'))</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>Use the ls function to see the variables you have created. You can also view the variables you have created in the “environment” tab in the upper right hand panel of RStudio.</li>
+</ol>
+<pre class="r"><code>ls()</code></pre>
+<pre><code>## [1] &quot;first10&quot;        &quot;myFavoritePies&quot; &quot;myPies&quot;</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li>Use the history function to view the commands you have typed (or just click on the “History” tab in the upper right panel of RStudio). Double click on the line you used to calculate the answer to question 4. Now modify the command to find the sum of the EVEN numbers from 1 to 1000.</li>
+</ol>
+<pre class="r"><code>#history() # commented out to save space here. Just remove the first # to run
+sum(seq(2, 1000, by=2))</code></pre>
+<pre><code>## [1] 250500</code></pre>
 </div>
 
 
