@@ -1,0 +1,69 @@
+---
+title: "Practicum 8"
+author: "Abhijit Dasgupta"
+date: "October 31, 2017"
+output: html_document
+---
+
+```{r setup, echo=F}
+knitr::opts_chunk$set(echo = F, eval=F)
+
+```
+
+# Creating functions
+
+## Standardizing continuous variables
+
+1. Standardizing continuous variables to have mean 0 and variance 1 is a common practice
+to help stabilize regression models. This involves subtracting the average value from each 
+element of the variable, and then dividing the difference by the standard deviation. Write a 
+function that takes a vector of numbers and standardizes it. Call it `standardize_mean`.
+```{r}
+standardize_mean <- function(x) {
+  return((x - mean(x))/sd(x))
+}
+
+```
+
+2. A more robust standardization that is often used to find outliers is the median standardization, where the
+mean and standard deviation from 1 above are replaced by the median and median absolute deviation (`mad`), respectively. Create a `standardize_median` function.
+```{r}
+standardize_median <- function(x){
+  return((x - median(x))/mad(x))
+}
+```
+
+
+3. Update both functions to account for missing values
+```{r}
+standardize_mean <- function(x){
+  return((x - mean(x, na.rm=T))/sd(x, na.rm=T))
+}
+```
+
+
+4. Create a unified `standardize` function that takes an input `method` that will be either "mean" or "median", 
+and output the corresponding standardized variable
+```{r}
+standardize <- function(x, method = 'mean'){
+  if(method=='mean'){
+    standardize_mean(x)
+  }
+  if(method == 'median'){
+    standardize_median(x)
+  }
+}
+```
+
+## Metrics for binary outcomes
+
+A lot of metrics for binary outcomes are derived from a contingency table, which is 
+a 2 x 2 table of frequency counts comparing the true outcome with the predicted outcome. This can be
+obtained using `table(truth, predicted)`, where `truth` and `predicted`  are provided by the user, and are
+vectors of equal length comprising 1's and 0's. Using this table as input in each of the following functions:
+
+1. Write a function for the  accuracy score, i.e. the proportion of cases in which the truth and predicted values are the same. This should be a fraction betwen 0 and 1.
+2. Write a function (or functions) for computing sensitivity (true postive rate) and specificity (true negative rate)
+3. Write a function for computing the positive predictive value, that is, the proprotion of predicted 1's that are actually true 1's, or in other words, P(true +ve | predicted +ve).
+4. 
+
