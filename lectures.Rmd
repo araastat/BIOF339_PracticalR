@@ -70,4 +70,5 @@ Resources:
 (<a href = "Lectures/lecture7_files/Lecture7PracticumSolution.html" target = "_blank">Solution</a>)
 
 ### Lecture 8
-<a href = "Lectures/Lecture9.html" target="_blank">Presentation</a>([pdf](Lectures/Lecture9.pdf))
+<a href = "Lectures/Lecture9.html" target="_blank">Presentation</a>([pdf](Lectures/Lecture9.pdf))<br/>
+<a href = "Lectures/lecture9_files/nature.parkin.gw.ambion.csv" target="_blank">CSV File of siRNA Screening Data</a>
