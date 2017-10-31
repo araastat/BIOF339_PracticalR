@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = F, eval=F)
+knitr::opts_chunk$set(echo = T, eval=T)
 ```
 
 ## Exercises
@@ -16,6 +16,7 @@ knitr::opts_chunk$set(echo = F, eval=F)
 
 2. You will have to hit the "Update" button to see a preview of the data before downloading.  Adjust the value of the "skip" option so that the column names will be correct.  If you like, change the name of the variable that the data will be stored in.
 
+> The following code is a result of the 'Import Dataset' and 'Update' button activity from above
 
 ```{r}
 library(readxl)
@@ -80,7 +81,7 @@ o <- rev(order(output$Percent.Positive.Virus))
 top_10_genes <- output$Gene.Symbol[o[1:10]]
 
 # Method 2
-top_10_genes <-  arrange(output, desc(Percent.Positive.Virus))[1:10,'Gene.Symbol']
+top_10_genes <-  dplyr::arrange(output, desc(Percent.Positive.Virus))[1:10,'Gene.Symbol']
 
 # Method 3
 top_10_genes <- dplyr::top_n(output, 10, Percent.Positive.Virus)$Gene.Symbol
@@ -88,7 +89,7 @@ top_10_genes <- dplyr::top_n(output, 10, Percent.Positive.Virus)$Gene.Symbol
 
 9. Make a table that is a subset of the single data table from step 4, keeping only rows in which a gene was in the top 10 (hint: use the %in% operator).
 ```{r}
-new_table <-  filter(full_dat, Gene.Symbol %in% top_10_genes)
+new_table <-  dplyr::filter(full_dat, Gene.Symbol %in% top_10_genes)
 ```
 
 
