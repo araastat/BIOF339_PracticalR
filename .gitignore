@@ -8,3 +8,4 @@ _site/*
 .DS_Store
 virus.xlsx
 site_libs/*
+*.Rproj
