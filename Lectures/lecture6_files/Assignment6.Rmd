@@ -5,13 +5,14 @@ date: "10/17/2017"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, eval=FALSE)
+<<<<<<< HEAD
+```{r setup}
+knitr::opts_chunk$set(echo = T, eval=T)
+=======
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(echo = FALSE, eval = FALSE)
+>>>>>>> 614d0a53012a52c113a61142dfed5f2de79878c9
 
-library(WHO)
-infant <- get_data('MDG_0000000001')
-child <- get_data('MDG_0000000007')
-adult <- get_data('WHOSIS_000004')
 
 ```
 
@@ -22,7 +23,7 @@ The World Health Organization provides detailed data on various population healt
 We will be using this package to download data on infant and under-5 mortality and exploring the merging of data sets and the split-apply-combine paradigm
 
 You can download these data sets using the following code:
-```{r data, echo=T, eval=F}
+```{r data, echo=T, eval=T}
 library(WHO)
 infant <- get_data('EQ_INFANTMORT')
 child <- get_data('EQ_U5MORT')

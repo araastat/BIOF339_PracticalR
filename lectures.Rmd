@@ -36,10 +36,10 @@ Datasets: [Breast Cancer data](http://www.araastat.com/BIOF339_PracticalR/Lectur
 
 <a href = "Lectures/lecture3.html" target="_blank">Presentation</a>
 <a href = "lectures/lecture3_files/Lecture 3_Data Visualization.pdf" target="_blank"> (PDF)</a><p/>
-<a href = "Lectures/lecture3_files/Lecture3_Practicum.html" target="_blank">Practicum</a> 
+<a href = "Lectures/lecture3_files/Lecture3_Practicum.html" target="_blank">Practicum</a>
 (<a href = "Lectures/lecture3_files/Lecture3_Practicum_Solutions.html" target="_blank">Solutions</a>)
 
-Datasets: 
+Datasets:
 
 1. [Breast Cancer data](Lectures/lecture2_data/clinical_data_breast_cancer_modified.csv)
 2. [Spine data](Lectures/lecture2_data/Dataset_spine.csv)
@@ -50,22 +50,23 @@ Resources:
 
 ### Lecture 4
 
-<a href = "Lectures/Lecture4.html" target ="_blank">Presentation</a> <br/> 
+<a href = "Lectures/Lecture4.html" target ="_blank">Presentation</a> <br/>
 <a href = "Lectures/lecture4_files/Assignment3.html">Practicum</a>
 <a href = "Lectures/lecture4_files/Assignment3Solution.html"> (Solution)</a>
 
 ### Lecture 5
 <a href="Lectures/Lecture5.html" target="_blank">Presentation</a> ([pdf](Lectures/Lecture5.pdf)) <br/>
-<a href="Lectures/lecture5_files/Practicum5.html" target="_blank">Practicum 5</a> 
+<a href="Lectures/lecture5_files/Practicum5.html" target="_blank">Practicum 5</a>
 <a href="Lectures/lecture5_files/Practicum5_Solution.html" target="_blank">(Solution)</a>
 
 ### Lecture 6
 <a href = "Lectures/lecture6.html" target="_blank">Presentation</a> ([pdf](Lectures/lecture6_files/Lecture 6 Split-Apply-Combine.pdf)) <br/>
 <a href = "Lectures/lecture6_files/Assignment6.html" target="_blank">Practicum</a>
+(<a href = 'Lectures/lecture6_files/Assignment6Solution.html' target = "_blank">Solution</a>)
 
 ### Lecture 7
 <a href  = "Lectures/Lecture7.html" target = "_blank">Presentation</a>([pdf](Lectures/lecture7_files/Lecture7.pdf))<br/>
+<a href = "Lectures/lecture7_files/Lecture7Practicum.html" target="_blank">Practicum</a>
 
 ### Lecture 8
-<a href = "Lectues/Lecture9.html" target="_blank">Presentation</a>([pdf](Lectures/lecture9.pdf))<br/>
-
+<a href = "Lectures/Lecture9.html" target="_blank">Presentation</a>([pdf](Lectures/Lecture9.pdf))

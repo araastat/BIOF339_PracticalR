@@ -15,3 +15,4 @@ LaTeX: pdfLaTeX
 BuildType: Website
 
 QuitChildProcessesOnExit: Yes
+>>>>>>> d9e8d68730a466a72f03bb2e0fd5d779ae9fa95a
