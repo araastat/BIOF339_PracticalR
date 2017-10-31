@@ -74,4 +74,4 @@ Resources:
 <a href = "Lectures/lecture9_files/nature.parkin.gw.ambion.csv" target="_blank">CSV File of siRNA Screening Data</a><br/>
 
 <a href = 'Lectures/lecture9_files/Practicum9.html' target = '_blank'>Practicum</a>
-(<a href = 'Lectures/lecture9_files/Practicum9_solution.html' target='_blank'><Solution</a>)
+(<a href = 'Lectures/lecture9_files/Practicum9_solution.html' target='_blank'>Solution</a>)
