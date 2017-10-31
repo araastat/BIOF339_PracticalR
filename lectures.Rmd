@@ -65,3 +65,7 @@ Resources:
 
 ### Lecture 7
 <a href  = "Lectures/Lecture7.html" target = "_blank">Presentation</a>([pdf](Lectures/lecture7_files/Lecture7.pdf))<br/>
+
+### Lecture 8
+<a href = "Lectues/Lecture9.html" target="_blank">Presentation</a>([pdf](Lectures/lecture9.pdf))<br/>
+
