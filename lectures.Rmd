@@ -78,5 +78,5 @@ Resources:
 
 ### Lecture 9
 <a href="Lectures/lecture10.html" target = "_blank">Presentation</a> ([pdf](Lectures/lecture10.pdf))<br/>
-<a href="Lectures/lecture10_practs/lecture10Practicum.html" target = "_blank">Practicum</a> 
+<a href="Lectures/lecture10_practs/Lecture10Practicum.html" target = "_blank">Practicum</a> 
 (<a href = "Lectures/lecture10_practs/lecture10PracticumSolutions.html" target="_blank">Solution</a>)
