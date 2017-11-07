@@ -153,19 +153,13 @@ dat &lt;- read_csv('geneexpressions.csv')</code></pre>
 </ol>
 <pre class="r"><code>dat3 %&gt;% group_by(probe) %&gt;% summarize(m = mean(value))</code></pre>
 <pre><code>## # A tibble: 12,558 x 2
-##        probe        m
-##        &lt;chr&gt;    &lt;dbl&gt;
-##  1  100_g_at 7.913920
-##  2   1000_at 8.019434
-##  3   1001_at 4.555763
-##  4 1002_f_at 4.037963
-##  5 1003_s_at 6.337306
-##  6   1004_at 7.988135
-##  7   1005_at 7.829149
-##  8   1006_at 3.682517
-##  9 1007_s_at 7.610807
-## 10 1008_f_at 8.388193
-## # ... with 12,548 more rows</code></pre>
+##       probe        m
+##       &lt;chr&gt;    &lt;dbl&gt;
+## 1  100_g_at 7.913920
+## 2   1000_at 8.019434
+## 3   1001_at 4.555763
+## 4 1002_f_at 4.037963
+## # ... with 1.255e+04 more rows</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>Find the average expression for each probeset by disease phenotype. Save the result.</li>
 </ol>
@@ -179,12 +173,15 @@ dat &lt;- read_csv('geneexpressions.csv')</code></pre>
 </ol>
 <pre class="r"><code>new_summ &lt;- new_summ %&gt;% mutate(diff = progres. - stable)</code></pre>
 <ol start="9" style="list-style-type: decimal">
-<li>The last piece of this puzzle is to get p-values for each of these differences. We would need to go back to the original tidy dataset to do this. There is a function called <code>do</code> that can perform arbitrary actions on grouped data frames and store the result in a list or a data.frame as appropriate. Use <code>group_by</code>, <code>do</code> and the <code>tidy</code> function from the <code>broom</code> package to create a data frame containing the probe identifiers and the p-value from a t-test testing the difference in expression for each probe between disease phenotypes. Save the result</li>
+<li>The last piece of this puzzle is to get p-values for each of these differences. We would need to go back to the original tidy dataset to do this. In my code (and solutions) this is <code>dat3</code>. The idea generally would be to split the data by probe, perform a t-test on each sub-dataset, and then put the p-values back together. Instead, we can create what are called list-columns using the <code>nest</code> function, which creates a column which is a list of data frames. We can then use the <code>map</code> function (or a specialized version) to grab the p-values.</li>
 </ol>
 <pre class="r"><code>library(broom)
-pvals &lt;- dat3 %&gt;% group_by(probe) %&gt;% do(tidy(t.test(value ~ Disease, data = .))) %&gt;% 
-  ungroup() %&gt;% 
-  select(probe, p.value)</code></pre>
+pvals &lt;- dat3 %&gt;% 
+  nest(-probe) %&gt;%  # Put everything except probe into the split datasets
+  # This creates a new column called data, which will will now use
+  mutate(p.value = map_dbl(data, ~t.test(value~Disease, data=.)$p.value)) %&gt;% 
+  # map_dbl is a specialized map which expects only a real number as output
+  select(-data)</code></pre>
 <ol start="10" style="list-style-type: decimal">
 <li>Add the p-values to the summary data frame created in 8. above using <code>left_join</code>.</li>
 </ol>

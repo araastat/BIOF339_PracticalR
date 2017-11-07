@@ -133,7 +133,16 @@ $(document).ready(function () {
 <li><p>Find the average expression for each probeset by disease phenotype. Save the result.</p></li>
 <li><p>Transform the result so that the rows represent probesets, columns represent disease phenotype and values are the average expressions. Save the result</p></li>
 <li><p>Add a column to this result that has the difference in average expression between two disease phenotypes</p></li>
-<li><p>The last piece of this puzzle is to get p-values for each of these differences. We would need to go back to the original tidy dataset to do this. There is a function called <code>do</code> that can perform arbitrary actions on grouped data frames and store the result in a list or a data.frame as appropriate. Use <code>group_by</code>, <code>do</code> and the <code>tidy</code> function from the <code>broom</code> package to create a data frame containing the probe identifiers and the p-value from a t-test testing the difference in expression for each probe between disease phenotypes. Save the result</p></li>
+<li><p>The last piece of this puzzle is to get p-values for each of these differences. We would need to go back to the original tidy dataset to do this. In my code (and solutions) this is <code>dat3</code>. The idea generally would be to split the data by probe, perform a t-test on each sub-dataset, and then put the p-values back together. Instead, we can create what are called list-columns using the <code>nest</code> function, which creates a column which is a list of data frames. We can then use the <code>map</code> function (or a specialized version) to grab the p-values.</p></li>
+</ol>
+<pre class="r"><code>library(broom)
+pvals &lt;- dat3 %&gt;% 
+  nest(-probe) %&gt;%  # Put everything except probe into the split datasets
+  # This creates a new column called data, which will will now use
+  mutate(p.value = map_dbl(data, ~t.test(value~Disease, data=.)$p.value)) %&gt;% 
+  # map_dbl is a specialized map which expects only a real number as output
+  select(-data)</code></pre>
+<ol start="10" style="list-style-type: decimal">
 <li><p>Add the p-values to the summary data frame created in 8. above using <code>left_join</code>.</p></li>
 <li><p>Draw a histogram of the p-values</p></li>
 </ol>

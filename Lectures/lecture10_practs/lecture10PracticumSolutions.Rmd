@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r, echo=F}
-knitr::opts_chunk$set(eval=T, echo=T)
+knitr::opts_chunk$set(eval=F, echo=F)
 ```
 
 We will use data from a gene expression experiment on chronic lymphocytic leukemia (CLL) patients, available from Bioconductor. You can download the data [here](https://www.dropbox.com/s/lr4paeijdmu3vzz/geneexpressions.csv?dl=1). 
@@ -52,12 +52,15 @@ new_summ <- summ %>% spread(Disease, m)
 new_summ <- new_summ %>% mutate(diff = progres. - stable)
 ```
 
-9. The last piece of this puzzle is to get p-values for each of these differences. We would need to go back to the original tidy dataset to do this. There is a function called `do` that can perform arbitrary actions on grouped data frames and store the result in a list or a data.frame as appropriate. Use `group_by`, `do` and the `tidy` function from the `broom` package to create a data frame containing the probe identifiers and the p-value from a t-test testing the difference in expression for each probe between disease phenotypes. Save the result
-```{r}
+9. The last piece of this puzzle is to get p-values for each of these differences. We would need to go back to the original tidy dataset to do this. In my code (and solutions) this is `dat3`.  The idea generally would be to split the data by probe, perform a t-test on each sub-dataset, and then put the p-values back together. Instead, we can create what are called list-columns using the `nest` function, which creates a column which is a list of data frames. We can then use the `map` function (or a specialized version) to grab the p-values. 
+```{r, echo = T}
 library(broom)
-pvals <- dat3 %>% group_by(probe) %>% do(tidy(t.test(value ~ Disease, data = .))) %>% 
-  ungroup() %>% 
-  select(probe, p.value)
+pvals <- dat3 %>% 
+  nest(-probe) %>%  # Put everything except probe into the split datasets
+  # This creates a new column called data, which will will now use
+  mutate(p.value = map_dbl(data, ~t.test(value~Disease, data=.)$p.value)) %>% 
+  # map_dbl is a specialized map which expects only a real number as output
+  select(-data)
 ```
 
 10. Add the p-values to the summary data frame created in 8. above using `left_join`.
