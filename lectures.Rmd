@@ -75,3 +75,8 @@ Resources:
 
 <a href = 'Lectures/lecture9_files/Practicum9.html' target = '_blank'>Practicum</a>
 (<a href = 'Lectures/lecture9_files/Practicum9_solution.html' target='_blank'>Solution</a>)
+
+### Lecture 9
+<a href="Lectures/lecture10.html" target = "_blank">Presentation</a> ([pdf](Lectures/lecture10.pdf))<br/>
+<a href="Lectures/lecture10_files/lecture10Practicum.html" target = "_blank">Practicum</a> 
+(<a href = "Lectures/lecture10_files/lecture10PracticumSolutions.html" target="_blank">Solution</a>)

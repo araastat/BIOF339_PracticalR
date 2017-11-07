@@ -1,0 +1,92 @@
+---
+title: "Lecture 9 Practicum"
+author: "Abhijit Dasgupta"
+date: "November 7, 2017"
+output: html_document
+---
+
+```{r, echo=F}
+knitr::opts_chunk$set(eval=T, echo=T)
+```
+
+We will use data from a gene expression experiment on chronic lymphocytic leukemia (CLL) patients, available from Bioconductor. You can download the data [here](https://www.dropbox.com/s/lr4paeijdmu3vzz/geneexpressions.csv?dl=1). 
+
+1. Read the data into R using the `read_csv` function from the `readr` package, part of the `tidyverse` metapackage.
+```{r}
+suppressPackageStartupMessages(library(tidyverse))
+dat <- read_csv('geneexpressions.csv')
+```
+
+2. This data set contains some Affymetrix control probes that we want to exclude. These are in columns with names starting with "AFFX". Let's exclude these from further analysis. Hint: look at `?dplyr::starts_with`. Save the result to a new data frame (i.e. give it a new name)
+```{r}
+dat2 <- dat %>% select(-starts_with('AFFX'))
+```
+
+3. The first two columns are the sample IDs and the disease phenotypes. The rest are expressions from the probesets. Let's make this dataset tidy using `gather`, but making sure that we keep the `SampleID` and `Disease` columns intact and repeated over the rows of each probeset's data. 
+```{r}
+dat3 <- dat2 %>% gather(probe, value, -SampleID, -Disease)
+```
+
+4. Filter out the rows with missing disease status
+```{r}
+dat3 <- dat3 %>% filter(!is.na(Disease))
+```
+
+5. Find the average expression for each probeset
+```{r}
+dat3 %>% group_by(probe) %>% summarize(m = mean(value))
+```
+
+6. Find the average expression for each probeset by disease phenotype. Save the result.
+```{r}
+summ <- dat3 %>% group_by(probe, Disease) %>% summarize(m = mean(value))
+```
+
+7. Transform the result so that the rows represent probesets, columns represent disease phenotype and values are the average expressions. Save the result
+```{r}
+new_summ <- summ %>% spread(Disease, m)
+```
+
+8. Add a column to this result that has the difference in average expression between two disease phenotypes
+```{r}
+new_summ <- new_summ %>% mutate(diff = progres. - stable)
+```
+
+9. The last piece of this puzzle is to get p-values for each of these differences. We would need to go back to the original tidy dataset to do this. There is a function called `do` that can perform arbitrary actions on grouped data frames and store the result in a list or a data.frame as appropriate. Use `group_by`, `do` and the `tidy` function from the `broom` package to create a data frame containing the probe identifiers and the p-value from a t-test testing the difference in expression for each probe between disease phenotypes. Save the result
+```{r}
+library(broom)
+pvals <- dat3 %>% group_by(probe) %>% do(tidy(t.test(value ~ Disease, data = .))) %>% 
+  ungroup() %>% 
+  select(probe, p.value)
+```
+
+10. Add the p-values to the summary data frame created in 8. above using `left_join`.
+```{r}
+out <- new_summ %>% left_join(pvals)
+```
+
+11. Draw a histogram of the p-values
+```{r}
+ggplot(out, aes(p.value))+geom_histogram()
+```
+
+----
+
+## Note
+ 
+ I created the dataset used here using the following code:
+ 
+```{r, eval=F, echo=T}
+source('http://bioconductor.org/biocLite.R')
+biocLite('CLL')
+library(CLL)
+library(affy)
+data(CLLBatch)
+data(disease)
+d <-  rma(CLLbatch)
+dat <- t(as.data.frame(exprs(d)))
+dat <- cbind(disease, dat)
+write.csv(dat, file='geneexpressions.csv', row.names = F)
+
+```
+ 
