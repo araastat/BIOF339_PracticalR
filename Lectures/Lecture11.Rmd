@@ -52,7 +52,7 @@ dev.off()
 
 ## Vector Graphics Example
 
-<img src="test.pdf" alt="some text"  width="500" height="500">
+<embed src="test.pdf" width="500px" height="500px" />
 
 ## Raster Graphics Example
 
