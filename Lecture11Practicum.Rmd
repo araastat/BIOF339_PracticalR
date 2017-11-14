@@ -1,0 +1,15 @@
+---
+title: "Lecture 10 Practicum"
+output: html_notebook
+---
+
+1. The ChickWeight data frame (from the datasets package) contains time course data for chicks as their weight increases.  Aggregate (or summarise) this data for all chicks on the same diet, and create a plot of the data suitable for publication, including standard error bars.
+
+```{r eval=TRUE, results='markup'}
+library(datasets)
+library(tidyverse)
+head(ChickWeight)
+se <- function(x) sqrt(var(x)/length(x))
+ChickWeight %>% group_by(Time, Diet) %>% summarise(mean = mean(weight), se = se(weight)) 
+```
+

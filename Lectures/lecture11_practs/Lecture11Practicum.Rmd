@@ -1,0 +1,14 @@
+---
+title: "Lecture 10 Practicum"
+output:
+  html_document: default
+  html_notebook: default
+---
+
+1. The ChickWeight data frame (from the datasets package) contains time course data for chicks as their weight increases.  Aggregate (or summarise) this data for all chicks on the same diet, and create a plot of the data suitable for publication (or at least a lab meeting), including standard error bars.  Adjust axis labels and legend to be properly discriptive and save the final plot to a pdf file.  You can use the help page for the ChickWeight data frame to learn about the data set, including units.
+
+2. Your PI is so pleased with the results, she wants you to submit them as a letter to the "Journal of Arcane Publishing Requirements".  It is an old style print publication that charges extra for color graphs, and so you are told to produce a readable plot in greyscale.  Use facet to break the results into four graphs for the four feed types (avoiding the need for color), and save the results in BMP format at a resolution of 300 ppi, with a maximum width of 8 inches (to fit in the margins).
+
+3. Your paper is almost ready to submit, and you are working on the references.  How do you know whom or what to cite for the graphs you made in R (hint: there is a function called citation)?
+
+4. Your paper is rejected because your chick weight research did not include any references to the microbiome or CRISPR.  Your PI decides that the work can be fit into a larger paper your lab is submitting to Nature.  You can use color again, but now your graph needs to fit into an area of 2 inches by 2 inches, still be readable, and should be a PDF so you can edit font type and size later.  For bonus points, take the PDF you generate into Adobe Illustrator or Inkscape and edit the font type and size to the Nature requirements (12-point Times New Roman)
