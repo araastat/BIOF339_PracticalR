@@ -1,7 +1,7 @@
 ---
-title: "Lecture 10"
+title: "Lecture 9"
 author: "BIOF 339"
-date: "November 21, 2016"
+date: "November 7, 2017"
 output: ioslides_presentation
 ---
 
@@ -336,4 +336,99 @@ mtcars %>% select(mpg, disp:qsec) %>%
   filter(term=='value') %>% 
   mutate_if(is.numeric, funs(round(., 3)))
 ```
+
+# Another example (from [here](http://varianceexplained.org/r/teach-tidyverse/))
+
+## Grab the raw data
+
+```{r}
+url <- "http://varianceexplained.org/files/Brauer2008_DataSet1.tds"
+raw_data <- read_delim(url, delim='\t')
+head(raw_data)
+```
+
+## Look at the annotation data
+```{r}
+head(raw_data$NAME)
+```
+
+## Separate annotation into columns
+
+```{r, message=FALSE}
+cleaned_data <- raw_data %>% 
+  separate(NAME, c("name", "BP", "MF", "systematic_name", "number"), 
+           sep = "\\|\\|")
+head(cleaned_data)
+```
+
+## Get rid of padding in annotation
+```{r, message=FALSE}
+cleaned_data <- raw_data %>% 
+  separate(NAME, c("name", "BP", "MF", "systematic_name", "number"), 
+           sep = "\\|\\|") %>% 
+  mutate_at(vars(name:systematic_name), funs(stringr::str_trim))
+head(cleaned_data)
+```
+
+## Get rid of some columns
+```{r, message=FALSE}
+cleaned_data <- raw_data %>% 
+  separate(NAME, c("name", "BP", "MF", "systematic_name", "number"), 
+           sep = "\\|\\|") %>% 
+  mutate_at(vars(name:systematic_name), funs(stringr::str_trim)) %>% 
+  select(-number, -GID, -YORF, -GWEIGHT)
+head(cleaned_data)
+```
+
+## Make data tidy
+```{r, message=FALSE}
+cleaned_data <- raw_data %>% 
+  separate(NAME, c("name", "BP", "MF", "systematic_name", "number"), 
+           sep = "\\|\\|") %>% 
+  mutate_at(vars(name:systematic_name), funs(stringr::str_trim)) %>% 
+  select(-number, -GID, -YORF, -GWEIGHT) %>% 
+  gather(sample, expression, G0.05:U0.3)
+head(cleaned_data)
+```
+
+## Split columns
+```{r, message=FALSE}
+cleaned_data <- raw_data %>% 
+  separate(NAME, c("name", "BP", "MF", "systematic_name", "number"), 
+           sep = "\\|\\|") %>% 
+  mutate_at(vars(name:systematic_name), funs(stringr::str_trim)) %>% 
+  select(-number, -GID, -YORF, -GWEIGHT) %>% 
+  gather(sample, expression, G0.05:U0.3) %>% 
+  separate(sample, c("nutrient", "rate"), sep=1, convert = TRUE)
+head(cleaned_data)
+```
+
+
+## Get rid of rows with missing expression or name
+```{r, message=FALSE}
+cleaned_data <- raw_data %>% 
+  separate(NAME, c("name", "BP", "MF", "systematic_name", "number"), 
+           sep = "\\|\\|") %>% 
+  mutate_at(vars(name:systematic_name), funs(stringr::str_trim)) %>% 
+  select(-number, -GID, -YORF, -GWEIGHT) %>% 
+  gather(sample, expression, G0.05:U0.3) %>% 
+  separate(sample, c("nutrient", "rate"), sep=1, convert = TRUE) %>% 
+  filter(!is.na(expression), systematic_name != '')
+head(cleaned_data)
+```
+
+## Visualize
+```{r, fig.height=3, fig.width=6, fig.pos='center'}
+cleaned_data %>%
+  filter(BP == "leucine biosynthesis") %>%
+  ggplot(aes(rate, expression, color = nutrient)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_wrap(~name + systematic_name, nrow=1) +
+  theme(legend.position='bottom')
+
+```
+
+
+
 

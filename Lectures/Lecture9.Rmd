@@ -92,7 +92,7 @@ knitr::include_graphics("excel.preview.png")
 ## Import the data
 
 ```{r echo=TRUE, cache=TRUE}
-ambion <- read.csv("nature.parkin.gw.ambion.csv", stringsAsFactors = FALSE)
+ambion <- read.csv("lecture9_files/nature.parkin.gw.ambion.csv", stringsAsFactors = FALSE)
 str(ambion)
 ```
 

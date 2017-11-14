@@ -5,13 +5,8 @@ date: "10/17/2017"
 output: html_document
 ---
 
-<<<<<<< HEAD
-```{r setup}
-knitr::opts_chunk$set(echo = T, eval=T)
-=======
 ```{r setup, echo=FALSE}
 knitr::opts_chunk$set(echo = FALSE, eval = FALSE)
->>>>>>> 614d0a53012a52c113a61142dfed5f2de79878c9
 
 
 ```

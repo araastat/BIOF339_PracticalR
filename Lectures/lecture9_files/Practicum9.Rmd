@@ -1,0 +1,161 @@
+---
+title: "Practicum 8"
+author: "Abhijit Dasgupta"
+date: "October 31, 2017"
+output: html_document
+---
+
+```{r setup, echo=F}
+knitr::opts_chunk$set(echo = F, eval=F)
+
+```
+
+# Creating functions
+
+## Standardizing continuous variables
+
+1. Standardizing continuous variables to have mean 0 and variance 1 is a common practice
+to help stabilize regression models. This involves subtracting the average value from each 
+element of the variable, and then dividing the difference by the standard deviation. Write a 
+function that takes a vector of numbers and standardizes it. Call it `standardize_mean`.
+```{r}
+standardize_mean <- function(x) {
+  return((x - mean(x))/sd(x))
+}
+
+```
+
+2. A more robust standardization that is often used to find outliers is the median standardization, where the
+mean and standard deviation from 1 above are replaced by the median and median absolute deviation (`mad`), respectively. Create a `standardize_median` function.
+```{r}
+standardize_median <- function(x){
+  return((x - median(x))/mad(x))
+}
+```
+
+
+3. Update both functions to account for missing values
+```{r}
+standardize_mean <- function(x){
+  return((x - mean(x, na.rm=T))/sd(x, na.rm=T))
+}
+```
+
+
+4. Create a unified `standardize` function that takes as inputs a vector of numbers, an element named  `method` that will be either "mean" or "median", any other inputs you like, 
+and output the corresponding standardized variable
+```{r}
+standardize <- function(x, method = 'mean'){
+  if(method=='mean'){
+    standardize_mean(x)
+  }
+  if(method == 'median'){
+    standardize_median(x)
+  }
+}
+```
+
+## Metrics for binary outcomes
+
+A lot of metrics for binary outcomes are derived from a contingency table, which is 
+a 2 x 2 table of frequency counts comparing the true outcome with the predicted outcome. This can be
+obtained using `table(truth, predicted)`, where `truth` and `predicted`  are provided by the user, and are
+vectors of equal length comprising 1's and 0's. 
+
+The package `mlbench` has many machine learning datasets. Install and load the `mlbench` package and then access
+the Pima Indians Diabetes dataset
+```{r,echo=T, eval=T, message=FALSE, results = 'hide'}
+if (!('mlbench' %in% installed.packages()[,1])) install.packages('mlbench', repos = 'http://cran.rstudio.com')
+library(mlbench)
+data(PimaIndiansDiabetes)
+str(PimaIndiansDiabetes)
+
+```
+
+Fit a logistic model to this data using all the predictors.
+```{r, echo=T, eval=T}
+logistic_model <- glm(diabetes ~ ., data = PimaIndiansDiabetes, family ='binomial')
+```
+Grab the predictions from this model, and dichotomize it to 0/1
+```{r, echo = T, eval=T}
+predicted <- ifelse(predict(logistic_model, type='response') > 0.5,1,0)
+```
+You can then create a contingency table comparing observed to predicted data, after converting the 
+outcome (diabetes) to 0/1 variable
+```{r, echo=T, eval=T}
+PimaIndiansDiabetes$diabetes <- ifelse(PimaIndiansDiabetes$diabetes == 'pos',1,0)
+t1 <- table(PimaIndiansDiabetes$diabetes, predicted)
+t1
+```
+
+In the following exercises, the inputs to the functions should be the observed diabetes data and the predictions from the logistic model, either dichotomized or as probabilities, as appropriate. You can verify your numbers with the table above.
+
+1. Write a function for the  accuracy score, i.e. the proportion of cases in which the truth and predicted values are the same. This should be a fraction betwen 0 and 1.
+```{r}
+
+accuracy_score <- function(truth, predicted){
+  mean(truth==predicted)
+}
+```
+
+2. Write a function (or functions) for computing sensitivity (true postive rate) and specificity (true negative rate)
+```{r}
+sens_score <- function(truth, predicted){
+  sum(truth==1 & predicted==1)/sum(truth==1)
+}
+spec_score <- function(truth, predicted){
+  sum(truth == 0 & predicted == 0)/sum(truth == 0)
+}
+```
+
+3. Write a function for computing the positive predictive value, that is, the proportion of predicted 1's that are actually true 1's, or in other words, P(true +ve | predicted +ve).
+```{r}
+ppv <- function(truth, predicted){
+  sum(predicted==1 & truth==1)/sum(predicted==1)
+}
+```
+
+4. Write a function that inputs the truth and the predicted values from the logistic regression (as probabilities), 
+computes for thresholds = 0, 0.05, 0.1,0.15,  0.2, ...0.95, 1 a new vector that is 1 if the predicted value is greater than the threshold, and 0 othewise, and returns a data.frame with 3 columns: the threshold, the sensitivity at that threshold and the specificity at that threshold. Call this function `roc`. You can use the functions you created above
+```{r}
+roc <- function(truth, predicted){
+  thresholds <- seq(0, 1, by=0.05)
+  out <- data.frame('threshold' = thresholds, 'sensitivity' = 0, 'specificity'=0)
+  for (i in 1:length(thresholds)){
+    pred <- ifelse(predicted > thresholds[i], 1, 0)
+    out[i, 'sensitivity'] <- sens_score(truth, pred)
+    out[i, 'specificity'] <- spec_score(truth, pred)
+  }
+  return(out)
+}
+```
+
+
+5. Create a function that inputs the observed diabetes outcomes and the probability predictions from the logistic model and creates a plot with 
+1-sensitivity on the x-axis and specificity on the y-axis, with appropriate labels. Call this function `rocplot`.
+```{r}
+rocplot <- function(truth, predicted){
+  require(ggplot2)
+  ggplot(roc(truth, predicted), aes(1-sensitivity, specificity)) +
+    geom_line()+
+    labs (x = '1 - Sensitivity', y = 'Specificity')
+}
+```
+
+__Bonus question__: Add a feature to the `rocplot` function to compute the "area under the curve", that is, 
+the area between the curve, the x-axis, and the right edge of the plot. _Hint_: The area of a trapezium with parallel sides of length _a_ and _b_, and height _h_ is _h x (a+b)/2_. 
+```{r}
+rocplot2 <- function(truth, predicted, auc=F){
+  require(ggplot2)
+  d <- roc(truth, predicted)
+  plt <- ggplot(d, aes(1-sensitivity, specificity)) +
+    geom_line()+
+    labs (x = '1 - Sensitivity', y = 'Specificity')
+  print(plt)
+ if(auc){
+   approx_auc <- 0.05*sum(d$specificity[-1] + d$specificity[-nrow(d)])/2
+   print(approx_auc)
+ } 
+}
+```
+
