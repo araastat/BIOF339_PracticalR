@@ -89,3 +89,7 @@ Resources:
 (<a href = "Lectures/lecture11_practs/Lecture11PracticumSolutions.html" target="_blank">Solution</a>)
 <p/>
 [Some additional examples](Lectures/lecture11_practs/Lecture11_addl.html)
+
+### Lecture 11
+
+<a href = "Lectures/lecture12.html" target = "_blank">Presentation</a>
