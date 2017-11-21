@@ -1,10 +1,11 @@
 ---
 title: "Lecture 12"
 author: "BIOF 339"
-date: "December 5, 2016"
+date: "November 22, 2017"
 output: ioslides_presentation
 ---
-  ```{r setup, include=FALSE}
+
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
                       fig.width=4,
                       fig.height=4,
@@ -19,14 +20,14 @@ knitr::opts_chunk$set(echo = TRUE,
 
 Bioconductor provides tools for the analysis and comprehension of high-throughput genomic data, using R.
 
-+ 1296 packages
++ 1476 packages
 + Covers the bioinformatic pipeline
 
 + Software
 + Annotation
 + Experiments
 
-# Explore Bioconductor website
+# Explore Bioconductor [website](http://www.bioconductor.org)
 
 ## Installing Bioconductor packages
 
@@ -34,7 +35,29 @@ This is different from the usual `install.packages`
 
 ```{r, eval=F}
 source('http://bioconductor.org/biocLite.R')
-biocLite('Biobase','limma','hgu95av2.db')
+biocLite(c('Biobase','limma','hgu95av2.db','Biostrings'))
+```
+
+## DNA sequences
+
+```{r}
+library(Biostrings)
+dna <- DNAStringSet(c("AACAT", "GGCGCCT"))
+reverseComplement(dna)
+```
+
+## DNA sequences
+
+```{r}
+library(Biostrings)
+data("phiX174Phage")
+phiX174Phage
+```
+
+## DNA sequences
+
+```{r}
+letterFrequency(phiX174Phage, 'GC', as.prob=TRUE)
 ```
 
 
@@ -44,6 +67,7 @@ The basic structure in a Bioconductor pipeline is the `ExpressionSet`
 
 ```{r, eval=T}
 library(Biobase)
+data("sample.ExpressionSet")
 str(sample.ExpressionSet)
 ```
 
@@ -75,6 +99,107 @@ pData(sample.ExpressionSet)
 
 ```{r , eval=T}
 head(exprs(sample.ExpressionSet))
+```
+# Bioconductor ecosystem
+
+## 
+
+```{r, fig.width=9, echo=F}
+knitr::include_graphics('lecture12_dat/bioc1.png')
+```
+
+<div align = 'right'>
+<p>Taken from <a href = "http://bioconductor.org/help/course-materials/2017/OSU/B1_Bioconductor_intro.html", 
+target="_blank">Morgan's Bioconductor Tutorial</a></p>
+</div>
+
+# A RNA-Seq pipeline ([link](http://bioconductor.org/help/course-materials/2017/OSU/B3_RNASeq_Workflow.html#lab-gene-level-rna-seq-differential-expression))
+
+## Goals
+
++ Exploratory data analysis
++ Differential expression analysis with [DESeq2](https://bioconductor.org/packages/DESeq2)
++ Visualization
+
++ We will start after reads have been aligned to a reference genome and reads overlapping known genes have been counted
+
+## The experiment
+
++ In the experiment, four primary human airway smooth muscle cell lines were treated with 1 micromolar dexamethasone for 18 hours. 
++ For each of the four cell lines, we have a treated and an untreated sample.
+
+## Start with prepared SummarizedExperiement
+```{r}
+library(airway)
+data(airway)
+se <- airway
+head(assay(se))
+```
+
+## Metadata for experiment
+```{r}
+colData(se)
+```
+
+## Genomic ranges over which counting occurred
+
+```{r}
+rowRanges(se)
+```
+
+## Create a DESeqDataSet
+
+```{r}
+library("DESeq2")
+dds <- DESeqDataSet(se, design = ~ cell + dex)
+dds
+```
+
+## Fix factor label
+
+```{r}
+dds$dex <- relevel(dds$dex, "untrt")
+```
+
+## Run differential expression pipeline
+
+```{r}
+dds <- DESeq(dds)
+```
+
+## Extracting results
+
+```{r}
+(res <- results(dds))
+```
+
+## Summarizing results
+```{r}
+summary(res)
+```
+
+## Summarizing results
+```{r}
+library(tidyverse)
+as.data.frame(res) %>% 
+  filter(padj < 0.1) %>% 
+  arrange(desc(abs(log2FoldChange))) %>% head()
+```
+
+## A visualization
+
+```{r, fig.height=3, fig.width=6}
+topGene <- rownames(res)[which.min(res$padj)]
+data <- plotCounts(dds, gene=topGene, intgroup=c("dex"), returnData=TRUE)
+ggplot(data, aes(x = dex, y = count, fill=dex))+
+  geom_dotplot(binaxis='y', stackdir='center')+
+  scale_y_log10()
+```
+
+## Another visualization
+
+```{r, fig.width=7}
+plotMA(res, ylim=c(-5,5))
 ```
 
 # Making a heatmap
@@ -129,7 +254,6 @@ reg1 <- regHeatmap(exprs(exdat2), legend=2, col=heat.colors,
 plot(reg1)
 ```
 
----
 
 ```{r, echo=T, fig.width=6, fig.height=6, eval=F}
 library(Heatplus)
@@ -138,8 +262,10 @@ reg1 <- regHeatmap(exprs(exdat2), legend=2, col=heat.colors,
 plot(reg1)
 ```
 
+---
+
 ```{r, echo=T, eval=F}
-corrdist <- function(x) as.dist(1-cor(x))
+corrdist <- function(x) as.dist(1-cor(t(x)))
 hclust.avl <-  function(x) hclust(x, method='average')
 reg2 <- regHeatmap(exprs(exdat2), legend=2, col=heat.colors,
                    breaks=-3:3, 
@@ -149,10 +275,11 @@ plot(reg2)
 
 ---
 
-```{r, echo=F, eval=T,fig.width=6, fig.height=6}
+```{r, echo=F, eval=T, fig.width=7}
 corrdist <- function(x) as.dist(1-cor(t(x)))
 hclust.avl <-  function(x) hclust(x, method='average')
 reg2 <- regHeatmap(exprs(exdat2), legend=2, col=heat.colors,
+                   breaks=-3:3, 
                    dendrogram = list(clustfun=hclust.avl, distfun=corrdist))
 plot(reg2)
 ```
@@ -166,7 +293,7 @@ plot(ann1)
 
 ---
 
-```{r, echo=F, eval=T, fig.width=7, fig.height=7}
+```{r, echo=F, eval=T, fig.width=7, fig.height=6}
 ann1 <- annHeatmap(exprs(exdat2), ann=pData(exdat2))
 plot(ann1)
 ```
@@ -186,10 +313,19 @@ plot(ann3)
 
 ---
 
-```{r, echo=F, eval=T, fig.height=7, fig.width=7}
+```{r, echo=F, eval=T, fig.height=6, fig.width=7}
 ann2 <- annHeatmap(exprs(exdat2), ann=pData(exdat2),
                    cluster = list(cuth=7500,
                                   label=c('Control-like','Case-like')))
 plot(ann2)
 ```
 
+---
+
+```{r, fig.height=5, fig.width=6}
+library(d3heatmap)
+d3heatmap(exprs(exdat2), distfun = corrdist, 
+          hclustfun = hclust.avl, scale='row')
+```
+
+Put your mouse over each point :)

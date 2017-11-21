@@ -6,7 +6,7 @@ output: ioslides_presentation
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = T, fig.height = 3, cache=T)
+knitr::opts_chunk$set(echo = T, fig.height = 3, cache=F)
 library(ggplot2)
 ```
 
