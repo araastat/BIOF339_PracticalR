@@ -255,13 +255,6 @@ plot(reg1)
 ```
 
 
-```{r, echo=T, fig.width=6, fig.height=6, eval=F}
-library(Heatplus)
-reg1 <- regHeatmap(exprs(exdat2), legend=2, col=heat.colors, 
-                   breaks=-3:3)
-plot(reg1)
-```
-
 ---
 
 ```{r, echo=T, eval=F}
@@ -300,15 +293,12 @@ plot(ann1)
 
 ---
 
-```{r, echo=T, eval=F}
-ann1 <- annHeatmap(exprs(exdat2), ann=pData(exdat2))
-plot(ann1)
-```
-```{r, echo=T, eval=F}
+
+```{r, echo=T, eval=F, fig.width=7, fig.height=6}
 ann2 <- annHeatmap(exprs(exdat2), ann=pData(exdat2),
                    cluster = list(cuth=7500,
                                   label=c('Control-like','Case-like')))
-plot(ann3)
+plot(ann2)
 ```
 
 ---
@@ -321,6 +311,8 @@ plot(ann2)
 ```
 
 ---
+
+Put your mouse over each point :)
 
 ```{r, fig.height=5, fig.width=6}
 library(d3heatmap)
