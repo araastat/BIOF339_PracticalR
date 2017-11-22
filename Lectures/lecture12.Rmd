@@ -128,12 +128,13 @@ target="_blank">Morgan's Bioconductor Tutorial</a></p>
 + In the experiment, four primary human airway smooth muscle cell lines were treated with 1 micromolar dexamethasone for 18 hours. 
 + For each of the four cell lines, we have a treated and an untreated sample.
 
-## Start with prepared SummarizedExperiement
+## Start with prepared SummarizedExperiment
 ```{r}
 library(airway)
 data(airway)
 se <- airway
 head(assay(se))
+
 ```
 
 ## Metadata for experiment

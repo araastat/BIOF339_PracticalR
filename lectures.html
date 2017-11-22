@@ -211,7 +211,7 @@ $(document).ready(function () {
 </div>
 
 
-<p>Last updated: November 21, 2017</p>
+<p>Last updated: November 22, 2017</p>
 <div id="last-years-presentations-can-be-found-here" class="section level2">
 <h2>Last years’ presentations can be found <a href="Lectures2016.zip">here</a></h2>
 <div id="lecture-1" class="section level3">
@@ -281,6 +281,19 @@ $(document).ready(function () {
 <div id="lecture-11" class="section level3">
 <h3>Lecture 11</h3>
 <p><a href="Lectures/lecture12.html" target="_blank">Presentation</a></p>
+<p><strong>Other resources</strong>: <br /></p>
+<ol style="list-style-type: decimal">
+<li>Another heatmap package: <a href="http://joss.theoj.org/papers/10.21105/joss.00359">iheatmapr</a></li>
+<li>Tidyverse code to create a nicely formatted table for results from the <code>res</code> object in the slides (modifies the code on p. 27 )</li>
+</ol>
+<pre class="r"><code>output &lt;-
+  as.data.frame(res) %&gt;%
+  rownames_to_column('gnames') %&gt;% # Adds the row names as a column of the data
+  filter(padj &lt; 0.1) %&gt;% # Keep only rows where the adjusted p-value is less than 0.1
+  arrange(desc(abs(log2FoldChange))) %&gt;%  # Arrange in descending order of the FC magnitude
+  select(gnames, baseMean:padj) %&gt;%  # Rearrange columns to put gnames first
+  mutate_at(vars(starts_with('p')), format.pval, digits=4, eps = 1e-8, scientific=T) %&gt;% # Format the p-values
+  mutate_at(vars(baseMean:stat), round, 2) # Format the other numerical values</code></pre>
 </div>
 </div>
 
