@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<meta property="og:title" content="Data Munging" />
+<meta property="og:description" content="Blogging about R issues arising from the class" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/tags/data-munging/" />
+
+
+
+<meta property="og:updated_time" content="2017-11-22T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Data Munging"/>
+<meta name="twitter:description" content="Blogging about R issues arising from the class"/>
+<meta name="generator" content="Hugo 0.31" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Blog",
+  "headline": "BIOF339 Blog",
+  "url" : "/tags/data-munging/",
+  "author": {
+    "@type": "Person",
+    "name": "Abhijit Dasgupta"
+  },
+  "dateModified": "2017-11-22T00:00:00&#43;00:00",
+  "keywords": "r,data-munging,",
+  "description": "Blogging about R issues arising from the class"
+}
+</script>
+
+
+    <link rel="canonical" href="/tags/data-munging/">
+
+    <title>BIOF339 Blog</title>
+
+    <!-- combined, minified CSS -->
+    <link href="/css/style.css" rel="stylesheet" integrity="sha384-O8wjsnz02XiyrPxnhfF6AVOv6YLBaEGRCnVF&#43;DL3gCPBy9cieyHcpixIrVyD2JS5" crossorigin="anonymous">
+
+    
+    <!-- RSS 2.0 feed -->
+    <link href="/tags/data-munging/index.xml" rel="alternate" type="application/rss+xml" title="BIOF339 Blog" />
+    
+
+    
+
+    
+
+    
+
+  </head>
+
+  <body>
+
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="/">Home</a>
+          
+          
+        </nav>
+      </div>
+    </div>
+
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title"><a href="/" rel="home">BIOF339 Blog</a></h1>
+        <p class="lead blog-description">Blogging about R issues arising from the class</p>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title"><a href="/2017/11/22/summarize-outcomes-into-new-variables/">Summarize outcomes into new variables</a></h2>
+    <p class="blog-post-meta"><time datetime="2017-11-22T00:00:00Z">Wed Nov 22, 2017</time> by Abhijit Dasgupta in 
+<i class="fa fa-folder" aria-hidden="true"></i>&nbsp;<a href="/categories/r" rel="category tag">R</a>
+
+
+<i class="fa fa-tag" aria-hidden="true"></i>&nbsp;<a href="/tags/data-munging" rel="tag">Data munging</a>
+
+</p>
+  </header>
+  <div id="an-example" class="section level2">
+<h2>An example</h2>
+<p>Suppose you have a fairly detailed set of outcomes for cause of death. You want to summarize these outcomes into categories and create new variables indicating whether a person’s death could be attributed to a particular category or not. For example, suppose deaths from fentanyl are recorded as one of:</p>
+<ul>
+<li>Fentanyl Intoxication</li>
+<li>Fentanyl and Morphine Intoxication</li>
+<li>Combined Drug Intoxication (Heroin, Cocaine and Fentanyl)</li>
+<li>Fentanyl-involved</li>
+</ul>
+<p>These are all possiblities in your dataset under a variable <code>Cause_of_death</code>. We will create a new variable, <code>Fentanyl</code>, that is a boolean variable which is <code>TRUE</code> if the person’s death is fentanyl-related and <code>FALSE</code> if it isn’t.</p>
+</div>
+<div id="approach-1" class="section level2">
+<h2>Approach 1</h2>
+<p>This is a general approach. First make a vector of all the possible ways fentanyl-related deaths are records:</p>
+<pre class="r"><code>fentanyl_related &lt;- c(&#39;Fentanyl Intoxication&#39;, &#39;Fentanyl and Morphine Intoxication&#39;,
+                      &#39;Combined Drug Intoxication (Heroin, Cocaine and Fentanyl)&#39;,
+                      &#39;Fentanyl-involved&#39;)</code></pre>
+<p>We then can create the new variable quite easily as</p>
+<pre class="r"><code>dat &lt;- dat %&gt;% mutate(Fentanyl = Cause_of_death %in% fentanyl_related)</code></pre>
+</div>
+<div id="approach-2" class="section level2">
+<h2>Approach 2</h2>
+<p>This approach leverages the text processing capabilities of the <code>stringr</code> package. We note that all the outcomes in <code>fentanyl_related</code> have the word “Fentanyl” in it. So we can create the <code>Fentanyl</code> variable using the following code:</p>
+<pre class="r"><code>dat &lt;- dat %&gt;% 
+  mutate(Fentanyl = stringr::str_detect(Cause_of_death, &#39;Fentanyl&#39;))</code></pre>
+<p>We could also protect ourselves against possible recording errors (in terms of capitalization) by making all the entries lower-case and then testing for the lower-case “fentanyl”. This avoids the issues with <code>ignore.case</code> that are required for the <code>grep</code> family of functions.</p>
+<pre class="r"><code>dat &lt;- dat %&gt;% 
+  mutate(Fentanyl = stringr::str_detect(tolower(Cause_of_death), &#39;fentanyl&#39;))</code></pre>
+</div>
+
+</article> 
+
+
+
+
+
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="http://www.araastat.com/BIOF339_PracticalR/index.html">Class home</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+
+    <footer class="blog-footer">
+      <p>
+      
+      Blog template created by <a href="https://twitter.com/mdo">@mdo</a>, ported to Hugo by <a href='https://twitter.com/mralanorth'>@mralanorth</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+
+  </body>
+
+</html>

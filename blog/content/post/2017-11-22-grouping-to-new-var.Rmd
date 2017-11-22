@@ -1,0 +1,62 @@
+---
+title: "Summarize outcomes into new variables"
+author: "Abhijit Dasgupta"
+date: 2017-11-22
+categories: ["R"]
+tags: ["Data munging"]
+---
+```{r, echo=F}
+knitr::opts_chunk$set(echo=TRUE, eval=FALSE, collapse = TRUE)
+```
+
+## An example
+
+Suppose you have a fairly detailed set of outcomes for cause of death. You want to summarize these
+outcomes into categories and create new variables indicating whether a person's death could be 
+attributed to a particular category or not. For example, suppose deaths from fentanyl are recorded as
+one of:
+
++ Fentanyl Intoxication
++ Fentanyl and Morphine Intoxication
++ Combined Drug Intoxication (Heroin, Cocaine and Fentanyl)
++ Fentanyl-involved 
+
+These are all possiblities in your dataset under a variable `Cause_of_death`. We will create a new
+variable, `Fentanyl`, that is a boolean variable which is `TRUE` if the person's death is fentanyl-related 
+and `FALSE` if it isn't.
+
+## Approach 1
+
+This is a general approach. First make a vector of all the possible ways fentanyl-related deaths are 
+records:
+
+```{r}
+fentanyl_related <- c('Fentanyl Intoxication', 'Fentanyl and Morphine Intoxication',
+                      'Combined Drug Intoxication (Heroin, Cocaine and Fentanyl)',
+                      'Fentanyl-involved')
+```
+We then can create the new variable quite easily as
+```{r}
+dat <- dat %>% mutate(Fentanyl = Cause_of_death %in% fentanyl_related)
+```
+
+## Approach 2
+
+This approach leverages the text processing capabilities of the `stringr` package. We note that all
+the outcomes in `fentanyl_related` have the word "Fentanyl" in it. So we can create the `Fentanyl` 
+variable using the following code:
+```{r}
+dat <- dat %>% 
+  mutate(Fentanyl = stringr::str_detect(Cause_of_death, 'Fentanyl'))
+```
+
+We could also protect ourselves against possible recording errors (in terms of capitalization) by making
+all the entries lower-case and then testing for the lower-case "fentanyl". This avoids the issues with
+`ignore.case` that are required for the `grep` family of functions.
+```{r}
+dat <- dat %>% 
+  mutate(Fentanyl = stringr::str_detect(tolower(Cause_of_death), 'fentanyl'))
+```
+
+
+

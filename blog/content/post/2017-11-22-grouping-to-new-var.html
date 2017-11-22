@@ -1,0 +1,39 @@
+---
+title: "Summarize outcomes into new variables"
+author: "Abhijit Dasgupta"
+date: 2017-11-22
+categories: ["R"]
+tags: ["Data munging"]
+---
+
+
+
+<div id="an-example" class="section level2">
+<h2>An example</h2>
+<p>Suppose you have a fairly detailed set of outcomes for cause of death. You want to summarize these outcomes into categories and create new variables indicating whether a person’s death could be attributed to a particular category or not. For example, suppose deaths from fentanyl are recorded as one of:</p>
+<ul>
+<li>Fentanyl Intoxication</li>
+<li>Fentanyl and Morphine Intoxication</li>
+<li>Combined Drug Intoxication (Heroin, Cocaine and Fentanyl)</li>
+<li>Fentanyl-involved</li>
+</ul>
+<p>These are all possiblities in your dataset under a variable <code>Cause_of_death</code>. We will create a new variable, <code>Fentanyl</code>, that is a boolean variable which is <code>TRUE</code> if the person’s death is fentanyl-related and <code>FALSE</code> if it isn’t.</p>
+</div>
+<div id="approach-1" class="section level2">
+<h2>Approach 1</h2>
+<p>This is a general approach. First make a vector of all the possible ways fentanyl-related deaths are records:</p>
+<pre class="r"><code>fentanyl_related &lt;- c(&#39;Fentanyl Intoxication&#39;, &#39;Fentanyl and Morphine Intoxication&#39;,
+                      &#39;Combined Drug Intoxication (Heroin, Cocaine and Fentanyl)&#39;,
+                      &#39;Fentanyl-involved&#39;)</code></pre>
+<p>We then can create the new variable quite easily as</p>
+<pre class="r"><code>dat &lt;- dat %&gt;% mutate(Fentanyl = Cause_of_death %in% fentanyl_related)</code></pre>
+</div>
+<div id="approach-2" class="section level2">
+<h2>Approach 2</h2>
+<p>This approach leverages the text processing capabilities of the <code>stringr</code> package. We note that all the outcomes in <code>fentanyl_related</code> have the word “Fentanyl” in it. So we can create the <code>Fentanyl</code> variable using the following code:</p>
+<pre class="r"><code>dat &lt;- dat %&gt;% 
+  mutate(Fentanyl = stringr::str_detect(Cause_of_death, &#39;Fentanyl&#39;))</code></pre>
+<p>We could also protect ourselves against possible recording errors (in terms of capitalization) by making all the entries lower-case and then testing for the lower-case “fentanyl”. This avoids the issues with <code>ignore.case</code> that are required for the <code>grep</code> family of functions.</p>
+<pre class="r"><code>dat &lt;- dat %&gt;% 
+  mutate(Fentanyl = stringr::str_detect(tolower(Cause_of_death), &#39;fentanyl&#39;))</code></pre>
+</div>

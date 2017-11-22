@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Data Munging on BIOF339 Blog</title>
+    <link>/tags/data-munging/</link>
+    <description>Recent content in Data Munging on BIOF339 Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 22 Nov 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/data-munging/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Summarize outcomes into new variables</title>
+      <link>/2017/11/22/summarize-outcomes-into-new-variables/</link>
+      <pubDate>Wed, 22 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/11/22/summarize-outcomes-into-new-variables/</guid>
+      <description>An example Suppose you have a fairly detailed set of outcomes for cause of death. You want to summarize these outcomes into categories and create new variables indicating whether a person’s death could be attributed to a particular category or not. For example, suppose deaths from fentanyl are recorded as one of:
+ Fentanyl Intoxication Fentanyl and Morphine Intoxication Combined Drug Intoxication (Heroin, Cocaine and Fentanyl) Fentanyl-involved  These are all possiblities in your dataset under a variable Cause_of_death.</description>
+    </item>
+    
+  </channel>
+</rss>
