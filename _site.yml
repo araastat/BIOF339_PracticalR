@@ -15,7 +15,7 @@ navbar:
       href: resources.html
   right:
     - text: Blog
-      href: https://hardcore-austin-dc949c.netlify.com
+      href: blog/public/index.html
     - text: GitHub
       href: https://github.com/araastat/BIOF339_PracticalR/tree/gh-pages
 output:
