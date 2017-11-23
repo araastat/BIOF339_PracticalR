@@ -3,41 +3,41 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://araastat.github.io/BIOF339_PracticalR/blog/public/2017/11/22/summarize-outcomes-into-new-variables/</loc>
+    <loc>http://www.araastat.com/BIOF339_PracticalR/blog/public/2017/11/22/summarize-outcomes-into-new-variables/</loc>
     <lastmod>2017-11-22T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://araastat.github.io/BIOF339_PracticalR/blog/public/</loc>
-    <lastmod>2017-11-22T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://araastat.github.io/BIOF339_PracticalR/blog/public/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://araastat.github.io/BIOF339_PracticalR/blog/public/tags/data-munging/</loc>
+    <loc>http://www.araastat.com/BIOF339_PracticalR/blog/public/</loc>
     <lastmod>2017-11-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://araastat.github.io/BIOF339_PracticalR/blog/public/post/</loc>
+    <loc>http://www.araastat.com/BIOF339_PracticalR/blog/public/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.araastat.com/BIOF339_PracticalR/blog/public/tags/data-munging/</loc>
     <lastmod>2017-11-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://araastat.github.io/BIOF339_PracticalR/blog/public/categories/r/</loc>
+    <loc>http://www.araastat.com/BIOF339_PracticalR/blog/public/post/</loc>
     <lastmod>2017-11-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://araastat.github.io/BIOF339_PracticalR/blog/public/tags/</loc>
+    <loc>http://www.araastat.com/BIOF339_PracticalR/blog/public/categories/r/</loc>
+    <lastmod>2017-11-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.araastat.com/BIOF339_PracticalR/blog/public/tags/</loc>
     <lastmod>2017-11-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
