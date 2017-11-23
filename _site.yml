@@ -13,7 +13,6 @@ navbar:
       href: lectures.html
     - text: Resources
       href: resources.html
-  right:
     - text: Blog
       href: https://hardcore-austin-dc949c.netlify.com
     - icon: fa-github
