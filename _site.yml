@@ -16,7 +16,7 @@ navbar:
   right:
     - text: Blog
       href: https://hardcore-austin-dc949c.netlify.com
-    - icon: fa fa-github
+    - text: GitHub
       href: https://github.com/araastat/BIOF339_PracticalR/tree/gh-pages
 output:
   html_document:
