@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Summarize outcomes into new variables // BIOF339 Blog</title>
+    <title>Installing rJava for R on the Mac // BIOF339 Blog</title>
 
         <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -9,11 +9,11 @@
     <meta name="description" content="Blogging about R issues arising from the class">
     <meta name="keywords" content="">
     <meta name="author" content="">
-        <meta property="og:title" content="Summarize outcomes into new variables" />
+        <meta property="og:title" content="Installing rJava for R on the Mac" />
     <meta property="og:description" content="Blogging about R issues arising from the class" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:url" content="http://www.araastat.com/BIOF339_PracticalR/blog/public/2017/11/22/summarize-outcomes-into-new-variables/" />
+    <meta property="og:url" content="http://www.araastat.com/BIOF339_PracticalR/blog/public/2017/11/26/installing-rjava-for-r-on-the-mac/" />
     
 
     <link href="" rel="alternate" type="application/rss+xml" title="BIOF339 Blog" />
@@ -55,12 +55,12 @@
         
         <header class="article-header">
             <h2 class="article-author">Abhijit Dasgupta</h2>
-            <h1 class="article-title" itemprop="name">Summarize outcomes into new variables</h1>
+            <h1 class="article-title" itemprop="name">Installing rJava for R on the Mac</h1>
         </header>
         
         <div class="article-meta">
-            <a href="/BIOF339_PracticalR/blog/public/2017/11/22/summarize-outcomes-into-new-variables/" class="article-date">
-                <time datetime='2017-11-22T00:00:00.000&#43;00:00' itemprop="datePublished">2017-11-22</time>
+            <a href="/BIOF339_PracticalR/blog/public/2017/11/26/installing-rjava-for-r-on-the-mac/" class="article-date">
+                <time datetime='2017-11-26T00:00:00.000&#43;00:00' itemprop="datePublished">2017-11-26</time>
             </a>
             
             
@@ -76,39 +76,130 @@
             
         </div>
         <div class="article-entry" itemprop="articleBody">
-            <div id="an-example" class="section level2">
-<h2>An example</h2>
-<p>Suppose you have a fairly detailed set of outcomes for cause of death. You want to summarize these outcomes into categories and create new variables indicating whether a person’s death could be attributed to a particular category or not. For example, suppose deaths from fentanyl are recorded as one of:</p>
+            
+
+<h2 id="introduction">Introduction</h2>
+
+<p>There are several R packages that link to or use Java, and so there exists a link between R and Java
+throught the <code>rJava</code> package. The <code>rJava</code> package is notoriously finicky to install in R, given
+the quirks of the Mac OS X system, Java, and R. In fact general advice is that, if you can avoid using rJava, do. It is a conundrum that even the most experienced R hands would like to avoid.</p>
+
+<p>I recently went through the process of installing
+rJava on a new MacBook Pro, using advice from the web.  I&rsquo;ll document the process I followed, with the following software:</p>
+
 <ul>
-<li>Fentanyl Intoxication</li>
-<li>Fentanyl and Morphine Intoxication</li>
-<li>Combined Drug Intoxication (Heroin, Cocaine and Fentanyl)</li>
-<li>Fentanyl-involved</li>
+<li>Mac OS X Sierra (version 10.12.6)</li>
+<li>Java JDK version 9.0.1</li>
+<li>R version 3.4.2 (Short Summer) 64-bit</li>
+<li>rJava version 0.9-9, installed from source</li>
 </ul>
-<p>These are all possiblities in your dataset under a variable <code>Cause_of_death</code>. We will create a new variable, <code>Fentanyl</code>, that is a boolean variable which is <code>TRUE</code> if the person’s death is fentanyl-related and <code>FALSE</code> if it isn’t.</p>
-</div>
-<div id="approach-1" class="section level2">
-<h2>Approach 1</h2>
-<p>This is a general approach. First make a vector of all the possible ways fentanyl-related deaths are records:</p>
-<pre class="r"><code>fentanyl_related &lt;- c(&#39;Fentanyl Intoxication&#39;, &#39;Fentanyl and Morphine Intoxication&#39;,
-                      &#39;Combined Drug Intoxication (Heroin, Cocaine and Fentanyl)&#39;,
-                      &#39;Fentanyl-involved&#39;)</code></pre>
-<p>We then can create the new variable quite easily as</p>
-<pre class="r"><code>dat &lt;- dat %&gt;% mutate(Fentanyl = Cause_of_death %in% fentanyl_related)</code></pre>
-</div>
-<div id="approach-2" class="section level2">
-<h2>Approach 2</h2>
-<p>This approach leverages the text processing capabilities of the <code>stringr</code> package. We note that all the outcomes in <code>fentanyl_related</code> have the word “Fentanyl” in it. So we can create the <code>Fentanyl</code> variable using the following code:</p>
-<pre class="r"><code>dat &lt;- dat %&gt;% 
-  mutate(Fentanyl = stringr::str_detect(Cause_of_death, &#39;Fentanyl&#39;))</code></pre>
-<p>We could also protect ourselves against possible recording errors (in terms of capitalization) by making all the entries lower-case and then testing for the lower-case “fentanyl”. This avoids the issues with <code>ignore.case</code> that are required for the <code>grep</code> family of functions.</p>
-<pre class="r"><code>dat &lt;- dat %&gt;% 
-  mutate(Fentanyl = stringr::str_detect(tolower(Cause_of_death), &#39;fentanyl&#39;))</code></pre>
-</div>
+
+<h2 id="setting-the-groundwork">Setting the groundwork</h2>
+
+<p>First, we need to install the Xcode command line tools using the code</p>
+
+<pre><code>xcode-select --install
+</code></pre>
+
+<p>Next we install both Java 6 and the current Java version. Java 6 is apparently needed for some
+scaffolding and functions not present in the current version. All commands below need to be run
+in a Terminal.</p>
+
+<h3 id="java-6">Java 6</h3>
+
+<pre><code>curl -#ROL https://support.apple.com/downloads/DL1572/en_US/javaforosx.dmg
+open javaforosx.dmg
+</code></pre>
+
+<p>and walk through the installation.</p>
+
+<h3 id="java-9">Java 9</h3>
+
+<p>Install the JDK package from <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk9-downloads-3848520.html">this link</a></p>
+
+<p>To ensure that Java is installed, run the following functions in the Terminal</p>
+
+<pre><code>/usr/libexec/java_home -V
+java -version
+</code></pre>
+
+<p>I get these results:</p>
+
+<pre><code>[~] /usr/libexec/java_home -V                                                  
+
+Matching Java Virtual Machines (3):
+    9.0.1, x86_64:	&quot;Java SE 9.0.1&quot;	/Library/Java/JavaVirtualMachines/jdk-9.0.1.jdk/Contents/Home
+    1.6.0_65-b14-468, x86_64:	&quot;Java SE 6&quot;	/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
+    1.6.0_65-b14-468, i386:	&quot;Java SE 6&quot;	/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
+
+/Library/Java/JavaVirtualMachines/jdk-9.0.1.jdk/Contents/Home
+[~] java --version                                                             
+java 9.0.1
+Java(TM) SE Runtime Environment (build 9.0.1+11)
+Java HotSpot(TM) 64-Bit Server VM (build 9.0.1+11, mixed mode)
+</code></pre>
+
+<h2 id="setting-up-clang-and-other-required-software">Setting up clang and other required software</h2>
+
+<p>I installed <a href="https://github.com/coatless/r-macos-clang">r-macos-clang</a> using the installer available
+<a href="https://uofi.box.com/v/r-macos-clang-pkg">here</a>. This took care of installing the version of
+the clang compiler compatible with the current R version.</p>
+
+<p>This still had some problems in terms of finding some files. I then ran the following lines
+in the Terminal:</p>
+
+<pre><code>sudo ln -f -s $(/usr/libexec/java_home)/jre/lib/server/libjvm.dylib /usr/local/libsudo 
+ln -s /usr/local/clang4/lib/libomp.dylib /usr/local/lib/libomp.dylib
+</code></pre>
+
+<h2 id="setting-up-java-for-r">Setting up Java for R</h2>
+
+<p>Run the following two commands in the Terminal:</p>
+
+<pre><code>unset JAVA_HOME
+R CMD javareconf
+</code></pre>
+
+<h2 id="installing-rjava">Installing rJava</h2>
+
+<p>From the Terminal, I ran the following command:</p>
+
+<pre><code>R --quiet -e 'install.packages(&quot;rJava&quot;, type=&quot;source&quot;, repos=&quot;http://cran.us.r-project.org&quot;)'
+</code></pre>
+
+<p>This compiles rJava from source, and for me this worked.</p>
+
+<h2 id="references">References</h2>
+
+<ol>
+<li><a href="https://github.com/snowflakedb/dplyr-snowflakedb/wiki/Configuring-R-rJava-RJDBC-on-Mac-OS-X">Configuring R rJava RJDBC on Mac OS X</a></li>
+<li><a href="https://stackoverflow.com/questions/45051275/rjava-loading-in-r3-4-1-with-os-sierra">StackOverflow: rJava loading in R(3.4.1) with OS Sierra</a></li>
+</ol>
 
         </div>
 
         
+        
+        <div class="article-toc" style="display:none;">
+            <h3>Contents</h3>
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#setting-the-groundwork">Setting the groundwork</a>
+<ul>
+<li><a href="#java-6">Java 6</a></li>
+<li><a href="#java-9">Java 9</a></li>
+</ul></li>
+<li><a href="#setting-up-clang-and-other-required-software">Setting up clang and other required software</a></li>
+<li><a href="#setting-up-java-for-r">Setting up Java for R</a></li>
+<li><a href="#installing-rjava">Installing rJava</a></li>
+<li><a href="#references">References</a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
         
         
 
@@ -158,7 +249,7 @@
             <ul class="article-tag-list">
                 
                 <li class="article-tag-list-item">
-                    <a class="article-tag-list-link" href="http://www.araastat.com/BIOF339_PracticalR/blog/public//tags/data-munging">Data munging
+                    <a class="article-tag-list-link" href="http://www.araastat.com/BIOF339_PracticalR/blog/public//tags/development">development
                     </a>
                 </li>
                 
@@ -174,6 +265,10 @@
         </div>
     </a>
     
+    
+    <a href="/BIOF339_PracticalR/blog/public/2017/11/22/summarize-outcomes-into-new-variables/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Summarize outcomes into new variables&nbsp;<span>&gt;</span></div>
+    </a>
     
 </nav>
 </article>

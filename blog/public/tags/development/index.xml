@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on BIOF339 Blog</title>
-    <link>http://www.araastat.com/BIOF339_PracticalR/blog/public/post/</link>
-    <description>Recent content in Posts on BIOF339 Blog</description>
+    <title>Development on BIOF339 Blog</title>
+    <link>http://www.araastat.com/BIOF339_PracticalR/blog/public/tags/development/</link>
+    <description>Recent content in Development on BIOF339 Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 26 Nov 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://www.araastat.com/BIOF339_PracticalR/blog/public/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://www.araastat.com/BIOF339_PracticalR/blog/public/tags/development/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -27,16 +27,6 @@
       
       <guid>http://www.araastat.com/BIOF339_PracticalR/blog/public/2017/11/26/installing-rjava-for-r-on-the-mac/</guid>
       <description>Introduction There are several R packages that link to or use Java, and so there exists a link between R and Java throught the rJava package. The rJava package is notoriously finicky to install in R, given the quirks of the Mac OS X system, Java, and R. In fact general advice is that, if you can avoid using rJava, do. It is a conundrum that even the most experienced R hands would like to avoid.</description>
-    </item>
-    
-    <item>
-      <title>Summarize outcomes into new variables</title>
-      <link>http://www.araastat.com/BIOF339_PracticalR/blog/public/2017/11/22/summarize-outcomes-into-new-variables/</link>
-      <pubDate>Wed, 22 Nov 2017 00:00:00 +0000</pubDate>
-      
-      <guid>http://www.araastat.com/BIOF339_PracticalR/blog/public/2017/11/22/summarize-outcomes-into-new-variables/</guid>
-      <description>An example Suppose you have a fairly detailed set of outcomes for cause of death. You want to summarize these outcomes into categories and create new variables indicating whether a person’s death could be attributed to a particular category or not. For example, suppose deaths from fentanyl are recorded as one of:
- Fentanyl Intoxication Fentanyl and Morphine Intoxication Combined Drug Intoxication (Heroin, Cocaine and Fentanyl) Fentanyl-involved  These are all possiblities in your dataset under a variable Cause_of_death.</description>
     </item>
     
   </channel>
