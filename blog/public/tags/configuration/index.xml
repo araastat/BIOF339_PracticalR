@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Configuration on BIOF339 Blog</title>
+    <link>http://www.araastat.com/BIOF339_PracticalR/blog/public/tags/configuration/</link>
+    <description>Recent content in Configuration on BIOF339 Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 26 Nov 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://www.araastat.com/BIOF339_PracticalR/blog/public/tags/configuration/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Installing rJava for R on the Mac</title>
+      <link>http://www.araastat.com/BIOF339_PracticalR/blog/public/2017/11/26/installing-rjava-for-r-on-the-mac/</link>
+      <pubDate>Sun, 26 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.araastat.com/BIOF339_PracticalR/blog/public/2017/11/26/installing-rjava-for-r-on-the-mac/</guid>
+      <description>Introduction There are several R packages that link to or use Java, and so there exists a link between R and Java throught the rJava package. The rJava package is notoriously finicky to install in R, given the quirks of the Mac OS X system, Java, and R. In fact general advice is that, if you can avoid using rJava, do. It is a conundrum that even the most experienced R hands would like to avoid.</description>
+    </item>
+    
+  </channel>
+</rss>
