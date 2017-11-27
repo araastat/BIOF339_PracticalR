@@ -78,7 +78,29 @@
             
         </div>
         <div class="article-entry" itemprop="articleBody">
-            
+            <div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>The data science pipeline often leads to some sort of report, typically a research paper in academia, or a data product in industry. Since this class caters more to the academia/research side, let’s describe some of the ways we can report the results of our data analyses.</p>
+<div id="literate-programming" class="section level2">
+<h2>Literate programming</h2>
+<p>The CRAN Task Views page on <a href="https://cran.r-project.org/web/views/ReproducibleResearch.html">Reproducible Research</a> describes reproducible research as follows:</p>
+<blockquote>
+<p>The goal of reproducible research is to tie specific instructions to data analysis and experimental data so that scholarship can be recreated, better understood and verified.</p>
+</blockquote>
+<p>The basic idea behind this concept in R is the idea of <em>literate programming</em>, where one creates a document that combines both content and code and uses a program to replace the code with the results of that code so that the final document contains both content and the results of analysis. This functionality has been baked into R from the beginning with the <code>Sweave</code> function; this function took in a <em>LaTeX</em> document with code interspersed andproduced a final document, typically in PDF format, that “weaved” the text and the results of the code, and created a formatted final document. <em>LaTeX</em> was used because it (a) had very good formatting capabilities through style files, (b) allows fine control of the document, and (b) was the <em>de facto</em> way of writing mathematics and computer science papers.</p>
+<div id="the-rmarkdown-revolution" class="section level3">
+<h3>The <code>rmarkdown</code> revolution</h3>
+<p>Yihui Xie created the R package <a href="https://yihui.name/knitr/"><code>knitr</code></a> in 2012 as a potential replacement for <code>Sweave</code>. It took the best of Sweave, added features like caching code for speed, and added functionality like formatting R code, creating flexibility in handling graphics and other <a href="https://yihui.name/knitr/">features</a>. It takes a file containing text and R code and processes it by replacing code with results after running it through R.</p>
+<p>One of the most significant changes that <code>knitr</code> brought was the ability to use <a href="https://daringfireball.net/projects/markdown/syntax"><code>Markdown</code></a>, which is a lightweight text markup language that is easy to read and easy to write, as the source file for literate programming rather than <em>LaTeX</em>. This made literate programming and reporting in R far more accessible to the general R user than having to learn the rather complex <em>LaTeX</em> syntax, and, in my opinion, created a revolution in how the results of analyses are reported from R. This also led to the development of a particular easy syntax, <a href="http://rmarkdown.rstudio.com"><code>rmarkdown</code></a> that allowed a wide variety of documents to be created interlacing text, graphics and analytic results.</p>
+<p>The second important aspect of using <code>rmarkdown</code> was the development of <a href="http://pandoc.org/"><code>pandoc</code></a>, a program that can take a markdown document and convert it into many different formats, including Microsoft Word, HTML, PDF (using <em>LaTeX</em>), and HTML slides. This made markdown a key format for generating documents for distribution and presentation. The<code>pandoc</code> program is very powerful and customizable and allows the use of templates, so it allowed the automation of analytic reports from R using <code>knitr</code> and <code>pandoc</code> in combination. This pipeline was codified by the RStudio folk who developed the <a href="http://rmarkdown.rstudio.com"><code>rmarkdown</code></a> R package. The possibilities of creating analyses-driven documents using <code>rmarkdown</code> can be seen in the <a href="http://rmarkdown.rstudio.com/gallery.html">R Markdown Gallery</a></p>
+<div id="other-input-formats" class="section level4">
+<h4>Other input formats</h4>
+<p>You can still use <code>knitr</code> with other input formats. For example,</p>
+</div>
+</div>
+</div>
+</div>
+
         </div>
 
         

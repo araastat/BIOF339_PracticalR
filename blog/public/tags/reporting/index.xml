@@ -17,7 +17,9 @@
       <pubDate>Sun, 26 Nov 2017 00:00:00 +0000</pubDate>
       
       <guid>/BIOF339_PracticalR/blog/public/2017/11/26/a-summary-of-reporting-tools-from-r/</guid>
-      <description></description>
+      <description>Introduction The data science pipeline often leads to some sort of report, typically a research paper in academia, or a data product in industry. Since this class caters more to the academia/research side, let’s describe some of the ways we can report the results of our data analyses.
+Literate programming The CRAN Task Views page on Reproducible Research describes reproducible research as follows:
+ The goal of reproducible research is to tie specific instructions to data analysis and experimental data so that scholarship can be recreated, better understood and verified.</description>
     </item>
     
   </channel>
