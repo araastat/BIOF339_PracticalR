@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Working with dates in R // BIOF339 Blog</title>
+    <title>A summary of reporting tools from R // BIOF339 Blog</title>
 
         <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -9,11 +9,11 @@
     <meta name="description" content="Blogging about R issues arising from the class">
     <meta name="keywords" content="">
     <meta name="author" content="">
-        <meta property="og:title" content="Working with dates in R" />
+        <meta property="og:title" content="A summary of reporting tools from R" />
     <meta property="og:description" content="Blogging about R issues arising from the class" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:url" content="/BIOF339_PracticalR/blog/public/2017/11/23/working-with-dates-in-r/" />
+    <meta property="og:url" content="/BIOF339_PracticalR/blog/public/2017/11/26/a-summary-of-reporting-tools-from-r/" />
     
 
     <link href="" rel="alternate" type="application/rss+xml" title="BIOF339 Blog" />
@@ -57,12 +57,12 @@
         
         <header class="article-header">
             <h2 class="article-author">Abhijit Dasgupta</h2>
-            <h1 class="article-title" itemprop="name">Working with dates in R</h1>
+            <h1 class="article-title" itemprop="name">A summary of reporting tools from R</h1>
         </header>
         
         <div class="article-meta">
-            <a href="/BIOF339_PracticalR/blog/public/2017/11/23/working-with-dates-in-r/" class="article-date">
-                <time datetime='2017-11-23T00:00:00.000&#43;00:00' itemprop="datePublished">2017-11-23</time>
+            <a href="/BIOF339_PracticalR/blog/public/2017/11/26/a-summary-of-reporting-tools-from-r/" class="article-date">
+                <time datetime='2017-11-26T00:00:00.000&#43;00:00' itemprop="datePublished">2017-11-26</time>
             </a>
             
             
@@ -78,32 +78,7 @@
             
         </div>
         <div class="article-entry" itemprop="articleBody">
-            <div id="the-date-class" class="section level3">
-<h3>The <code>Date</code> class</h3>
-<p>R provides a <code>Date</code> class, which represents dates internally as number of days since January 1, 1970. Date objects are typically created from character strings that represent dates, but require specifying the format. The default format is <code>YYYY-MM-DD</code>.</p>
-<pre class="r"><code>dt &lt;- as.Date(&#39;2017-11-23&#39;)
-dt &lt;- as.Date(&#39;11/23/17&#39;, format = &#39;%m/%d/%y&#39;) # Gives the same answer</code></pre>
-<p>You can also format dates for printing into most formats:</p>
-<pre class="r"><code>format(dt, &#39;%B %d, %Y&#39;)</code></pre>
-<pre><code>## [1] &quot;November 23, 2017&quot;</code></pre>
-<pre class="r"><code>format(dt, &#39;%b %d, %Y&#39;)</code></pre>
-<pre><code>## [1] &quot;Nov 23, 2017&quot;</code></pre>
-<pre class="r"><code>format(dt, &#39;%m/%d/%y&#39;)</code></pre>
-<pre><code>## [1] &quot;11/23/17&quot;</code></pre>
-<pre class="r"><code>format(dt, &#39;%d/%m/%y&#39;)</code></pre>
-<pre><code>## [1] &quot;23/11/17&quot;</code></pre>
-<pre class="r"><code>format(dt, &#39;%Y-%m-%d&#39;)</code></pre>
-<pre><code>## [1] &quot;2017-11-23&quot;</code></pre>
-<p>The numeric representation of this date can be seen by using the <code>as.numeric</code> function:</p>
-<pre class="r"><code>as.numeric(dt)</code></pre>
-<pre><code>## [1] 17493</code></pre>
-<div id="working-with-dates-from-sas" class="section level4">
-<h4>Working with dates from SAS</h4>
-<p>SAS also represents dates as numbers internally, but as days since January 1, <strong>1960</strong>. This can lead to some fun times in converting dates. The function <code>haven::read_sas</code> does the right thing and creates the correct dates in R as <code>Date</code> objects.</p>
-<p>The ambiguity in this origin story makes it probably a good practice to store dates as characters, and convert them “on the fly” when you need to do some date manipulation. The preferred way to store dates as text is in the form <code>YYYY-MM-DD</code>. The simple reason for this is that this format allows alphabetical sorting to be the same as sorting by time.</p>
-</div>
-</div>
-
+            
         </div>
 
         
@@ -156,7 +131,7 @@ dt &lt;- as.Date(&#39;11/23/17&#39;, format = &#39;%m/%d/%y&#39;) # Gives the sa
             <ul class="article-tag-list">
                 
                 <li class="article-tag-list-item">
-                    <a class="article-tag-list-link" href="/BIOF339_PracticalR/blog/public//tags/data-types">Data types
+                    <a class="article-tag-list-link" href="/BIOF339_PracticalR/blog/public//tags/reporting">Reporting
                     </a>
                 </li>
                 
@@ -166,15 +141,9 @@ dt &lt;- as.Date(&#39;11/23/17&#39;, format = &#39;%m/%d/%y&#39;) # Gives the sa
     </div>
     <nav id="article-nav">
     
-    <a href="/BIOF339_PracticalR/blog/public/2017/11/26/installing-rjava-for-r-on-the-mac/" id="article-nav-newer" class="article-nav-link-wrap">
-        <div class="article-nav-title"><span>&lt;</span>&nbsp;
-            Installing rJava for R on the Mac
-        </div>
-    </a>
     
-    
-    <a href="/BIOF339_PracticalR/blog/public/2017/11/22/summarize-outcomes-into-new-variables/" id="article-nav-older" class="article-nav-link-wrap">
-        <div class="article-nav-title">Summarize outcomes into new variables&nbsp;<span>&gt;</span></div>
+    <a href="/BIOF339_PracticalR/blog/public/2017/11/26/installing-rjava-for-r-on-the-mac/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Installing rJava for R on the Mac&nbsp;<span>&gt;</span></div>
     </a>
     
 </nav>

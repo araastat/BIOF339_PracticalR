@@ -41,6 +41,8 @@
                 
                 <a class="main-nav-link" href="http://www.araastat.com/BIOF339_PracticalR/index.html">Class home</a>
                 
+                <a class="main-nav-link" href="http://www.araastat.com/BIOF339_PracticalR/tags/index.html">Tags</a>
+                
             </nav>
             <nav id="sub-nav">
                 <div id="search-form-wrap">
@@ -123,8 +125,8 @@ Java HotSpot(TM) 64-Bit Server VM (build 9.0.1+11, mixed mode)</code></pre>
 <h2>Setting up clang and other required software</h2>
 <p>I installed <a href="https://github.com/coatless/r-macos-clang">r-macos-clang</a> using the installer available <a href="https://uofi.box.com/v/r-macos-clang-pkg">here</a>. This took care of installing the version of the clang compiler compatible with the current R version.</p>
 <p>This still had some problems in terms of finding some files. I then ran the following lines in the Terminal:</p>
-<pre><code>sudo ln -f -s $(/usr/libexec/java_home)/jre/lib/server/libjvm.dylib /usr/local/libsudo 
-ln -s /usr/local/clang4/lib/libomp.dylib /usr/local/lib/libomp.dylib</code></pre>
+<pre><code>sudo ln -f -s $(/usr/libexec/java_home)/jre/lib/server/libjvm.dylib /usr/local/lib
+sudo ln -s /usr/local/clang4/lib/libomp.dylib /usr/local/lib/libomp.dylib</code></pre>
 </div>
 <div id="setting-up-java-for-r" class="section level2">
 <h2>Setting up Java for R</h2>
