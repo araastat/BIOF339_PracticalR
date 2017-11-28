@@ -109,3 +109,8 @@ output <-
   mutate_at(vars(baseMean:stat), round, 2) # Format the other numerical values
 ```
 
+
+### Lecture 12
+<a href = "Lectures/lecture13_data/Presentation/index.html" target="_blank">Presentation</a>([PPTX](Lectures/lecture13_data/Presentation.pptx)) <br/>
+
+Practicum: <a href = "Lectures/lecture13_data/lecture13_practicum.html" target="_blank">HTML</a> / [Word](Lectures/lecture13_data/lecture13_practicum.docx) / [Rmd](Lectures/lecture13_data/lecture13_practicum.Rmd)
