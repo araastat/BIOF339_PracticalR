@@ -110,7 +110,15 @@ output <-
 ```
 
 
-### Lecture 12
-<a href = "Lectures/lecture13_data/Presentation/index.html" target="_blank">Presentation</a>([PPTX](Lectures/lecture13_data/Presentation.pptx)) <br/>
+### Lecture 12: Reporting in R
+[PPTX](Lectures/lecture13_data/Presentation.pptx) <br/>
 
 Practicum: <a href = "Lectures/lecture13_data/lecture13_practicum.html" target="_blank">HTML</a> / [Word](Lectures/lecture13_data/lecture13_practicum.docx) / [Rmd](Lectures/lecture13_data/lecture13_practicum.Rmd)
+
+__Supplemental material:__ <br/>
+
+1. [Automatic output format in R Markdown](https://www.r-bloggers.com/automatic-output-format-in-rmarkdown/)
+2. [knitr in a nutshell: figures and tables](http://kbroman.org/knitr_knutshell/pages/figs_tables.html)
+3. [Make Your Academic CV Look Pretty in R Markdown](http://svmiller.com/blog/2016/03/svm-r-markdown-cv/)
+4. [Tips and tricks for working with images and figures in R Markdown documents](http://www.zevross.com/blog/2017/06/19/tips-and-tricks-for-working-with-images-and-figures-in-r-markdown-documents/)
+5. [Rendering tables with pandoc.table](https://rapporter.github.io/pander/pandoc_table.html): This shows the flexibility and highlighting capabilities of the `pander` package for R Markdown
