@@ -125,7 +125,7 @@ image_scale(plt, "1600")
 
 When you create a Project, the following obvious things happen:
 
-1. RStduio puts you into the right directory/folder
+1. RStudio puts you into the right directory/folder
 2. Creates a .Rproj file containing project options
     + You can double-click on the .Rproj file to open the project in RStudio
 3. Displays the project name in the project toolbar (right top of the window)
