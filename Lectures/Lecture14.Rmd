@@ -137,7 +137,7 @@ The following not-so-obvious things happen:
 1. A new R session (process) is started
 2. The .Rprofile file in the project’s main directory (if any) is sourced by R
 3. The .RData file in the project’s main directory is loaded (this can be controlled by an option).
-4. The .Rhistory file in the project’s main directory is loaded into the RStudio History pane (and used for Console Up/Down arrow o.mand history).
+4. The .Rhistory file in the project’s main directory is loaded into the RStudio History pane (and used for Console Up/Down arrow command history).
 5. The current working directory is set to the project directory.
 6. Previously edited source documents are restored into editor tabs, and
 7. Other RStudio settings (e.g. active tabs, splitter positions, etc.) are restored to where they were the last time the project was closed.

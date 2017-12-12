@@ -6,8 +6,13 @@ output: html_document
 
 Last updated: `r format(Sys.Date(), '%B %d, %Y')`
 
-Last years' presentations can be found [here](Lectures2016.zip)
-----
+------
+
+
+<blockquote style="background-color:red;color:white;font-size:150%">
+BIOF339 7-9pm section: You do not have to come to class <br/>
+Please send Abhijit your final presentations by 7pm today (12/12/17)
+</blockquote>
 
 ### Lecture 1
 

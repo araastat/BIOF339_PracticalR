@@ -18,6 +18,10 @@ Contact info:
 - Eugen Buehler: <a href = "mailto:eugen.buehler@nih.gov">eugen.buehler@nih.gov</a>
 
 ----
+<blockquote style="background-color:red;color:white;font-size:150%">
+BIOF339 7-9pm section: You do not have to come to class <br/>
+Please send Abhijit your final presentations by 7pm today (12/12/17)
+</blockquote>
 
 <a href="http://www.r-project.org" target="_blank">R</a> is one of the most popular programming languages for 
 data science and statistics. It is a free and open source language available for 
