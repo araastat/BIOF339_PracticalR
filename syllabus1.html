@@ -20,8 +20,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -30,10 +30,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -269,59 +271,59 @@ Email: <a href="mailto:eugen.buehler@nih.gov">eugen.buehler@nih.gov</a>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Sept. 12</td>
+<td align="left">Sept. 12</td>
 <td align="left">Introduction to R and RStudio. Basic Data Types</td>
 </tr>
 <tr class="even">
-<td align="left">Sept. 19</td>
+<td align="left">Sept. 19</td>
 <td align="left">Data Frames, Matrices and Lists</td>
 </tr>
 <tr class="odd">
-<td align="left">Sept. 26</td>
+<td align="left">Sept. 26</td>
 <td align="left">Exploring Data through Visualization.</td>
 </tr>
 <tr class="even">
-<td align="left">Oct. 3</td>
+<td align="left">Oct. 3</td>
 <td align="left">Basic Statistical Analysis with R: Summary statistics, Hypothesis tests</td>
 </tr>
 <tr class="odd">
-<td align="left">Oct. 10</td>
+<td align="left">Oct. 10</td>
 <td align="left">HOLIDAY</td>
 </tr>
 <tr class="even">
-<td align="left">Oct. 17</td>
+<td align="left">Oct. 17</td>
 <td align="left">Building Statistical Models with R: Linear Regression, Formula interface</td>
 </tr>
 <tr class="odd">
-<td align="left">Oct. 24</td>
+<td align="left">Oct. 24</td>
 <td align="left">R Packages. Importing &amp; exporting data. “Apply” family of functions</td>
 </tr>
 <tr class="even">
-<td align="left">Oct. 31</td>
+<td align="left">Oct. 31</td>
 <td align="left">Importing and exporting data. Data manipulation. “Apply” family of functions. Missing data</td>
 </tr>
 <tr class="odd">
-<td align="left">Nov. 7</td>
+<td align="left">Nov. 7</td>
 <td align="left">Advanced data manipulation. dplyr and related packages</td>
 </tr>
 <tr class="even">
-<td align="left">Nov. 14</td>
+<td align="left">Nov. 14</td>
 <td align="left">RMarkdown and other reporting packages</td>
 </tr>
 <tr class="odd">
-<td align="left">Nov. 21</td>
+<td align="left">Nov. 21</td>
 <td align="left">Basic graphics with ggplot.</td>
 </tr>
 <tr class="even">
-<td align="left">Nov. 28</td>
+<td align="left">Nov. 28</td>
 <td align="left">Advanced Graphics with ggplot (facets, etc). Generating publication quality graphics.</td>
 </tr>
 <tr class="odd">
-<td align="left">Dec. 5</td>
+<td align="left">Dec. 5</td>
 <td align="left">Bioconductor: Bioinformatics in R . Multiple Comparisons</td>
 </tr>
 <tr class="even">
-<td align="left">Dec. 12</td>
+<td align="left">Dec. 12</td>
 <td align="left">Project Presentations</td>
 </tr>
 </tbody>

@@ -17,7 +17,7 @@ output: html_document
 
 -----
 
-**Lectures:** Mondays, 5:30PM-6:30PM, NIH Campus, Building 60, Room 162.
+**Lectures:** Wednesdays, 5-7 PM or 7-9 PM, .
 
 **Course Description**
 
