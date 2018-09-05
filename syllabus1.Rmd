@@ -57,22 +57,27 @@ resources for the use of R in data analysis.
 
 **Course Schedule and Tentative Lecture Topics**
 
-  Date       Topic
-  ---------- ------------------------------------------------------------------------------------------------
-  Sept. 12   Introduction to R and RStudio. Basic Data Types
-  Sept. 19   Data Frames, Matrices and Lists
-  Sept. 26   Exploring Data through Visualization.
-  Oct. 3     Basic Statistical Analysis with R: Summary statistics, Hypothesis tests
-  Oct. 10    
-  Oct. 17    Building Statistical Models with R: Linear Regression, Formula interface
-  Oct. 24    R Packages. Importing & exporting data. "Apply" family of functions
-  Oct. 31    Importing and exporting data. Data manipulation. “Apply” family of functions. Missing data
-  Nov. 7     Advanced data manipulation. dplyr and related packages
-  Nov. 14    RMarkdown and other reporting packages
-  Nov. 21    Basic graphics with ggplot.
-  Nov. 28    Advanced Graphics with ggplot (facets, etc). Generating publication quality graphics.
-  Dec. 5     Bioconductor: Bioinformatics in R . Multiple Comparisons
-  Dec. 12    Project Presentations
+```{r, echo = FALSE, message=F, warning=F}
+library(tidyverse)
+topics <- c('Introduction to R and RStudio. Basic Data Types',
+            'Data Frames, Matrices and Lists',
+          'Exploring Data through Visualization.' ,
+          'Basic Statistical Analysis with R: Summary statistics, Hypothesis tests',
+          'Building Statistical Models with R: Linear Regression, Formula" interface ' ,
+          'R Packages. Importing & exporting data. "Apply" family of functions'  ,
+          'Importing and exporting data. Data manipulation. “Apply” family of functions. Missing data ' ,
+          'Tidyverse I: Data munging with dplyr ',
+          'Tidyverse II:  Data manipulation with purrr and *apply',
+          'RMarkdown and other reporting packages  ',
+          'Basic graphics with ggplot.  ',
+          'Advanced Graphics with ggplot (facets, etc). Generating publication quality graphics. ' ,
+          'Bioconductor: Bioinformatics in R . Multiple Comparisons  ',
+          'Project Presentations  ')
+dates <- seq(as.Date('2018-09-12'),by='week', length.out = 14) %>% format('%b. %d')
+D <- data.frame('Date' = dates, 'Topic' = topics)
+knitr::kable(D)
+```
+
 
 **Class Project**
 
