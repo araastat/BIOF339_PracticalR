@@ -1,7 +1,7 @@
 ---
 title: "BIOF 339: Practical R"
 author: "Abhijit Dasgupta & Eugen Buehler"
-date: "Fall 2017"
+date: "Fall 2018"
 output: html_document
 ---
 ```{r, include = FALSE, eval = knitr::opts_knit$get("rmarkdown.pandoc.to") == "html"}
