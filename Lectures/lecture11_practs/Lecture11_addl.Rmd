@@ -1,0 +1,210 @@
+---
+title: "Customizing graphics"
+author: "Abhijit Dasgupta"
+date: "11/14/2017"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T, fig.height = 3, cache=F)
+library(ggplot2)
+```
+
+# Using ggplot2 and friends
+
+## ggplot2 graphics
+
+```{r}
+data(diamonds)
+ggplot(diamonds, aes(x = carat, y = price, color = color))+
+  geom_point()
+```
+
+## ggplot2 graphics
+
+```{r}
+data(diamonds)
+ggplot(diamonds, aes(x = carat, y = price, color = color))+
+  geom_point() + 
+  scale_x_continuous(name = "Carat", breaks = 1:5, minor_breaks = NULL)+
+  scale_y_log10(name = "Price ($)")+
+  labs(color = "Color")
+```
+
+## ggplot2 graphics
+```{r}
+ggplot(diamonds, aes(x = carat, y = price, color=clarity, size = depth))+
+  geom_point()
+```
+
+
+## ggplot2 graphics
+
++ Hexagonal binning is useful if you have many many overlapping points. 
+
+```{r}
+# Requires the "hexbin" package to be installed
+ggplot(diamonds, aes(x = carat, y = price))+
+  geom_hex()
+```
+
+## ggplot2 graphics
+
+```{r}
+ggplot(diamonds, aes(x = cut, y = price)) + geom_boxplot() +
+  scale_y_log10()+
+  labs(x = 'Cut',y = 'Price ($)') + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## ggplot2 graphics
+
+```{r}
+ggplot(diamonds, aes(x = cut, y = price)) + geom_boxplot() +
+  scale_y_log10()+
+  labs(x = 'Cut',y = 'Price ($)') + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  coord_flip()
+```
+# Adding ggthemes
+
+## ggplot2 graphics + ggthemes
+
+```{r}
+library(ggthemes)
+ggplot(diamonds, aes(x=carat, y = price, color = color))+
+  geom_point()+
+  theme_economist()
+```
+
+## ggplot2 + ggthemes
+
+```{r}
+data(diamonds)
+ggplot(diamonds, aes(x = carat, y = price, color = color))+
+  geom_point()+
+  theme_fivethirtyeight()
+```
+
+## ggplot2 + ggthemes
+```{r}
+data(diamonds)
+ggplot(diamonds, aes(x = carat, y = price, color = color))+
+  geom_point()+
+  theme_excel()
+```
+
+## ggplot2 + ggthemes
+```{r}
+data(diamonds)
+ggplot(diamonds, aes(x = carat, y = price, color = color))+
+  geom_point()+
+  theme_wsj()
+```
+
+## ggplot2 + ggthemes
+```{r}
+data(diamonds)
+ggplot(diamonds, aes(x = carat, y = price, color = color))+
+  geom_point()+
+  theme_stata()
+```
+
+## ggplot2 + ggthemes
+```{r}
+data(diamonds)
+ggplot(diamonds, aes(x = carat, y = price, color = color))+
+  geom_point()+
+  theme_few()
+```
+
+# Using cowplot
+
+## Cowplot
+```{r}
+suppressPackageStartupMessages(library(cowplot))
+plt <- ggplot(diamonds, aes(x = carat, y = price, color=clarity))+
+  geom_point()
+plt
+```
+
+## Cowplot
+```{r}
+plt + background_grid(major = 'xy', minor = 'none')
+```
+
+## Cowplot
+
+```{r}
+
+plt1 <- ggplot(diamonds, aes(x = carat, y = price)) + geom_point()
+plt2 <- ggplot(diamonds, aes(x = clarity, y = price)) + geom_boxplot()
+cowplot::plot_grid(plt1, plt2, labels = c('A','B'))
+```
+
+## Cowplot
+```{r}
+plt3 <- ggplot(diamonds, aes(x = color, y = price)) + geom_boxplot()
+cowplot::plot_grid(plt1, plt2, plt3, labels = c('A','B','C'), nrow=2)
+```
+
+# Other extensions
+
+## ggExtra
+
+```{r}
+library(ggExtra)
+p <- ggplot(diamonds, aes(x = carat, y = price)) + geom_point()
+ggMarginal(p, type = 'histogram')
+```
+
+# Survival plots
+
+## Survival plots
+
+```{r}
+library(survival)
+library(survminer)
+fit <- survfit(Surv(time, status) ~ sex, data = lung)
+ggsurvplot(fit, data = lung)
+```
+
+## Survival plots
+
+```{r, eval = F}
+ggsurvplot(
+  fit, 
+  data = lung, 
+  size = 1,                 # change line size
+  palette = 
+    c("#E7B800", "#2E9FDF"),# custom color palettes
+  conf.int = TRUE,          # Add confidence interval
+  pval = TRUE,              # Add p-value
+  risk.table = TRUE,        # Add risk table
+  risk.table.col = "strata",# Risk table color by groups
+  legend.labs = 
+    c("Male", "Female"),    # Change legend labels
+  risk.table.height = 0.25, # Useful to change when you have multiple groups
+  ggtheme = theme_bw()      # Change ggplot2 theme
+)
+```
+
+## Survival plots
+
+```{r, echo = F}
+ggsurvplot(
+  fit, 
+  data = lung, 
+  size = 1,                 # change line size
+  palette = 
+    c("#E7B800", "#2E9FDF"),# custom color palettes
+  conf.int = TRUE,          # Add confidence interval
+  pval = TRUE,              # Add p-value
+  risk.table = TRUE,        # Add risk table
+  risk.table.col = "strata",# Risk table color by groups
+  legend.labs = 
+    c("Male", "Female"),    # Change legend labels
+  risk.table.height = 0.25, # Useful to change when you have multiple groups
+  ggtheme = theme_bw()      # Change ggplot2 theme
+)
+```

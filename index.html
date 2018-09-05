@@ -23,6 +23,10 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link id="font-awesome-1-attachment" rel="attachment" href="site_libs/font-awesome-5.0.13/fonts/fontawesome-webfont.ttf"/>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -91,6 +95,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -196,7 +203,12 @@ $(document).ready(function () {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="blog/public/index.html">Blog</a>
+</li>
+<li>
+  <a href="https://github.com/araastat/BIOF339_PracticalR/tree/gh-pages">GitHub</a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -213,14 +225,13 @@ $(document).ready(function () {
 </div>
 
 
-<p>This course is part of the <a href="https://faes.org/content/graduate-school">FAES Graduate School</a> and is being offered Fall 2017. Two sessions are being offered this term, Tuesdays 5-7 and 7-9 pm.</p>
+<p>This course is part of the <a href="https://faes.org/content/graduate-school">FAES Graduate School</a> and is being offered Fall 2018. Two sessions are being offered this term, Wednesdays 5-7 and 7-9 pm.</p>
 <p>Contact info:</p>
 <ul>
 <li>Abhijit Dasgupta: <a href = "mailto:adasgupta@araastat.com">adasgupta@araastat.com</a></li>
 <li>Eugen Buehler: <a href = "mailto:eugen.buehler@nih.gov">eugen.buehler@nih.gov</a></li>
 </ul>
-<hr />
-<p><a href="http://www.r-project.org" target="_blank">R</a> is one of the most popular programming languages for data science and statistics. It is a free and open source language available for all major operating systems. It is extensible through a packaging system that has resulted in over 9000 user-contributed packages available on <a href="http://cran.r-project.org">CRAN</a>.</p>
+<p><a href="http://www.r-project.org" target="_blank">R</a> is one of the most popular programming languages for data science and statistics. It is a free and open source language available for all major operating systems. It is extensible through a packaging system that has resulted in over 12,000 user-contributed packages available on <a href="http://cran.r-project.org">CRAN</a>.</p>
 <p>In this course we will provide a practical approach to learning R using examples, with the intention to get you using R for your data analyses, data visualization and reporting as quickly as possible. We will try to avoid the more esoteric and “computer science-y” aspects of this programming language. We hope this approach and personal practice enables you to get started using R for your own work, find resources you may need beyond this course to help you answer your particular questions, and develop workflows for your data analyses that allow you to generate tables and figures for research papers, for example.</p>
 <p>The instructors have both been using R in their daily work at NIH and earlier for many many years and have a pretty detailed knowledge of R’s advantages, pitfalls, tricks and shortcuts. Don’t hesitate to reach out and ask your questions.</p>
 <hr />
@@ -228,7 +239,7 @@ $(document).ready(function () {
 data(iris)
 ggplot(iris, aes(Sepal.Width, Sepal.Length, color=Species))+geom_point()+
   labs(x=&#39;Sepal Width&#39;, y = &#39;Sepal Length&#39;, color=&#39;Species&#39;)</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" width="480" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" width="480" /></p>
 <hr />
 <p style="font-size: 80%">
 This website is written using R, <a href="http://rmarkdown.rstudio.com/index.html" target="_blank">R Markdown</a> and various packages provided by <a href="http://www.rstudio.com" target="_blank">RStudio</a>. The source code is available on <a href="https://github.com/araastat/BIOF339_PracticalR/tree/gh-pages" target="_blank">GitHub</a>

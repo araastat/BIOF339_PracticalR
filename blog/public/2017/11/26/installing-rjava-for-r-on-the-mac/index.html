@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Installing rJava for R on the Mac // BIOF339 Blog</title>
+
+        <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="Blogging about R issues arising from the class">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+        <meta property="og:title" content="Installing rJava for R on the Mac" />
+    <meta property="og:description" content="Blogging about R issues arising from the class" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="http://www.araastat.com/BIOF339_PracticalR/blog/public/2017/11/26/installing-rjava-for-r-on-the-mac/" />
+    
+
+    <link href="" rel="alternate" type="application/rss+xml" title="BIOF339 Blog" />
+    <link rel="shortcut icon" href="/favicon.png">
+
+    <link href="http://www.araastat.com/BIOF339_PracticalR/blog/public/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="http://www.araastat.com/BIOF339_PracticalR/blog/public/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="http://www.araastat.com/BIOF339_PracticalR/blog/public/css/style.css">
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    
+    <meta name="generator" content="Hugo 0.31" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="http://www.araastat.com/BIOF339_PracticalR/blog/public/">BIOF339 Blog</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="http://www.araastat.com/BIOF339_PracticalR/index.html">Class home</a>
+                
+                <a class="main-nav-link" href="tags/index.html">Tags</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h2 class="article-author">Abhijit Dasgupta</h2>
+            <h1 class="article-title" itemprop="name">Installing rJava for R on the Mac</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="/BIOF339_PracticalR/blog/public/2017/11/26/installing-rjava-for-r-on-the-mac/" class="article-date">
+                <time datetime='2017-11-26T00:00:00.000&#43;00:00' itemprop="datePublished">2017-11-26</time>
+            </a>
+            
+            
+            <div class="post-categories">
+                <div class="article-category">
+                    
+                    
+                    <a class="article-category-link" href="http://www.araastat.com/BIOF339_PracticalR/blog/public//categories/r">R</a>
+                    
+                </div>
+            </div>
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            <div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>There are several R packages that link to or use Java, and so there exists a link between R and Java throught the <code>rJava</code> package. The <code>rJava</code> package is notoriously finicky to install in R, given the quirks of the Mac OS X system, Java, and R. In fact general advice is that, if you can avoid using rJava, do. It is a conundrum that even the most experienced R hands would like to avoid.</p>
+<p>I recently went through the process of installing rJava on a new MacBook Pro, using advice from the web. I’ll document the process I followed, with the following software:</p>
+<ul>
+<li>Mac OS X Sierra (version 10.12.6)</li>
+<li>Java JDK version 9.0.1</li>
+<li>R version 3.4.2 (Short Summer) 64-bit</li>
+<li>rJava version 0.9-9, installed from source</li>
+</ul>
+</div>
+<div id="setting-the-groundwork" class="section level2">
+<h2>Setting the groundwork</h2>
+<p>First, we need to install the Xcode command line tools using the code</p>
+<pre><code>xcode-select --install</code></pre>
+<p>Next we install both Java 6 and the current Java version. Java 6 is apparently needed for some scaffolding and functions not present in the current version. All commands below need to be run in a Terminal.</p>
+<div id="java-6" class="section level3">
+<h3>Java 6</h3>
+<pre><code>curl -#ROL https://support.apple.com/downloads/DL1572/en_US/javaforosx.dmg
+open javaforosx.dmg</code></pre>
+<p>and walk through the installation.</p>
+</div>
+<div id="java-9" class="section level3">
+<h3>Java 9</h3>
+<p>Install the JDK package from <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk9-downloads-3848520.html">this link</a></p>
+<p>To ensure that Java is installed, run the following functions in the Terminal</p>
+<pre><code>/usr/libexec/java_home -V
+java -version</code></pre>
+<p>I get these results:</p>
+<pre><code>[~] /usr/libexec/java_home -V                                                  
+
+Matching Java Virtual Machines (3):
+    9.0.1, x86_64:  &quot;Java SE 9.0.1&quot; /Library/Java/JavaVirtualMachines/jdk-9.0.1.jdk/Contents/Home
+    1.6.0_65-b14-468, x86_64:   &quot;Java SE 6&quot; /Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
+    1.6.0_65-b14-468, i386: &quot;Java SE 6&quot; /Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
+
+/Library/Java/JavaVirtualMachines/jdk-9.0.1.jdk/Contents/Home
+[~] java --version                                                             
+java 9.0.1
+Java(TM) SE Runtime Environment (build 9.0.1+11)
+Java HotSpot(TM) 64-Bit Server VM (build 9.0.1+11, mixed mode)</code></pre>
+</div>
+</div>
+<div id="setting-up-clang-and-other-required-software" class="section level2">
+<h2>Setting up clang and other required software</h2>
+<p>I installed <a href="https://github.com/coatless/r-macos-clang">r-macos-clang</a> using the installer available <a href="https://uofi.box.com/v/r-macos-clang-pkg">here</a>. This took care of installing the version of the clang compiler compatible with the current R version.</p>
+<p>This still had some problems in terms of finding some files. I then ran the following lines in the Terminal:</p>
+<pre><code>sudo ln -f -s $(/usr/libexec/java_home)/jre/lib/server/libjvm.dylib /usr/local/lib
+sudo ln -s /usr/local/clang4/lib/libomp.dylib /usr/local/lib/libomp.dylib</code></pre>
+</div>
+<div id="setting-up-java-for-r" class="section level2">
+<h2>Setting up Java for R</h2>
+<p>Run the following two commands in the Terminal:</p>
+<pre><code>unset JAVA_HOME
+R CMD javareconf</code></pre>
+</div>
+<div id="installing-rjava" class="section level2">
+<h2>Installing rJava</h2>
+<p>From the Terminal, I ran the following command:</p>
+<pre><code>R --quiet -e &#39;install.packages(&quot;rJava&quot;, type=&quot;source&quot;, repos=&quot;http://cran.us.r-project.org&quot;)&#39;</code></pre>
+<p>This compiles rJava from source, and for me this worked.</p>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<ol style="list-style-type: decimal">
+<li><a href="https://github.com/snowflakedb/dplyr-snowflakedb/wiki/Configuring-R-rJava-RJDBC-on-Mac-OS-X">Configuring R rJava RJDBC on Mac OS X</a></li>
+<li><a href="https://stackoverflow.com/questions/45051275/rjava-loading-in-r3-4-1-with-os-sierra">StackOverflow: rJava loading in R(3.4.1) with OS Sierra</a></li>
+</ol>
+</div>
+
+        </div>
+
+        
+        
+        
+
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
+        <script>
+            (function() {
+                var $toc = $('#TableOfContents');
+                if ($toc.length > 0) {
+                    var $window = $(window);
+
+                    function onScroll(){
+                        var currentScroll = $window.scrollTop();
+                        var h = $('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');
+                        var id = "";
+                        h.each(function (i, e) {
+                            e = $(e);
+                            if (e.offset().top - 10 <= currentScroll) {
+                                id = e.attr('id');
+                            }
+                        });
+                        var active = $toc.find('a.active');
+                        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+                        active.each(function (i, e) {
+                            $(e).removeClass('active').siblings('ul').hide();
+                        });
+                        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+                            $(e).children('a').addClass('active').siblings('ul').show();
+                        });
+                    }
+
+                    $window.on('scroll', onScroll);
+                    $(document).ready(function() {
+                        $toc.find('a').parent('li').find('ul').hide();
+                        onScroll();
+                        document.getElementsByClassName('article-toc')[0].style.display = '';
+                    });
+                }
+            })();
+        </script>
+        
+
+
+        
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="http://www.araastat.com/BIOF339_PracticalR/blog/public//tags/configuration">Configuration
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+    </div>
+    <nav id="article-nav">
+    
+    
+    <a href="/BIOF339_PracticalR/blog/public/2017/11/22/summarize-outcomes-into-new-variables/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Summarize outcomes into new variables&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 Abhijit Dasgupta&nbsp;
+            Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
+        </div>
+    </div>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+</div>
+</body>
+</html>

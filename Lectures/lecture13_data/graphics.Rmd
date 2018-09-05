@@ -1,0 +1,22 @@
+---
+title: "Graphics"
+author: "Abhijit Dasgupta"
+date: "11/28/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  fig.path = 'Figures/', # Save plots in the Figures sub-folder
+  dev = c('png','tiff'),# Create both PNG and TIFF files for each plot
+  dev.args = list(tiff = list(compression = 'lzw')),
+  dpi = 300 # Use 300 DPI
+)
+```
+
+```{r diamonds, echo = FALSE}
+# Naming the chunk will make the saved graphics files have the same name
+library(ggplot2)
+ggplot(diamonds, aes(x = cut, y=price )) + geom_boxplot()
+```
+

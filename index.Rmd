@@ -4,6 +4,13 @@ author: "Abhijit Dasgupta & Eugen Buehler"
 date: "Fall 2017"
 output: html_document
 ---
+```{r, include = FALSE, eval = knitr::opts_knit$get("rmarkdown.pandoc.to") == "html"}
+# Enables Font Awesome in HTML based bookdown outputs.
+fa <- rmarkdown::html_dependency_font_awesome()
+fa$attachment <- "fonts/fontawesome-webfont.ttf"
+htmltools::tagList(fa)
+```
+
 This course is part of the [FAES Graduate School](https://faes.org/content/graduate-school) and is being offered Fall 2018. Two sessions are being offered this term, Wednesdays 5-7 and 7-9 pm.
 
 Contact info: 
@@ -11,7 +18,6 @@ Contact info:
 - Abhijit Dasgupta: <a href = "mailto:adasgupta@araastat.com">adasgupta@araastat.com</a>
 - Eugen Buehler: <a href = "mailto:eugen.buehler@nih.gov">eugen.buehler@nih.gov</a>
 
-----
 
 <a href="http://www.r-project.org" target="_blank">R</a> is one of the most popular programming languages for 
 data science and statistics. It is a free and open source language available for 

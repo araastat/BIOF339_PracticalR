@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on BIOF339 Blog</title>
+    <link>http://www.araastat.com/BIOF339_PracticalR/blog/public/tags/</link>
+    <description>Recent content in Tags on BIOF339 Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 26 Nov 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://www.araastat.com/BIOF339_PracticalR/blog/public/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Configuration</title>
+      <link>http://www.araastat.com/BIOF339_PracticalR/blog/public/tags/configuration/</link>
+      <pubDate>Sun, 26 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.araastat.com/BIOF339_PracticalR/blog/public/tags/configuration/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Data Munging</title>
+      <link>http://www.araastat.com/BIOF339_PracticalR/blog/public/tags/data-munging/</link>
+      <pubDate>Wed, 22 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.araastat.com/BIOF339_PracticalR/blog/public/tags/data-munging/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

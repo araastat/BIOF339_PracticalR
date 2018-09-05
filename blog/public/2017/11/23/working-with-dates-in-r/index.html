@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Working with dates in R // BIOF339 Blog</title>
+
+        <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="Blogging about R issues arising from the class">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+        <meta property="og:title" content="Working with dates in R" />
+    <meta property="og:description" content="Blogging about R issues arising from the class" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="/BIOF339_PracticalR/blog/public/2017/11/23/working-with-dates-in-r/" />
+    
+
+    <link href="" rel="alternate" type="application/rss+xml" title="BIOF339 Blog" />
+    <link rel="shortcut icon" href="/favicon.png">
+
+    <link href="/BIOF339_PracticalR/blog/public/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="/BIOF339_PracticalR/blog/public/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="/BIOF339_PracticalR/blog/public/css/style.css">
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    
+    <meta name="generator" content="Hugo 0.31" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="/BIOF339_PracticalR/blog/public/">BIOF339 Blog</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="http://www.araastat.com/BIOF339_PracticalR/index.html">Class home</a>
+                
+                <a class="main-nav-link" href="http://www.araastat.com/BIOF339_PracticalR/tags/index.html">Tags</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h2 class="article-author">Abhijit Dasgupta</h2>
+            <h1 class="article-title" itemprop="name">Working with dates in R</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="/BIOF339_PracticalR/blog/public/2017/11/23/working-with-dates-in-r/" class="article-date">
+                <time datetime='2017-11-23T00:00:00.000&#43;00:00' itemprop="datePublished">2017-11-23</time>
+            </a>
+            
+            
+            <div class="post-categories">
+                <div class="article-category">
+                    
+                    
+                    <a class="article-category-link" href="/BIOF339_PracticalR/blog/public//categories/r">R</a>
+                    
+                </div>
+            </div>
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            <div id="the-date-class" class="section level3">
+<h3>The <code>Date</code> class</h3>
+<p>R provides a <code>Date</code> class, which represents dates internally as number of days since January 1, 1970. Date objects are typically created from character strings that represent dates, but require specifying the format. The default format is <code>YYYY-MM-DD</code>.</p>
+<pre class="r"><code>dt &lt;- as.Date(&#39;2017-11-23&#39;)
+dt &lt;- as.Date(&#39;11/23/17&#39;, format = &#39;%m/%d/%y&#39;) # Gives the same answer</code></pre>
+<p>You can also format dates for printing into most formats:</p>
+<pre class="r"><code>format(dt, &#39;%B %d, %Y&#39;)</code></pre>
+<pre><code>## [1] &quot;November 23, 2017&quot;</code></pre>
+<pre class="r"><code>format(dt, &#39;%b %d, %Y&#39;)</code></pre>
+<pre><code>## [1] &quot;Nov 23, 2017&quot;</code></pre>
+<pre class="r"><code>format(dt, &#39;%m/%d/%y&#39;)</code></pre>
+<pre><code>## [1] &quot;11/23/17&quot;</code></pre>
+<pre class="r"><code>format(dt, &#39;%d/%m/%y&#39;)</code></pre>
+<pre><code>## [1] &quot;23/11/17&quot;</code></pre>
+<pre class="r"><code>format(dt, &#39;%Y-%m-%d&#39;)</code></pre>
+<pre><code>## [1] &quot;2017-11-23&quot;</code></pre>
+<p>The numeric representation of this date can be seen by using the <code>as.numeric</code> function:</p>
+<pre class="r"><code>as.numeric(dt)</code></pre>
+<pre><code>## [1] 17493</code></pre>
+<div id="working-with-dates-from-sas" class="section level4">
+<h4>Working with dates from SAS</h4>
+<p>SAS also represents dates as numbers internally, but as days since January 1, <strong>1960</strong>. This can lead to some fun times in converting dates. The function <code>haven::read_sas</code> does the right thing and creates the correct dates in R as <code>Date</code> objects.</p>
+<p>The ambiguity in this origin story makes it probably a good practice to store dates as characters, and convert them “on the fly” when you need to do some date manipulation. The preferred way to store dates as text is in the form <code>YYYY-MM-DD</code>. The simple reason for this is that this format allows alphabetical sorting to be the same as sorting by time.</p>
+</div>
+</div>
+
+        </div>
+
+        
+        
+        
+
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
+        <script>
+            (function() {
+                var $toc = $('#TableOfContents');
+                if ($toc.length > 0) {
+                    var $window = $(window);
+
+                    function onScroll(){
+                        var currentScroll = $window.scrollTop();
+                        var h = $('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');
+                        var id = "";
+                        h.each(function (i, e) {
+                            e = $(e);
+                            if (e.offset().top - 10 <= currentScroll) {
+                                id = e.attr('id');
+                            }
+                        });
+                        var active = $toc.find('a.active');
+                        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+                        active.each(function (i, e) {
+                            $(e).removeClass('active').siblings('ul').hide();
+                        });
+                        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+                            $(e).children('a').addClass('active').siblings('ul').show();
+                        });
+                    }
+
+                    $window.on('scroll', onScroll);
+                    $(document).ready(function() {
+                        $toc.find('a').parent('li').find('ul').hide();
+                        onScroll();
+                        document.getElementsByClassName('article-toc')[0].style.display = '';
+                    });
+                }
+            })();
+        </script>
+        
+
+
+        
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="/BIOF339_PracticalR/blog/public//tags/data-types">Data types
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+    </div>
+    <nav id="article-nav">
+    
+    <a href="/BIOF339_PracticalR/blog/public/2017/11/26/installing-rjava-for-r-on-the-mac/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            Installing rJava for R on the Mac
+        </div>
+    </a>
+    
+    
+    <a href="/BIOF339_PracticalR/blog/public/2017/11/22/summarize-outcomes-into-new-variables/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Summarize outcomes into new variables&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 Abhijit Dasgupta&nbsp;
+            Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
+        </div>
+    </div>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+</div>
+</body>
+</html>

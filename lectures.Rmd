@@ -1,13 +1,12 @@
 ---
 title: "Lectures"
-date: "Fall 2017"
+date: "Fall 2018"
 output: html_document
 ---
 
 Last updated: `r format(Sys.Date(), '%B %d, %Y')`
 
-Last years' presentations can be found [here](Lectures2016.zip)
-----
+------
 
 ### Lecture 1
 
@@ -80,3 +79,49 @@ Resources:
 <a href="Lectures/lecture10.html" target = "_blank">Presentation</a> ([pdf](Lectures/lecture10.pdf))<br/>
 <a href="Lectures/lecture10_practs/Lecture10Practicum.html" target = "_blank">Practicum</a> 
 (<a href = "Lectures/lecture10_practs/lecture10PracticumSolutions.html" target="_blank">Solution</a>)
+
+### Lecture 10
+
+<a href="Lectures/Lecture11.html" target = "_blank">Presentation</a>
+<br/>
+<a href="Lectures/lecture11_practs/Lecture11Practicum.html" target = "_blank">Practicum</a> 
+(<a href = "Lectures/lecture11_practs/Lecture11PracticumSolutions.html" target="_blank">Solution</a>)
+<p/>
+[Some additional examples](Lectures/lecture11_practs/Lecture11_addl.html)
+
+### Lecture 11
+
+<a href = "Lectures/lecture12.html" target = "_blank">Presentation</a>
+
+__Other resources__: <br/>
+
+1. Another heatmap package: [iheatmapr](http://joss.theoj.org/papers/10.21105/joss.00359)
+2. Tidyverse code to create a nicely formatted table for results from the `res` object in the slides (modifies the code on p. 27 )
+```{r, eval=F}
+output <-
+  as.data.frame(res) %>%
+  rownames_to_column('gnames') %>% # Adds the row names as a column of the data
+  filter(padj < 0.1) %>% # Keep only rows where the adjusted p-value is less than 0.1
+  arrange(desc(abs(log2FoldChange))) %>%  # Arrange in descending order of the FC magnitude
+  select(gnames, baseMean:padj) %>%  # Rearrange columns to put gnames first
+  mutate_at(vars(starts_with('p')), format.pval, digits=4, eps = 1e-8, scientific=T) %>% # Format the p-values
+  mutate_at(vars(baseMean:stat), round, 2) # Format the other numerical values
+```
+
+
+### Lecture 12: Reporting in R
+[PPTX](Lectures/lecture13_data/Presentation.pptx) <br/>
+
+Practicum: <a href = "Lectures/lecture13_data/lecture13_practicum.html" target="_blank">HTML</a> / [Word](Lectures/lecture13_data/lecture13_practicum.docx) / [Rmd](Lectures/lecture13_data/lecture13_practicum.Rmd)
+
+__Supplemental material:__ <br/>
+
+1. [Automatic output format in R Markdown](https://www.r-bloggers.com/automatic-output-format-in-rmarkdown/)
+2. [knitr in a nutshell: figures and tables](http://kbroman.org/knitr_knutshell/pages/figs_tables.html)
+3. [Make Your Academic CV Look Pretty in R Markdown](http://svmiller.com/blog/2016/03/svm-r-markdown-cv/)
+4. [Tips and tricks for working with images and figures in R Markdown documents](http://www.zevross.com/blog/2017/06/19/tips-and-tricks-for-working-with-images-and-figures-in-r-markdown-documents/)
+5. [Rendering tables with pandoc.table](https://rapporter.github.io/pander/pandoc_table.html): This shows the flexibility and highlighting capabilities of the `pander` package for R Markdown
+
+### Lecture 13: Project Organization
+
+[Presentation](Lectures/Lecture14.html)

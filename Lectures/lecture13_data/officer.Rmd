@@ -1,0 +1,18 @@
+---
+title: "The officer package"
+author: "Abhijit Dasgupta"
+date: "11/28/2017"
+output: html_document
+---
+
+```{r}
+library(officer)
+x <- read_pptx()
+knitr::kable(layout_properties ( x = x, layout = "Title Slide", master = "Office Theme" ))
+```
+
+```{r}
+knitr::kable(layout_properties(x = x, master="Office Theme"))
+```
+
+

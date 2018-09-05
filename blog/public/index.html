@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BIOF339 Blog</title>
+
+        <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="Blogging about R issues arising from the class">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+        <meta property="og:title" content="BIOF339 Blog" />
+    <meta property="og:description" content="Blogging about R issues arising from the class" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="http://www.araastat.com/BIOF339_PracticalR/blog/public/" />
+    
+
+    <link href="http://www.araastat.com/BIOF339_PracticalR/blog/public/index.xml" rel="alternate" type="application/rss+xml" title="BIOF339 Blog" />
+    <link rel="shortcut icon" href="/favicon.png">
+
+    <link href="http://www.araastat.com/BIOF339_PracticalR/blog/public/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="http://www.araastat.com/BIOF339_PracticalR/blog/public/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="http://www.araastat.com/BIOF339_PracticalR/blog/public/css/style.css">
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    
+    <meta name="generator" content="Hugo 0.31" />
+</head>
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="http://www.araastat.com/BIOF339_PracticalR/blog/public/">BIOF339 Blog</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="http://www.araastat.com/BIOF339_PracticalR/index.html">Class home</a>
+                
+                <a class="main-nav-link" href="tags/index.html">Tags</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+    <section id="main" class="outer">
+        
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+            <div class="article-inner">
+                
+                
+                <header class="article-header">
+                    <h1 itemprop="name"><a class="article-title" href="/BIOF339_PracticalR/blog/public/2017/11/26/installing-rjava-for-r-on-the-mac/">Installing rJava for R on the Mac</a></h1>
+                </header>
+                
+                <div class="article-meta">
+                    <a href="/BIOF339_PracticalR/blog/public/2017/11/26/installing-rjava-for-r-on-the-mac/" class="article-date">
+                        <time datetime='2017-11-26T00:00:00.000&#43;00:00' itemprop="datePublished">2017-11-26</time>
+                    </a>
+                    
+                    
+                    <div class="post-categories">
+                        <div class="article-category">
+                            
+                            
+                            <a class="article-category-link" href="http://www.araastat.com/BIOF339_PracticalR/blog/public//categories/r">R</a>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="article-entry" itemprop="articleBody">
+                    <p>
+                        
+                    Introduction There are several R packages that link to or use Java, and so there exists a link between R and Java throught the rJava package. The rJava package is notoriously finicky to install in R, given the quirks of the Mac OS X system, Java, and R. In fact general advice is that, if you can avoid using rJava, do. It is a conundrum that even the most experienced R hands would like to avoid.
+                    </p>
+                    <p class="article-more-link">
+                        <a href="/BIOF339_PracticalR/blog/public/2017/11/26/installing-rjava-for-r-on-the-mac/">Read More</a>
+                    </p>
+                </div>
+
+                
+                <footer class="article-footer">
+                    <ul class="article-tag-list">
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="http://www.araastat.com/BIOF339_PracticalR/blog/public//tags/configuration">Configuration
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </footer>
+                
+            </div>
+        </article>
+        
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+            <div class="article-inner">
+                
+                
+                <header class="article-header">
+                    <h1 itemprop="name"><a class="article-title" href="/BIOF339_PracticalR/blog/public/2017/11/22/summarize-outcomes-into-new-variables/">Summarize outcomes into new variables</a></h1>
+                </header>
+                
+                <div class="article-meta">
+                    <a href="/BIOF339_PracticalR/blog/public/2017/11/22/summarize-outcomes-into-new-variables/" class="article-date">
+                        <time datetime='2017-11-22T00:00:00.000&#43;00:00' itemprop="datePublished">2017-11-22</time>
+                    </a>
+                    
+                    
+                    <div class="post-categories">
+                        <div class="article-category">
+                            
+                            
+                            <a class="article-category-link" href="http://www.araastat.com/BIOF339_PracticalR/blog/public//categories/r">R</a>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="article-entry" itemprop="articleBody">
+                    <p>
+                        
+                    An example Suppose you have a fairly detailed set of outcomes for cause of death. You want to summarize these outcomes into categories and create new variables indicating whether a person’s death could be attributed to a particular category or not. For example, suppose deaths from fentanyl are recorded as one of:
+ Fentanyl Intoxication Fentanyl and Morphine Intoxication Combined Drug Intoxication (Heroin, Cocaine and Fentanyl) Fentanyl-involved  These are all possiblities in your dataset under a variable Cause_of_death.
+                    </p>
+                    <p class="article-more-link">
+                        <a href="/BIOF339_PracticalR/blog/public/2017/11/22/summarize-outcomes-into-new-variables/">Read More</a>
+                    </p>
+                </div>
+
+                
+                <footer class="article-footer">
+                    <ul class="article-tag-list">
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="http://www.araastat.com/BIOF339_PracticalR/blog/public//tags/data-munging">Data munging
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </footer>
+                
+            </div>
+        </article>
+        
+
+        
+
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 Abhijit Dasgupta&nbsp;
+            Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
+        </div>
+    </div>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+</div>
+</body>
+</html>
