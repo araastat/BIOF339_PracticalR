@@ -1,7 +1,7 @@
 ---
 title: "Lecture 2: \nData Frame, Matrix, List"
 author: "Abhijit Dasgupta"
-date: "September 19, 2017"
+date: "September 19, 2018"
 output:
   revealjs::revealjs_presentation:
     theme: default
@@ -145,7 +145,7 @@ Ignore the first `##`; it denotes that this is R output
 ```{r, eval=FALSE}
 View(data_spine)  ## It looks like a matrix
 ```
-```{r}
+```{r, echo = FALSE}
 knitr::include_graphics('lecture2_img/View.png')
 ```
 
