@@ -1,0 +1,127 @@
+---
+title: "Lectures"
+date: "Fall 2018"
+output: html_document
+---
+
+Last updated: `r format(Sys.Date(), '%B %d, %Y')`
+
+------
+
+### Lecture 1
+
+[Presentation](Lectures/lecture1.pdf)
+
+<a href="Lectures/lecture1_files/Lecture1Exercises.html" target="_blank">Practice Exercises for Lecture 1</a> (<a href="Lectures/lecture1_files/Lecture1ExercisesSolution.html" target="_blank">Solution</a>)
+
+Supplemental Material
+
++ Installing R: <a href="http://cran.r-project.org" target="_blank">http://cran.r-project.org</a>
++ Installing RStudio: <a href="https://www.rstudio.com/products/rstudio/download3/" target="_blank" >http://www.rstudio.com/products/rstudio</a>
++ Searching for information about R: <a href="http://www.rseek.org" target="_blank">rseek.org</a>
+
+In-built datasets in R: `data()`
+
+### Lecture 2
+
+<a href = "Lectures/lecture2.html" target="_blank">Presentation</a>
+
+[Practicum](Lectures/lecture2_files/Lecture2_Practicum.html) ([Solution](Lectures/lecture2_files/Lecture2_Practicum_Solution.html))
+
+Datasets: [Breast Cancer data](http://www.araastat.com/BIOF339_PracticalR/Lectures/lecture2_files/BreastCancer.xlsx)
+
+
+### Lecture 3
+
+<a href = "Lectures/lecture3.html" target="_blank">Presentation</a>
+<a href = "lectures/lecture3_files/Lecture 3_Data Visualization.pdf" target="_blank"> (PDF)</a><p/>
+<a href = "Lectures/lecture3_files/Lecture3_Practicum.html" target="_blank">Practicum</a>
+(<a href = "Lectures/lecture3_files/Lecture3_Practicum_Solutions.html" target="_blank">Solutions</a>)
+
+Datasets:
+
+1. [Breast Cancer data](Lectures/lecture2_data/clinical_data_breast_cancer_modified.csv)
+2. [Spine data](Lectures/lecture2_data/Dataset_spine.csv)
+
+Resources:
+
+1. [Do's and Don'ts for Effective Graphs](http://stat545.com/block015_graph-dos-donts.html) from Jenny Bryan's UBC Stat545 course
+
+### Lecture 4
+
+<a href = "Lectures/Lecture4.html" target ="_blank">Presentation</a> <br/>
+<a href = "Lectures/lecture4_files/Assignment3.html">Practicum</a>
+<a href = "Lectures/lecture4_files/Assignment3Solution.html"> (Solution)</a>
+
+### Lecture 5
+<a href="Lectures/Lecture5.html" target="_blank">Presentation</a> ([pdf](Lectures/Lecture5.pdf)) <br/>
+<a href="Lectures/lecture5_files/Practicum5.html" target="_blank">Practicum 5</a>
+<a href="Lectures/lecture5_files/Practicum5_Solution.html" target="_blank">(Solution)</a>
+
+### Lecture 6
+<a href = "Lectures/lecture6.html" target="_blank">Presentation</a> ([pdf](Lectures/lecture6_files/Lecture 6 Split-Apply-Combine.pdf)) <br/>
+<a href = "Lectures/lecture6_files/Assignment6.html" target="_blank">Practicum</a>
+(<a href = 'Lectures/lecture6_files/Assignment6Solution.html' target = "_blank">Solution</a>)
+
+### Lecture 7
+<a href  = "Lectures/Lecture7.html" target = "_blank">Presentation</a>([pdf](Lectures/lecture7_files/Lecture7.pdf))<br/>
+<a href = "Lectures/lecture7_files/Lecture7Practicum.html" target="_blank">Practicum</a>
+(<a href = "Lectures/lecture7_files/Lecture7PracticumSolution.html" target = "_blank">Solution</a>)
+
+### Lecture 8
+<a href = "Lectures/Lecture9.html" target="_blank">Presentation</a>([pdf](Lectures/Lecture9.pdf))<br/>
+<a href = "Lectures/lecture9_files/nature.parkin.gw.ambion.csv" target="_blank">CSV File of siRNA Screening Data</a><br/>
+
+<a href = 'Lectures/lecture9_files/Practicum9.html' target = '_blank'>Practicum</a>
+(<a href = 'Lectures/lecture9_files/Practicum9_solution.html' target='_blank'>Solution</a>)
+
+### Lecture 9
+<a href="Lectures/lecture10.html" target = "_blank">Presentation</a> ([pdf](Lectures/lecture10.pdf))<br/>
+<a href="Lectures/lecture10_practs/Lecture10Practicum.html" target = "_blank">Practicum</a> 
+(<a href = "Lectures/lecture10_practs/lecture10PracticumSolutions.html" target="_blank">Solution</a>)
+
+### Lecture 10
+
+<a href="Lectures/Lecture11.html" target = "_blank">Presentation</a>
+<br/>
+<a href="Lectures/lecture11_practs/Lecture11Practicum.html" target = "_blank">Practicum</a> 
+(<a href = "Lectures/lecture11_practs/Lecture11PracticumSolutions.html" target="_blank">Solution</a>)
+<p/>
+[Some additional examples](Lectures/lecture11_practs/Lecture11_addl.html)
+
+### Lecture 11
+
+<a href = "Lectures/lecture12.html" target = "_blank">Presentation</a>
+
+__Other resources__: <br/>
+
+1. Another heatmap package: [iheatmapr](http://joss.theoj.org/papers/10.21105/joss.00359)
+2. Tidyverse code to create a nicely formatted table for results from the `res` object in the slides (modifies the code on p. 27 )
+```{r, eval=F}
+output <-
+  as.data.frame(res) %>%
+  rownames_to_column('gnames') %>% # Adds the row names as a column of the data
+  filter(padj < 0.1) %>% # Keep only rows where the adjusted p-value is less than 0.1
+  arrange(desc(abs(log2FoldChange))) %>%  # Arrange in descending order of the FC magnitude
+  select(gnames, baseMean:padj) %>%  # Rearrange columns to put gnames first
+  mutate_at(vars(starts_with('p')), format.pval, digits=4, eps = 1e-8, scientific=T) %>% # Format the p-values
+  mutate_at(vars(baseMean:stat), round, 2) # Format the other numerical values
+```
+
+
+### Lecture 12: Reporting in R
+[PPTX](Lectures/lecture13_data/Presentation.pptx) <br/>
+
+Practicum: <a href = "Lectures/lecture13_data/lecture13_practicum.html" target="_blank">HTML</a> / [Word](Lectures/lecture13_data/lecture13_practicum.docx) / [Rmd](Lectures/lecture13_data/lecture13_practicum.Rmd)
+
+__Supplemental material:__ <br/>
+
+1. [Automatic output format in R Markdown](https://www.r-bloggers.com/automatic-output-format-in-rmarkdown/)
+2. [knitr in a nutshell: figures and tables](http://kbroman.org/knitr_knutshell/pages/figs_tables.html)
+3. [Make Your Academic CV Look Pretty in R Markdown](http://svmiller.com/blog/2016/03/svm-r-markdown-cv/)
+4. [Tips and tricks for working with images and figures in R Markdown documents](http://www.zevross.com/blog/2017/06/19/tips-and-tricks-for-working-with-images-and-figures-in-r-markdown-documents/)
+5. [Rendering tables with pandoc.table](https://rapporter.github.io/pander/pandoc_table.html): This shows the flexibility and highlighting capabilities of the `pander` package for R Markdown
+
+### Lecture 13: Project Organization
+
+[Presentation](Lectures/Lecture14.html)
