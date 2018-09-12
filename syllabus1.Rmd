@@ -17,7 +17,7 @@ output: html_document
 
 -----
 
-**Lectures:** Wednesdays, 5-7 PM (Buehler) or 7-9 PM (Dasgupta). 
+**Lectures:** Wednesdays, 5-7 PM (Buehler) or 7-9 PM (Dasgupta), Bldg 10, Room B1C206 in the FAES Academic Center. 
 
 **Course Description**
 
@@ -33,20 +33,15 @@ required.
 
 **Learning Objectives**
 
--   Run R GUI and make use of command line features, including command
-    > history and help pages
+-   Run R GUI and make use of command line features, including command history and help pages
 
--   Find and make use of the extensive libraries (R add-ons) available
-    > for analyzing biological and other forms of data
+-   Find and make use of the extensive libraries (R add-ons) available for analyzing biological and other forms of data
 
--   Load, manipulate, and combine data to make it amenable to further
-    > analyses
+-   Load, manipulate, and combine data to make it amenable to further analyses
 
--   Visualize data with extensive graphics capabilities of R
-    > (including ggplot)
+-   Visualize data with extensive graphics capabilities of R (including ggplot)
 
--   Use appropriate statistical tests on data within R that will conform
-    > to standards expected in scientific journals
+-   Use appropriate statistical tests on data within R that will conform to standards expected in scientific journals
 
 **Required Books**
 
@@ -73,11 +68,12 @@ topics <- c('Introduction to R and RStudio. Basic Data Types',
           'Advanced Graphics with ggplot (facets, etc). Generating publication quality graphics. ' ,
           'Bioconductor: Bioinformatics in R . Multiple Comparisons  ',
           'Project Presentations  ')
-dates <- seq(as.Date('2018-09-12'),by='week', length.out = 14) %>% format('%b. %d')
+dates <- seq(as.Date('2018-09-12'),by = 'week', length.out = 14) %>% format('%b. %d')
 D <- data.frame('Date' = dates, 'Topic' = topics)
 knitr::kable(D)
 ```
 
+---------
 
 **Class Project**
 
@@ -92,6 +88,8 @@ with one point for each of following demonstrated: importing data, data
 manipulation, statistical analysis, use of a package, and data
 visualization. The point total will then be translated to a letter
 grade: 0 or 1 =F, 2=D, 3=C, 4=B, 5=A.
+
+----------
 
 **POLICY ON ACADEMIC INTEGRITY**
 
