@@ -13,5 +13,6 @@ For a more comprehensive calendar of data science related events, you can bookma
 
 Date          | Event
 ------------- | ------------------------------
-November 8-9  | DC R conference [link](http://dc.rstats.ai)
+November 8-9  | DC R conference ([link](http://dc.rstats.ai))
+
 
