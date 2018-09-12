@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Lectures</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Practical R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="syllabus1.html">Syllabus</a>
+</li>
+<li>
+  <a href="bio.html">Instructor bio</a>
+</li>
+<li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="resources.html">Resources</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="blog/public/index.html">Blog</a>
+</li>
+<li>
+  <a href="https://github.com/araastat/BIOF339_PracticalR/tree/gh-pages">GitHub</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Lectures</h1>
+<h4 class="date"><em>Fall 2018</em></h4>
+
+</div>
+
+
+<p>Last updated: September 12, 2018</p>
+<hr />
+<div id="lecture-1" class="section level3">
+<h3>Lecture 1</h3>
+<p><a href="Lectures/lecture1.pdf">Presentation</a></p>
+<p><a href="Lectures/lecture1_files/Lecture1Exercises.html" target="_blank">Practice Exercises for Lecture 1</a> (<a href="Lectures/lecture1_files/Lecture1ExercisesSolution.html" target="_blank">Solution</a>)</p>
+<p>Supplemental Material</p>
+<ul>
+<li>Installing R: <a href="http://cran.r-project.org" target="_blank">http://cran.r-project.org</a></li>
+<li>Installing RStudio: <a href="https://www.rstudio.com/products/rstudio/download3/" target="_blank" >http://www.rstudio.com/products/rstudio</a></li>
+<li>Searching for information about R: <a href="http://www.rseek.org" target="_blank">rseek.org</a></li>
+</ul>
+<p>In-built datasets in R: <code>data()</code></p>
+</div>
+<div id="lecture-2" class="section level3">
+<h3>Lecture 2</h3>
+<p><a href = "Lectures/lecture2.html" target="_blank">Presentation</a></p>
+<p><a href="Lectures/lecture2_files/Lecture2_Practicum.html">Practicum</a> (<a href="Lectures/lecture2_files/Lecture2_Practicum_Solution.html">Solution</a>)</p>
+<p>Datasets: <a href="http://www.araastat.com/BIOF339_PracticalR/Lectures/lecture2_files/BreastCancer.xlsx">Breast Cancer data</a></p>
+</div>
+<div id="lecture-3" class="section level3">
+<h3>Lecture 3</h3>
+<a href = "Lectures/lecture3.html" target="_blank">Presentation</a> <a href = "lectures/lecture3_files/Lecture 3_Data Visualization.pdf" target="_blank"> (PDF)</a>
+<p/>
+<p><a href = "Lectures/lecture3_files/Lecture3_Practicum.html" target="_blank">Practicum</a> (<a href = "Lectures/lecture3_files/Lecture3_Practicum_Solutions.html" target="_blank">Solutions</a>)</p>
+<p>Datasets:</p>
+<ol style="list-style-type: decimal">
+<li><a href="Lectures/lecture2_data/clinical_data_breast_cancer_modified.csv">Breast Cancer data</a></li>
+<li><a href="Lectures/lecture2_data/Dataset_spine.csv">Spine data</a></li>
+</ol>
+<p>Resources:</p>
+<ol style="list-style-type: decimal">
+<li><a href="http://stat545.com/block015_graph-dos-donts.html">Do’s and Don’ts for Effective Graphs</a> from Jenny Bryan’s UBC Stat545 course</li>
+</ol>
+</div>
+<div id="lecture-4" class="section level3">
+<h3>Lecture 4</h3>
+<p><a href = "Lectures/Lecture4.html" target ="_blank">Presentation</a> <br/> <a href = "Lectures/lecture4_files/Assignment3.html">Practicum</a> <a href = "Lectures/lecture4_files/Assignment3Solution.html"> (Solution)</a></p>
+</div>
+<div id="lecture-5" class="section level3">
+<h3>Lecture 5</h3>
+<p><a href="Lectures/Lecture5.html" target="_blank">Presentation</a> (<a href="Lectures/Lecture5.pdf">pdf</a>) <br/> <a href="Lectures/lecture5_files/Practicum5.html" target="_blank">Practicum 5</a> <a href="Lectures/lecture5_files/Practicum5_Solution.html" target="_blank">(Solution)</a></p>
+</div>
+<div id="lecture-6" class="section level3">
+<h3>Lecture 6</h3>
+<p><a href = "Lectures/lecture6.html" target="_blank">Presentation</a> (<a href="Lectures/lecture6_files/Lecture%206%20Split-Apply-Combine.pdf">pdf</a>) <br/> <a href = "Lectures/lecture6_files/Assignment6.html" target="_blank">Practicum</a> (<a href = 'Lectures/lecture6_files/Assignment6Solution.html' target = "_blank">Solution</a>)</p>
+</div>
+<div id="lecture-7" class="section level3">
+<h3>Lecture 7</h3>
+<p><a href  = "Lectures/Lecture7.html" target = "_blank">Presentation</a>(<a href="Lectures/lecture7_files/Lecture7.pdf">pdf</a>)<br/> <a href = "Lectures/lecture7_files/Lecture7Practicum.html" target="_blank">Practicum</a> (<a href = "Lectures/lecture7_files/Lecture7PracticumSolution.html" target = "_blank">Solution</a>)</p>
+</div>
+<div id="lecture-8" class="section level3">
+<h3>Lecture 8</h3>
+<p><a href = "Lectures/Lecture9.html" target="_blank">Presentation</a>(<a href="Lectures/Lecture9.pdf">pdf</a>)<br/> <a href = "Lectures/lecture9_files/nature.parkin.gw.ambion.csv" target="_blank">CSV File of siRNA Screening Data</a><br/></p>
+<p><a href = 'Lectures/lecture9_files/Practicum9.html' target = '_blank'>Practicum</a> (<a href = 'Lectures/lecture9_files/Practicum9_solution.html' target='_blank'>Solution</a>)</p>
+</div>
+<div id="lecture-9" class="section level3">
+<h3>Lecture 9</h3>
+<p><a href="Lectures/lecture10.html" target = "_blank">Presentation</a> (<a href="Lectures/lecture10.pdf">pdf</a>)<br/> <a href="Lectures/lecture10_practs/Lecture10Practicum.html" target = "_blank">Practicum</a> (<a href = "Lectures/lecture10_practs/lecture10PracticumSolutions.html" target="_blank">Solution</a>)</p>
+</div>
+<div id="lecture-10" class="section level3">
+<h3>Lecture 10</h3>
+<a href="Lectures/Lecture11.html" target = "_blank">Presentation</a> <br/> <a href="Lectures/lecture11_practs/Lecture11Practicum.html" target = "_blank">Practicum</a> (<a href = "Lectures/lecture11_practs/Lecture11PracticumSolutions.html" target="_blank">Solution</a>)
+<p/>
+<p><a href="Lectures/lecture11_practs/Lecture11_addl.html">Some additional examples</a></p>
+</div>
+<div id="lecture-11" class="section level3">
+<h3>Lecture 11</h3>
+<p><a href = "Lectures/lecture12.html" target = "_blank">Presentation</a></p>
+<p><strong>Other resources</strong>: <br/></p>
+<ol style="list-style-type: decimal">
+<li>Another heatmap package: <a href="http://joss.theoj.org/papers/10.21105/joss.00359">iheatmapr</a></li>
+<li>Tidyverse code to create a nicely formatted table for results from the <code>res</code> object in the slides (modifies the code on p. 27 )</li>
+</ol>
+<pre class="r"><code>output &lt;-
+  as.data.frame(res) %&gt;%
+  rownames_to_column(&#39;gnames&#39;) %&gt;% # Adds the row names as a column of the data
+  filter(padj &lt; 0.1) %&gt;% # Keep only rows where the adjusted p-value is less than 0.1
+  arrange(desc(abs(log2FoldChange))) %&gt;%  # Arrange in descending order of the FC magnitude
+  select(gnames, baseMean:padj) %&gt;%  # Rearrange columns to put gnames first
+  mutate_at(vars(starts_with(&#39;p&#39;)), format.pval, digits=4, eps = 1e-8, scientific=T) %&gt;% # Format the p-values
+  mutate_at(vars(baseMean:stat), round, 2) # Format the other numerical values</code></pre>
+</div>
+<div id="lecture-12-reporting-in-r" class="section level3">
+<h3>Lecture 12: Reporting in R</h3>
+<p><a href="Lectures/lecture13_data/Presentation.pptx">PPTX</a> <br/></p>
+<p>Practicum: <a href = "Lectures/lecture13_data/lecture13_practicum.html" target="_blank">HTML</a> / <a href="Lectures/lecture13_data/lecture13_practicum.docx">Word</a> / <a href="Lectures/lecture13_data/lecture13_practicum.Rmd">Rmd</a></p>
+<p><strong>Supplemental material:</strong> <br/></p>
+<ol style="list-style-type: decimal">
+<li><a href="https://www.r-bloggers.com/automatic-output-format-in-rmarkdown/">Automatic output format in R Markdown</a></li>
+<li><a href="http://kbroman.org/knitr_knutshell/pages/figs_tables.html">knitr in a nutshell: figures and tables</a></li>
+<li><a href="http://svmiller.com/blog/2016/03/svm-r-markdown-cv/">Make Your Academic CV Look Pretty in R Markdown</a></li>
+<li><a href="http://www.zevross.com/blog/2017/06/19/tips-and-tricks-for-working-with-images-and-figures-in-r-markdown-documents/">Tips and tricks for working with images and figures in R Markdown documents</a></li>
+<li><a href="https://rapporter.github.io/pander/pandoc_table.html">Rendering tables with pandoc.table</a>: This shows the flexibility and highlighting capabilities of the <code>pander</code> package for R Markdown</li>
+</ol>
+</div>
+<div id="lecture-13-project-organization" class="section level3">
+<h3>Lecture 13: Project Organization</h3>
+<p><a href="Lectures/Lecture14.html">Presentation</a></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
