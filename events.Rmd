@@ -1,0 +1,17 @@
+---
+title: "Local Events"
+author: "BIOF 339"
+date: "9/12/2018"
+output: html_document
+---
+
+This is an (incomplete) listing of data science events in the
+greater DC area that might involve R, including events in the NIH community. 
+
+For a more comprehensive calendar of data science related events, you can bookmark the [Data Community DC Calendar](http://www.datacommunitydc.org/calendar/)
+
+
+Date          | Event
+------------- | ------------------------------
+November 8-9  | DC R conference [link](http://dc.rstats.ai)
+
