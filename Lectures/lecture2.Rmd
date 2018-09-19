@@ -46,7 +46,7 @@ an R package:
 install.packages('dplyr', repos='http://cran.r-project.org')
 ```
 or
-```{r}
+```{r, echo=FALSE}
 knitr::include_graphics('lecture2_img/install_package.png')
 ```
 
@@ -145,7 +145,7 @@ Ignore the first `##`; it denotes that this is R output
 ```{r, eval=FALSE}
 View(data_spine)  ## It looks like a matrix
 ```
-```{r}
+```{r, echo=FALSE}
 knitr::include_graphics('lecture2_img/View.png')
 ```
 

@@ -12,7 +12,7 @@ Last updated: `r format(Sys.Date(), '%B %d, %Y')`
 
 [Presentation](Lectures/lecture1.pdf)
 
-<a href="Lectures/lecture1_files/Lecture1Exercises.html" target="_blank">Practice Exercises for Lecture 1</a> 
+<a href="Lectures/lecture1_files/Lecture1Exercises.html" target="_blank">Practice Exercises for Lecture 1</a> (<a href="Lectures/lecture1_files/Lecture1ExercisesSolution.html" target="_blank">Solutions</a>)
 
 Supplemental Material
 
@@ -21,4 +21,8 @@ Supplemental Material
 + Searching for information about R: <a href="http://www.rseek.org" target="_blank">rseek.org</a>
 
 In-built datasets in R: `data()`
+
+### Lecture 2
+
+<a href="Lectures/lecture2.html" target="_blank">Presentation</a>
 
