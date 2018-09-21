@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r, echo=FALSE}
-knitr::opts_chunk$set(eval = FALSE, echo = FALSE, results='hide') # Suppress all code and solutions
+knitr::opts_chunk$set(eval = TRUE, echo = TRUE) # Suppress all code and solutions
 ```
 
 
