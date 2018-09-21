@@ -26,7 +26,7 @@ In-built datasets in R: `data()`
 
 <a href="Lectures/lecture2.html" target="_blank">Presentation</a>
 
-<a href="Lectures/lecture2_files/lecture2_practicum.html" target="_blank">Practicum</a>
+<a href="Lectures/lecture2_files/lecture2_practicum.html" target="_blank">Practicum</a> (<a href="Lectures/lecture2_files/lecture2_practicum_solutions.html" target="_blank">Solution</a>)
 
 Supplemental Material
 
