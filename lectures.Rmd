@@ -32,3 +32,11 @@ Supplemental Material
 
 + [A primer on R Notebooks](Lectures/lecture2_files/RNotebook.html)
 
+### Lecture 3
+
+<a href="Lectures/lecture3_tidyverse.html" target = "_blank">Presentation</a>
+
+Supplemental material
+
++ [`dplyr` cheatsheet](https://www.rstudio.com/resources/cheatsheets/#dplyr)
+
