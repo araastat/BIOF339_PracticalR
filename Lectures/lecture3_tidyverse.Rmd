@@ -1,0 +1,103 @@
+---
+title: "The Tidyverse"
+author: "BIOF 339"
+date: "9/25/2018"
+output: ioslides_presentation
+---
+
+## What is the ["Tidyverse"](http://www.tidyverse.org)?
+
+
+
+<div style="display:flex;align-items:center;font-size:30pt;font-family:serif;width:100%;height:300px;background-color:wheat;text-align:center; border: 1px solid red; position: relative;">
+
+> The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures
+
+</div>
+
+## What is the ["Tidyverse"](http://www.tidyverse.org)?
+
+<div style="display: flex; align-items:center; font-size:24pt; font-family:serif;
+width:100%; height:200px; margin-bottom: 50px; background-color:wheat; border: 1px solid red; position: relative;">
+
+- A set of R packages that 
+
+    - help make data more computer-friendly
+    - while making your code more human-friendly
+    
+</div>
+
+- Most of these packages are (co-)written by Dr. Hadley Wickham, who has rockstar status in the R world
+- They are supported by the company RStudio
+
+## Tidy data
+
+<div style="display:flex;align-items:center;font-size:30pt;font-family:serif;width:100%;height:300px;background-color:wheat;text-align:center; border: 1px solid red; position: relative;">
+
+> Tidy datasets are all alike, <br/>
+but every messy data is messy in its own way
+
+</div>
+
+## Tidy data
+
+Tidy data is a **computer-friendly** format based on the following characteristics:
+
++ Each row is one observation
+- Each column is one variable
+- Each set of observational unit forms a table
+
+All other forms of data can be considered **messy data**.
+
+## Let us count the ways
+
+There are many ways data can be messy. An incomplete list....
+
++ Column headers are values, not variables
++ Multiple variables are stored in a single column
++ Variables are stored in both rows and columns
++ Multiple types of observational units are saved in the same table
++ A single observational unit is stored in multiple tables
+
+## Ways to have messy (i.e. not tidy) data
+
+1. Column headers contain values
+
+Country   |   < $10K    | $10-20K    | $20-50K   | $50-100K    | > $100K
+----------|-------------|------------|-----------|-------------|---------
+India     |   40        |  25        |   25      |  9          |  1
+USA       |   20        |  20        |  20       | 30          |  10
+
+## Ways to have messy (i.e. not tidy) data
+
+1. Column headers contain values
+
+Country   |   Income  | Percentage
+----------|-----------|------------
+India     |  < $10K   |  40
+USA       |  < $10K   | 20
+
+This is a case of reshaping or melting 
+
+## Ways to have messy (i.e. not tidy) data
+
+2. Multiple variables in one column
+
+Country  | Year   | M_0-14  | F_0-14  | M_ 15-60  | F_15-60  | M_60+  | F_60+
+---------|--------|---------|---------|-----------|----------|--------|-------
+UK       |  2010  |         |         |           |          |        | 
+UK       |  2011  |         |         |           |          |        | 
+
+
+Country  | Year   | Gender  | Age    | Count
+---------|--------|---------|--------|-------
+
+
+Separating columns into different variables
+
+## Ways to have messy (i.e. not tidy) data
+
+3. Variables stored in both rows and columns
+4. Multiple types (or multiple levels) of data in one table
+5. One type of data in multiple tables
+
