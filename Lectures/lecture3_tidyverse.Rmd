@@ -388,11 +388,140 @@ download.file(link, 'brca.csv')
 brca_data <- read.csv('brca.csv', stringsAsFactors=FALSE)
 ```
 <img src = "https://dl.dropboxusercontent.com/s/k3r12s7d22zhku8/Screenshot%202018-09-26%2000.27.50.png" 
-  width="600" height="150"></img>
+  width="800" height="200"></img>
 
 ## 
+
+
 ```{r, message = F, warning = F}
 library(tidyverse)
 names(brca_data)
 ```
+
+## Need for tidying
+
+1. For the same variable (e.g., radius) there are 3 columns giving the mean, se and worst value. So the names of the metric are stored in the column names
+2. There are really 3 kinds of summaries for each metric -- mean, se and worst. 
+
+## Tidying
+
+```{r, eval=F}
+library(tidyverse)
+brca_data
+```
+
+<div style = 'height: 40%; position: fixed; bottom: 0;'>
+
+```{r, echo=F}
+brca_data  %>% head(3) %>% knitr::kable()
+```
+
+</div>
+
+## Tidying (selecting)
+
+```{r, eval=F}
+library(tidyverse)
+brca_data %>% 
+  select(id, diagnosis, ends_with('mean'), ends_with('se'), ends_with('worst'),
+         -starts_with('fractal')) 
+                             # removes columns starting with "fractal"
+```
+
+
+<div style = 'height: 40%; position: fixed; bottom: 0;'>
+
+```{r, echo=F}
+brca_data %>% 
+  select(id, diagnosis, ends_with('mean'),
+         ends_with('se'), ends_with('worst'),
+         -starts_with('fractal')) %>% 
+  head(3) %>% knitr::kable()
+```
+
+</div>
+
+
+## Tidying (gathering)
+
+```{r, eval=F}
+library(tidyverse)
+brca_data %>% 
+  select(id, diagnosis, ends_with('mean'),
+         ends_with('se'), ends_with('worst'),
+         -starts_with('fractal')) %>% 
+  gather(variable, value, -id, -diagnosis) # operate on everything but
+```
+
+> Column names become variable, everything stays aligned with id and diagnosis
+
+<div style = 'height: 40%; position: fixed; bottom: 0;'>
+
+```{r, echo=F}
+brca_data  %>% 
+  select(id, diagnosis, ends_with('mean'),
+         ends_with('se'), ends_with('worst'),
+         -starts_with('fractal')) %>% 
+  gather(variable, value, -id, -diagnosis) %>% 
+  head(3) %>% knitr::kable()
+```
+
+</div>
+
+## Tidying (separating)
+
+```{r, eval=F}
+library(tidyverse)
+brca_data %>% 
+  select(id, diagnosis, ends_with('mean'),
+         ends_with('se'), ends_with('worst'),
+         -starts_with('fractal')) %>% 
+  gather(variable, value, -id, -diagnosis) %>% 
+  separate(variable, c("Variable","stat"), sep="_", remove = T) 
+```
+
+> Split `variable` into 2 cols
+
+<div style = 'height: 40%; position: fixed; bottom: 0;'>
+
+```{r, echo=F, warning=F, message = F}
+brca_data  %>% 
+ select(id, diagnosis, ends_with('mean'),
+         ends_with('se'), ends_with('worst'),
+         -starts_with('fractal')) %>% 
+  gather(variable, value, -id, -diagnosis) %>% 
+  separate(variable, c("Variable","stat"), sep="_", remove = T) %>% 
+  head(3) %>% knitr::kable()
+```
+
+</div>
+
+## Tidying (spreading)
+
+```{r, eval=F}
+library(tidyverse)
+brca_data %>% 
+  select(id, diagnosis, ends_with('mean'),
+         ends_with('se'), ends_with('worst'),
+         -starts_with('fractal')) %>% 
+  gather(variable, value, -id, -diagnosis) %>% 
+  separate(variable, c("Variable","stat"), sep="_", remove = T) %>% 
+  spread(stat, value)
+```
+
+
+<div style = 'height: 40%; position: fixed; bottom: 0;'>
+
+```{r, echo=F, warning=F, message = F}
+brca_data  %>% 
+ select(id, diagnosis, ends_with('mean'),
+         ends_with('se'), ends_with('worst'),
+         -starts_with('fractal')) %>% 
+  gather(variable, value, -id, -diagnosis) %>% 
+  separate(variable, c("Variable","stat"), sep="_", remove = T) %>% 
+  spread(stat,value) %>% 
+  head(3) %>% knitr::kable()
+```
+
+</div>
 

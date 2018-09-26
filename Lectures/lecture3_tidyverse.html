@@ -3850,7 +3850,7 @@ download.file(link, &#39;brca.csv&#39;)
 brca_data &lt;- read.csv(&#39;brca.csv&#39;, stringsAsFactors=FALSE)</pre>
 
 <p><img src = "https://dl.dropboxusercontent.com/s/k3r12s7d22zhku8/Screenshot%202018-09-26%2000.27.50.png" 
-  width="600" height="150"></img></p>
+  width="800" height="200"></img></p>
 
 </article></slide><slide class=""><hgroup><h2></h2></hgroup><article  id="section-6">
 
@@ -3873,7 +3873,433 @@ names(brca_data)</pre>
 ## [27] &quot;smoothness_worst&quot;        &quot;compactness_worst&quot;      
 ## [29] &quot;concavity_worst&quot;         &quot;concave.points_worst&quot;   
 ## [31] &quot;symmetry_worst&quot;          &quot;fractal_dimension_worst&quot;
-## [33] &quot;X&quot;</pre></article></slide>
+## [33] &quot;X&quot;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Need for tidying</h2></hgroup><article  id="need-for-tidying">
+
+<ol>
+<li>For the same variable (e.g., radius) there are 3 columns giving the mean, se and worst value. So the names of the metric are stored in the column names</li>
+<li>There are really 3 kinds of summaries for each metric – mean, se and worst.</li>
+</ol>
+
+</article></slide><slide class=""><hgroup><h2>Tidying</h2></hgroup><article  id="tidying">
+
+<pre class = 'prettyprint lang-r'>library(tidyverse)
+brca_data</pre>
+
+<div style="height: 40%; position: fixed; bottom: 0;">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="right">id</th>
+<th align="left">diagnosis</th>
+<th align="right">radius_mean</th>
+<th align="right">texture_mean</th>
+<th align="right">perimeter_mean</th>
+<th align="right">area_mean</th>
+<th align="right">smoothness_mean</th>
+<th align="right">compactness_mean</th>
+<th align="right">concavity_mean</th>
+<th align="right">concave.points_mean</th>
+<th align="right">symmetry_mean</th>
+<th align="right">fractal_dimension_mean</th>
+<th align="right">radius_se</th>
+<th align="right">texture_se</th>
+<th align="right">perimeter_se</th>
+<th align="right">area_se</th>
+<th align="right">smoothness_se</th>
+<th align="right">compactness_se</th>
+<th align="right">concavity_se</th>
+<th align="right">concave.points_se</th>
+<th align="right">symmetry_se</th>
+<th align="right">fractal_dimension_se</th>
+<th align="right">radius_worst</th>
+<th align="right">texture_worst</th>
+<th align="right">perimeter_worst</th>
+<th align="right">area_worst</th>
+<th align="right">smoothness_worst</th>
+<th align="right">compactness_worst</th>
+<th align="right">concavity_worst</th>
+<th align="right">concave.points_worst</th>
+<th align="right">symmetry_worst</th>
+<th align="right">fractal_dimension_worst</th>
+<th align="left">X</th>
+</tr>
+<tr class="odd">
+<td align="right">842302</td>
+<td align="left">M</td>
+<td align="right">17.99</td>
+<td align="right">10.38</td>
+<td align="right">122.8</td>
+<td align="right">1001</td>
+<td align="right">0.11840</td>
+<td align="right">0.27760</td>
+<td align="right">0.3001</td>
+<td align="right">0.14710</td>
+<td align="right">0.2419</td>
+<td align="right">0.07871</td>
+<td align="right">1.0950</td>
+<td align="right">0.9053</td>
+<td align="right">8.589</td>
+<td align="right">153.40</td>
+<td align="right">0.006399</td>
+<td align="right">0.04904</td>
+<td align="right">0.05373</td>
+<td align="right">0.01587</td>
+<td align="right">0.03003</td>
+<td align="right">0.006193</td>
+<td align="right">25.38</td>
+<td align="right">17.33</td>
+<td align="right">184.6</td>
+<td align="right">2019</td>
+<td align="right">0.1622</td>
+<td align="right">0.6656</td>
+<td align="right">0.7119</td>
+<td align="right">0.2654</td>
+<td align="right">0.4601</td>
+<td align="right">0.11890</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="right">842517</td>
+<td align="left">M</td>
+<td align="right">20.57</td>
+<td align="right">17.77</td>
+<td align="right">132.9</td>
+<td align="right">1326</td>
+<td align="right">0.08474</td>
+<td align="right">0.07864</td>
+<td align="right">0.0869</td>
+<td align="right">0.07017</td>
+<td align="right">0.1812</td>
+<td align="right">0.05667</td>
+<td align="right">0.5435</td>
+<td align="right">0.7339</td>
+<td align="right">3.398</td>
+<td align="right">74.08</td>
+<td align="right">0.005225</td>
+<td align="right">0.01308</td>
+<td align="right">0.01860</td>
+<td align="right">0.01340</td>
+<td align="right">0.01389</td>
+<td align="right">0.003532</td>
+<td align="right">24.99</td>
+<td align="right">23.41</td>
+<td align="right">158.8</td>
+<td align="right">1956</td>
+<td align="right">0.1238</td>
+<td align="right">0.1866</td>
+<td align="right">0.2416</td>
+<td align="right">0.1860</td>
+<td align="right">0.2750</td>
+<td align="right">0.08902</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">84300903</td>
+<td align="left">M</td>
+<td align="right">19.69</td>
+<td align="right">21.25</td>
+<td align="right">130.0</td>
+<td align="right">1203</td>
+<td align="right">0.10960</td>
+<td align="right">0.15990</td>
+<td align="right">0.1974</td>
+<td align="right">0.12790</td>
+<td align="right">0.2069</td>
+<td align="right">0.05999</td>
+<td align="right">0.7456</td>
+<td align="right">0.7869</td>
+<td align="right">4.585</td>
+<td align="right">94.03</td>
+<td align="right">0.006150</td>
+<td align="right">0.04006</td>
+<td align="right">0.03832</td>
+<td align="right">0.02058</td>
+<td align="right">0.02250</td>
+<td align="right">0.004571</td>
+<td align="right">23.57</td>
+<td align="right">25.53</td>
+<td align="right">152.5</td>
+<td align="right">1709</td>
+<td align="right">0.1444</td>
+<td align="right">0.4245</td>
+<td align="right">0.4504</td>
+<td align="right">0.2430</td>
+<td align="right">0.3613</td>
+<td align="right">0.08758</td>
+<td align="left">NA</td>
+</tr>
+</table></div>
+
+</article></slide><slide class=""><hgroup><h2>Tidying (selecting)</h2></hgroup><article  id="tidying-selecting">
+
+<pre class = 'prettyprint lang-r'>library(tidyverse)
+brca_data %&gt;% 
+  select(id, diagnosis, ends_with(&#39;mean&#39;), ends_with(&#39;se&#39;), ends_with(&#39;worst&#39;),
+         -starts_with(&#39;fractal&#39;)) 
+                             # removes columns starting with &quot;fractal&quot;</pre>
+
+<div style="height: 40%; position: fixed; bottom: 0;">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="right">id</th>
+<th align="left">diagnosis</th>
+<th align="right">radius_mean</th>
+<th align="right">texture_mean</th>
+<th align="right">perimeter_mean</th>
+<th align="right">area_mean</th>
+<th align="right">smoothness_mean</th>
+<th align="right">compactness_mean</th>
+<th align="right">concavity_mean</th>
+<th align="right">concave.points_mean</th>
+<th align="right">symmetry_mean</th>
+<th align="right">radius_se</th>
+<th align="right">texture_se</th>
+<th align="right">perimeter_se</th>
+<th align="right">area_se</th>
+<th align="right">smoothness_se</th>
+<th align="right">compactness_se</th>
+<th align="right">concavity_se</th>
+<th align="right">concave.points_se</th>
+<th align="right">symmetry_se</th>
+<th align="right">radius_worst</th>
+<th align="right">texture_worst</th>
+<th align="right">perimeter_worst</th>
+<th align="right">area_worst</th>
+<th align="right">smoothness_worst</th>
+<th align="right">compactness_worst</th>
+<th align="right">concavity_worst</th>
+<th align="right">concave.points_worst</th>
+<th align="right">symmetry_worst</th>
+</tr>
+<tr class="odd">
+<td align="right">842302</td>
+<td align="left">M</td>
+<td align="right">17.99</td>
+<td align="right">10.38</td>
+<td align="right">122.8</td>
+<td align="right">1001</td>
+<td align="right">0.11840</td>
+<td align="right">0.27760</td>
+<td align="right">0.3001</td>
+<td align="right">0.14710</td>
+<td align="right">0.2419</td>
+<td align="right">1.0950</td>
+<td align="right">0.9053</td>
+<td align="right">8.589</td>
+<td align="right">153.40</td>
+<td align="right">0.006399</td>
+<td align="right">0.04904</td>
+<td align="right">0.05373</td>
+<td align="right">0.01587</td>
+<td align="right">0.03003</td>
+<td align="right">25.38</td>
+<td align="right">17.33</td>
+<td align="right">184.6</td>
+<td align="right">2019</td>
+<td align="right">0.1622</td>
+<td align="right">0.6656</td>
+<td align="right">0.7119</td>
+<td align="right">0.2654</td>
+<td align="right">0.4601</td>
+</tr>
+<tr class="even">
+<td align="right">842517</td>
+<td align="left">M</td>
+<td align="right">20.57</td>
+<td align="right">17.77</td>
+<td align="right">132.9</td>
+<td align="right">1326</td>
+<td align="right">0.08474</td>
+<td align="right">0.07864</td>
+<td align="right">0.0869</td>
+<td align="right">0.07017</td>
+<td align="right">0.1812</td>
+<td align="right">0.5435</td>
+<td align="right">0.7339</td>
+<td align="right">3.398</td>
+<td align="right">74.08</td>
+<td align="right">0.005225</td>
+<td align="right">0.01308</td>
+<td align="right">0.01860</td>
+<td align="right">0.01340</td>
+<td align="right">0.01389</td>
+<td align="right">24.99</td>
+<td align="right">23.41</td>
+<td align="right">158.8</td>
+<td align="right">1956</td>
+<td align="right">0.1238</td>
+<td align="right">0.1866</td>
+<td align="right">0.2416</td>
+<td align="right">0.1860</td>
+<td align="right">0.2750</td>
+</tr>
+<tr class="odd">
+<td align="right">84300903</td>
+<td align="left">M</td>
+<td align="right">19.69</td>
+<td align="right">21.25</td>
+<td align="right">130.0</td>
+<td align="right">1203</td>
+<td align="right">0.10960</td>
+<td align="right">0.15990</td>
+<td align="right">0.1974</td>
+<td align="right">0.12790</td>
+<td align="right">0.2069</td>
+<td align="right">0.7456</td>
+<td align="right">0.7869</td>
+<td align="right">4.585</td>
+<td align="right">94.03</td>
+<td align="right">0.006150</td>
+<td align="right">0.04006</td>
+<td align="right">0.03832</td>
+<td align="right">0.02058</td>
+<td align="right">0.02250</td>
+<td align="right">23.57</td>
+<td align="right">25.53</td>
+<td align="right">152.5</td>
+<td align="right">1709</td>
+<td align="right">0.1444</td>
+<td align="right">0.4245</td>
+<td align="right">0.4504</td>
+<td align="right">0.2430</td>
+<td align="right">0.3613</td>
+</tr>
+</table></div>
+
+</article></slide><slide class=""><hgroup><h2>Tidying (gathering)</h2></hgroup><article  id="tidying-gathering">
+
+<pre class = 'prettyprint lang-r'>library(tidyverse)
+brca_data %&gt;% 
+  select(id, diagnosis, ends_with(&#39;mean&#39;),
+         ends_with(&#39;se&#39;), ends_with(&#39;worst&#39;),
+         -starts_with(&#39;fractal&#39;)) %&gt;% 
+  gather(variable, value, -id, -diagnosis) # operate on everything but</pre>
+
+<blockquote>
+<p>Column names become variable, everything stays aligned with id and diagnosis</p>
+</blockquote>
+
+<div style="height: 40%; position: fixed; bottom: 0;">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="right">id</th>
+<th align="left">diagnosis</th>
+<th align="left">variable</th>
+<th align="right">value</th>
+</tr>
+<tr class="odd">
+<td align="right">842302</td>
+<td align="left">M</td>
+<td align="left">radius_mean</td>
+<td align="right">17.99</td>
+</tr>
+<tr class="even">
+<td align="right">842517</td>
+<td align="left">M</td>
+<td align="left">radius_mean</td>
+<td align="right">20.57</td>
+</tr>
+<tr class="odd">
+<td align="right">84300903</td>
+<td align="left">M</td>
+<td align="left">radius_mean</td>
+<td align="right">19.69</td>
+</tr>
+</table></div>
+
+</article></slide><slide class=""><hgroup><h2>Tidying (separating)</h2></hgroup><article  id="tidying-separating">
+
+<pre class = 'prettyprint lang-r'>library(tidyverse)
+brca_data %&gt;% 
+  select(id, diagnosis, ends_with(&#39;mean&#39;),
+         ends_with(&#39;se&#39;), ends_with(&#39;worst&#39;),
+         -starts_with(&#39;fractal&#39;)) %&gt;% 
+  gather(variable, value, -id, -diagnosis) %&gt;% 
+  separate(variable, c(&quot;Variable&quot;,&quot;stat&quot;), sep=&quot;_&quot;, remove = T) </pre>
+
+<blockquote>
+<p>Split <code>variable</code> into 2 cols</p>
+</blockquote>
+
+<div style="height: 40%; position: fixed; bottom: 0;">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="right">id</th>
+<th align="left">diagnosis</th>
+<th align="left">Variable</th>
+<th align="left">stat</th>
+<th align="right">value</th>
+</tr>
+<tr class="odd">
+<td align="right">842302</td>
+<td align="left">M</td>
+<td align="left">radius</td>
+<td align="left">mean</td>
+<td align="right">17.99</td>
+</tr>
+<tr class="even">
+<td align="right">842517</td>
+<td align="left">M</td>
+<td align="left">radius</td>
+<td align="left">mean</td>
+<td align="right">20.57</td>
+</tr>
+<tr class="odd">
+<td align="right">84300903</td>
+<td align="left">M</td>
+<td align="left">radius</td>
+<td align="left">mean</td>
+<td align="right">19.69</td>
+</tr>
+</table></div>
+
+</article></slide><slide class=""><hgroup><h2>Tidying (spreading)</h2></hgroup><article  id="tidying-spreading">
+
+<pre class = 'prettyprint lang-r'>library(tidyverse)
+brca_data %&gt;% 
+  select(id, diagnosis, ends_with(&#39;mean&#39;),
+         ends_with(&#39;se&#39;), ends_with(&#39;worst&#39;),
+         -starts_with(&#39;fractal&#39;)) %&gt;% 
+  gather(variable, value, -id, -diagnosis) %&gt;% 
+  separate(variable, c(&quot;Variable&quot;,&quot;stat&quot;), sep=&quot;_&quot;, remove = T) %&gt;% 
+  spread(stat, value)</pre>
+
+<div style="height: 40%; position: fixed; bottom: 0;">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="right">id</th>
+<th align="left">diagnosis</th>
+<th align="left">Variable</th>
+<th align="right">mean</th>
+<th align="right">se</th>
+<th align="right">worst</th>
+</tr>
+<tr class="odd">
+<td align="right">8670</td>
+<td align="left">M</td>
+<td align="left">area</td>
+<td align="right">748.90000</td>
+<td align="right">48.31000</td>
+<td align="right">1156.0000</td>
+</tr>
+<tr class="even">
+<td align="right">8670</td>
+<td align="left">M</td>
+<td align="left">compactness</td>
+<td align="right">0.12230</td>
+<td align="right">0.01484</td>
+<td align="right">0.2394</td>
+</tr>
+<tr class="odd">
+<td align="right">8670</td>
+<td align="left">M</td>
+<td align="left">concave.points</td>
+<td align="right">0.08087</td>
+<td align="right">0.01093</td>
+<td align="right">0.1514</td>
+</tr>
+</table></div></article></slide>
 
 
   <slide class="backdrop"></slide>
