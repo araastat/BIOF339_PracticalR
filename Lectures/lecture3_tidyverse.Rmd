@@ -480,7 +480,7 @@ brca_data %>%
   separate(variable, c("Variable","stat"), sep="_", remove = T) 
 ```
 
-> Split `variable` into 2 cols
+> Split `variable` into 2 cols, `Variable` and `stat`
 
 <div style = 'height: 40%; position: fixed; bottom: 0;'>
 
@@ -524,4 +524,10 @@ brca_data  %>%
 ```
 
 </div>
+
+## References
+
+1. [Introduction to dplyr](https://dplyr.tidyverse.org/articles/dplyr.html)
+2. [Tidy data](https://tidyr.tidyverse.org/articles/tidy-data.html)
+3. The [paper](http://vita.had.co.nz/papers/tidy-data.html) on tidy data
 
