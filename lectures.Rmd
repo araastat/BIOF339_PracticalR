@@ -36,6 +36,8 @@ Supplemental Material
 
 <a href="Lectures/lecture3_tidyverse.html" target = "_blank">Presentation</a>
 
+<a href="Lectures/lecture3_files/Lecture3_2018_Practicum.html" target="_blank">Practicum</a>
+
 Supplemental material
 
 + [`dplyr` cheatsheet](https://www.rstudio.com/resources/cheatsheets/#dplyr)
