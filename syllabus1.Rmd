@@ -56,12 +56,12 @@ resources for the use of R in data analysis.
 library(tidyverse)
 topics <- c('Introduction to R and RStudio. Basic Data Types',
             'Data Frames, Matrices and Lists',
+            'Introduction to Tidy Data and the Tidyverse: Data Munging',
           'Exploring Data through Visualization.' ,
           'Basic Statistical Analysis with R: Summary statistics, Hypothesis tests',
           'Building Statistical Models with R: Linear Regression, Formula" interface ' ,
           'R Packages. Importing & exporting data. "Apply" family of functions'  ,
           'Importing and exporting data. Data manipulation. “Apply” family of functions. Missing data ' ,
-          'Tidyverse I: Data munging with dplyr ',
           'Tidyverse II:  Data manipulation with purrr and *apply',
           'RMarkdown and other reporting packages  ',
           'Basic graphics with ggplot.  ',
