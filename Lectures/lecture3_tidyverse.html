@@ -3093,6 +3093,10 @@ if (document.readyState !== "loading" &&
 
   </style>
 
+  <style type="text/css">.prettyprint .com {
+color: purple;
+font-style: italic;
+}</style>
 
 </head>
 
@@ -3119,25 +3123,35 @@ if (document.readyState !== "loading" &&
 
 </article></slide><slide class=""><hgroup><h2>What is the <a href='http://www.tidyverse.org' title=''>&ldquo;Tidyverse&rdquo;</a>?</h2></hgroup><article  id="what-is-the-tidyverse-1">
 
-<div style="display: flex; align-items:center; font-size:24pt; font-family:serif;
-width:100%; height:200px; margin-bottom: 50px; background-color:wheat; border: 1px solid red; position: relative;">
-<ul>
-<li><p>A set of R packages that</p>
+<p>A set of R packages that:</p>
+
+<div style="font-size:20pt; font-family:serif;
+width:100%; height:100px; padding-top: 20px; margin-bottom: 100px; background-color:wheat; border: 1px solid red; position: relative;">
 
 <ul>
-<li>help make data more computer-friendly</li>
-<li>while making your code more human-friendly</li>
-</ul></li>
-</ul></div>
+
+<li>
+
+help make data more computer-friendly
+
+<li>
+
+while making your code more human-friendly
+
+</ul>
+
+</div>
 
 <ul>
 <li>Most of these packages are (co-)written by Dr. Hadley Wickham, who has rockstar status in the R world</li>
 <li>They are supported by the company RStudio</li>
 </ul>
 
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Tidying data</h2></hgroup><article  id="tidying-data">
+
 </article></slide><slide class=""><hgroup><h2>Tidy data</h2></hgroup><article  id="tidy-data">
 
-<div style="display:flex;align-items:center;font-size:30pt;font-family:serif;width:100%;height:300px;background-color:wheat;text-align:center; border: 1px solid red; position: relative;">
+<div style="display:flex;align-items:center;font-size:30pt;font-family:serif;width:100%;height:300px;background-color:wheat;text-align:center; padding-left:30px;border: 1px solid red; position: relative;">
 <blockquote>
 <p>Tidy datasets are all alike, <br/> but every messy data is messy in its own way</p>
 </blockquote></div>
@@ -3264,6 +3278,8 @@ width:100%; height:200px; margin-bottom: 50px; background-color:wheat; border: 1
 </tr>
 </table>
 
+<p>
+
 <table class = 'rmdtable'>
 <tr class="header">
 <th align="left">Country</th>
@@ -3276,13 +3292,588 @@ width:100%; height:200px; margin-bottom: 50px; background-color:wheat; border: 1
 
 <p>Separating columns into different variables</p>
 
-</article></slide><slide class=""><hgroup><h2>Ways to have messy (i.e. not tidy) data</h2></hgroup><article  id="ways-to-have-messy-i.e.not-tidy-data-3">
+</article></slide><slide class=""><hgroup><h2>Tidying data</h2></hgroup><article  id="tidying-data-1">
 
-<ol>
-<li>Variables stored in both rows and columns</li>
-<li>Multiple types (or multiple levels) of data in one table</li>
-<li>One type of data in multiple tables</li>
-</ol></article></slide>
+<p>The typical steps are</p>
+
+<ul>
+<li>Transforming data from wide to tall (<em>gather</em>) and from tall to wide (<em>spread</em>)</li>
+<li>Separating columns into different columns</li>
+<li>Putting columns together into new variables</li>
+</ul>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Cleaning data</h2></hgroup><article  id="cleaning-data">
+
+</article></slide><slide class=""><hgroup><h2>Some actions on data</h2></hgroup><article  id="some-actions-on-data">
+
+<ul>
+<li>Creating new variables (<em>mutate</em>)</li>
+<li>Choose some columns (<em>select</em>)</li>
+<li>Selecting rows based on some criteria (<em>filter</em>)</li>
+<li>Sort data based on some variables (<em>arrange</em>)</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Example data</h2></hgroup><article  id="example-data">
+
+<pre class = 'prettyprint lang-r'>data(mtcars)
+knitr::kable(head(mtcars, 3))</pre>
+
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left"></th>
+<th align="right">mpg</th>
+<th align="right">cyl</th>
+<th align="right">disp</th>
+<th align="right">hp</th>
+<th align="right">drat</th>
+<th align="right">wt</th>
+<th align="right">qsec</th>
+<th align="right">vs</th>
+<th align="right">am</th>
+<th align="right">gear</th>
+<th align="right">carb</th>
+</tr>
+<tr class="odd">
+<td align="left">Mazda RX4</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.620</td>
+<td align="right">16.46</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Mazda RX4 Wag</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.875</td>
+<td align="right">17.02</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Datsun 710</td>
+<td align="right">22.8</td>
+<td align="right">4</td>
+<td align="right">108</td>
+<td align="right">93</td>
+<td align="right">3.85</td>
+<td align="right">2.320</td>
+<td align="right">18.61</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+</table>
+
+<ul>
+<li>Car names are in an attribute of the data.frame called <code>rownames</code>. So it’s not in a column</li>
+<li>We might want to convert fuel economy to metric</li>
+<li>We might just want to look at the relationship between displacement and fuel economy based on number of cylinders</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Example data (<a href='https://dl.dropboxusercontent.com/s/pqavhcckshqxtjm/brca.csv' title=''>link</a>)</h2></hgroup><article  id="example-data-link">
+
+<pre class = 'prettyprint lang-r'>link &lt;- &#39;https://dl.dropboxusercontent.com/s/pqavhcckshqxtjm/brca.csv&#39;
+download.file(link, &#39;brca.csv&#39;)
+brca_data &lt;- read.csv(&#39;brca.csv&#39;, stringsAsFactors=FALSE)</pre>
+
+<p><img src = "https://dl.dropboxusercontent.com/s/k3r12s7d22zhku8/Screenshot%202018-09-26%2000.27.50.png" 
+  width="600" height="150"></img></p>
+
+</article></slide><slide class=""><hgroup><h2>The <code>tidyverse</code> package</h2></hgroup><article  id="the-tidyverse-package">
+
+<p>The <code>tidyverse</code> package is a meta-package that installs a set of packages that are useful for data cleaning, data tidying and data munging (manipulating data to get a computationally &ldquo;attractive&rdquo; dataset)</p>
+
+</article></slide><slide class=""><hgroup><h2>The <code>tidyverse</code> package</h2></hgroup><article  id="the-tidyverse-package-1">
+
+<pre class = 'prettyprint lang-r'># install.packages(&#39;tidyverse&#39;)
+library(tidyverse)</pre>
+
+<pre >## ── Attaching packages ─────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</pre>
+
+<pre >## ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
+## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
+## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
+## ✔ readr   1.1.1     ✔ forcats 0.3.0</pre>
+
+<pre >## ── Conflicts ────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</pre>
+
+<div style="border: 2px solid red;padding: 20px; width: 85%;">
+<blockquote>
+<p>You can specify a function from a particular package as <code>dplyr::filter</code>. Note there are two colons there</p>
+</blockquote></div>
+
+</article></slide><slide class=""><hgroup><h2>Core <code>tidyverse</code> packages</h2></hgroup><article  id="core-tidyverse-packages">
+
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">Package</th>
+<th align="left">Description</th>
+</tr>
+<tr class="odd">
+<td align="left">ggplot2</td>
+<td align="left">Data visualization (next week)</td>
+</tr>
+<tr class="even">
+<td align="left">tibble</td>
+<td align="left">data.frame on steroids</td>
+</tr>
+<tr class="odd">
+<td align="left">tidyr</td>
+<td align="left">Data tidying (today)</td>
+</tr>
+<tr class="even">
+<td align="left">readr</td>
+<td align="left">Reading text files (CSV)</td>
+</tr>
+<tr class="odd">
+<td align="left">purrr</td>
+<td align="left">Applying functions to data iteratively(later this sem)</td>
+</tr>
+<tr class="even">
+<td align="left">dplyr</td>
+<td align="left">Data cleaning and munging (today)</td>
+</tr>
+<tr class="odd">
+<td align="left">stringr</td>
+<td align="left">String (character) manipulation</td>
+</tr>
+<tr class="even">
+<td align="left">forcats</td>
+<td align="left">Manipulating categorical variables</td>
+</tr>
+</table>
+
+</article></slide><slide class=""><hgroup><h2>Additional <code>tidyverse</code> packages</h2></hgroup><article  id="additional-tidyverse-packages">
+
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="center">Package</th>
+<th align="center">Description</th>
+</tr>
+<tr class="odd">
+<td align="center">readxl</td>
+<td align="center">Read Excel files</td>
+</tr>
+<tr class="even">
+<td align="center">haven</td>
+<td align="center">Read SAS, SPSS, Stata files</td>
+</tr>
+<tr class="odd">
+<td align="center">lubridate</td>
+<td align="center">Deal with dates and times</td>
+</tr>
+<tr class="even">
+<td align="center">magrittr</td>
+<td align="center">Provides the pipe operator %&gt;%</td>
+</tr>
+<tr class="odd">
+<td align="center">glue</td>
+<td align="center">Makes pasting text and data easier</td>
+</tr>
+</table>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Pipes</h2></hgroup><article  id="pipes">
+
+</article></slide><slide class=""><hgroup><h2>A pipe example (data munging)</h2></hgroup><article  id="a-pipe-example-data-munging">
+
+<pre class = 'prettyprint lang-r'>library(tidyverse)
+updated_cars &lt;- 
+  mtcars %&gt;% 
+  rownames_to_column(var = &#39;Model&#39;) %&gt;% 
+  mutate(kmpg = mpg * 1.6) %&gt;% 
+  select(Model, kmpg, cyl, disp) %&gt;% 
+  filter(cyl == 6)</pre>
+
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">Model</th>
+<th align="right">kmpg</th>
+<th align="right">cyl</th>
+<th align="right">disp</th>
+</tr>
+<tr class="odd">
+<td align="left">Mazda RX4</td>
+<td align="right">33.60</td>
+<td align="right">6</td>
+<td align="right">160.0</td>
+</tr>
+<tr class="even">
+<td align="left">Mazda RX4 Wag</td>
+<td align="right">33.60</td>
+<td align="right">6</td>
+<td align="right">160.0</td>
+</tr>
+<tr class="odd">
+<td align="left">Hornet 4 Drive</td>
+<td align="right">34.24</td>
+<td align="right">6</td>
+<td align="right">258.0</td>
+</tr>
+<tr class="even">
+<td align="left">Valiant</td>
+<td align="right">28.96</td>
+<td align="right">6</td>
+<td align="right">225.0</td>
+</tr>
+<tr class="odd">
+<td align="left">Merc 280</td>
+<td align="right">30.72</td>
+<td align="right">6</td>
+<td align="right">167.6</td>
+</tr>
+<tr class="even">
+<td align="left">Merc 280C</td>
+<td align="right">28.48</td>
+<td align="right">6</td>
+<td align="right">167.6</td>
+</tr>
+</table>
+
+</article></slide><slide class=""><hgroup><h2>A pipe example (data munging)</h2></hgroup><article  id="a-pipe-example-data-munging-1">
+
+<pre class = 'prettyprint lang-r'>library(tidyverse)
+updated_cars &lt;- 
+  mtcars %&gt;% # Take the data set
+  rownames_to_column(var = &#39;Model&#39;) %&gt;% # Make rownames a column
+  select(Model, mpg, cyl, disp) %&gt;% # Keep only certain columns
+  mutate(kmpg = mpg * 1.6) %&gt;% # Create a new variable
+  filter(cyl == 6) # Keep only certain rows</pre>
+
+<p>The idea is to use <strong>verbs</strong> to express operations on a dataset, so it is easier to express what you want to do in code.</p>
+
+</article></slide><slide class=""><hgroup><h2>The pipe operator</h2></hgroup><article  id="the-pipe-operator">
+
+<p>The pipe operator <code>%&gt;%</code> (technically from the package <code>magrittr</code>) takes a <strong>data.frame or tibble object</strong> on the left, then &ldquo;pipes&rdquo; it to a function that takes the <strong>data.frame object as its first argument</strong>.</p>
+
+<pre class = 'prettyprint lang-r'>mtcars %&gt;% mutate(kmpg = mpg * 1.6)</pre>
+
+<p>would be the same as</p>
+
+<pre class = 'prettyprint lang-r'>mutate(mtcars, kmpg = mpg * 1.6)</pre>
+
+</article></slide><slide class=""><hgroup><h2>The pipe operator</h2></hgroup><article  id="the-pipe-operator-1">
+
+<h3>With pipes</h3>
+
+<pre class = 'prettyprint lang-r'>mtcars %&gt;% 
+  rownames_to_column(var = &quot;Model&quot;) %&gt;% 
+  select(Model:disp) %&gt;% 
+  mutate(kmpg = mpg * 1.6) %&gt;% 
+  filter(cyl == 6)</pre>
+
+<h3>Without pipes</h3>
+
+<pre class = 'prettyprint lang-r'>tmp &lt;- rownames_to_column(mtcars, var=&quot;Model&quot;)
+tmp3 &lt;- select(tmp2, Model:disp)
+tmp2 &lt;- mutate(tmp, kmpg = mpg * 1.6)
+tmp4 &lt;- filter(tmp3, cyl == 6)</pre>
+
+<p>Both are fine, but I find pipes help translating my thoughts into code better</p>
+
+</article></slide><slide class=""><hgroup><h2>The pipe operator</h2></hgroup><article  id="the-pipe-operator-2">
+
+<h3>With pipes + tidyverse</h3>
+
+<pre class = 'prettyprint lang-r'>updated_cars &lt;- mtcars %&gt;% 
+  rownames_to_column(var = &quot;Model&quot;) %&gt;% 
+  select(Model:disp) %&gt;% 
+  mutate(kmpg = mpg * 1.6) %&gt;% 
+  filter(cyl == 6)</pre>
+
+<h3>Without tidyverse</h3>
+
+<pre class = 'prettyprint lang-r'>mtcars[,&#39;Model&#39;] &lt;- rownames(mtcars)
+tmp &lt;- mtcars[,c(&#39;Model&#39;,&#39;mpg&#39;,&#39;cyl&#39;,&#39;disp&#39;)] # Can&#39;t use the : operator for names
+tmp[,&#39;kmpg&#39;] &lt;- tmp[,&#39;mpg&#39;] * 1.6 # Note we need to quote the names
+updated_cars &lt;- tmp[tmp[,&#39;cyl&#39;] == 6,] </pre>
+
+<p>Idea was to make it easier to write expressive code without getting too hung up with syntax.</p>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Going through step by step</h2></hgroup><article  id="going-through-step-by-step">
+
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article  id="section">
+
+<pre class = 'prettyprint lang-r'>mtcars</pre>
+
+<div style="position: fixed; bottom: 0; height: 50%; ">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left"></th>
+<th align="right">mpg</th>
+<th align="right">cyl</th>
+<th align="right">disp</th>
+<th align="right">hp</th>
+<th align="right">drat</th>
+<th align="right">wt</th>
+<th align="right">qsec</th>
+<th align="right">vs</th>
+<th align="right">am</th>
+<th align="right">gear</th>
+<th align="right">carb</th>
+</tr>
+<tr class="odd">
+<td align="left">Mazda RX4</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.620</td>
+<td align="right">16.46</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Mazda RX4 Wag</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.875</td>
+<td align="right">17.02</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Datsun 710</td>
+<td align="right">22.8</td>
+<td align="right">4</td>
+<td align="right">108</td>
+<td align="right">93</td>
+<td align="right">3.85</td>
+<td align="right">2.320</td>
+<td align="right">18.61</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+</table></div>
+
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article  id="section-1">
+
+<pre class = 'prettyprint lang-r'>mtcars %&gt;% 
+  rownames_to_column(var = &quot;Model&quot;)</pre>
+
+<div style="position: fixed; bottom: 0; height: 50%; ">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">Model</th>
+<th align="right">mpg</th>
+<th align="right">cyl</th>
+<th align="right">disp</th>
+<th align="right">hp</th>
+<th align="right">drat</th>
+<th align="right">wt</th>
+<th align="right">qsec</th>
+<th align="right">vs</th>
+<th align="right">am</th>
+<th align="right">gear</th>
+<th align="right">carb</th>
+</tr>
+<tr class="odd">
+<td align="left">Mazda RX4</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.620</td>
+<td align="right">16.46</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Mazda RX4 Wag</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.875</td>
+<td align="right">17.02</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Datsun 710</td>
+<td align="right">22.8</td>
+<td align="right">4</td>
+<td align="right">108</td>
+<td align="right">93</td>
+<td align="right">3.85</td>
+<td align="right">2.320</td>
+<td align="right">18.61</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+</table></div>
+
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article  id="section-2">
+
+<pre class = 'prettyprint lang-r'>mtcars %&gt;% 
+  rownames_to_column(var = &quot;Model&quot;) %&gt;% 
+  select(Model:disp)</pre>
+
+<div style="position: fixed; bottom: 0; height: 50%; ">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">Model</th>
+<th align="right">mpg</th>
+<th align="right">cyl</th>
+<th align="right">disp</th>
+</tr>
+<tr class="odd">
+<td align="left">Mazda RX4</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+</tr>
+<tr class="even">
+<td align="left">Mazda RX4 Wag</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+</tr>
+<tr class="odd">
+<td align="left">Datsun 710</td>
+<td align="right">22.8</td>
+<td align="right">4</td>
+<td align="right">108</td>
+</tr>
+</table></div>
+
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article  id="section-3">
+
+<pre class = 'prettyprint lang-r'>mtcars %&gt;% 
+  rownames_to_column(var = &quot;Model&quot;) %&gt;% 
+  select(Model:disp) %&gt;% 
+  mutate(kmpg = mpg * 1.6)</pre>
+
+<div style="position: fixed; bottom: 0; height: 50%; ">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">Model</th>
+<th align="right">mpg</th>
+<th align="right">cyl</th>
+<th align="right">disp</th>
+<th align="right">kmpg</th>
+</tr>
+<tr class="odd">
+<td align="left">Mazda RX4</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">33.60</td>
+</tr>
+<tr class="even">
+<td align="left">Mazda RX4 Wag</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">33.60</td>
+</tr>
+<tr class="odd">
+<td align="left">Datsun 710</td>
+<td align="right">22.8</td>
+<td align="right">4</td>
+<td align="right">108</td>
+<td align="right">36.48</td>
+</tr>
+</table></div>
+
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article  id="section-4">
+
+<pre class = 'prettyprint lang-r'>mtcars %&gt;% 
+  rownames_to_column(var = &quot;Model&quot;) %&gt;% 
+  select(Model:disp) %&gt;% 
+  mutate(kmpg = mpg * 1.6) %&gt;% 
+  filter(cyl == 6)</pre>
+
+<div style="position: fixed; bottom: 0; height: 50%; ">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">Model</th>
+<th align="right">mpg</th>
+<th align="right">cyl</th>
+<th align="right">disp</th>
+<th align="right">kmpg</th>
+</tr>
+<tr class="odd">
+<td align="left">Mazda RX4</td>
+<td align="right">21</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">33.6</td>
+</tr>
+<tr class="even">
+<td align="left">Mazda RX4 Wag</td>
+<td align="right">21</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">33.6</td>
+</tr>
+</table></div>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Data tidying</h2></hgroup><article  id="data-tidying">
+
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article  id="section-5">
+
+<pre class = 'prettyprint lang-r'>link &lt;- &#39;https://dl.dropboxusercontent.com/s/pqavhcckshqxtjm/brca.csv&#39;
+download.file(link, &#39;brca.csv&#39;)
+brca_data &lt;- read.csv(&#39;brca.csv&#39;, stringsAsFactors=FALSE)</pre>
+
+<p><img src = "https://dl.dropboxusercontent.com/s/k3r12s7d22zhku8/Screenshot%202018-09-26%2000.27.50.png" 
+  width="600" height="150"></img></p>
+
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article  id="section-6">
+
+<pre class = 'prettyprint lang-r'>library(tidyverse)
+names(brca_data)</pre>
+
+<pre >##  [1] &quot;id&quot;                      &quot;diagnosis&quot;              
+##  [3] &quot;radius_mean&quot;             &quot;texture_mean&quot;           
+##  [5] &quot;perimeter_mean&quot;          &quot;area_mean&quot;              
+##  [7] &quot;smoothness_mean&quot;         &quot;compactness_mean&quot;       
+##  [9] &quot;concavity_mean&quot;          &quot;concave.points_mean&quot;    
+## [11] &quot;symmetry_mean&quot;           &quot;fractal_dimension_mean&quot; 
+## [13] &quot;radius_se&quot;               &quot;texture_se&quot;             
+## [15] &quot;perimeter_se&quot;            &quot;area_se&quot;                
+## [17] &quot;smoothness_se&quot;           &quot;compactness_se&quot;         
+## [19] &quot;concavity_se&quot;            &quot;concave.points_se&quot;      
+## [21] &quot;symmetry_se&quot;             &quot;fractal_dimension_se&quot;   
+## [23] &quot;radius_worst&quot;            &quot;texture_worst&quot;          
+## [25] &quot;perimeter_worst&quot;         &quot;area_worst&quot;             
+## [27] &quot;smoothness_worst&quot;        &quot;compactness_worst&quot;      
+## [29] &quot;concavity_worst&quot;         &quot;concave.points_worst&quot;   
+## [31] &quot;symmetry_worst&quot;          &quot;fractal_dimension_worst&quot;
+## [33] &quot;X&quot;</pre></article></slide>
 
 
   <slide class="backdrop"></slide>
