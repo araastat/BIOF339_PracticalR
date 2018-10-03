@@ -12,12 +12,12 @@ output:
     center: true
     slide_level: 2
     self_contained: false
-    reveal_plugins: ["notes"]
 # output: 
 #   ioslides_presentation:
 #     self_contained: true
 #     widescreen: true
 ---
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
