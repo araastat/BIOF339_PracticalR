@@ -666,6 +666,9 @@ Make sure that if students are using these commands, that they make the URL be o
 <pre class="sourceCode r" id="cb6"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">ggplot</span>(data_brca, <span class="kw">aes</span>(<span class="dt">x =</span> Age.at.Initial.Pathologic.Diagnosis)) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>() </a></code></pre>
 <p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-16-1.png" width="768" height="500px" /></p>
+<aside class="notes">
+This looks chunky, so we need to adjust the binwidth
+</aside>
 </section><section id="histograms-1" class="slide level2">
 <h2>Histograms</h2>
 <pre class="sourceCode r" id="cb7"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">ggplot</span>(data_brca, <span class="kw">aes</span>(<span class="dt">x =</span> Age.at.Initial.Pathologic.Diagnosis)) <span class="op">+</span><span class="st"> </span></a>
@@ -708,13 +711,19 @@ Make sure that if students are using these commands, that they make the URL be o
 <pre class="sourceCode r" id="cb14"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope))<span class="op">+</span></a>
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb14-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>()</a></code></pre>
-<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-23-1.png" width="768" height="500px" /></p>
+<img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-23-1.png" width="768" height="500px" />
+<aside class="notes">
+The shaded area gives a 95% confidence region
+</aside>
 </section><section id="scatter-plot-with-a-smooth-straight-line" class="slide level2">
 <h2>Scatter plot with a smooth straight line</h2>
 <pre class="sourceCode r" id="cb15"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb15-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></a>
 <a class="sourceLine" id="cb15-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&#39;lm&#39;</span>)</a></code></pre>
-<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-24-1.png" width="768" height="500px" /></p>
+<img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-24-1.png" width="768" height="500px" />
+<aside class="notes">
+<code>method = &quot;lm&quot;</code> stands for <em>linear model</em>, i.e., a straight line
+</aside>
 </section><section id="line-plot-for-time-series" class="slide level2">
 <h2>Line plot (for time series)</h2>
 <pre class="sourceCode r" id="cb16"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">library</span>(forecast)</a>
@@ -800,6 +809,9 @@ Violin plots are basically density plots that are reflected on itself. It gives 
 <pre class="sourceCode r" id="cb24"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
 <a class="sourceLine" id="cb24-2" data-line-number="2">grouped_data_spine =<span class="st"> </span>data_spine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(Class.attribute)</a></code></pre>
 <p>Note that you have to group using a discrete valued variable (factor, character, integer)</p>
+<aside class="notes">
+Note that <code>dplyr</code> is included in the <code>tidyverse</code> meta-package, just like <code>ggplot2</code>, so just doing <code>library(tidyverse)</code> will suffice.
+</aside>
 </section><section id="grouped-summaries" class="slide level2">
 <h2>Grouped summaries</h2>
 <pre class="sourceCode r" id="cb25"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">grouped_data_spine <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -820,17 +832,17 @@ Violin plots are basically density plots that are reflected on itself. It gives 
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Abnormal</td>
-<td style="text-align: right;">64.69256</td>
-<td style="text-align: right;">17.66213</td>
-<td style="text-align: right;">26.14792</td>
-<td style="text-align: right;">129.83404</td>
+<td style="text-align: right;">64.69</td>
+<td style="text-align: right;">17.66</td>
+<td style="text-align: right;">26.15</td>
+<td style="text-align: right;">129.83</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Normal</td>
-<td style="text-align: right;">51.68524</td>
-<td style="text-align: right;">12.36816</td>
-<td style="text-align: right;">30.74194</td>
-<td style="text-align: right;">89.83468</td>
+<td style="text-align: right;">51.69</td>
+<td style="text-align: right;">12.37</td>
+<td style="text-align: right;">30.74</td>
+<td style="text-align: right;">89.83</td>
 </tr>
 </tbody>
 </table>
@@ -840,33 +852,10 @@ Violin plots are basically density plots that are reflected on itself. It gives 
 <a class="sourceLine" id="cb26-2" data-line-number="2">                                 <span class="dt">SD =</span> <span class="kw">sd</span>(Pelvic.incidence),</a>
 <a class="sourceLine" id="cb26-3" data-line-number="3">                                 <span class="dt">Min =</span> <span class="kw">min</span>(Pelvic.incidence),</a>
 <a class="sourceLine" id="cb26-4" data-line-number="4">                                 <span class="dt">Max =</span> <span class="kw">max</span>(Pelvic.incidence))</a></code></pre>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Class.attribute</th>
-<th style="text-align: right;">Mean</th>
-<th style="text-align: right;">SD</th>
-<th style="text-align: right;">Min</th>
-<th style="text-align: right;">Max</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Abnormal</td>
-<td style="text-align: right;">64.69256</td>
-<td style="text-align: right;">17.66213</td>
-<td style="text-align: right;">26.14792</td>
-<td style="text-align: right;">129.83404</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Normal</td>
-<td style="text-align: right;">51.68524</td>
-<td style="text-align: right;">12.36816</td>
-<td style="text-align: right;">30.74194</td>
-<td style="text-align: right;">89.83468</td>
-</tr>
-</tbody>
-</table>
+Class.attribute Mean SD Min Max —————- —— —— —— ——- Abnormal 64.69 17.66 26.15 129.83 Normal 51.69 12.37 30.74 89.83
+<aside class="notes">
+You can name your summaries, to make them self-explanatory
+</aside>
 </section><section id="grouped-summaries-2" class="slide level2">
 <h2>Grouped summaries</h2>
 <pre class="sourceCode r" id="cb27"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">grouped_data_spine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize_all</span>(mean)</a></code></pre>
@@ -929,7 +918,7 @@ Violin plots are basically density plots that are reflected on itself. It gives 
 <pre class="sourceCode r" id="cb31"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope,</a>
 <a class="sourceLine" id="cb31-2" data-line-number="2">                       <span class="dt">group =</span> Class.attribute, <span class="dt">color =</span> Class.attribute))<span class="op">+</span></a>
 <a class="sourceLine" id="cb31-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre>
-<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-40-1.png" width="576" height="500px" /></p>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-40-1.png" width="768" height="500px" /></p>
 </section><section id="scatter-plot-black-and-white" class="slide level2">
 <h2>Scatter plot (Black and White)</h2>
 <pre class="sourceCode r" id="cb32"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope, </a>
@@ -997,12 +986,20 @@ Basically, if what you need comes from the dataset, you need to enclose it in <c
 #   4 rs4   1  4 0.8304476
 #   5 rs5   1  5 0.6417455
 #   6 rs6   1  6 0.5190959</code></pre>
-<pre class="sourceCode r" id="cb41"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">gwasResults =<span class="st"> </span><span class="kw">transform</span>(gwasResults, <span class="dt">x_position =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(gwasResults))</a></code></pre>
+<pre class="sourceCode r" id="cb41"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">gwasResults &lt;-<span class="st"> </span>gwasResults <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">x_position =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">n</span>())</a></code></pre>
+<aside class="notes">
+<p>This is a summary of the results of a GWAS. <code>P</code> gives the nominal p-values</p>
+The function <code>n()</code> gives the number of observations in the current data set
+</aside>
 </section><section id="manhattan-plot-3" class="slide level2">
 <h2>Manhattan plot</h2>
 <pre class="sourceCode r" id="cb42"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">ggplot</span>(gwasResults, <span class="kw">aes</span>(<span class="dt">x =</span> x_position, <span class="dt">y =</span> <span class="op">-</span><span class="kw">log</span>(P, <span class="dt">base=</span><span class="dv">10</span>)))<span class="op">+</span></a>
-<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="fl">0.2</span>)</a></code></pre>
-<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-49-1.png" width="768" height="500px" /></p>
+<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="fl">0.2</span>)</a></code></pre>
+<img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-49-1.png" width="768" height="500px" />
+<aside class="notes">
+We transform the p-values to -log<sub>10</sub>(p-value), and make the point size small
+</aside>
 </section><section id="manhattan-plot-4" class="slide level2">
 <h2>Manhattan plot</h2>
 <pre class="sourceCode r" id="cb43"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">ggplot</span>(gwasResults, <span class="kw">aes</span>(<span class="dt">x =</span> x_position, <span class="dt">y =</span> <span class="op">-</span><span class="kw">log</span>(P, <span class="dt">base=</span><span class="dv">10</span>),</a>

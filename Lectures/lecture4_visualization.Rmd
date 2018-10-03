@@ -348,6 +348,10 @@ ggplot(data_brca, aes(x = Age.at.Initial.Pathologic.Diagnosis)) +
   geom_histogram() 
 ```
 
+<aside class="notes">
+This looks chunky, so we need to adjust the binwidth
+</aside>
+
 ## Histograms
 ```{r, echo = -1}
 theme_set(theme_grey())
@@ -405,6 +409,9 @@ ggplot(data_spine, aes(x = Lumbar.lordosis.angle, y = Sacral.slope))+
   geom_point() + 
   geom_smooth()
 ```
+<aside class="notes">
+The shaded area gives a 95% confidence region 
+</aside>
 
 ## Scatter plot with a smooth straight line
 ```{r}
@@ -412,6 +419,10 @@ ggplot(data_spine, aes(x = Lumbar.lordosis.angle, y = Sacral.slope)) +
   geom_point()+
   geom_smooth(method='lm')
 ```
+<aside class="notes">
+`method = "lm"` stands for _linear model_, i.e., a straight line
+</aside>
+
 
 ## Line plot (for time series)
 ```{r, warning=F, message=FALSE}
@@ -519,6 +530,10 @@ grouped_data_spine = data_spine %>% group_by(Class.attribute)
 ```
 Note that you have to group using a discrete valued variable (factor, character, integer)
 
+<aside class="notes">
+Note that `dplyr` is included in the `tidyverse` meta-package, just like `ggplot2`, so just doing `library(tidyverse)` will suffice.
+</aside>
+
 
 ## Grouped summaries
 ```{r, eval=F}
@@ -533,7 +548,8 @@ knitr::kable(grouped_data_spine %>%
                summarise(mean(Pelvic.incidence), 
                          sd(Pelvic.incidence),
                          min(Pelvic.incidence),
-                         max(Pelvic.incidence)))
+                         max(Pelvic.incidence)),
+             digits=2)
 ```
 
 ## Grouped summaries
@@ -548,9 +564,13 @@ knitr::kable(summarize(grouped_data_spine,
           Mean = mean(Pelvic.incidence), 
           SD = sd(Pelvic.incidence),
           Min = min(Pelvic.incidence),
-          Max = max(Pelvic.incidence)))
+          Max = max(Pelvic.incidence)),
+          digits = 2)
 
 ```
+<aside class="notes">
+You can name your summaries, to make them self-explanatory
+</aside>
 
 ## Grouped summaries
 
@@ -624,7 +644,7 @@ ggplot(data_spine, aes(x = Sacral.slope, group = Class.attribute,
 ```
 
 ## Scatter plot
-```{r, fig.width=6}
+```{r }
 ggplot(data_spine, aes(x = Lumbar.lordosis.angle, y = Sacral.slope,
                        group = Class.attribute, color = Class.attribute))+
   geom_point()
@@ -714,14 +734,24 @@ data(gwasResults)
 head(gwasResults)
 ```
 ```{r }
-gwasResults = transform(gwasResults, x_position = 1:nrow(gwasResults))
+gwasResults <- gwasResults %>% 
+  mutate(x_position = 1:n())
 ```
+
+<aside class="notes">
+This is a summary of the results of a GWAS. `P` gives the nominal p-values
+
+The function `n()` gives the number of observations in the current data set
+</aside>
 
 ## Manhattan plot
 ```{r , fig.width=8}
 ggplot(gwasResults, aes(x = x_position, y = -log(P, base=10)))+
-  geom_point(size=0.2)
+  geom_point(size = 0.2)
 ```
+<aside class="notes">
+We transform the p-values to -log~10~(p-value), and make the point size small
+</aside>
 
 ## Manhattan plot
 ```{r , fig.width=8}
