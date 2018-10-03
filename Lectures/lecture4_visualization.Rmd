@@ -4,6 +4,7 @@ author: "BIOF 339"
 date: "October 3, 2018"
 output: 
   revealjs::revealjs_presentation:
+    code_folding: hide
     css: style_reveal.css
     theme: league
     highlight: monochrome
@@ -20,30 +21,188 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
-                      fig.width = 4,
-                      fig.height = 4,
+                      #fig.width = 4,
+                      #fig.height = 4,
                       comment = '#  ',
-                      cache = T)
+                      cache = T,
+                      message = F,
+                      warning = F,
+                      out.height="500px")
+library(tidyverse)
+library(htmlwidgets)
+library(leaflet)
+library(plotly)
+theme_set(theme_grey())
 ```
 
 # Data Visualization in R
 
-## Visualization packages
+## Gallery
 
-One of R's strengths is data visualization. 
+```{r, echo = F, fig.align='center'}
+# install.packages('ggpubr')
+library(ggpubr)
+data("ToothGrowth")
+df <- ToothGrowth
+p <- ggboxplot(df, x = "dose", y = "len",
+                color = "dose", palette =c("#00AFBB", "#E7B800", "#FC4E07"),
+                add = "jitter", shape = "dose")
+my_comparisons <- list( c("0.5", "1"), c("1", "2"), c("0.5", "2") )
+p + stat_compare_means(comparisons = my_comparisons)+ # Add pairwise comparisons p-value
+  stat_compare_means(label.y = 50)
+detach('package:ggpubr')
+```
 
-+ Static graph systems
-    + Base R graphics
-    + `lattice` (Sarkar, et al) 
-    + [`ggplot2`](https://ggplot2.tidyverse.org/) (Wickham)
 
-+ Dynamic graphs
-    + [`htmlwidgets`](http://www.htmlwidgets.org/)
-    + [`leaflet`](https://rstudio.github.io/leaflet/)
-    + [`plotly`](https://plot.ly/r/)
-    + Many others
+## Gallery
 
-## ggplot2
+```{r, echo = F, fig.align = 'center'}
+# install.packages('cowplot')
+library(cowplot)
+p1 <- ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) + 
+  geom_point() + facet_grid(. ~ Species) + stat_smooth(method = "lm") +
+  background_grid(major = 'y', minor = "none") + 
+  panel_border() + theme(legend.position = "none")
+
+# plot B
+p2 <- ggplot(iris, aes(Sepal.Length, fill = Species)) +
+  geom_density(alpha = .7) + theme(legend.justification = "top")
+p2a <- p2 + theme(legend.position = "none")
+
+# plot C
+p3 <- ggplot(iris, aes(Sepal.Width, fill = Species)) +
+  geom_density(alpha = .7) + theme(legend.position = "none")
+
+# legend
+legend <- get_legend(p2)
+
+# align all plots vertically
+plots <- align_plots(p1, p2a, p3, align = 'v', axis = 'l')
+
+# put together bottom row and then everything
+bottom_row <- plot_grid(plots[[2]], plots[[3]], legend, labels = c("B", "C"), rel_widths = c(1, 1, .3), nrow = 1)
+plot_grid(plots[[1]], bottom_row, labels = c("A"), ncol = 1)
+
+detach('package:cowplot')
+```
+
+## Gallery
+
+```{r, echo = F, fig.align="center"}
+# library
+library(ggridges)
+library(ggplot2)
+ 
+
+# basic example
+ggplot(diamonds, aes(x = price, y = cut, fill = cut)) +
+  geom_density_ridges() +
+  theme_ridges() + 
+  theme(legend.position = "none")
+```
+
+## Gallery
+
+### Manhattan plot
+```{r, echo = F, fig.align="center", out.height = "500px", out.width="600px", message = F}
+library(qqman)
+manhattan(gwasResults, annotatePval = 0.01)
+
+detach('package:qqman')
+```
+
+
+
+## Gallery
+
+### Circular Manhattan plot
+
+```{r, echo = F, results = 'hide', message = F, warning=F, out.width="500px", fig.align='center'}
+#install.packages('CMplot')
+library(CMplot)
+data(pig60K)
+CMplot(pig60K, plot.type="c", chr.labels=paste("Chr",c(1:18,"X"),sep=""), r=0.4, cir.legend=TRUE,
+        outward=FALSE, cir.legend.col="black", cir.chr.h=1.3 ,chr.den.col="black", file="jpg",
+        memo="", dpi=300)
+detach('package:CMplot')
+```
+```{r, echo = F, out.width="500px" ,fig.align = "center"}
+knitr::include_graphics('Circular-Manhattan.trait1.trait2.trait3.jpg')
+```
+
+## Gallery
+
+### Maps
+
+```{r, echo = F, out.height="500px", fig.align='center'}
+library(choroplethr)
+data(df_pop_county)
+county_choropleth(df_pop_county,
+                  title="US 2012 County Population Estimates",
+                  legend = "Population")
+detach('package:choroplethr')
+```
+
+## Gallery
+
+### Interactive graphs
+
+```{r,  echo=F, fig.align='center', out.height="500px"}
+p=ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species, shape=Species)) + 
+    geom_point(size=6, alpha=0.6)
+mytext=paste("Sepal Length = ", iris$Sepal.Length, "\n" , "Sepal Width = ", iris$Sepal.Width, "\n", "Row Number: ",rownames(iris),  sep="")    
+pp=plotly_build(p)   
+style( pp, text=mytext, hoverinfo = "text", traces = c(1, 2, 3) )
+# ggplotly(p)
+```
+
+
+## Gallery 
+
+### Interactive graphs
+
+```{r, echo=F, out.height="500px" }
+library(dygraphs)
+library(xts)          # To make the convertion data-frame / xts format
+ 
+# Create data + verify it is date format + change them to xts format:
+data=data.frame(time=seq(from=Sys.Date()-40, to=Sys.Date(), by=1 ), value=runif(41))
+str(data$time)
+data=xts(x = data$value, order.by = data$time)
+ 
+# Default = line plot --> See chart #316
+ 
+# Add points
+dygraph(data) %>%
+  dyOptions( stemPlot = TRUE)
+```
+
+## Gallery
+
+### Animation
+
+```{r, echo = F, eval=F}
+# devtools::install_github('thomasp85/gganimate')
+library(gganimate)
+library(gapminder)
+
+ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
+  geom_point(alpha = 0.7, show.legend = FALSE) +
+  scale_colour_manual(values = country_colors) +
+  scale_size(range = c(2, 12)) +
+  scale_x_log10() +
+  facet_wrap(~continent) +
+  # Here comes the gganimate specific bits
+  labs(title = 'Year: {frame_time}', x = 'GDP per capita', y = 'life expectancy') +
+  transition_time(year) +
+  ease_aes('linear')
+detach('package:gganimate')
+```
+
+
+# GGPLOT2
+
+## 
 
 We're making the decision to use `ggplot2` for my graphics
 
@@ -54,23 +213,22 @@ We're making the decision to use `ggplot2` for my graphics
 + Fast enough
 + There are good templates if you want to change the look
 
-# Introduction to ggplot2
 ## Introduction to ggplot2
 
-If you haven't installed it yet:
-```{r, eval=FALSE}
-install.packages('ggplot2', 
-                 repos="http://watson.nci.nih.gov/cran_mirror/")
-```
-then
-```{r}
+```{r, echo=c(1,2)}
+# install.packages('tidyverse')
 library(ggplot2)
+theme_set(theme_grey())
 ```
 
 ## Introduction to ggplot2
 
 The `ggplot2` package is a very flexible and (to me) intuitive way of visualizing data.
 It is based on the concept of layering elements on a canvas.
+
+> This idea of layering graphics on a canvas is, to me, a nice way of building graphs
+
+## Introduction to ggplot2
 
 You need:
 
@@ -80,8 +238,15 @@ You need:
     + shapes, colors, lines
 + A _geometry object_ (geom) to say what to draw
     + You can "layer" geoms on each other to build plots
+    
 
 ## Introduction to ggplot2
+
+`ggplot` used pipes before pipes were a thing. However, it uses the `+` symbol for
+piping rather than the `%>%` operator, since it pre-dates the `tidyverse`
+
+## Introduction to ggplot2
+
 ```{r, eval=F}
 library(ggplot2)
 ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
@@ -89,8 +254,8 @@ ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
 
 + A `data.frame` object: mtcars
 + Aesthetic mapping: 
-    x-axis: wt
-    y-axis: mpg
+    - x-axis: wt
+    - y-axis: mpg
 + Geometry:
     + geom_point: draw points
 
@@ -102,13 +267,16 @@ ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()+ geom_smooth()
 
 + A `data.frame` object: mtcars
 + Aesthetic mapping: 
-    x-axis: wt
-    y-axis: mpg
+    - x-axis: wt
+    - y-axis: mpg
 + Geometry:
     + geom_point: draw points
     + geom_smooth: Add a layer which draws a best-fitting line
 
-## Introduction to ggplot2
+# ggplot2 examples
+
+## 
+
 We will use the two data sets:
 
 ```{r, eval=F}
@@ -132,19 +300,22 @@ data_brca <- read.csv('http://www.araastat.com/BIOF339_PracticalR/Lectures/lectu
 # Plotting one variable
 
 ## Histograms
-```{r}
+```{r, echo = -1}
+theme_set(theme_grey())
 ggplot(data_brca, aes(x = Age.at.Initial.Pathologic.Diagnosis)) + 
-  geom_histogram()
+  geom_histogram() 
 ```
 
 ## Histograms
-```{r}
+```{r, echo = -1}
+theme_set(theme_grey())
 ggplot(data_brca, aes(x = Age.at.Initial.Pathologic.Diagnosis)) + 
   geom_histogram(binwidth=4)
 ```
 
 ## Density plot
-```{r}
+```{r, echo = -1}
+theme_set(theme_grey())
 ggplot(data_brca, aes(x = Age.at.Initial.Pathologic.Diagnosis)) + 
   geom_density()
 ```
@@ -267,12 +438,13 @@ ggplot(data_brca, aes(x = Tumor))+geom_bar()+
 ## Online resources
 
 + The ggplot [website](http://docs.ggplot2.org) has many resources to help create visualizations
++ The [R Graph Gallery](https://www.r-graph-gallery.com/){target="_blank"}
 + There are a lot of blogs showing many capabilities of ggplot2
 + [StackOverflow](http://www.stackoverflow.org) is the place for Q & A. 
 
 ## Other packages
 
-+ The [`cowplot`](http://cran.rstudio.com/package=cowplot) package provides several improvements on ggplot2, including more themes and an easy way to put several graphs together in a panel
++ The [`cowplot`](http://cran.rstudio.com/package=cowplot) and [`ggpubr`](https://cran.r-project.org/package=ggpubr) packages provide several improvements on ggplot2, including more themes and an easy way to put several graphs together in a panel
 
 
 # Group-wise descriptives and visualizations
@@ -291,34 +463,33 @@ ggplot(data_brca, aes(x = Tumor))+geom_bar()+
 
 ```{r groupby, message=F, warning=F}
 library(dplyr)
-grouped_data_spine = group_by( data_spine, Class.attribute)
+grouped_data_spine = data_spine %>% group_by(Class.attribute)
 ```
 Note that you have to group using a discrete valued variable (factor, character, integer)
 
 
 ## Grouped summaries
 ```{r, eval=F}
-summarize(grouped_data_spine, 
-          mean(Pelvic.incidence), 
+grouped_data_spine %>% 
+  summarize(mean(Pelvic.incidence), 
           sd(Pelvic.incidence),
           min(Pelvic.incidence),
           max(Pelvic.incidence))
 ```
 ```{r, echo=F}
-knitr::kable(summarise(grouped_data_spine,
-          mean(Pelvic.incidence), 
-          sd(Pelvic.incidence),
-          min(Pelvic.incidence),
-          max(Pelvic.incidence)))
+knitr::kable(grouped_data_spine %>% 
+               summarise(mean(Pelvic.incidence), 
+                         sd(Pelvic.incidence),
+                         min(Pelvic.incidence),
+                         max(Pelvic.incidence)))
 ```
 
 ## Grouped summaries
 ```{r, eval=F}
-summarize(grouped_data_spine, 
-          Mean = mean(Pelvic.incidence), 
-          SD = sd(Pelvic.incidence),
-          Min = min(Pelvic.incidence),
-          Max = max(Pelvic.incidence))
+grouped_data_spine %>% summarize(Mean = mean(Pelvic.incidence), 
+                                 SD = sd(Pelvic.incidence),
+                                 Min = min(Pelvic.incidence),
+                                 Max = max(Pelvic.incidence))
 ```
 ```{r, echo=F}
 knitr::kable(summarize(grouped_data_spine, 
@@ -332,13 +503,13 @@ knitr::kable(summarize(grouped_data_spine,
 ## Grouped summaries
 
 ```{r}
-summarize_all(grouped_data_spine, mean)
+grouped_data_spine %>% summarize_all(mean)
 ```
 
 ## A note on tibbles
 
 + Tibbles are a new-generation object meant to enhance the `data.frame`.
-  + Central to the so-called [__tidyverse__ packages](http://www.tidyverse.org)
+  + Central to the[__tidyverse__ packages](http://www.tidyverse.org)
 + If you want to just get back to a more familiar `data.frame` object, use `as.data.frame`
 + A tibble is built on a `data.frame`, so all operations on `data.frame`'s will work.
 + To see all columns, set `options(dplyr.width=Inf)`.
@@ -347,6 +518,45 @@ Differences between a tibble and a `data.frame`:
 
 1. Printing a tibble is restricted to the first 10 lines, and includes column types
 2. Stricter subsetting rules that make the types of objects created consistent
+
+# Using ggplot in a pipeline
+
+##
+```{r, eval = F}
+data_spine %>% 
+  group_by(Class.attribute) %>% 
+  summarize_all(funs(Mean = mean(., na.rm=T),
+                     SEM = sd(., na.rm=T)/sqrt(n()))) %>% 
+  gather(variable, value, -Class.attribute) %>% 
+  separate(variable, c('Variable','stat'), sep = '_') %>% 
+  spread(stat, value) %>% 
+  mutate(lcb = Mean - 2 * SEM, ucb = Mean + 2 * SEM) %>% 
+  ggplot(aes(x = Class.attribute, y = Mean, ymin = lcb, ymax = ucb)) +
+    geom_pointrange() +
+    facet_wrap(~Variable, scales = 'free_y') + 
+    labs( x = 'Class', y = '') + 
+    ggtitle('Confidence intervals of the mean')
+```
+
+Work through the pipeline yourself to understand what each step does, just like
+last week
+
+##
+```{r, echo = F}
+data_spine %>% 
+  group_by(Class.attribute) %>% 
+  summarize_all(funs(Mean = mean(., na.rm=T),
+                     SEM = sd(., na.rm=T)/sqrt(n()))) %>% 
+  gather(variable, value, -Class.attribute) %>% 
+  separate(variable, c('Variable','stat'), sep = '_') %>% 
+  spread(stat, value) %>% 
+  mutate(lcb = Mean - 2 * SEM, ucb = Mean + 2 * SEM) %>% 
+  ggplot(aes(x = Class.attribute, y = Mean, ymin = lcb, ymax = ucb)) +
+    geom_pointrange() +
+    facet_wrap(~Variable, scales = 'free_y') + 
+    labs( x = 'Class', y = '') + 
+    ggtitle('Confidence intervals of the mean')
+```
 
 
 # Grouped visualization
