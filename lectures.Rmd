@@ -24,13 +24,13 @@ In-built datasets in R: `data()`
 
 ### Lecture 2
 
-<a href="Lectures/lecture2.html" target="_blank">Presentation</a>
+<a href="Lectures/lecture2a_dataframe.html" target="_blank">Presentation</a>
 
-<a href="Lectures/lecture2_files/lecture2_practicum.html" target="_blank">Practicum</a> (<a href="Lectures/lecture2_files/lecture2_practicum_solutions.html" target="_blank">Solution</a>)
+<a href="Lectures/lecture2dataframe_files/lecture2_practicum.html" target="_blank">Practicum</a> (<a href="Lectures/lecture2dataframe_files/lecture2_practicum_solutions.html" target="_blank">Solution</a>)
 
 Supplemental Material
 
-+ [A primer on R Notebooks](Lectures/lecture2_files/RNotebook.html)
++ [A primer on R Notebooks](Lectures/lecture2dataframe_files/RNotebook.html)
 
 ### Lecture 3
 
