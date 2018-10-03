@@ -181,7 +181,7 @@ dygraph(data) %>%
 
 ### Animation
 
-```{r, echo = F, eval=F}
+```{r, echo = F, eval=T}
 # devtools::install_github('thomasp85/gganimate')
 library(gganimate)
 library(gapminder)
@@ -199,8 +199,7 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
 detach('package:gganimate')
 ```
 
-
-# GGPLOT2
+# ggplot2
 
 ## 
 
@@ -563,7 +562,8 @@ data_spine %>%
 
 ## Density plot
 ```{r, fig.width=6}
-ggplot(data_spine, aes(x = Sacral.slope, group = Class.attribute, color=Class.attribute))+
+ggplot(data_spine, aes(x = Sacral.slope, group = Class.attribute, 
+                       color=Class.attribute))+
   geom_density()
 ```
 

@@ -42,3 +42,22 @@ Supplemental material
 
 + [`dplyr` cheatsheet](https://www.rstudio.com/resources/cheatsheets/#dplyr)
 
+### Lecture 4
+
+<a href="Lectures/lecture3_visualiation.html" target = "_blank">Presentation</a>
+
+[R Markdown file](Lectures/lecture3_visualization.Rmd){target="_blank"}
+
+Supplemental material
+
+#### Online resources
+
++ The ggplot [website](http://docs.ggplot2.org) has many resources to help create visualizations
++ [Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf){target="_blank"}
++ The [R Graph Gallery](https://www.r-graph-gallery.com/){target="_blank"}
++ There are a lot of blogs showing many capabilities of ggplot2
++ [StackOverflow](http://www.stackoverflow.org) is the place for Q & A. 
+
+#### Other packages
+
++ The [`cowplot`](http://cran.rstudio.com/package=cowplot) and [`ggpubr`](https://cran.r-project.org/package=ggpubr) packages provide several improvements on ggplot2, including more themes and an easy way to put several graphs together in a panel
