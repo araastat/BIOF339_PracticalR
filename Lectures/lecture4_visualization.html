@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="BIOF 339" />
+  <meta name="dcterms.date" content="2018-10-03" />
+  <title>Lecture 4: Data Visualization</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="lecture4_visualization_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { font-weight: bold; } /* Keyword */
+code span.dt { text-decoration: underline; } /* DataType */
+code span.co { font-style: italic; } /* Comment */
+code span.al { font-weight: bold; } /* Alert */
+code span.er { font-weight: bold; } /* Error */
+code span.wa { font-style: italic; } /* Warning */
+code span.cf { font-weight: bold; } /* ControlFlow */
+code span.pp { font-weight: bold; } /* Preprocessor */
+code span.do { font-style: italic; } /* Documentation */
+code span.an { font-style: italic; } /* Annotation */
+code span.cv { font-style: italic; } /* CommentVar */
+code span.in { font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="lecture4_visualization_files/reveal.js-3.3.0.1/css/theme/league.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="style_reveal.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Lecture 4: Data Visualization</h1>
+    <h2 class="author">BIOF 339</h2>
+    <h3 class="date">October 3, 2018</h3>
+</section>
+
+<section><section id="data-visualization-in-r" class="title-slide slide level1"><h1>Data Visualization in R</h1></section><section id="visualization-packages" class="slide level2">
+<h2>Visualization packages</h2>
+<p>One of R’s strengths is data visualization.</p>
+<ul>
+<li>Static graph systems
+<ul>
+<li>Base R graphics</li>
+<li><code>lattice</code> (Sarkar, et al)</li>
+<li><a href="https://ggplot2.tidyverse.org/"><code>ggplot2</code></a> (Wickham)</li>
+</ul></li>
+<li>Dynamic graphs
+<ul>
+<li><a href="http://www.htmlwidgets.org/"><code>htmlwidgets</code></a></li>
+<li><a href="https://rstudio.github.io/leaflet/"><code>leaflet</code></a></li>
+<li><a href="https://plot.ly/r/"><code>plotly</code></a></li>
+<li>Many others</li>
+</ul></li>
+</ul>
+</section><section id="ggplot2" class="slide level2">
+<h2>ggplot2</h2>
+<p>We’re making the decision to use <code>ggplot2</code> for my graphics</p>
+<ul>
+<li>Makes pretty good formatting choices out of the box</li>
+<li>Works like pipes!!</li>
+<li>Is declarative (tell it what you want) without getting caught up in minutae</li>
+<li>Strongly leverages data frames (good practice)</li>
+<li>Fast enough</li>
+<li>There are good templates if you want to change the look</li>
+</ul>
+</section></section>
+<section><section id="introduction-to-ggplot2" class="title-slide slide level1"><h1>Introduction to ggplot2</h1></section><section id="introduction-to-ggplot2-1" class="slide level2">
+<h2>Introduction to ggplot2</h2>
+<p>If you haven’t installed it yet:</p>
+<pre class="sourceCode r" id="cb1"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&#39;ggplot2&#39;</span>, </a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">                 <span class="dt">repos=</span><span class="st">&quot;http://watson.nci.nih.gov/cran_mirror/&quot;</span>)</a></code></pre>
+<p>then</p>
+<pre class="sourceCode r" id="cb2"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a></code></pre>
+</section><section id="introduction-to-ggplot2-2" class="slide level2">
+<h2>Introduction to ggplot2</h2>
+<p>The <code>ggplot2</code> package is a very flexible and (to me) intuitive way of visualizing data. It is based on the concept of layering elements on a canvas.</p>
+<p>You need:</p>
+<ul>
+<li>A <code>data.frame</code> object</li>
+<li><em>Aesthetic mappings</em> (aes) to say what data is used for what purpose in the viz
+<ul>
+<li>x- and y-direction</li>
+<li>shapes, colors, lines</li>
+</ul></li>
+<li>A <em>geometry object</em> (geom) to say what to draw
+<ul>
+<li>You can “layer” geoms on each other to build plots</li>
+</ul></li>
+</ul>
+</section><section id="introduction-to-ggplot2-3" class="slide level2">
+<h2>Introduction to ggplot2</h2>
+<pre class="sourceCode r" id="cb3"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> wt, <span class="dt">y =</span> mpg)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a></code></pre>
+<ul>
+<li>A <code>data.frame</code> object: mtcars</li>
+<li>Aesthetic mapping: x-axis: wt y-axis: mpg</li>
+<li>Geometry:
+<ul>
+<li>geom_point: draw points</li>
+</ul></li>
+</ul>
+</section><section id="introduction-to-ggplot2-4" class="slide level2">
+<h2>Introduction to ggplot2</h2>
+<pre class="sourceCode r" id="cb4"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> wt, <span class="dt">y =</span> mpg)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>()</a></code></pre>
+<ul>
+<li>A <code>data.frame</code> object: mtcars</li>
+<li>Aesthetic mapping: x-axis: wt y-axis: mpg</li>
+<li>Geometry:
+<ul>
+<li>geom_point: draw points</li>
+<li>geom_smooth: Add a layer which draws a best-fitting line</li>
+</ul></li>
+</ul>
+</section><section id="introduction-to-ggplot2-5" class="slide level2">
+<h2>Introduction to ggplot2</h2>
+<p>We will use the two data sets:</p>
+<pre class="sourceCode r" id="cb5"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">data_spine &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;http://www.araastat.com/BIOF339_PracticalR/</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">                       Lectures/lecture2_data/Dataset_spine.csv&#39;</span>, </a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">                       <span class="dt">stringsAsFactors =</span> F)</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">data_brca &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;http://www.araastat.com/BIOF339_PracticalR/</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="st">                      Lectures/lecture2_data/</span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="st">                      clinical_data_breast_cancer_modified.csv&#39;</span>,</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">                      <span class="dt">stringsAsFactors =</span> F)</a></code></pre>
+</section></section>
+<section><section id="plotting-one-variable" class="title-slide slide level1"><h1>Plotting one variable</h1></section><section id="histograms" class="slide level2">
+<h2>Histograms</h2>
+<pre class="sourceCode r" id="cb6"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">ggplot</span>(data_brca, <span class="kw">aes</span>(<span class="dt">x =</span> Age.at.Initial.Pathologic.Diagnosis)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>()</a></code></pre>
+<pre><code>#   `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-7-1.png" width="384" /></p>
+</section><section id="histograms-1" class="slide level2">
+<h2>Histograms</h2>
+<pre class="sourceCode r" id="cb8"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">ggplot</span>(data_brca, <span class="kw">aes</span>(<span class="dt">x =</span> Age.at.Initial.Pathologic.Diagnosis)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth=</span><span class="dv">4</span>)</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-8-1.png" width="384" /></p>
+</section><section id="density-plot" class="slide level2">
+<h2>Density plot</h2>
+<pre class="sourceCode r" id="cb9"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">ggplot</span>(data_brca, <span class="kw">aes</span>(<span class="dt">x =</span> Age.at.Initial.Pathologic.Diagnosis)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-9-1.png" width="384" /></p>
+</section><section id="bar-plot" class="slide level2">
+<h2>Bar plot</h2>
+<pre class="sourceCode r" id="cb10"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">ggplot</span>(data_brca, <span class="kw">aes</span>(<span class="dt">x =</span> Tumor))<span class="op">+</span><span class="kw">geom_bar</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-10-1.png" width="384" /></p>
+</section></section>
+<section><section id="exercise" class="title-slide slide level1"><h1>Exercise</h1></section><section id="exercise-1" class="slide level2">
+<h2>Exercise</h2>
+<p>Using the <code>mtcars</code> dataset in R, create:</p>
+<ol type="1">
+<li>A histogram of the fuel efficiences (<code>mpg</code>) in the data set</li>
+<li>A bar plot of frequencies of number of cylinders (<code>cyl</code>) in the car</li>
+</ol>
+</section><section id="solution" class="slide level2">
+<h2>Solution</h2>
+<pre class="sourceCode r" id="cb11"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> mpg)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth=</span><span class="dv">3</span>)</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-11-1.png" width="384" /></p>
+<pre class="sourceCode r" id="cb12"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="co"># ggplot(mtcars) + geom_histogram(aes(x = mpg), binwidth = 3)</span></a></code></pre>
+</section><section id="solution-1" class="slide level2">
+<h2>Solution</h2>
+<pre class="sourceCode r" id="cb13"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(cyl))) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-12-1.png" width="384" /></p>
+</section></section>
+<section><section id="two-continuous-variables" class="title-slide slide level1"><h1>Two continuous variables</h1></section><section id="scatter-plots" class="slide level2">
+<h2>Scatter plots</h2>
+<pre class="sourceCode r" id="cb14"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-13-1.png" width="384" /></p>
+</section><section id="scatter-plot-with-a-smooth-line" class="slide level2">
+<h2>Scatter plot with a smooth line</h2>
+<pre class="sourceCode r" id="cb15"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope))<span class="op">+</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>()</a></code></pre>
+<pre><code>#   `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-14-1.png" width="384" /></p>
+</section><section id="scatter-plot-with-a-smooth-straight-line" class="slide level2">
+<h2>Scatter plot with a smooth straight line</h2>
+<pre class="sourceCode r" id="cb17"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&#39;lm&#39;</span>)</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-15-1.png" width="384" /></p>
+</section><section id="line-plot-for-time-series" class="slide level2">
+<h2>Line plot (for time series)</h2>
+<pre class="sourceCode r" id="cb18"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">library</span>(forecast)</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2">d &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(gas), <span class="dt">y =</span> gas) <span class="co"># Australian monthly gas production</span></a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="kw">ggplot</span>(d, <span class="kw">aes</span>(x, y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-16-1.png" width="384" /></p>
+</section></section>
+<section><section id="exercise-2" class="title-slide slide level1"><h1>Exercise</h1></section><section id="exercise-3" class="slide level2">
+<h2>Exercise</h2>
+<ol type="1">
+<li>Create a scatter plot of sepal length and sepal width from the <code>iris</code> dataset, and add a smooth line through it</li>
+</ol>
+</section><section id="solution-2" class="slide level2">
+<h2>Solution</h2>
+<pre class="sourceCode r" id="cb19"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(Sepal.Length, Sepal.Width)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>()</a></code></pre>
+<pre><code>#   `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-17-1.png" width="384" /></p>
+</section></section>
+<section><section id="continuous-variable-with-discrete-variable" class="title-slide slide level1"><h1>Continuous variable with discrete variable</h1></section><section id="boxplots" class="slide level2">
+<h2>Boxplots</h2>
+<pre class="sourceCode r" id="cb21"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Class.attribute, <span class="dt">y =</span> Sacral.slope))<span class="op">+</span></a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-18-1.png" width="384" /></p>
+<pre class="sourceCode r" id="cb22"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="co"># Factor/discrete variable is always x</span></a></code></pre>
+</section><section id="violin-plots" class="slide level2">
+<h2>Violin plots</h2>
+<pre class="sourceCode r" id="cb23"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Class.attribute, <span class="dt">y =</span> Sacral.slope)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_violin</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-19-1.png" width="384" /></p>
+</section></section>
+<section><section id="exercise-4" class="title-slide slide level1"><h1>Exercise</h1></section><section id="exercise-5" class="slide level2">
+<h2>Exercise</h2>
+<ol type="1">
+<li>Plot a boxplot of petal length by species using the <code>iris</code> dataset</li>
+</ol>
+</section><section id="solution-3" class="slide level2">
+<h2>Solution</h2>
+<pre class="sourceCode r" id="cb24"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x =</span> Species, <span class="dt">y =</span> Petal.Length))<span class="op">+</span><span class="kw">geom_boxplot</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-20-1.png" width="384" /></p>
+</section></section>
+<section><section id="flipping-axes" class="title-slide slide level1"><h1>Flipping axes</h1></section><section id="vertical-bars" class="slide level2">
+<h2>Vertical bars</h2>
+<pre class="sourceCode r" id="cb25"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">ggplot</span>(data_brca, <span class="kw">aes</span>(<span class="dt">x =</span> Tumor))<span class="op">+</span><span class="kw">geom_bar</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-21-1.png" width="384" /></p>
+</section><section id="horizontal-bars" class="slide level2">
+<h2>Horizontal bars</h2>
+<pre class="sourceCode r" id="cb26"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw">ggplot</span>(data_brca, <span class="kw">aes</span>(<span class="dt">x =</span> Tumor))<span class="op">+</span><span class="kw">geom_bar</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-22-1.png" width="384" /></p>
+</section></section>
+<section><section id="resources" class="title-slide slide level1"><h1>Resources</h1></section><section id="online-resources" class="slide level2">
+<h2>Online resources</h2>
+<ul>
+<li>The ggplot <a href="http://docs.ggplot2.org">website</a> has many resources to help create visualizations</li>
+<li>There are a lot of blogs showing many capabilities of ggplot2</li>
+<li><a href="http://www.stackoverflow.org">StackOverflow</a> is the place for Q &amp; A.</li>
+</ul>
+</section><section id="other-packages" class="slide level2">
+<h2>Other packages</h2>
+<ul>
+<li>The <a href="http://cran.rstudio.com/package=cowplot"><code>cowplot</code></a> package provides several improvements on ggplot2, including more themes and an easy way to put several graphs together in a panel</li>
+</ul>
+</section></section>
+<section><section id="group-wise-descriptives-and-visualizations" class="title-slide slide level1"><h1>Group-wise descriptives and visualizations</h1></section><section id="grouping" class="slide level2">
+<h2>Grouping</h2>
+<ul>
+<li>It is common to look at statistics within subgroups of the data</li>
+<li>The idea is to see if secondary variables affect your primary outcome or relationship</li>
+</ul>
+</section><section id="introducing-the-dplyr-package" class="slide level2">
+<h2>Introducing the <code>dplyr</code> package</h2>
+<p><code>dplyr</code> is the most lucid package for manipulating and analyzing data organized in a data frame.</p>
+<ul>
+<li>It has a <code>group_by</code> function which creates a <em>grouped data frame</em></li>
+</ul>
+<pre class="sourceCode r" id="cb27"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb27-2" data-line-number="2">grouped_data_spine =<span class="st"> </span><span class="kw">group_by</span>( data_spine, Class.attribute)</a></code></pre>
+<p>Note that you have to group using a discrete valued variable (factor, character, integer)</p>
+</section><section id="grouped-summaries" class="slide level2">
+<h2>Grouped summaries</h2>
+<pre class="sourceCode r" id="cb28"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">summarize</span>(grouped_data_spine, </a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">          <span class="kw">mean</span>(Pelvic.incidence), </a>
+<a class="sourceLine" id="cb28-3" data-line-number="3">          <span class="kw">sd</span>(Pelvic.incidence),</a>
+<a class="sourceLine" id="cb28-4" data-line-number="4">          <span class="kw">min</span>(Pelvic.incidence),</a>
+<a class="sourceLine" id="cb28-5" data-line-number="5">          <span class="kw">max</span>(Pelvic.incidence))</a></code></pre>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Class.attribute</th>
+<th style="text-align: right;">mean(Pelvic.incidence)</th>
+<th style="text-align: right;">sd(Pelvic.incidence)</th>
+<th style="text-align: right;">min(Pelvic.incidence)</th>
+<th style="text-align: right;">max(Pelvic.incidence)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Abnormal</td>
+<td style="text-align: right;">64.69256</td>
+<td style="text-align: right;">17.66213</td>
+<td style="text-align: right;">26.14792</td>
+<td style="text-align: right;">129.83404</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Normal</td>
+<td style="text-align: right;">51.68524</td>
+<td style="text-align: right;">12.36816</td>
+<td style="text-align: right;">30.74194</td>
+<td style="text-align: right;">89.83468</td>
+</tr>
+</tbody>
+</table>
+</section><section id="grouped-summaries-1" class="slide level2">
+<h2>Grouped summaries</h2>
+<pre class="sourceCode r" id="cb29"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">summarize</span>(grouped_data_spine, </a>
+<a class="sourceLine" id="cb29-2" data-line-number="2">          <span class="dt">Mean =</span> <span class="kw">mean</span>(Pelvic.incidence), </a>
+<a class="sourceLine" id="cb29-3" data-line-number="3">          <span class="dt">SD =</span> <span class="kw">sd</span>(Pelvic.incidence),</a>
+<a class="sourceLine" id="cb29-4" data-line-number="4">          <span class="dt">Min =</span> <span class="kw">min</span>(Pelvic.incidence),</a>
+<a class="sourceLine" id="cb29-5" data-line-number="5">          <span class="dt">Max =</span> <span class="kw">max</span>(Pelvic.incidence))</a></code></pre>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Class.attribute</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">SD</th>
+<th style="text-align: right;">Min</th>
+<th style="text-align: right;">Max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Abnormal</td>
+<td style="text-align: right;">64.69256</td>
+<td style="text-align: right;">17.66213</td>
+<td style="text-align: right;">26.14792</td>
+<td style="text-align: right;">129.83404</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Normal</td>
+<td style="text-align: right;">51.68524</td>
+<td style="text-align: right;">12.36816</td>
+<td style="text-align: right;">30.74194</td>
+<td style="text-align: right;">89.83468</td>
+</tr>
+</tbody>
+</table>
+</section><section id="grouped-summaries-2" class="slide level2">
+<h2>Grouped summaries</h2>
+<pre class="sourceCode r" id="cb30"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">summarize_all</span>(grouped_data_spine, mean)</a></code></pre>
+<pre><code>#   # A tibble: 2 x 13
+#     Class.attribute Pelvic.incidence Pelvic.tilt Lumbar.lordosis…
+#     &lt;fct&gt;                      &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt;
+#   1 Abnormal                    64.7        19.8             55.9
+#   2 Normal                      51.7        12.8             43.5
+#   # ... with 9 more variables: Sacral.slope &lt;dbl&gt;, Pelvic.radius &lt;dbl&gt;,
+#   #   Degree.spondylolisthesis &lt;dbl&gt;, Pelvic.slope &lt;dbl&gt;, Direct.tilt &lt;dbl&gt;,
+#   #   Thoracic.slope &lt;dbl&gt;, Cervical.tilt &lt;dbl&gt;, Sacrum.angle &lt;dbl&gt;,
+#   #   Scoliosis.slope &lt;dbl&gt;</code></pre>
+</section><section id="a-note-on-tibbles" class="slide level2">
+<h2>A note on tibbles</h2>
+<ul>
+<li>Tibbles are a new-generation object meant to enhance the <code>data.frame</code>.
+<ul>
+<li>Central to the so-called <a href="http://www.tidyverse.org"><strong>tidyverse</strong> packages</a></li>
+</ul></li>
+<li>If you want to just get back to a more familiar <code>data.frame</code> object, use <code>as.data.frame</code></li>
+<li>A tibble is built on a <code>data.frame</code>, so all operations on <code>data.frame</code>’s will work.</li>
+<li>To see all columns, set <code>options(dplyr.width=Inf)</code>.</li>
+</ul>
+<p>Differences between a tibble and a <code>data.frame</code>:</p>
+<ol type="1">
+<li>Printing a tibble is restricted to the first 10 lines, and includes column types</li>
+<li>Stricter subsetting rules that make the types of objects created consistent</li>
+</ol>
+</section></section>
+<section><section id="grouped-visualization" class="title-slide slide level1"><h1>Grouped visualization</h1></section><section id="density-plot-1" class="slide level2">
+<h2>Density plot</h2>
+<pre class="sourceCode r" id="cb32"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Sacral.slope, <span class="dt">group =</span> Class.attribute, <span class="dt">color=</span>Class.attribute))<span class="op">+</span></a>
+<a class="sourceLine" id="cb32-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-28-1.png" width="576" /></p>
+</section><section id="scatter-plot" class="slide level2">
+<h2>Scatter plot</h2>
+<pre class="sourceCode r" id="cb33"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope,</a>
+<a class="sourceLine" id="cb33-2" data-line-number="2">                       <span class="dt">group =</span> Class.attribute, <span class="dt">color =</span> Class.attribute))<span class="op">+</span></a>
+<a class="sourceLine" id="cb33-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-29-1.png" width="576" /></p>
+</section><section id="scatter-plot-black-and-white" class="slide level2">
+<h2>Scatter plot (Black and White)</h2>
+<pre class="sourceCode r" id="cb34"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope, </a>
+<a class="sourceLine" id="cb34-2" data-line-number="2">                       <span class="dt">group =</span> Class.attribute, <span class="dt">shape =</span> Class.attribute))<span class="op">+</span></a>
+<a class="sourceLine" id="cb34-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-30-1.png" width="384" /></p>
+</section><section id="scatter-plot-with-size-representing-third-variable" class="slide level2">
+<h2>Scatter plot with size representing third variable</h2>
+<pre class="sourceCode r" id="cb35"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope))<span class="op">+</span></a>
+<a class="sourceLine" id="cb35-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> Pelvic.slope))</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-31-1.png" width="384" /></p>
+</section><section id="scatter-plot-combinations" class="slide level2">
+<h2>Scatter plot combinations</h2>
+<pre class="sourceCode r" id="cb36"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope, </a>
+<a class="sourceLine" id="cb36-2" data-line-number="2">                       <span class="dt">group =</span> Class.attribute, <span class="dt">color =</span> Class.attribute))<span class="op">+</span></a>
+<a class="sourceLine" id="cb36-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> Pelvic.slope))</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-32-1.png" width="384" /></p>
+</section><section id="scatter-plot-with-lines" class="slide level2">
+<h2>Scatter plot with lines</h2>
+<pre class="sourceCode r" id="cb37"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope, </a>
+<a class="sourceLine" id="cb37-2" data-line-number="2">                       <span class="dt">group =</span> Class.attribute, <span class="dt">color=</span>Class.attribute))<span class="op">+</span></a>
+<a class="sourceLine" id="cb37-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb37-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&#39;lm&#39;</span>)</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-33-1.png" width="576" /></p>
+</section><section id="scatter-plot-with-lines-1" class="slide level2">
+<h2>Scatter plot with lines</h2>
+<pre class="sourceCode r" id="cb38"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope))<span class="op">+</span></a>
+<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb38-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Class.attribute), <span class="dt">method=</span><span class="st">&#39;lm&#39;</span>)</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-34-1.png" width="576" /></p>
+</section></section>
+<section><section id="facetting" class="title-slide slide level1"><h1>Facetting</h1></section><section id="facetting-1" class="slide level2">
+<h2>Facetting</h2>
+<p>Facetted graphs are a panel of graphs, each of which corresponds to a particular subgroup of the data.</p>
+</section><section id="facetted-scatter-plot" class="slide level2">
+<h2>Facetted scatter plot</h2>
+<pre class="sourceCode r" id="cb39"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope))<span class="op">+</span></a>
+<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb39-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_wrap</span>( <span class="op">~</span><span class="st"> </span>Class.attribute, <span class="dt">nrow=</span><span class="dv">1</span>)</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-35-1.png" width="768" /></p>
+</section><section id="facetted-scatter-plot-with-lines" class="slide level2">
+<h2>Facetted scatter plot with lines</h2>
+<pre class="sourceCode r" id="cb40"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope))<span class="op">+</span></a>
+<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&#39;lm&#39;</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb40-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_wrap</span>( <span class="op">~</span><span class="st"> </span>Class.attribute, <span class="dt">nrow=</span><span class="dv">1</span>)</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-36-1.png" width="768" /></p>
+</section></section>
+<section><section id="manhattan-plot" class="title-slide slide level1"><h1>Manhattan plot</h1></section><section id="manhattan-plot-1" class="slide level2">
+<h2>Manhattan plot</h2>
+<pre class="sourceCode r" id="cb41"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">library</span>(qqman)</a>
+<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="kw">data</span>(gwasResults)</a>
+<a class="sourceLine" id="cb41-3" data-line-number="3"><span class="kw">head</span>(gwasResults)</a></code></pre>
+<pre><code>#     SNP CHR BP         P
+#   1 rs1   1  1 0.9148060
+#   2 rs2   1  2 0.9370754
+#   3 rs3   1  3 0.2861395
+#   4 rs4   1  4 0.8304476
+#   5 rs5   1  5 0.6417455
+#   6 rs6   1  6 0.5190959</code></pre>
+<pre class="sourceCode r" id="cb43"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">gwasResults =<span class="st"> </span><span class="kw">transform</span>(gwasResults, <span class="dt">x_position =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(gwasResults))</a></code></pre>
+</section><section id="manhattan-plot-2" class="slide level2">
+<h2>Manhattan plot</h2>
+<pre class="sourceCode r" id="cb44"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">ggplot</span>(gwasResults, <span class="kw">aes</span>(<span class="dt">x =</span> x_position, <span class="dt">y =</span> <span class="op">-</span><span class="kw">log</span>(P, <span class="dt">base=</span><span class="dv">10</span>)))<span class="op">+</span></a>
+<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="fl">0.2</span>)</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-38-1.png" width="768" /></p>
+</section><section id="manhattan-plot-3" class="slide level2">
+<h2>Manhattan plot</h2>
+<pre class="sourceCode r" id="cb45"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">ggplot</span>(gwasResults, <span class="kw">aes</span>(<span class="dt">x =</span> x_position, <span class="dt">y =</span> <span class="op">-</span><span class="kw">log</span>(P, <span class="dt">base=</span><span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb45-2" data-line-number="2">                        <span class="dt">group=</span>CHR, <span class="dt">color=</span>CHR))<span class="op">+</span></a>
+<a class="sourceLine" id="cb45-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="fl">0.2</span>)</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-39-1.png" width="768" /></p>
+</section><section id="manhattan-plot-4" class="slide level2">
+<h2>Manhattan plot</h2>
+<pre class="sourceCode r" id="cb46"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="kw">ggplot</span>(gwasResults, <span class="kw">aes</span>(<span class="dt">x =</span> x_position, <span class="dt">y =</span> <span class="op">-</span><span class="kw">log</span>(P, <span class="dt">base=</span><span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb46-2" data-line-number="2">                        <span class="dt">group=</span><span class="kw">factor</span>(CHR), <span class="dt">color=</span><span class="kw">factor</span>(CHR)))<span class="op">+</span></a>
+<a class="sourceLine" id="cb46-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="fl">0.2</span>)</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-40-1.png" width="768" /></p>
+</section><section id="manhattan-plot-5" class="slide level2">
+<h2>Manhattan plot</h2>
+<pre class="sourceCode r" id="cb47"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">ggplot</span>(gwasResults, <span class="kw">aes</span>(<span class="dt">x =</span> x_position, <span class="dt">y =</span> <span class="op">-</span><span class="kw">log</span>(P, <span class="dt">base=</span><span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb47-2" data-line-number="2">                        <span class="dt">group=</span><span class="kw">factor</span>(CHR), <span class="dt">color=</span><span class="kw">factor</span>(CHR)))<span class="op">+</span></a>
+<a class="sourceLine" id="cb47-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="fl">0.2</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb47-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">8</span>, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">linetype=</span><span class="dv">2</span>)</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-41-1.png" width="768" /></p>
+</section><section id="manhattan-plot-exploded" class="slide level2">
+<h2>Manhattan plot, exploded</h2>
+<pre class="sourceCode r" id="cb48"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="kw">ggplot</span>(gwasResults, <span class="kw">aes</span>(<span class="dt">x =</span> BP, <span class="dt">y =</span> <span class="op">-</span><span class="kw">log</span>(P, <span class="dt">base=</span><span class="dv">10</span>)))<span class="op">+</span></a>
+<a class="sourceLine" id="cb48-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="fl">0.2</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb48-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>CHR, <span class="dt">nrow=</span><span class="dv">4</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb48-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">8</span>, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">linetype=</span><span class="dv">2</span>)</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/exploded-1.png" width="768" /></p>
+</section><section id="manhattan-plot-exploded-1" class="slide level2">
+<h2>Manhattan plot, exploded</h2>
+<p><img src="lecture4_visualization_files/figure-revealjs/exploded1-1.png" width="768" /></p>
+</section></section>
+    </div>
+  </div>
+
+  <script src="lecture4_visualization_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="lecture4_visualization_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: false,
+        // Transition style
+        transition: 'fade', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'lecture4_visualization_files/reveal.js-3.3.0.1/plugin/notes/notes.js', async: true },
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>
