@@ -12,6 +12,7 @@ output:
     center: true
     slide_level: 2
     self_contained: false
+    reveal_plugins: ["notes", "search"]
 # output: 
 #   ioslides_presentation:
 #     self_contained: true
@@ -53,6 +54,9 @@ p + stat_compare_means(comparisons = my_comparisons)+ # Add pairwise comparisons
 detach('package:ggpubr')
 ```
 
+<aside class="notes">
+This is a typical plot in scientific journals
+</aside>
 
 ## Gallery
 
@@ -86,6 +90,13 @@ plot_grid(plots[[1]], bottom_row, labels = c("A"), ncol = 1)
 detach('package:cowplot')
 ```
 
+<aside class="notes">
+We can put ggplot figures together in a panel with some annotations very easily
+using the cowplot package.
+
+These graphs can be cleaned up some.
+</aside>
+
 ## Gallery
 
 ```{r, echo = F, fig.align="center"}
@@ -101,6 +112,10 @@ ggplot(diamonds, aes(x = price, y = cut, fill = cut)) +
   theme(legend.position = "none")
 ```
 
+<aside class = "notes">
+This is a plot of the diamonds dataset that comes with ggplot2
+</aside>
+
 ## Gallery
 
 ### Manhattan plot
@@ -111,7 +126,10 @@ manhattan(gwasResults, annotatePval = 0.01)
 detach('package:qqman')
 ```
 
-
+<aside class="notes">
+Manhattan plots are often used in GWAS studies. You can customize the annotations and
+the line for the significance levels
+</aside>
 
 ## Gallery
 
@@ -129,6 +147,10 @@ detach('package:CMplot')
 ```{r, echo = F, out.width="500px" ,fig.align = "center"}
 knitr::include_graphics('Circular-Manhattan.trait1.trait2.trait3.jpg')
 ```
+
+<aside class="notes">
+This gives a different representation of the manhattan plot. This example looks at three traits simultaneously
+</aside>
 
 ## Gallery
 
@@ -156,6 +178,9 @@ style( pp, text=mytext, hoverinfo = "text", traces = c(1, 2, 3) )
 # ggplotly(p)
 ```
 
+<aside class="notes">
+These graphs are clickable. For example, click on a symbol on the legend, or drag your mouse over a region with left button held down. 
+</aside>
 
 ## Gallery 
 
@@ -176,6 +201,10 @@ data=xts(x = data$value, order.by = data$time)
 dygraph(data) %>%
   dyOptions( stemPlot = TRUE)
 ```
+
+<aside class="notes">
+Mouse over gives values of the points 
+</aside>
 
 ## Gallery
 
@@ -198,6 +227,10 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
   ease_aes('linear')
 detach('package:gganimate')
 ```
+
+<aside class="notes">
+This panel is animated by year. The data is taken from GapMinder and shows life expectancy compared with GDP per capita, and changes over time
+</aside>
 
 # ggplot2
 
@@ -245,6 +278,10 @@ You need:
 
 However, it uses the `+` symbol for
 piping rather than the `%>%` operator, since it pre-dates the `tidyverse`
+
+<aside class="notes">
+Emphasize that ggplot uses the + sign for piping, while the rest of the tidyverse uses the %>% symbol
+</aside>
 
 ## Introduction to ggplot2
 
@@ -297,6 +334,10 @@ data_spine <- read.csv('http://www.araastat.com/BIOF339_PracticalR/Lectures/lect
 data_brca <- read.csv('http://www.araastat.com/BIOF339_PracticalR/Lectures/lecture2_data/clinical_data_breast_cancer_modified.csv')
 
 ```
+
+<aside class="notes">
+Make sure that if students are using these commands, that they make the URL be on one line rather than broken up. <b>The breaks are for presentation purposes, and won't work as is</b>
+</aside>
 
 # Plotting one variable
 
@@ -401,12 +442,20 @@ ggplot(data_spine, aes(x = Class.attribute, y = Sacral.slope))+
 
 # Factor/discrete variable is always x
 ```
+<aside class="notes">
+The discrete variable must be of class `factor` and be on the x-axis. In a few 
+slides we'll see how to flip axes
+</aside>
 
 ## Violin plots
 ```{r}
 ggplot(data_spine, aes(x = Class.attribute, y = Sacral.slope)) +
   geom_violin()
 ```
+
+<aside class="notes">
+Violin plots are basically density plots that are reflected on itself. It gives a better picture of the distribution than a boxplot, which only gives a 5 number summary
+</aside>
 
 # Exercise
 
@@ -446,6 +495,8 @@ ggplot(data_brca, aes(x = Tumor))+geom_bar()+
 ## Other packages
 
 + The [`cowplot`](http://cran.rstudio.com/package=cowplot) and [`ggpubr`](https://cran.r-project.org/package=ggpubr) packages provide several improvements on ggplot2, including more themes and an easy way to put several graphs together in a panel
+
++ There is a rich ecosystem around `ggplot2`, which can be explored [here](https://www.ggplot2-exts.org/){target="_blank"}
 
 
 # Group-wise descriptives and visualizations
@@ -511,9 +562,12 @@ grouped_data_spine %>% summarize_all(mean)
 
 + Tibbles are a new-generation object meant to enhance the `data.frame`.
   + Central to the[__tidyverse__ packages](http://www.tidyverse.org)
+
 + If you want to just get back to a more familiar `data.frame` object, use `as.data.frame`
 + A tibble is built on a `data.frame`, so all operations on `data.frame`'s will work.
 + To see all columns, set `options(dplyr.width=Inf)`.
+
+## A note on tibbles
 
 Differences between a tibble and a `data.frame`:
 
@@ -583,6 +637,9 @@ ggplot(data_spine, aes(x = Lumbar.lordosis.angle, y = Sacral.slope,
                        group = Class.attribute, shape = Class.attribute))+
   geom_point()
 ```
+<aside class="notes">
+You sometimes don't want to pay the journal for color pages
+</aside>
 
 
 ## Scatter plot with size representing third variable
@@ -591,6 +648,14 @@ ggplot(data_spine, aes(x = Lumbar.lordosis.angle, y = Sacral.slope,
 ggplot(data_spine, aes(x = Lumbar.lordosis.angle, y = Sacral.slope))+
   geom_point(aes(size = Pelvic.slope))
 ```
+<aside class="notes">
+Here, we're adding information from another variable into the plot
+
+Note we have the `aes()` function inside `geom_smooth`. This can cause some confusion. 
+
+Basically, if what you need comes from the dataset, you need to enclose it in `aes()`. If it's just a parameter of the `geom`, like color or linetype and is a fixed quantity, don't need `aes()`
+</aside>
+
 
 ## Scatter plot combinations
 
@@ -617,6 +682,7 @@ ggplot(data_spine, aes(x = Lumbar.lordosis.angle, y = Sacral.slope))+
   geom_smooth(aes(color = Class.attribute), method='lm')
 
 ```
+
 
 # Facetting
 
@@ -663,6 +729,11 @@ ggplot(gwasResults, aes(x = x_position, y = -log(P, base=10),
                         group=CHR, color=CHR))+
   geom_point(size=0.2)
 ```
+<aside class="notes">
+Oops!! We wanted points colored by chromosome. But that didn't happen because we put
+CHR in as numeric. Need to convert to factor, i.e., discrete
+</aside>
+
 
 ## Manhattan plot
 ```{r , fig.width=8}
