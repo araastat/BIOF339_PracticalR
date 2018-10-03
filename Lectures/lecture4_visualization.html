@@ -93,6 +93,9 @@ code span.in { font-style: italic; } /* Information */
       border-color: gray;
     }
 
+    .reveal .slide-menu-button {
+      left: 105px !important;
+    }
 
   </style>
 
@@ -482,6 +485,9 @@ style.innerHTML = style_script;
 document.getElementsByTagName('head')[0].appendChild(style);
 </script>
 
+    <link href="lecture4_visualization_files/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+    <script src="lecture4_visualization_files/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+    <script src="lecture4_visualization_files/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
     <script src="lecture4_visualization_files/htmlwidgets-1.2/htmlwidgets.js"></script>
     <script src="lecture4_visualization_files/plotly-binding-4.7.1/plotly.js"></script>
     <script src="lecture4_visualization_files/typedarray-0.1/typedarray.min.js"></script>
@@ -1049,16 +1055,36 @@ Oops!! We wanted points colored by chromosome. But that didn’t happen because 
         // Vertical centering of slides
         center: true,
         // Transition style
-        transition: 'fade', // none/fade/slide/convex/concave/zoom
+        transition: 'convex', // none/fade/slide/convex/concave/zoom
         // Transition style for full page slide backgrounds
         backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
 
+        menu: {
+          titleSelector: 'h1',
+          hideMissingTitles: true,
+          custom: false,
+          themes: false,
+          transitions: false
+        },
 
+
+
+        chalkboard: {
+        },
+
+        keyboard: {
+          67: function() { RevealChalkboard.toggleNotesCanvas() },    // toggle notes canvas when 'c' is pressed
+          66: function() { RevealChalkboard.toggleChalkboard() }, // toggle chalkboard when 'b' is pressed
+          46: function() { RevealChalkboard.clear() },    // clear chalkboard when 'DEL' is pressed
+           8: function() { RevealChalkboard.reset() },    // reset chalkboard data on current slide when 'BACKSPACE' is pressed
+          68: function() { RevealChalkboard.download() }, // downlad recorded chalkboard drawing when 'd' is pressed
+        },
 
         // Optional reveal.js plugins
         dependencies: [
           { src: 'lecture4_visualization_files/reveal.js-3.3.0.1/plugin/notes/notes.js', async: true },
-          { src: 'lecture4_visualization_files/reveal.js-3.3.0.1/plugin/search/search.js', async: true },
+          { src: 'lecture4_visualization_files/reveal.js-3.3.0.1/plugin/chalkboard/chalkboard.js', async: true },
+          { src: 'lecture4_visualization_files/reveal.js-3.3.0.1/plugin/menu/menu.js', async: true },
         ]
       });
     </script>

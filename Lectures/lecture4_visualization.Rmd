@@ -4,15 +4,18 @@ author: "BIOF 339"
 date: "October 3, 2018"
 output: 
   revealjs::revealjs_presentation:
-    code_folding: hide
     css: style_reveal.css
     theme: league
     highlight: monochrome
-    transition: fade
+    transition: convex
     center: true
     slide_level: 2
     self_contained: false
-    reveal_plugins: ["notes", "search"]
+    reveal_plugins: ["notes", 'menu', "chalkboard"]
+    reveal_options:
+      menu:
+        titleSelector: 'h1'
+        hideMissingTitles: true
 # output: 
 #   ioslides_presentation:
 #     self_contained: true
