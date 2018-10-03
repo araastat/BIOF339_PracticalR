@@ -203,7 +203,7 @@ detach('package:gganimate')
 
 ## 
 
-We're making the decision to use `ggplot2` for my graphics
+We're making the decision to use `ggplot2` for graphics
 
 + Makes pretty good formatting choices out of the box
 + Works like pipes!!
@@ -241,7 +241,9 @@ You need:
 
 ## Introduction to ggplot2
 
-`ggplot` used pipes before pipes were a thing. However, it uses the `+` symbol for
+`ggplot` used pipes before pipes were a thing. 
+
+However, it uses the `+` symbol for
 piping rather than the `%>%` operator, since it pre-dates the `tidyverse`
 
 ## Introduction to ggplot2
