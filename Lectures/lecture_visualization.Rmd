@@ -322,19 +322,19 @@ We will use the two data sets:
 
 ```{r, eval=F}
 data_spine <- read.csv('http://www.araastat.com/BIOF339_PracticalR/
-                       Lectures/lecture2dataframe_data/Dataset_spine.csv', 
+                       Lectures/lecturedataframe_data/Dataset_spine.csv', 
                        stringsAsFactors = F)
 
 data_brca <- read.csv('http://www.araastat.com/BIOF339_PracticalR/
-                      Lectures/lecture2dataframe_data/
+                      Lectures/lecturedataframe_data/
                       clinical_data_breast_cancer_modified.csv',
                       stringsAsFactors = F)
 ```
 
 ```{r, echo=F}
-data_spine <- read.csv('http://www.araastat.com/BIOF339_PracticalR/Lectures/lecture2dataframe_data/Dataset_spine.csv')
+data_spine <- read.csv('http://www.araastat.com/BIOF339_PracticalR/Lectures/lecturedataframe_data/Dataset_spine.csv')
 
-data_brca <- read.csv('http://www.araastat.com/BIOF339_PracticalR/Lectures/lecture2dataframe_data/clinical_data_breast_cancer_modified.csv')
+data_brca <- read.csv('http://www.araastat.com/BIOF339_PracticalR/Lectures/lecturedataframe_data/clinical_data_breast_cancer_modified.csv')
 
 ```
 
