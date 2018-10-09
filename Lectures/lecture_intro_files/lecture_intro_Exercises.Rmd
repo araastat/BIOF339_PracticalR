@@ -1,0 +1,59 @@
+---
+title: "Intro to R: Part 1 Activities"
+output:
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F, eval=F)
+```
+
+## Class Exercises
+
+1.  Use the help function to learn about the “colon operator”.  Type `help(“:”)`.  If you’re using RStudio, you could also type `:` in the Help pane search box.
+```{r}
+help(":")
+```
+
+
+2.  Using what you learned from the help page for the colon operator, create a variable called `first10` with the numbers 1 through 10 in it.
+```{r}
+first10 <- 1:10
+```
+
+
+3.  Now try multiplying firstTen by 10 (first10 * 10).  What was the result?
+```{r}
+first10*10
+```
+
+
+4.  Using the colon operator and the sum function, find out what the sum of the integers from 1 to 1000 is.  
+```{r}
+sum(1:1000)
+```
+
+
+5.  Create a factor vector called `myFavoritePies` and put the names of your favorite pies in it (if you have no favorite pies, reconsider your life priorities).
+```{r}
+myFavoritePies <- factor(c('Pumpkin','Pecan'))
+```
+
+
+6.  Change `myFavoritePies` so that it contains your favorite pies AND tells R about some of the other kinds of pies that exist but are not your favorite.
+```{r}
+myFavoritePies <- factor(c('Pumpkin','Pecan','Chocolate','Banana Cream','Mincemeat'))
+```
+
+
+7.  Use the `ls` function to see the variables you have created.  You can also view the variables you have created in the “environment” tab in the upper right hand panel of RStudio.
+```{r}
+ls()
+```
+
+8.  Use the `history` function to view the commands you have typed (or just click on the “History” tab in the upper right panel of RStudio).  Double click on the line you used to calculate the answer to question 4.  Now modify the command to find the sum of the EVEN numbers from 1 to 1000.
+```{r}
+#history() # commented out to save space here. Just remove the first # to run
+sum(seq(2, 1000, by = 2))
+```
+

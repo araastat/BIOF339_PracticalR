@@ -10,9 +10,9 @@ Last updated: `r format(Sys.Date(), '%B %d, %Y')`
 
 ### Lecture 1
 
-[Presentation](Lectures/lecture1.pdf)
+[Presentation](Lectures/lecture_intro.pdf)
 
-<a href="Lectures/lecture1_files/Lecture1Exercises.html" target="_blank">Practice Exercises for Lecture 1</a> (<a href="Lectures/lecture1_files/Lecture1ExercisesSolution.html" target="_blank">Solutions</a>)
+<a href="Lectures/lecture_intro_files/lecture_intro_Exercises.html" target="_blank">Practice Exercises for Lecture 1</a> (<a href="Lectures/lecture_intro_files/lecture_intro_ExercisesSolution.html" target="_blank">Solutions</a>)
 
 Supplemental Material
 
@@ -24,19 +24,19 @@ In-built datasets in R: `data()`
 
 ### Lecture 2
 
-<a href="Lectures/lecture2a_dataframe.html" target="_blank">Presentation</a> ([PDF](Lectures/lecture2a_dataframe.pdf){target="_blank"})
+<a href="Lectures/lecture_dataframe.html" target="_blank">Presentation</a> ([PDF](Lectures/lecture_dataframe.pdf){target="_blank"})
 
-<a href="Lectures/lecture2dataframe_files/lecture2_practicum.html" target="_blank">Practicum</a> (<a href="Lectures/lecture2dataframe_files/lecture2_practicum_solutions.html" target="_blank">Solution</a>)
+<a href="Lectures/lecturedataframe_files/lecture_dataframe_practicum.html" target="_blank">Practicum</a> (<a href="Lectures/lecturedataframe_files/lecture_dataframe_practicum_solutions.html" target="_blank">Solution</a>)
 
 Supplemental Material
 
-+ [A primer on R Notebooks](Lectures/lecture2dataframe_files/RNotebook.html)
++ [A primer on R Notebooks](Lectures/lecturedataframe_files/RNotebook.html)
 
 ### Lecture 3
 
 <a href="Lectures/lecture3_tidyverse.html" target = "_blank">Presentation</a> ([PDF](Lectures/lecture3_tidyverse.pdf){target="_blank"})
 
-<a href="Lectures/lecture3tidyverse_files/Lecture3_2018_Practicum.html" target="_blank">Practicum</a> ([Solution](Lectures/lecture3tidyverse_files/Lecture3_2018_Practicum_Solutions.html){target="_blank"})
+<a href="Lectures/lecturetidyverse_files/lecture_tidyverse_Practicum.html" target="_blank">Practicum</a> ([Solution](Lectures/lecturetidyverse_files/lecture_tidyverse_Practicum_Solutions.html){target="_blank"})
 
 Supplemental material
 
@@ -44,9 +44,9 @@ Supplemental material
 
 ### Lecture 4
 
-<a href="Lectures/lecture4_visualization.html" target = "_blank">Presentation</a> ([PDF](Lectures/lecture4_visualization.pdf){target="_blank"})
+<a href="Lectures/lecture_visualization.html" target = "_blank">Presentation</a> ([PDF](Lectures/lecture_visualization.pdf){target="_blank"})
 
-[R Markdown file](Lectures/lecture4_visualization.Rmd){target="_blank"}
+[R Markdown file](Lectures/lecture_visualization.Rmd){target="_blank"}
 
 Supplemental material
 

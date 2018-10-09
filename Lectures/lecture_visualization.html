@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="BIOF 339" />
+  <meta name="dcterms.date" content="2018-10-03" />
+  <title>Lecture 4: Data Visualization</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="lecture4_visualization_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { font-weight: bold; } /* Keyword */
+code span.dt { text-decoration: underline; } /* DataType */
+code span.co { font-style: italic; } /* Comment */
+code span.al { font-weight: bold; } /* Alert */
+code span.er { font-weight: bold; } /* Error */
+code span.wa { font-style: italic; } /* Warning */
+code span.cf { font-weight: bold; } /* ControlFlow */
+code span.pp { font-weight: bold; } /* Preprocessor */
+code span.do { font-style: italic; } /* Documentation */
+code span.an { font-style: italic; } /* Annotation */
+code span.cv { font-style: italic; } /* CommentVar */
+code span.in { font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="lecture4_visualization_files/reveal.js-3.3.0.1/css/theme/league.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal .slide-menu-button {
+      left: 105px !important;
+    }
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="style_reveal.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+    <link href="lecture4_visualization_files/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+    <script src="lecture4_visualization_files/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+    <script src="lecture4_visualization_files/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+    <script src="lecture4_visualization_files/htmlwidgets-1.2/htmlwidgets.js"></script>
+    <script src="lecture4_visualization_files/plotly-binding-4.7.1/plotly.js"></script>
+    <script src="lecture4_visualization_files/typedarray-0.1/typedarray.min.js"></script>
+    <script src="lecture4_visualization_files/jquery-1.11.3/jquery.min.js"></script>
+    <link href="lecture4_visualization_files/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+    <script src="lecture4_visualization_files/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+    <link href="lecture4_visualization_files/plotlyjs-1.29.2/plotly-htmlwidgets.css" rel="stylesheet" />
+    <script src="lecture4_visualization_files/plotlyjs-1.29.2/plotly-latest.min.js"></script>
+    <link href="lecture4_visualization_files/dygraphs-1.1.1/dygraph.css" rel="stylesheet" />
+    <script src="lecture4_visualization_files/dygraphs-1.1.1/dygraph-combined.js"></script>
+    <script src="lecture4_visualization_files/moment-2.8.4/moment.js"></script>
+    <script src="lecture4_visualization_files/moment-timezone-0.2.5/moment-timezone-with-data.js"></script>
+    <script src="lecture4_visualization_files/moment-fquarter-1.0.0/moment-fquarter.min.js"></script>
+    <script src="lecture4_visualization_files/dygraphs-binding-1.1.1.4/dygraphs.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Lecture 4: Data Visualization</h1>
+    <h2 class="author">BIOF 339</h2>
+    <h3 class="date">October 3, 2018</h3>
+</section>
+
+<section><section id="data-visualization-in-r" class="title-slide slide level1"><h1>Data Visualization in R</h1></section><section id="gallery" class="slide level2">
+<h2>Gallery</h2>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-1-1.png" width="768" height="500px" style="display: block; margin: auto;" /></p>
+<aside class="notes">
+This is a typical plot in scientific journals
+</aside>
+</section><section id="gallery-1" class="slide level2">
+<h2>Gallery</h2>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-2-1.png" width="768" height="500px" style="display: block; margin: auto;" /></p>
+<aside class="notes">
+<p>We can put ggplot figures together in a panel with some annotations very easily using the cowplot package.</p>
+These graphs can be cleaned up some.
+</aside>
+</section><section id="gallery-2" class="slide level2">
+<h2>Gallery</h2>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-3-1.png" width="768" height="500px" style="display: block; margin: auto;" /></p>
+<aside class="notes">
+This is a plot of the diamonds dataset that comes with ggplot2
+</aside>
+</section><section id="gallery-3" class="slide level2">
+<h2>Gallery</h2>
+<h3 id="manhattan-plot">Manhattan plot</h3>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-4-1.png" width="600px" height="500px" style="display: block; margin: auto;" /></p>
+<aside class="notes">
+Manhattan plots are often used in GWAS studies. You can customize the annotations and the line for the significance levels
+</aside>
+</section><section id="gallery-4" class="slide level2">
+<h2>Gallery</h2>
+<h3 id="circular-manhattan-plot">Circular Manhattan plot</h3>
+<p><img src="Circular-Manhattan.trait1.trait2.trait3.jpg" width="500px" height="500px" style="display: block; margin: auto;" /></p>
+<aside class="notes">
+This gives a different representation of the manhattan plot. This example looks at three traits simultaneously
+</aside>
+</section><section id="gallery-5" class="slide level2">
+<h2>Gallery</h2>
+<h3 id="maps">Maps</h3>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-7-1.png" width="768" height="500px" style="display: block; margin: auto;" /></p>
+</section><section id="gallery-6" class="slide level2">
+<h2>Gallery</h2>
+<h3 id="interactive-graphs">Interactive graphs</h3>
+<div id="1851037e3a14" style="width:768px;height:500px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="1851037e3a14">{"x":{"data":[{"x":[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5],"y":[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3],"text":["Sepal Length = 5.1<br />Sepal Width = 3.5<br />Row Number: 1","Sepal Length = 4.9<br />Sepal Width = 3<br />Row Number: 2","Sepal Length = 4.7<br />Sepal Width = 3.2<br />Row Number: 3","Sepal Length = 4.6<br />Sepal Width = 3.1<br />Row Number: 4","Sepal Length = 5<br />Sepal Width = 3.6<br />Row Number: 5","Sepal Length = 5.4<br />Sepal Width = 3.9<br />Row Number: 6","Sepal Length = 4.6<br />Sepal Width = 3.4<br />Row Number: 7","Sepal Length = 5<br />Sepal Width = 3.4<br />Row Number: 8","Sepal Length = 4.4<br />Sepal Width = 2.9<br />Row Number: 9","Sepal Length = 4.9<br />Sepal Width = 3.1<br />Row Number: 10","Sepal Length = 5.4<br />Sepal Width = 3.7<br />Row Number: 11","Sepal Length = 4.8<br />Sepal Width = 3.4<br />Row Number: 12","Sepal Length = 4.8<br />Sepal Width = 3<br />Row Number: 13","Sepal Length = 4.3<br />Sepal Width = 3<br />Row Number: 14","Sepal Length = 5.8<br />Sepal Width = 4<br />Row Number: 15","Sepal Length = 5.7<br />Sepal Width = 4.4<br />Row Number: 16","Sepal Length = 5.4<br />Sepal Width = 3.9<br />Row Number: 17","Sepal Length = 5.1<br />Sepal Width = 3.5<br />Row Number: 18","Sepal Length = 5.7<br />Sepal Width = 3.8<br />Row Number: 19","Sepal Length = 5.1<br />Sepal Width = 3.8<br />Row Number: 20","Sepal Length = 5.4<br />Sepal Width = 3.4<br />Row Number: 21","Sepal Length = 5.1<br />Sepal Width = 3.7<br />Row Number: 22","Sepal Length = 4.6<br />Sepal Width = 3.6<br />Row Number: 23","Sepal Length = 5.1<br />Sepal Width = 3.3<br />Row Number: 24","Sepal Length = 4.8<br />Sepal Width = 3.4<br />Row Number: 25","Sepal Length = 5<br />Sepal Width = 3<br />Row Number: 26","Sepal Length = 5<br />Sepal Width = 3.4<br />Row Number: 27","Sepal Length = 5.2<br />Sepal Width = 3.5<br />Row Number: 28","Sepal Length = 5.2<br />Sepal Width = 3.4<br />Row Number: 29","Sepal Length = 4.7<br />Sepal Width = 3.2<br />Row Number: 30","Sepal Length = 4.8<br />Sepal Width = 3.1<br />Row Number: 31","Sepal Length = 5.4<br />Sepal Width = 3.4<br />Row Number: 32","Sepal Length = 5.2<br />Sepal Width = 4.1<br />Row Number: 33","Sepal Length = 5.5<br />Sepal Width = 4.2<br />Row Number: 34","Sepal Length = 4.9<br />Sepal Width = 3.1<br />Row Number: 35","Sepal Length = 5<br />Sepal Width = 3.2<br />Row Number: 36","Sepal Length = 5.5<br />Sepal Width = 3.5<br />Row Number: 37","Sepal Length = 4.9<br />Sepal Width = 3.6<br />Row Number: 38","Sepal Length = 4.4<br />Sepal Width = 3<br />Row Number: 39","Sepal Length = 5.1<br />Sepal Width = 3.4<br />Row Number: 40","Sepal Length = 5<br />Sepal Width = 3.5<br />Row Number: 41","Sepal Length = 4.5<br />Sepal Width = 2.3<br />Row Number: 42","Sepal Length = 4.4<br />Sepal Width = 3.2<br />Row Number: 43","Sepal Length = 5<br />Sepal Width = 3.5<br />Row Number: 44","Sepal Length = 5.1<br />Sepal Width = 3.8<br />Row Number: 45","Sepal Length = 4.8<br />Sepal Width = 3<br />Row Number: 46","Sepal Length = 5.1<br />Sepal Width = 3.8<br />Row Number: 47","Sepal Length = 4.6<br />Sepal Width = 3.2<br />Row Number: 48","Sepal Length = 5.3<br />Sepal Width = 3.7<br />Row Number: 49","Sepal Length = 5<br />Sepal Width = 3.3<br />Row Number: 50","Sepal Length = 7<br />Sepal Width = 3.2<br />Row Number: 51","Sepal Length = 6.4<br />Sepal Width = 3.2<br />Row Number: 52","Sepal Length = 6.9<br />Sepal Width = 3.1<br />Row Number: 53","Sepal Length = 5.5<br />Sepal Width = 2.3<br />Row Number: 54","Sepal Length = 6.5<br />Sepal Width = 2.8<br />Row Number: 55","Sepal Length = 5.7<br />Sepal Width = 2.8<br />Row Number: 56","Sepal Length = 6.3<br />Sepal Width = 3.3<br />Row Number: 57","Sepal Length = 4.9<br />Sepal Width = 2.4<br />Row Number: 58","Sepal Length = 6.6<br />Sepal Width = 2.9<br />Row Number: 59","Sepal Length = 5.2<br />Sepal Width = 2.7<br />Row Number: 60","Sepal Length = 5<br />Sepal Width = 2<br />Row Number: 61","Sepal Length = 5.9<br />Sepal Width = 3<br />Row Number: 62","Sepal Length = 6<br />Sepal Width = 2.2<br />Row Number: 63","Sepal Length = 6.1<br />Sepal Width = 2.9<br />Row Number: 64","Sepal Length = 5.6<br />Sepal Width = 2.9<br />Row Number: 65","Sepal Length = 6.7<br />Sepal Width = 3.1<br />Row Number: 66","Sepal Length = 5.6<br />Sepal Width = 3<br />Row Number: 67","Sepal Length = 5.8<br />Sepal Width = 2.7<br />Row Number: 68","Sepal Length = 6.2<br />Sepal Width = 2.2<br />Row Number: 69","Sepal Length = 5.6<br />Sepal Width = 2.5<br />Row Number: 70","Sepal Length = 5.9<br />Sepal Width = 3.2<br />Row Number: 71","Sepal Length = 6.1<br />Sepal Width = 2.8<br />Row Number: 72","Sepal Length = 6.3<br />Sepal Width = 2.5<br />Row Number: 73","Sepal Length = 6.1<br />Sepal Width = 2.8<br />Row Number: 74","Sepal Length = 6.4<br />Sepal Width = 2.9<br />Row Number: 75","Sepal Length = 6.6<br />Sepal Width = 3<br />Row Number: 76","Sepal Length = 6.8<br />Sepal Width = 2.8<br />Row Number: 77","Sepal Length = 6.7<br />Sepal Width = 3<br />Row Number: 78","Sepal Length = 6<br />Sepal Width = 2.9<br />Row Number: 79","Sepal Length = 5.7<br />Sepal Width = 2.6<br />Row Number: 80","Sepal Length = 5.5<br />Sepal Width = 2.4<br />Row Number: 81","Sepal Length = 5.5<br />Sepal Width = 2.4<br />Row Number: 82","Sepal Length = 5.8<br />Sepal Width = 2.7<br />Row Number: 83","Sepal Length = 6<br />Sepal Width = 2.7<br />Row Number: 84","Sepal Length = 5.4<br />Sepal Width = 3<br />Row Number: 85","Sepal Length = 6<br />Sepal Width = 3.4<br />Row Number: 86","Sepal Length = 6.7<br />Sepal Width = 3.1<br />Row Number: 87","Sepal Length = 6.3<br />Sepal Width = 2.3<br />Row Number: 88","Sepal Length = 5.6<br />Sepal Width = 3<br />Row Number: 89","Sepal Length = 5.5<br />Sepal Width = 2.5<br />Row Number: 90","Sepal Length = 5.5<br />Sepal Width = 2.6<br />Row Number: 91","Sepal Length = 6.1<br />Sepal Width = 3<br />Row Number: 92","Sepal Length = 5.8<br />Sepal Width = 2.6<br />Row Number: 93","Sepal Length = 5<br />Sepal Width = 2.3<br />Row Number: 94","Sepal Length = 5.6<br />Sepal Width = 2.7<br />Row Number: 95","Sepal Length = 5.7<br />Sepal Width = 3<br />Row Number: 96","Sepal Length = 5.7<br />Sepal Width = 2.9<br />Row Number: 97","Sepal Length = 6.2<br />Sepal Width = 2.9<br />Row Number: 98","Sepal Length = 5.1<br />Sepal Width = 2.5<br />Row Number: 99","Sepal Length = 5.7<br />Sepal Width = 2.8<br />Row Number: 100","Sepal Length = 6.3<br />Sepal Width = 3.3<br />Row Number: 101","Sepal Length = 5.8<br />Sepal Width = 2.7<br />Row Number: 102","Sepal Length = 7.1<br />Sepal Width = 3<br />Row Number: 103","Sepal Length = 6.3<br />Sepal Width = 2.9<br />Row Number: 104","Sepal Length = 6.5<br />Sepal Width = 3<br />Row Number: 105","Sepal Length = 7.6<br />Sepal Width = 3<br />Row Number: 106","Sepal Length = 4.9<br />Sepal Width = 2.5<br />Row Number: 107","Sepal Length = 7.3<br />Sepal Width = 2.9<br />Row Number: 108","Sepal Length = 6.7<br />Sepal Width = 2.5<br />Row Number: 109","Sepal Length = 7.2<br />Sepal Width = 3.6<br />Row Number: 110","Sepal Length = 6.5<br />Sepal Width = 3.2<br />Row Number: 111","Sepal Length = 6.4<br />Sepal Width = 2.7<br />Row Number: 112","Sepal Length = 6.8<br />Sepal Width = 3<br />Row Number: 113","Sepal Length = 5.7<br />Sepal Width = 2.5<br />Row Number: 114","Sepal Length = 5.8<br />Sepal Width = 2.8<br />Row Number: 115","Sepal Length = 6.4<br />Sepal Width = 3.2<br />Row Number: 116","Sepal Length = 6.5<br />Sepal Width = 3<br />Row Number: 117","Sepal Length = 7.7<br />Sepal Width = 3.8<br />Row Number: 118","Sepal Length = 7.7<br />Sepal Width = 2.6<br />Row Number: 119","Sepal Length = 6<br />Sepal Width = 2.2<br />Row Number: 120","Sepal Length = 6.9<br />Sepal Width = 3.2<br />Row Number: 121","Sepal Length = 5.6<br />Sepal Width = 2.8<br />Row Number: 122","Sepal Length = 7.7<br />Sepal Width = 2.8<br />Row Number: 123","Sepal Length = 6.3<br />Sepal Width = 2.7<br />Row Number: 124","Sepal Length = 6.7<br />Sepal Width = 3.3<br />Row Number: 125","Sepal Length = 7.2<br />Sepal Width = 3.2<br />Row Number: 126","Sepal Length = 6.2<br />Sepal Width = 2.8<br />Row Number: 127","Sepal Length = 6.1<br />Sepal Width = 3<br />Row Number: 128","Sepal Length = 6.4<br />Sepal Width = 2.8<br />Row Number: 129","Sepal Length = 7.2<br />Sepal Width = 3<br />Row Number: 130","Sepal Length = 7.4<br />Sepal Width = 2.8<br />Row Number: 131","Sepal Length = 7.9<br />Sepal Width = 3.8<br />Row Number: 132","Sepal Length = 6.4<br />Sepal Width = 2.8<br />Row Number: 133","Sepal Length = 6.3<br />Sepal Width = 2.8<br />Row Number: 134","Sepal Length = 6.1<br />Sepal Width = 2.6<br />Row Number: 135","Sepal Length = 7.7<br />Sepal Width = 3<br />Row Number: 136","Sepal Length = 6.3<br />Sepal Width = 3.4<br />Row Number: 137","Sepal Length = 6.4<br />Sepal Width = 3.1<br />Row Number: 138","Sepal Length = 6<br />Sepal Width = 3<br />Row Number: 139","Sepal Length = 6.9<br />Sepal Width = 3.1<br />Row Number: 140","Sepal Length = 6.7<br />Sepal Width = 3.1<br />Row Number: 141","Sepal Length = 6.9<br />Sepal Width = 3.1<br />Row Number: 142","Sepal Length = 5.8<br />Sepal Width = 2.7<br />Row Number: 143","Sepal Length = 6.8<br />Sepal Width = 3.2<br />Row Number: 144","Sepal Length = 6.7<br />Sepal Width = 3.3<br />Row Number: 145","Sepal Length = 6.7<br />Sepal Width = 3<br />Row Number: 146","Sepal Length = 6.3<br />Sepal Width = 2.5<br />Row Number: 147","Sepal Length = 6.5<br />Sepal Width = 3<br />Row Number: 148","Sepal Length = 6.2<br />Sepal Width = 3.4<br />Row Number: 149","Sepal Length = 5.9<br />Sepal Width = 3<br />Row Number: 150"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","opacity":0.6,"size":22.6771653543307,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(248,118,109,1)"}},"hoveron":"points","name":"setosa","legendgroup":"setosa","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7],"y":[3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8],"text":["Sepal Length = 5.1<br />Sepal Width = 3.5<br />Row Number: 1","Sepal Length = 4.9<br />Sepal Width = 3<br />Row Number: 2","Sepal Length = 4.7<br />Sepal Width = 3.2<br />Row Number: 3","Sepal Length = 4.6<br />Sepal Width = 3.1<br />Row Number: 4","Sepal Length = 5<br />Sepal Width = 3.6<br />Row Number: 5","Sepal Length = 5.4<br />Sepal Width = 3.9<br />Row Number: 6","Sepal Length = 4.6<br />Sepal Width = 3.4<br />Row Number: 7","Sepal Length = 5<br />Sepal Width = 3.4<br />Row Number: 8","Sepal Length = 4.4<br />Sepal Width = 2.9<br />Row Number: 9","Sepal Length = 4.9<br />Sepal Width = 3.1<br />Row Number: 10","Sepal Length = 5.4<br />Sepal Width = 3.7<br />Row Number: 11","Sepal Length = 4.8<br />Sepal Width = 3.4<br />Row Number: 12","Sepal Length = 4.8<br />Sepal Width = 3<br />Row Number: 13","Sepal Length = 4.3<br />Sepal Width = 3<br />Row Number: 14","Sepal Length = 5.8<br />Sepal Width = 4<br />Row Number: 15","Sepal Length = 5.7<br />Sepal Width = 4.4<br />Row Number: 16","Sepal Length = 5.4<br />Sepal Width = 3.9<br />Row Number: 17","Sepal Length = 5.1<br />Sepal Width = 3.5<br />Row Number: 18","Sepal Length = 5.7<br />Sepal Width = 3.8<br />Row Number: 19","Sepal Length = 5.1<br />Sepal Width = 3.8<br />Row Number: 20","Sepal Length = 5.4<br />Sepal Width = 3.4<br />Row Number: 21","Sepal Length = 5.1<br />Sepal Width = 3.7<br />Row Number: 22","Sepal Length = 4.6<br />Sepal Width = 3.6<br />Row Number: 23","Sepal Length = 5.1<br />Sepal Width = 3.3<br />Row Number: 24","Sepal Length = 4.8<br />Sepal Width = 3.4<br />Row Number: 25","Sepal Length = 5<br />Sepal Width = 3<br />Row Number: 26","Sepal Length = 5<br />Sepal Width = 3.4<br />Row Number: 27","Sepal Length = 5.2<br />Sepal Width = 3.5<br />Row Number: 28","Sepal Length = 5.2<br />Sepal Width = 3.4<br />Row Number: 29","Sepal Length = 4.7<br />Sepal Width = 3.2<br />Row Number: 30","Sepal Length = 4.8<br />Sepal Width = 3.1<br />Row Number: 31","Sepal Length = 5.4<br />Sepal Width = 3.4<br />Row Number: 32","Sepal Length = 5.2<br />Sepal Width = 4.1<br />Row Number: 33","Sepal Length = 5.5<br />Sepal Width = 4.2<br />Row Number: 34","Sepal Length = 4.9<br />Sepal Width = 3.1<br />Row Number: 35","Sepal Length = 5<br />Sepal Width = 3.2<br />Row Number: 36","Sepal Length = 5.5<br />Sepal Width = 3.5<br />Row Number: 37","Sepal Length = 4.9<br />Sepal Width = 3.6<br />Row Number: 38","Sepal Length = 4.4<br />Sepal Width = 3<br />Row Number: 39","Sepal Length = 5.1<br />Sepal Width = 3.4<br />Row Number: 40","Sepal Length = 5<br />Sepal Width = 3.5<br />Row Number: 41","Sepal Length = 4.5<br />Sepal Width = 2.3<br />Row Number: 42","Sepal Length = 4.4<br />Sepal Width = 3.2<br />Row Number: 43","Sepal Length = 5<br />Sepal Width = 3.5<br />Row Number: 44","Sepal Length = 5.1<br />Sepal Width = 3.8<br />Row Number: 45","Sepal Length = 4.8<br />Sepal Width = 3<br />Row Number: 46","Sepal Length = 5.1<br />Sepal Width = 3.8<br />Row Number: 47","Sepal Length = 4.6<br />Sepal Width = 3.2<br />Row Number: 48","Sepal Length = 5.3<br />Sepal Width = 3.7<br />Row Number: 49","Sepal Length = 5<br />Sepal Width = 3.3<br />Row Number: 50","Sepal Length = 7<br />Sepal Width = 3.2<br />Row Number: 51","Sepal Length = 6.4<br />Sepal Width = 3.2<br />Row Number: 52","Sepal Length = 6.9<br />Sepal Width = 3.1<br />Row Number: 53","Sepal Length = 5.5<br />Sepal Width = 2.3<br />Row Number: 54","Sepal Length = 6.5<br />Sepal Width = 2.8<br />Row Number: 55","Sepal Length = 5.7<br />Sepal Width = 2.8<br />Row Number: 56","Sepal Length = 6.3<br />Sepal Width = 3.3<br />Row Number: 57","Sepal Length = 4.9<br />Sepal Width = 2.4<br />Row Number: 58","Sepal Length = 6.6<br />Sepal Width = 2.9<br />Row Number: 59","Sepal Length = 5.2<br />Sepal Width = 2.7<br />Row Number: 60","Sepal Length = 5<br />Sepal Width = 2<br />Row Number: 61","Sepal Length = 5.9<br />Sepal Width = 3<br />Row Number: 62","Sepal Length = 6<br />Sepal Width = 2.2<br />Row Number: 63","Sepal Length = 6.1<br />Sepal Width = 2.9<br />Row Number: 64","Sepal Length = 5.6<br />Sepal Width = 2.9<br />Row Number: 65","Sepal Length = 6.7<br />Sepal Width = 3.1<br />Row Number: 66","Sepal Length = 5.6<br />Sepal Width = 3<br />Row Number: 67","Sepal Length = 5.8<br />Sepal Width = 2.7<br />Row Number: 68","Sepal Length = 6.2<br />Sepal Width = 2.2<br />Row Number: 69","Sepal Length = 5.6<br />Sepal Width = 2.5<br />Row Number: 70","Sepal Length = 5.9<br />Sepal Width = 3.2<br />Row Number: 71","Sepal Length = 6.1<br />Sepal Width = 2.8<br />Row Number: 72","Sepal Length = 6.3<br />Sepal Width = 2.5<br />Row Number: 73","Sepal Length = 6.1<br />Sepal Width = 2.8<br />Row Number: 74","Sepal Length = 6.4<br />Sepal Width = 2.9<br />Row Number: 75","Sepal Length = 6.6<br />Sepal Width = 3<br />Row Number: 76","Sepal Length = 6.8<br />Sepal Width = 2.8<br />Row Number: 77","Sepal Length = 6.7<br />Sepal Width = 3<br />Row Number: 78","Sepal Length = 6<br />Sepal Width = 2.9<br />Row Number: 79","Sepal Length = 5.7<br />Sepal Width = 2.6<br />Row Number: 80","Sepal Length = 5.5<br />Sepal Width = 2.4<br />Row Number: 81","Sepal Length = 5.5<br />Sepal Width = 2.4<br />Row Number: 82","Sepal Length = 5.8<br />Sepal Width = 2.7<br />Row Number: 83","Sepal Length = 6<br />Sepal Width = 2.7<br />Row Number: 84","Sepal Length = 5.4<br />Sepal Width = 3<br />Row Number: 85","Sepal Length = 6<br />Sepal Width = 3.4<br />Row Number: 86","Sepal Length = 6.7<br />Sepal Width = 3.1<br />Row Number: 87","Sepal Length = 6.3<br />Sepal Width = 2.3<br />Row Number: 88","Sepal Length = 5.6<br />Sepal Width = 3<br />Row Number: 89","Sepal Length = 5.5<br />Sepal Width = 2.5<br />Row Number: 90","Sepal Length = 5.5<br />Sepal Width = 2.6<br />Row Number: 91","Sepal Length = 6.1<br />Sepal Width = 3<br />Row Number: 92","Sepal Length = 5.8<br />Sepal Width = 2.6<br />Row Number: 93","Sepal Length = 5<br />Sepal Width = 2.3<br />Row Number: 94","Sepal Length = 5.6<br />Sepal Width = 2.7<br />Row Number: 95","Sepal Length = 5.7<br />Sepal Width = 3<br />Row Number: 96","Sepal Length = 5.7<br />Sepal Width = 2.9<br />Row Number: 97","Sepal Length = 6.2<br />Sepal Width = 2.9<br />Row Number: 98","Sepal Length = 5.1<br />Sepal Width = 2.5<br />Row Number: 99","Sepal Length = 5.7<br />Sepal Width = 2.8<br />Row Number: 100","Sepal Length = 6.3<br />Sepal Width = 3.3<br />Row Number: 101","Sepal Length = 5.8<br />Sepal Width = 2.7<br />Row Number: 102","Sepal Length = 7.1<br />Sepal Width = 3<br />Row Number: 103","Sepal Length = 6.3<br />Sepal Width = 2.9<br />Row Number: 104","Sepal Length = 6.5<br />Sepal Width = 3<br />Row Number: 105","Sepal Length = 7.6<br />Sepal Width = 3<br />Row Number: 106","Sepal Length = 4.9<br />Sepal Width = 2.5<br />Row Number: 107","Sepal Length = 7.3<br />Sepal Width = 2.9<br />Row Number: 108","Sepal Length = 6.7<br />Sepal Width = 2.5<br />Row Number: 109","Sepal Length = 7.2<br />Sepal Width = 3.6<br />Row Number: 110","Sepal Length = 6.5<br />Sepal Width = 3.2<br />Row Number: 111","Sepal Length = 6.4<br />Sepal Width = 2.7<br />Row Number: 112","Sepal Length = 6.8<br />Sepal Width = 3<br />Row Number: 113","Sepal Length = 5.7<br />Sepal Width = 2.5<br />Row Number: 114","Sepal Length = 5.8<br />Sepal Width = 2.8<br />Row Number: 115","Sepal Length = 6.4<br />Sepal Width = 3.2<br />Row Number: 116","Sepal Length = 6.5<br />Sepal Width = 3<br />Row Number: 117","Sepal Length = 7.7<br />Sepal Width = 3.8<br />Row Number: 118","Sepal Length = 7.7<br />Sepal Width = 2.6<br />Row Number: 119","Sepal Length = 6<br />Sepal Width = 2.2<br />Row Number: 120","Sepal Length = 6.9<br />Sepal Width = 3.2<br />Row Number: 121","Sepal Length = 5.6<br />Sepal Width = 2.8<br />Row Number: 122","Sepal Length = 7.7<br />Sepal Width = 2.8<br />Row Number: 123","Sepal Length = 6.3<br />Sepal Width = 2.7<br />Row Number: 124","Sepal Length = 6.7<br />Sepal Width = 3.3<br />Row Number: 125","Sepal Length = 7.2<br />Sepal Width = 3.2<br />Row Number: 126","Sepal Length = 6.2<br />Sepal Width = 2.8<br />Row Number: 127","Sepal Length = 6.1<br />Sepal Width = 3<br />Row Number: 128","Sepal Length = 6.4<br />Sepal Width = 2.8<br />Row Number: 129","Sepal Length = 7.2<br />Sepal Width = 3<br />Row Number: 130","Sepal Length = 7.4<br />Sepal Width = 2.8<br />Row Number: 131","Sepal Length = 7.9<br />Sepal Width = 3.8<br />Row Number: 132","Sepal Length = 6.4<br />Sepal Width = 2.8<br />Row Number: 133","Sepal Length = 6.3<br />Sepal Width = 2.8<br />Row Number: 134","Sepal Length = 6.1<br />Sepal Width = 2.6<br />Row Number: 135","Sepal Length = 7.7<br />Sepal Width = 3<br />Row Number: 136","Sepal Length = 6.3<br />Sepal Width = 3.4<br />Row Number: 137","Sepal Length = 6.4<br />Sepal Width = 3.1<br />Row Number: 138","Sepal Length = 6<br />Sepal Width = 3<br />Row Number: 139","Sepal Length = 6.9<br />Sepal Width = 3.1<br />Row Number: 140","Sepal Length = 6.7<br />Sepal Width = 3.1<br />Row Number: 141","Sepal Length = 6.9<br />Sepal Width = 3.1<br />Row Number: 142","Sepal Length = 5.8<br />Sepal Width = 2.7<br />Row Number: 143","Sepal Length = 6.8<br />Sepal Width = 3.2<br />Row Number: 144","Sepal Length = 6.7<br />Sepal Width = 3.3<br />Row Number: 145","Sepal Length = 6.7<br />Sepal Width = 3<br />Row Number: 146","Sepal Length = 6.3<br />Sepal Width = 2.5<br />Row Number: 147","Sepal Length = 6.5<br />Sepal Width = 3<br />Row Number: 148","Sepal Length = 6.2<br />Sepal Width = 3.4<br />Row Number: 149","Sepal Length = 5.9<br />Sepal Width = 3<br />Row Number: 150"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,186,56,1)","opacity":0.6,"size":22.6771653543307,"symbol":"triangle-up","line":{"width":1.88976377952756,"color":"rgba(0,186,56,1)"}},"hoveron":"points","name":"versicolor","legendgroup":"versicolor","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],"y":[3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3],"text":["Sepal Length = 5.1<br />Sepal Width = 3.5<br />Row Number: 1","Sepal Length = 4.9<br />Sepal Width = 3<br />Row Number: 2","Sepal Length = 4.7<br />Sepal Width = 3.2<br />Row Number: 3","Sepal Length = 4.6<br />Sepal Width = 3.1<br />Row Number: 4","Sepal Length = 5<br />Sepal Width = 3.6<br />Row Number: 5","Sepal Length = 5.4<br />Sepal Width = 3.9<br />Row Number: 6","Sepal Length = 4.6<br />Sepal Width = 3.4<br />Row Number: 7","Sepal Length = 5<br />Sepal Width = 3.4<br />Row Number: 8","Sepal Length = 4.4<br />Sepal Width = 2.9<br />Row Number: 9","Sepal Length = 4.9<br />Sepal Width = 3.1<br />Row Number: 10","Sepal Length = 5.4<br />Sepal Width = 3.7<br />Row Number: 11","Sepal Length = 4.8<br />Sepal Width = 3.4<br />Row Number: 12","Sepal Length = 4.8<br />Sepal Width = 3<br />Row Number: 13","Sepal Length = 4.3<br />Sepal Width = 3<br />Row Number: 14","Sepal Length = 5.8<br />Sepal Width = 4<br />Row Number: 15","Sepal Length = 5.7<br />Sepal Width = 4.4<br />Row Number: 16","Sepal Length = 5.4<br />Sepal Width = 3.9<br />Row Number: 17","Sepal Length = 5.1<br />Sepal Width = 3.5<br />Row Number: 18","Sepal Length = 5.7<br />Sepal Width = 3.8<br />Row Number: 19","Sepal Length = 5.1<br />Sepal Width = 3.8<br />Row Number: 20","Sepal Length = 5.4<br />Sepal Width = 3.4<br />Row Number: 21","Sepal Length = 5.1<br />Sepal Width = 3.7<br />Row Number: 22","Sepal Length = 4.6<br />Sepal Width = 3.6<br />Row Number: 23","Sepal Length = 5.1<br />Sepal Width = 3.3<br />Row Number: 24","Sepal Length = 4.8<br />Sepal Width = 3.4<br />Row Number: 25","Sepal Length = 5<br />Sepal Width = 3<br />Row Number: 26","Sepal Length = 5<br />Sepal Width = 3.4<br />Row Number: 27","Sepal Length = 5.2<br />Sepal Width = 3.5<br />Row Number: 28","Sepal Length = 5.2<br />Sepal Width = 3.4<br />Row Number: 29","Sepal Length = 4.7<br />Sepal Width = 3.2<br />Row Number: 30","Sepal Length = 4.8<br />Sepal Width = 3.1<br />Row Number: 31","Sepal Length = 5.4<br />Sepal Width = 3.4<br />Row Number: 32","Sepal Length = 5.2<br />Sepal Width = 4.1<br />Row Number: 33","Sepal Length = 5.5<br />Sepal Width = 4.2<br />Row Number: 34","Sepal Length = 4.9<br />Sepal Width = 3.1<br />Row Number: 35","Sepal Length = 5<br />Sepal Width = 3.2<br />Row Number: 36","Sepal Length = 5.5<br />Sepal Width = 3.5<br />Row Number: 37","Sepal Length = 4.9<br />Sepal Width = 3.6<br />Row Number: 38","Sepal Length = 4.4<br />Sepal Width = 3<br />Row Number: 39","Sepal Length = 5.1<br />Sepal Width = 3.4<br />Row Number: 40","Sepal Length = 5<br />Sepal Width = 3.5<br />Row Number: 41","Sepal Length = 4.5<br />Sepal Width = 2.3<br />Row Number: 42","Sepal Length = 4.4<br />Sepal Width = 3.2<br />Row Number: 43","Sepal Length = 5<br />Sepal Width = 3.5<br />Row Number: 44","Sepal Length = 5.1<br />Sepal Width = 3.8<br />Row Number: 45","Sepal Length = 4.8<br />Sepal Width = 3<br />Row Number: 46","Sepal Length = 5.1<br />Sepal Width = 3.8<br />Row Number: 47","Sepal Length = 4.6<br />Sepal Width = 3.2<br />Row Number: 48","Sepal Length = 5.3<br />Sepal Width = 3.7<br />Row Number: 49","Sepal Length = 5<br />Sepal Width = 3.3<br />Row Number: 50","Sepal Length = 7<br />Sepal Width = 3.2<br />Row Number: 51","Sepal Length = 6.4<br />Sepal Width = 3.2<br />Row Number: 52","Sepal Length = 6.9<br />Sepal Width = 3.1<br />Row Number: 53","Sepal Length = 5.5<br />Sepal Width = 2.3<br />Row Number: 54","Sepal Length = 6.5<br />Sepal Width = 2.8<br />Row Number: 55","Sepal Length = 5.7<br />Sepal Width = 2.8<br />Row Number: 56","Sepal Length = 6.3<br />Sepal Width = 3.3<br />Row Number: 57","Sepal Length = 4.9<br />Sepal Width = 2.4<br />Row Number: 58","Sepal Length = 6.6<br />Sepal Width = 2.9<br />Row Number: 59","Sepal Length = 5.2<br />Sepal Width = 2.7<br />Row Number: 60","Sepal Length = 5<br />Sepal Width = 2<br />Row Number: 61","Sepal Length = 5.9<br />Sepal Width = 3<br />Row Number: 62","Sepal Length = 6<br />Sepal Width = 2.2<br />Row Number: 63","Sepal Length = 6.1<br />Sepal Width = 2.9<br />Row Number: 64","Sepal Length = 5.6<br />Sepal Width = 2.9<br />Row Number: 65","Sepal Length = 6.7<br />Sepal Width = 3.1<br />Row Number: 66","Sepal Length = 5.6<br />Sepal Width = 3<br />Row Number: 67","Sepal Length = 5.8<br />Sepal Width = 2.7<br />Row Number: 68","Sepal Length = 6.2<br />Sepal Width = 2.2<br />Row Number: 69","Sepal Length = 5.6<br />Sepal Width = 2.5<br />Row Number: 70","Sepal Length = 5.9<br />Sepal Width = 3.2<br />Row Number: 71","Sepal Length = 6.1<br />Sepal Width = 2.8<br />Row Number: 72","Sepal Length = 6.3<br />Sepal Width = 2.5<br />Row Number: 73","Sepal Length = 6.1<br />Sepal Width = 2.8<br />Row Number: 74","Sepal Length = 6.4<br />Sepal Width = 2.9<br />Row Number: 75","Sepal Length = 6.6<br />Sepal Width = 3<br />Row Number: 76","Sepal Length = 6.8<br />Sepal Width = 2.8<br />Row Number: 77","Sepal Length = 6.7<br />Sepal Width = 3<br />Row Number: 78","Sepal Length = 6<br />Sepal Width = 2.9<br />Row Number: 79","Sepal Length = 5.7<br />Sepal Width = 2.6<br />Row Number: 80","Sepal Length = 5.5<br />Sepal Width = 2.4<br />Row Number: 81","Sepal Length = 5.5<br />Sepal Width = 2.4<br />Row Number: 82","Sepal Length = 5.8<br />Sepal Width = 2.7<br />Row Number: 83","Sepal Length = 6<br />Sepal Width = 2.7<br />Row Number: 84","Sepal Length = 5.4<br />Sepal Width = 3<br />Row Number: 85","Sepal Length = 6<br />Sepal Width = 3.4<br />Row Number: 86","Sepal Length = 6.7<br />Sepal Width = 3.1<br />Row Number: 87","Sepal Length = 6.3<br />Sepal Width = 2.3<br />Row Number: 88","Sepal Length = 5.6<br />Sepal Width = 3<br />Row Number: 89","Sepal Length = 5.5<br />Sepal Width = 2.5<br />Row Number: 90","Sepal Length = 5.5<br />Sepal Width = 2.6<br />Row Number: 91","Sepal Length = 6.1<br />Sepal Width = 3<br />Row Number: 92","Sepal Length = 5.8<br />Sepal Width = 2.6<br />Row Number: 93","Sepal Length = 5<br />Sepal Width = 2.3<br />Row Number: 94","Sepal Length = 5.6<br />Sepal Width = 2.7<br />Row Number: 95","Sepal Length = 5.7<br />Sepal Width = 3<br />Row Number: 96","Sepal Length = 5.7<br />Sepal Width = 2.9<br />Row Number: 97","Sepal Length = 6.2<br />Sepal Width = 2.9<br />Row Number: 98","Sepal Length = 5.1<br />Sepal Width = 2.5<br />Row Number: 99","Sepal Length = 5.7<br />Sepal Width = 2.8<br />Row Number: 100","Sepal Length = 6.3<br />Sepal Width = 3.3<br />Row Number: 101","Sepal Length = 5.8<br />Sepal Width = 2.7<br />Row Number: 102","Sepal Length = 7.1<br />Sepal Width = 3<br />Row Number: 103","Sepal Length = 6.3<br />Sepal Width = 2.9<br />Row Number: 104","Sepal Length = 6.5<br />Sepal Width = 3<br />Row Number: 105","Sepal Length = 7.6<br />Sepal Width = 3<br />Row Number: 106","Sepal Length = 4.9<br />Sepal Width = 2.5<br />Row Number: 107","Sepal Length = 7.3<br />Sepal Width = 2.9<br />Row Number: 108","Sepal Length = 6.7<br />Sepal Width = 2.5<br />Row Number: 109","Sepal Length = 7.2<br />Sepal Width = 3.6<br />Row Number: 110","Sepal Length = 6.5<br />Sepal Width = 3.2<br />Row Number: 111","Sepal Length = 6.4<br />Sepal Width = 2.7<br />Row Number: 112","Sepal Length = 6.8<br />Sepal Width = 3<br />Row Number: 113","Sepal Length = 5.7<br />Sepal Width = 2.5<br />Row Number: 114","Sepal Length = 5.8<br />Sepal Width = 2.8<br />Row Number: 115","Sepal Length = 6.4<br />Sepal Width = 3.2<br />Row Number: 116","Sepal Length = 6.5<br />Sepal Width = 3<br />Row Number: 117","Sepal Length = 7.7<br />Sepal Width = 3.8<br />Row Number: 118","Sepal Length = 7.7<br />Sepal Width = 2.6<br />Row Number: 119","Sepal Length = 6<br />Sepal Width = 2.2<br />Row Number: 120","Sepal Length = 6.9<br />Sepal Width = 3.2<br />Row Number: 121","Sepal Length = 5.6<br />Sepal Width = 2.8<br />Row Number: 122","Sepal Length = 7.7<br />Sepal Width = 2.8<br />Row Number: 123","Sepal Length = 6.3<br />Sepal Width = 2.7<br />Row Number: 124","Sepal Length = 6.7<br />Sepal Width = 3.3<br />Row Number: 125","Sepal Length = 7.2<br />Sepal Width = 3.2<br />Row Number: 126","Sepal Length = 6.2<br />Sepal Width = 2.8<br />Row Number: 127","Sepal Length = 6.1<br />Sepal Width = 3<br />Row Number: 128","Sepal Length = 6.4<br />Sepal Width = 2.8<br />Row Number: 129","Sepal Length = 7.2<br />Sepal Width = 3<br />Row Number: 130","Sepal Length = 7.4<br />Sepal Width = 2.8<br />Row Number: 131","Sepal Length = 7.9<br />Sepal Width = 3.8<br />Row Number: 132","Sepal Length = 6.4<br />Sepal Width = 2.8<br />Row Number: 133","Sepal Length = 6.3<br />Sepal Width = 2.8<br />Row Number: 134","Sepal Length = 6.1<br />Sepal Width = 2.6<br />Row Number: 135","Sepal Length = 7.7<br />Sepal Width = 3<br />Row Number: 136","Sepal Length = 6.3<br />Sepal Width = 3.4<br />Row Number: 137","Sepal Length = 6.4<br />Sepal Width = 3.1<br />Row Number: 138","Sepal Length = 6<br />Sepal Width = 3<br />Row Number: 139","Sepal Length = 6.9<br />Sepal Width = 3.1<br />Row Number: 140","Sepal Length = 6.7<br />Sepal Width = 3.1<br />Row Number: 141","Sepal Length = 6.9<br />Sepal Width = 3.1<br />Row Number: 142","Sepal Length = 5.8<br />Sepal Width = 2.7<br />Row Number: 143","Sepal Length = 6.8<br />Sepal Width = 3.2<br />Row Number: 144","Sepal Length = 6.7<br />Sepal Width = 3.3<br />Row Number: 145","Sepal Length = 6.7<br />Sepal Width = 3<br />Row Number: 146","Sepal Length = 6.3<br />Sepal Width = 2.5<br />Row Number: 147","Sepal Length = 6.5<br />Sepal Width = 3<br />Row Number: 148","Sepal Length = 6.2<br />Sepal Width = 3.4<br />Row Number: 149","Sepal Length = 5.9<br />Sepal Width = 3<br />Row Number: 150"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(97,156,255,1)","opacity":0.6,"size":22.6771653543307,"symbol":"square","line":{"width":1.88976377952756,"color":"rgba(97,156,255,1)"}},"hoveron":"points","name":"virginica","legendgroup":"virginica","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":28.3979521239795,"r":9.29846409298464,"b":51.5816798118168,"l":56.4509755085098},"font":{"color":"rgba(0,0,0,1)","family":"","size":18.5969281859693},"xaxis":{"domain":[0,1],"type":"linear","autorange":false,"range":[4.12,8.08],"tickmode":"array","ticktext":["5","6","7","8"],"tickvals":[5,6,7,8],"categoryorder":"array","categoryarray":["5","6","7","8"],"nticks":null,"ticks":"outside","tickcolor":"rgba(0,0,0,1)","ticklen":4.64923204649232,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":15.9375674553757},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":"Sepal.Length","titlefont":{"color":"rgba(0,0,0,1)","family":"","size":18.5969281859693},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"type":"linear","autorange":false,"range":[1.88,4.52],"tickmode":"array","ticktext":["2.0","2.5","3.0","3.5","4.0","4.5"],"tickvals":[2,2.5,3,3.5,4,4.5],"categoryorder":"array","categoryarray":["2.0","2.5","3.0","3.5","4.0","4.5"],"nticks":null,"ticks":"outside","tickcolor":"rgba(0,0,0,1)","ticklen":4.64923204649232,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":15.9375674553757},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":"Sepal.Width","titlefont":{"color":"rgba(0,0,0,1)","family":"","size":18.5969281859693},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":15.9375674553757},"y":0.908136482939633},"annotations":[{"text":"Species","x":1.02,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":18.5969281859693},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"left","yanchor":"bottom","legendTitle":true}],"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":[{"name":"Collaborate","icon":{"width":1000,"ascent":500,"descent":-50,"path":"M487 375c7-10 9-23 5-36l-79-259c-3-12-11-23-22-31-11-8-22-12-35-12l-263 0c-15 0-29 5-43 15-13 10-23 23-28 37-5 13-5 25-1 37 0 0 0 3 1 7 1 5 1 8 1 11 0 2 0 4-1 6 0 3-1 5-1 6 1 2 2 4 3 6 1 2 2 4 4 6 2 3 4 5 5 7 5 7 9 16 13 26 4 10 7 19 9 26 0 2 0 5 0 9-1 4-1 6 0 8 0 2 2 5 4 8 3 3 5 5 5 7 4 6 8 15 12 26 4 11 7 19 7 26 1 1 0 4 0 9-1 4-1 7 0 8 1 2 3 5 6 8 4 4 6 6 6 7 4 5 8 13 13 24 4 11 7 20 7 28 1 1 0 4 0 7-1 3-1 6-1 7 0 2 1 4 3 6 1 1 3 4 5 6 2 3 3 5 5 6 1 2 3 5 4 9 2 3 3 7 5 10 1 3 2 6 4 10 2 4 4 7 6 9 2 3 4 5 7 7 3 2 7 3 11 3 3 0 8 0 13-1l0-1c7 2 12 2 14 2l218 0c14 0 25-5 32-16 8-10 10-23 6-37l-79-259c-7-22-13-37-20-43-7-7-19-10-37-10l-248 0c-5 0-9-2-11-5-2-3-2-7 0-12 4-13 18-20 41-20l264 0c5 0 10 2 16 5 5 3 8 6 10 11l85 282c2 5 2 10 2 17 7-3 13-7 17-13z m-304 0c-1-3-1-5 0-7 1-1 3-2 6-2l174 0c2 0 4 1 7 2 2 2 4 4 5 7l6 18c0 3 0 5-1 7-1 1-3 2-6 2l-173 0c-3 0-5-1-8-2-2-2-4-4-4-7z m-24-73c-1-3-1-5 0-7 2-2 3-2 6-2l174 0c2 0 5 0 7 2 3 2 4 4 5 7l6 18c1 2 0 5-1 6-1 2-3 3-5 3l-174 0c-3 0-5-1-7-3-3-1-4-4-5-6z"},"click":"function(gd) { \n        // is this being viewed in RStudio?\n        if (location.search == '?viewer_pane=1') {\n          alert('To learn about plotly for collaboration, visit:\\n https://cpsievert.github.io/plotly_book/plot-ly-for-collaboration.html');\n        } else {\n          window.open('https://cpsievert.github.io/plotly_book/plot-ly-for-collaboration.html', '_blank');\n        }\n      }"}],"cloud":false},"source":"A","attrs":{"1851017b36834":{"x":{},"y":{},"colour":{},"shape":{},"type":"scatter"}},"cur_data":"1851017b36834","visdat":{"1851017b36834":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1}},"base_url":"https://plot.ly"},"evals":["config.modeBarButtonsToAdd.0.click"],"jsHooks":{"render":[{"code":"function(el, x) { var ctConfig = crosstalk.var('plotlyCrosstalkOpts').set({\"on\":\"plotly_click\",\"persistent\":false,\"dynamic\":false,\"selectize\":false,\"opacityDim\":0.2,\"selected\":{\"opacity\":1}}); }","data":null},{"code":"function(el, x) { var ctConfig = crosstalk.var('plotlyCrosstalkOpts').set({\"on\":\"plotly_click\",\"persistent\":false,\"dynamic\":false,\"selectize\":false,\"opacityDim\":0.2,\"selected\":{\"opacity\":1}}); }","data":null},{"code":"function(el, x) { var ctConfig = crosstalk.var('plotlyCrosstalkOpts').set({\"on\":\"plotly_click\",\"persistent\":false,\"dynamic\":false,\"selectize\":false,\"opacityDim\":0.2,\"selected\":{\"opacity\":1}}); }","data":null}]}}</script>
+<aside class="notes">
+These graphs are clickable. For example, click on a symbol on the legend, or drag your mouse over a region with left button held down.
+</aside>
+</section><section id="gallery-7" class="slide level2">
+<h2>Gallery</h2>
+<h3 id="interactive-graphs-1">Interactive graphs</h3>
+<pre><code>#    Date[1:41], format: &quot;2018-08-24&quot; &quot;2018-08-25&quot; &quot;2018-08-26&quot; &quot;2018-08-27&quot; &quot;2018-08-28&quot; ...</code></pre>
+<div id="htmlwidget-695e27233b7744db0b71" style="width:768px;height:500px;" class="dygraphs html-widget"></div>
+<script type="application/json" data-for="htmlwidget-695e27233b7744db0b71">{"x":{"attrs":{"labels":["day","V1"],"legend":"auto","retainDateWindow":false,"axes":{"x":{"pixelsPerLabel":60,"drawAxis":true},"y":{"drawAxis":true}},"stackedGraph":false,"fillGraph":false,"fillAlpha":0.15,"stepPlot":false,"drawPoints":false,"pointSize":1,"drawGapEdgePoints":false,"connectSeparatedPoints":false,"strokeWidth":1,"strokeBorderColor":"white","plotter":"function stemPlotter(e) { \n       var ctx = e.drawingContext; \n       var points = e.points; \n       var y_bottom = e.dygraph.toDomYCoord(0);\n       ctx.fillStyle = e.color; \n       for (var i = 0; i < points.length; i++) { \n          var p = points[i]; \n          var center_x = p.canvasx;\n          var center_y = p.canvasy; \n          ctx.beginPath(); \n          ctx.moveTo(center_x, y_bottom); \n          ctx.lineTo(center_x, center_y); \n          ctx.stroke();\n          ctx.beginPath(); \n          ctx.arc(center_x, center_y, 3, 0, 2*Math.PI); \n          ctx.stroke();\n       }\n    }","colorValue":0.5,"colorSaturation":1,"includeZero":false,"drawAxesAtZero":false,"logscale":false,"axisTickSize":3,"axisLineColor":"black","axisLineWidth":0.3,"axisLabelColor":"black","axisLabelFontSize":14,"axisLabelWidth":60,"drawGrid":true,"gridLineWidth":0.3,"rightGap":5,"digitsAfterDecimal":2,"labelsKMB":false,"labelsKMG2":false,"labelsUTC":false,"maxNumberWidth":6,"animatedZooms":false,"mobileDisableYTouch":true},"scale":"daily","annotations":[],"shadings":[],"events":[],"format":"date","data":[["2018-08-24T00:00:00.000Z","2018-08-25T00:00:00.000Z","2018-08-26T00:00:00.000Z","2018-08-27T00:00:00.000Z","2018-08-28T00:00:00.000Z","2018-08-29T00:00:00.000Z","2018-08-30T00:00:00.000Z","2018-08-31T00:00:00.000Z","2018-09-01T00:00:00.000Z","2018-09-02T00:00:00.000Z","2018-09-03T00:00:00.000Z","2018-09-04T00:00:00.000Z","2018-09-05T00:00:00.000Z","2018-09-06T00:00:00.000Z","2018-09-07T00:00:00.000Z","2018-09-08T00:00:00.000Z","2018-09-09T00:00:00.000Z","2018-09-10T00:00:00.000Z","2018-09-11T00:00:00.000Z","2018-09-12T00:00:00.000Z","2018-09-13T00:00:00.000Z","2018-09-14T00:00:00.000Z","2018-09-15T00:00:00.000Z","2018-09-16T00:00:00.000Z","2018-09-17T00:00:00.000Z","2018-09-18T00:00:00.000Z","2018-09-19T00:00:00.000Z","2018-09-20T00:00:00.000Z","2018-09-21T00:00:00.000Z","2018-09-22T00:00:00.000Z","2018-09-23T00:00:00.000Z","2018-09-24T00:00:00.000Z","2018-09-25T00:00:00.000Z","2018-09-26T00:00:00.000Z","2018-09-27T00:00:00.000Z","2018-09-28T00:00:00.000Z","2018-09-29T00:00:00.000Z","2018-09-30T00:00:00.000Z","2018-10-01T00:00:00.000Z","2018-10-02T00:00:00.000Z","2018-10-03T00:00:00.000Z"],[0.788305135443807,0.4089769218117,0.883017404004931,0.940467284293845,0.0455564993899316,0.528105488047004,0.892419044394046,0.551435014465824,0.456614735303447,0.956833345349878,0.453334156190977,0.677570635452867,0.572633401956409,0.102924682665616,0.899824970401824,0.24608773435466,0.0420595335308462,0.327920719282702,0.954503649147227,0.889539316063747,0.6928034061566,0.640506813768297,0.994269776623696,0.655705799115822,0.708530468167737,0.544066024711356,0.59414202044718,0.28915973729454,0.147113647311926,0.963024232536554,0.902299045119435,0.690705278422683,0.795467417687178,0.0246136845089495,0.477795971091837,0.758459537522867,0.216407935833558,0.318181007634848,0.231625785352662,0.142800022382289,0.414546335814521]],"fixedtz":false,"tzone":"UTC"},"evals":["attrs.plotter"],"jsHooks":[]}</script>
+<aside class="notes">
+Mouse over gives values of the points
+</aside>
+</section><section id="gallery-8" class="slide level2">
+<h2>Gallery</h2>
+<h3 id="animation">Animation</h3>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-10-1.gif" height="500px" /><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-10-2.png" width="768" height="500px" /></p>
+<aside class="notes">
+This panel is animated by year. The data is taken from GapMinder and shows life expectancy compared with GDP per capita, and changes over time
+</aside>
+</section></section>
+<section><section id="ggplot2" class="title-slide slide level1"><h1>ggplot2</h1></section><section id="section" class="slide level2">
+<h2></h2>
+<p>We’re making the decision to use <code>ggplot2</code> for graphics</p>
+<ul>
+<li>Makes pretty good formatting choices out of the box</li>
+<li>Works like pipes!!</li>
+<li>Is declarative (tell it what you want) without getting caught up in minutae</li>
+<li>Strongly leverages data frames (good practice)</li>
+<li>Fast enough</li>
+<li>There are good templates if you want to change the look</li>
+</ul>
+</section><section id="introduction-to-ggplot2" class="slide level2">
+<h2>Introduction to ggplot2</h2>
+<pre class="sourceCode r" id="cb2"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># install.packages(&#39;tidyverse&#39;)</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">library</span>(ggplot2)</a></code></pre>
+</section><section id="introduction-to-ggplot2-1" class="slide level2">
+<h2>Introduction to ggplot2</h2>
+<p>The <code>ggplot2</code> package is a very flexible and (to me) intuitive way of visualizing data. It is based on the concept of layering elements on a canvas.</p>
+<blockquote>
+<p>This idea of layering graphics on a canvas is, to me, a nice way of building graphs</p>
+</blockquote>
+</section><section id="introduction-to-ggplot2-2" class="slide level2">
+<h2>Introduction to ggplot2</h2>
+<p>You need:</p>
+<ul>
+<li>A <code>data.frame</code> object</li>
+<li><em>Aesthetic mappings</em> (aes) to say what data is used for what purpose in the viz
+<ul>
+<li>x- and y-direction</li>
+<li>shapes, colors, lines</li>
+</ul></li>
+<li>A <em>geometry object</em> (geom) to say what to draw
+<ul>
+<li>You can “layer” geoms on each other to build plots</li>
+</ul></li>
+</ul>
+</section><section id="introduction-to-ggplot2-3" class="slide level2">
+<h2>Introduction to ggplot2</h2>
+<p><code>ggplot</code> used pipes before pipes were a thing.</p>
+<p>However, it uses the <code>+</code> symbol for piping rather than the <code>%&gt;%</code> operator, since it pre-dates the <code>tidyverse</code></p>
+<aside class="notes">
+Emphasize that ggplot uses the + sign for piping, while the rest of the tidyverse uses the %&gt;% symbol
+</aside>
+</section><section id="introduction-to-ggplot2-4" class="slide level2">
+<h2>Introduction to ggplot2</h2>
+<pre class="sourceCode r" id="cb3"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> wt, <span class="dt">y =</span> mpg)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a></code></pre>
+<ul>
+<li>A <code>data.frame</code> object: mtcars</li>
+<li>Aesthetic mapping:
+<ul>
+<li>x-axis: wt</li>
+<li>y-axis: mpg</li>
+</ul></li>
+<li>Geometry:
+<ul>
+<li>geom_point: draw points</li>
+</ul></li>
+</ul>
+</section><section id="introduction-to-ggplot2-5" class="slide level2">
+<h2>Introduction to ggplot2</h2>
+<pre class="sourceCode r" id="cb4"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> wt, <span class="dt">y =</span> mpg)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>()</a></code></pre>
+<ul>
+<li>A <code>data.frame</code> object: mtcars</li>
+<li>Aesthetic mapping:
+<ul>
+<li>x-axis: wt</li>
+<li>y-axis: mpg</li>
+</ul></li>
+<li>Geometry:
+<ul>
+<li>geom_point: draw points</li>
+<li>geom_smooth: Add a layer which draws a best-fitting line</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="ggplot2-examples" class="title-slide slide level1"><h1>ggplot2 examples</h1></section><section id="section-1" class="slide level2">
+<h2></h2>
+<p>We will use the two data sets:</p>
+<pre class="sourceCode r" id="cb5"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">data_spine &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;http://www.araastat.com/BIOF339_PracticalR/</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">                       Lectures/lecture2dataframe_data/Dataset_spine.csv&#39;</span>, </a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">                       <span class="dt">stringsAsFactors =</span> F)</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">data_brca &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;http://www.araastat.com/BIOF339_PracticalR/</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="st">                      Lectures/lecture2dataframe_data/</span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="st">                      clinical_data_breast_cancer_modified.csv&#39;</span>,</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">                      <span class="dt">stringsAsFactors =</span> F)</a></code></pre>
+<aside class="notes">
+Make sure that if students are using these commands, that they make the URL be on one line rather than broken up. <b>The breaks are for presentation purposes, and won’t work as is</b>
+</aside>
+</section></section>
+<section><section id="plotting-one-variable" class="title-slide slide level1"><h1>Plotting one variable</h1></section><section id="histograms" class="slide level2">
+<h2>Histograms</h2>
+<pre class="sourceCode r" id="cb6"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">ggplot</span>(data_brca, <span class="kw">aes</span>(<span class="dt">x =</span> Age.at.Initial.Pathologic.Diagnosis)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>() </a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-16-1.png" width="768" height="500px" /></p>
+<aside class="notes">
+This looks chunky, so we need to adjust the binwidth
+</aside>
+</section><section id="histograms-1" class="slide level2">
+<h2>Histograms</h2>
+<pre class="sourceCode r" id="cb7"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">ggplot</span>(data_brca, <span class="kw">aes</span>(<span class="dt">x =</span> Age.at.Initial.Pathologic.Diagnosis)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth=</span><span class="dv">4</span>)</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-17-1.png" width="768" height="500px" /></p>
+</section><section id="density-plot" class="slide level2">
+<h2>Density plot</h2>
+<pre class="sourceCode r" id="cb8"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">ggplot</span>(data_brca, <span class="kw">aes</span>(<span class="dt">x =</span> Age.at.Initial.Pathologic.Diagnosis)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-18-1.png" width="768" height="500px" /></p>
+</section><section id="bar-plot" class="slide level2">
+<h2>Bar plot</h2>
+<pre class="sourceCode r" id="cb9"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">ggplot</span>(data_brca, <span class="kw">aes</span>(<span class="dt">x =</span> Tumor))<span class="op">+</span><span class="kw">geom_bar</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-19-1.png" width="768" height="500px" /></p>
+</section></section>
+<section><section id="exercise" class="title-slide slide level1"><h1>Exercise</h1></section><section id="exercise-1" class="slide level2">
+<h2>Exercise</h2>
+<p>Using the <code>mtcars</code> dataset in R, create:</p>
+<ol type="1">
+<li>A histogram of the fuel efficiences (<code>mpg</code>) in the data set</li>
+<li>A bar plot of frequencies of number of cylinders (<code>cyl</code>) in the car</li>
+</ol>
+</section><section id="solution" class="slide level2">
+<h2>Solution</h2>
+<pre class="sourceCode r" id="cb10"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> mpg)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth=</span><span class="dv">3</span>)</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-20-1.png" width="768" height="500px" /></p>
+<pre class="sourceCode r" id="cb11"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co"># ggplot(mtcars) + geom_histogram(aes(x = mpg), binwidth = 3)</span></a></code></pre>
+</section><section id="solution-1" class="slide level2">
+<h2>Solution</h2>
+<pre class="sourceCode r" id="cb12"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(cyl))) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-21-1.png" width="768" height="500px" /></p>
+</section></section>
+<section><section id="two-continuous-variables" class="title-slide slide level1"><h1>Two continuous variables</h1></section><section id="scatter-plots" class="slide level2">
+<h2>Scatter plots</h2>
+<pre class="sourceCode r" id="cb13"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-22-1.png" width="768" height="500px" /></p>
+</section><section id="scatter-plot-with-a-smooth-line" class="slide level2">
+<h2>Scatter plot with a smooth line</h2>
+<pre class="sourceCode r" id="cb14"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope))<span class="op">+</span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>()</a></code></pre>
+<img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-23-1.png" width="768" height="500px" />
+<aside class="notes">
+The shaded area gives a 95% confidence region
+</aside>
+</section><section id="scatter-plot-with-a-smooth-straight-line" class="slide level2">
+<h2>Scatter plot with a smooth straight line</h2>
+<pre class="sourceCode r" id="cb15"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&#39;lm&#39;</span>)</a></code></pre>
+<img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-24-1.png" width="768" height="500px" />
+<aside class="notes">
+<code>method = &quot;lm&quot;</code> stands for <em>linear model</em>, i.e., a straight line
+</aside>
+</section><section id="line-plot-for-time-series" class="slide level2">
+<h2>Line plot (for time series)</h2>
+<pre class="sourceCode r" id="cb16"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">library</span>(forecast)</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2">d &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(gas), <span class="dt">y =</span> gas) <span class="co"># Australian monthly gas production</span></a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="kw">ggplot</span>(d, <span class="kw">aes</span>(x, y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-25-1.png" width="768" height="500px" /></p>
+</section></section>
+<section><section id="exercise-2" class="title-slide slide level1"><h1>Exercise</h1></section><section id="exercise-3" class="slide level2">
+<h2>Exercise</h2>
+<ol type="1">
+<li>Create a scatter plot of sepal length and sepal width from the <code>iris</code> dataset, and add a smooth line through it</li>
+</ol>
+</section><section id="solution-2" class="slide level2">
+<h2>Solution</h2>
+<pre class="sourceCode r" id="cb17"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(Sepal.Length, Sepal.Width)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-26-1.png" width="768" height="500px" /></p>
+</section></section>
+<section><section id="continuous-variable-with-discrete-variable" class="title-slide slide level1"><h1>Continuous variable with discrete variable</h1></section><section id="boxplots" class="slide level2">
+<h2>Boxplots</h2>
+<pre class="sourceCode r" id="cb18"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Class.attribute, <span class="dt">y =</span> Sacral.slope))<span class="op">+</span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-27-1.png" width="768" height="500px" /></p>
+<pre class="sourceCode r" id="cb19"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="co"># Factor/discrete variable is always x</span></a></code></pre>
+<aside class="notes">
+The discrete variable must be of class <code>factor</code> and be on the x-axis. In a few slides we’ll see how to flip axes
+</aside>
+</section><section id="violin-plots" class="slide level2">
+<h2>Violin plots</h2>
+<pre class="sourceCode r" id="cb20"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Class.attribute, <span class="dt">y =</span> Sacral.slope)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_violin</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-28-1.png" width="768" height="500px" /></p>
+<aside class="notes">
+Violin plots are basically density plots that are reflected on itself. It gives a better picture of the distribution than a boxplot, which only gives a 5 number summary
+</aside>
+</section></section>
+<section><section id="exercise-4" class="title-slide slide level1"><h1>Exercise</h1></section><section id="exercise-5" class="slide level2">
+<h2>Exercise</h2>
+<ol type="1">
+<li>Plot a boxplot of petal length by species using the <code>iris</code> dataset</li>
+</ol>
+</section><section id="solution-3" class="slide level2">
+<h2>Solution</h2>
+<pre class="sourceCode r" id="cb21"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x =</span> Species, <span class="dt">y =</span> Petal.Length))<span class="op">+</span><span class="kw">geom_boxplot</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-29-1.png" width="768" height="500px" /></p>
+</section></section>
+<section><section id="flipping-axes" class="title-slide slide level1"><h1>Flipping axes</h1></section><section id="vertical-bars" class="slide level2">
+<h2>Vertical bars</h2>
+<pre class="sourceCode r" id="cb22"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">ggplot</span>(data_brca, <span class="kw">aes</span>(<span class="dt">x =</span> Tumor))<span class="op">+</span><span class="kw">geom_bar</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-30-1.png" width="768" height="500px" /></p>
+</section><section id="horizontal-bars" class="slide level2">
+<h2>Horizontal bars</h2>
+<pre class="sourceCode r" id="cb23"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">ggplot</span>(data_brca, <span class="kw">aes</span>(<span class="dt">x =</span> Tumor))<span class="op">+</span><span class="kw">geom_bar</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-31-1.png" width="768" height="500px" /></p>
+</section></section>
+<section><section id="resources" class="title-slide slide level1"><h1>Resources</h1></section><section id="online-resources" class="slide level2">
+<h2>Online resources</h2>
+<ul>
+<li>The ggplot <a href="http://docs.ggplot2.org">website</a> has many resources to help create visualizations</li>
+<li>The <a href="https://www.r-graph-gallery.com/" target="_blank">R Graph Gallery</a></li>
+<li>There are a lot of blogs showing many capabilities of ggplot2</li>
+<li><a href="http://www.stackoverflow.org">StackOverflow</a> is the place for Q &amp; A.</li>
+</ul>
+</section><section id="other-packages" class="slide level2">
+<h2>Other packages</h2>
+<ul>
+<li><p>The <a href="http://cran.rstudio.com/package=cowplot"><code>cowplot</code></a> and <a href="https://cran.r-project.org/package=ggpubr"><code>ggpubr</code></a> packages provide several improvements on ggplot2, including more themes and an easy way to put several graphs together in a panel</p></li>
+<li><p>There is a rich ecosystem around <code>ggplot2</code>, which can be explored <a href="https://www.ggplot2-exts.org/" target="_blank">here</a></p></li>
+</ul>
+</section></section>
+<section><section id="group-wise-descriptives-and-visualizations" class="title-slide slide level1"><h1>Group-wise descriptives and visualizations</h1></section><section id="grouping" class="slide level2">
+<h2>Grouping</h2>
+<ul>
+<li>It is common to look at statistics within subgroups of the data</li>
+<li>The idea is to see if secondary variables affect your primary outcome or relationship</li>
+</ul>
+</section><section id="introducing-the-dplyr-package" class="slide level2">
+<h2>Introducing the <code>dplyr</code> package</h2>
+<p><code>dplyr</code> is the most lucid package for manipulating and analyzing data organized in a data frame.</p>
+<ul>
+<li>It has a <code>group_by</code> function which creates a <em>grouped data frame</em></li>
+</ul>
+<pre class="sourceCode r" id="cb24"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2">grouped_data_spine =<span class="st"> </span>data_spine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(Class.attribute)</a></code></pre>
+<p>Note that you have to group using a discrete valued variable (factor, character, integer)</p>
+<aside class="notes">
+Note that <code>dplyr</code> is included in the <code>tidyverse</code> meta-package, just like <code>ggplot2</code>, so just doing <code>library(tidyverse)</code> will suffice.
+</aside>
+</section><section id="grouped-summaries" class="slide level2">
+<h2>Grouped summaries</h2>
+<pre class="sourceCode r" id="cb25"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">grouped_data_spine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="st">  </span><span class="kw">summarize</span>(<span class="kw">mean</span>(Pelvic.incidence), </a>
+<a class="sourceLine" id="cb25-3" data-line-number="3">          <span class="kw">sd</span>(Pelvic.incidence),</a>
+<a class="sourceLine" id="cb25-4" data-line-number="4">          <span class="kw">min</span>(Pelvic.incidence),</a>
+<a class="sourceLine" id="cb25-5" data-line-number="5">          <span class="kw">max</span>(Pelvic.incidence))</a></code></pre>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Class.attribute</th>
+<th style="text-align: right;">mean(Pelvic.incidence)</th>
+<th style="text-align: right;">sd(Pelvic.incidence)</th>
+<th style="text-align: right;">min(Pelvic.incidence)</th>
+<th style="text-align: right;">max(Pelvic.incidence)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Abnormal</td>
+<td style="text-align: right;">64.69</td>
+<td style="text-align: right;">17.66</td>
+<td style="text-align: right;">26.15</td>
+<td style="text-align: right;">129.83</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Normal</td>
+<td style="text-align: right;">51.69</td>
+<td style="text-align: right;">12.37</td>
+<td style="text-align: right;">30.74</td>
+<td style="text-align: right;">89.83</td>
+</tr>
+</tbody>
+</table>
+</section><section id="grouped-summaries-1" class="slide level2">
+<h2>Grouped summaries</h2>
+<pre class="sourceCode r" id="cb26"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">grouped_data_spine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">Mean =</span> <span class="kw">mean</span>(Pelvic.incidence), </a>
+<a class="sourceLine" id="cb26-2" data-line-number="2">                                 <span class="dt">SD =</span> <span class="kw">sd</span>(Pelvic.incidence),</a>
+<a class="sourceLine" id="cb26-3" data-line-number="3">                                 <span class="dt">Min =</span> <span class="kw">min</span>(Pelvic.incidence),</a>
+<a class="sourceLine" id="cb26-4" data-line-number="4">                                 <span class="dt">Max =</span> <span class="kw">max</span>(Pelvic.incidence))</a></code></pre>
+Class.attribute Mean SD Min Max —————- —— —— —— ——- Abnormal 64.69 17.66 26.15 129.83 Normal 51.69 12.37 30.74 89.83
+<aside class="notes">
+You can name your summaries, to make them self-explanatory
+</aside>
+</section><section id="grouped-summaries-2" class="slide level2">
+<h2>Grouped summaries</h2>
+<pre class="sourceCode r" id="cb27"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">grouped_data_spine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize_all</span>(mean)</a></code></pre>
+<pre><code>#   # A tibble: 2 x 13
+#     Class.attribute Pelvic.incidence Pelvic.tilt Lumbar.lordosis…
+#     &lt;fct&gt;                      &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt;
+#   1 Abnormal                    64.7        19.8             55.9
+#   2 Normal                      51.7        12.8             43.5
+#   # ... with 9 more variables: Sacral.slope &lt;dbl&gt;, Pelvic.radius &lt;dbl&gt;,
+#   #   Degree.spondylolisthesis &lt;dbl&gt;, Pelvic.slope &lt;dbl&gt;, Direct.tilt &lt;dbl&gt;,
+#   #   Thoracic.slope &lt;dbl&gt;, Cervical.tilt &lt;dbl&gt;, Sacrum.angle &lt;dbl&gt;,
+#   #   Scoliosis.slope &lt;dbl&gt;</code></pre>
+</section><section id="a-note-on-tibbles" class="slide level2">
+<h2>A note on tibbles</h2>
+<ul>
+<li>Tibbles are a new-generation object meant to enhance the <code>data.frame</code>.
+<ul>
+<li>Central to the<a href="http://www.tidyverse.org"><strong>tidyverse</strong> packages</a></li>
+</ul></li>
+<li>If you want to just get back to a more familiar <code>data.frame</code> object, use <code>as.data.frame</code></li>
+<li>A tibble is built on a <code>data.frame</code>, so all operations on <code>data.frame</code>’s will work.</li>
+<li>To see all columns, set <code>options(dplyr.width=Inf)</code>.</li>
+</ul>
+</section><section id="a-note-on-tibbles-1" class="slide level2">
+<h2>A note on tibbles</h2>
+<p>Differences between a tibble and a <code>data.frame</code>:</p>
+<ol type="1">
+<li>Printing a tibble is restricted to the first 10 lines, and includes column types</li>
+<li>Stricter subsetting rules that make the types of objects created consistent</li>
+</ol>
+</section></section>
+<section><section id="using-ggplot-in-a-pipeline" class="title-slide slide level1"><h1>Using ggplot in a pipeline</h1></section><section id="section-2" class="slide level2">
+<h2></h2>
+<pre class="sourceCode r" id="cb29"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">data_spine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(Class.attribute) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb29-3" data-line-number="3"><span class="st">  </span><span class="kw">summarize_all</span>(<span class="kw">funs</span>(<span class="dt">Mean =</span> <span class="kw">mean</span>(., <span class="dt">na.rm=</span>T),</a>
+<a class="sourceLine" id="cb29-4" data-line-number="4">                     <span class="dt">SEM =</span> <span class="kw">sd</span>(., <span class="dt">na.rm=</span>T)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">n</span>()))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb29-5" data-line-number="5"><span class="st">  </span><span class="kw">gather</span>(variable, value, <span class="op">-</span>Class.attribute) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb29-6" data-line-number="6"><span class="st">  </span><span class="kw">separate</span>(variable, <span class="kw">c</span>(<span class="st">&#39;Variable&#39;</span>,<span class="st">&#39;stat&#39;</span>), <span class="dt">sep =</span> <span class="st">&#39;_&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb29-7" data-line-number="7"><span class="st">  </span><span class="kw">spread</span>(stat, value) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb29-8" data-line-number="8"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">lcb =</span> Mean <span class="op">-</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>SEM, <span class="dt">ucb =</span> Mean <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>SEM) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb29-9" data-line-number="9"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Class.attribute, <span class="dt">y =</span> Mean, <span class="dt">ymin =</span> lcb, <span class="dt">ymax =</span> ucb)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb29-10" data-line-number="10"><span class="st">    </span><span class="kw">geom_pointrange</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb29-11" data-line-number="11"><span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Variable, <span class="dt">scales =</span> <span class="st">&#39;free_y&#39;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb29-12" data-line-number="12"><span class="st">    </span><span class="kw">labs</span>( <span class="dt">x =</span> <span class="st">&#39;Class&#39;</span>, <span class="dt">y =</span> <span class="st">&#39;&#39;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb29-13" data-line-number="13"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&#39;Confidence intervals of the mean&#39;</span>)</a></code></pre>
+<p>Work through the pipeline yourself to understand what each step does, just like last week</p>
+</section><section id="section-3" class="slide level2">
+<h2></h2>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-38-1.png" width="768" height="500px" /></p>
+</section></section>
+<section><section id="grouped-visualization" class="title-slide slide level1"><h1>Grouped visualization</h1></section><section id="density-plot-1" class="slide level2">
+<h2>Density plot</h2>
+<pre class="sourceCode r" id="cb30"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Sacral.slope, <span class="dt">group =</span> Class.attribute, </a>
+<a class="sourceLine" id="cb30-2" data-line-number="2">                       <span class="dt">color=</span>Class.attribute))<span class="op">+</span></a>
+<a class="sourceLine" id="cb30-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-39-1.png" width="576" height="500px" /></p>
+</section><section id="scatter-plot" class="slide level2">
+<h2>Scatter plot</h2>
+<pre class="sourceCode r" id="cb31"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope,</a>
+<a class="sourceLine" id="cb31-2" data-line-number="2">                       <span class="dt">group =</span> Class.attribute, <span class="dt">color =</span> Class.attribute))<span class="op">+</span></a>
+<a class="sourceLine" id="cb31-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-40-1.png" width="768" height="500px" /></p>
+</section><section id="scatter-plot-black-and-white" class="slide level2">
+<h2>Scatter plot (Black and White)</h2>
+<pre class="sourceCode r" id="cb32"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope, </a>
+<a class="sourceLine" id="cb32-2" data-line-number="2">                       <span class="dt">group =</span> Class.attribute, <span class="dt">shape =</span> Class.attribute))<span class="op">+</span></a>
+<a class="sourceLine" id="cb32-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre>
+<img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-41-1.png" width="768" height="500px" />
+<aside class="notes">
+You sometimes don’t want to pay the journal for color pages
+</aside>
+</section><section id="scatter-plot-with-size-representing-third-variable" class="slide level2">
+<h2>Scatter plot with size representing third variable</h2>
+<pre class="sourceCode r" id="cb33"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope))<span class="op">+</span></a>
+<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> Pelvic.slope))</a></code></pre>
+<img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-42-1.png" width="768" height="500px" />
+<aside class="notes">
+<p>Here, we’re adding information from another variable into the plot</p>
+<p>Note we have the <code>aes()</code> function inside <code>geom_smooth</code>. This can cause some confusion.</p>
+Basically, if what you need comes from the dataset, you need to enclose it in <code>aes()</code>. If it’s just a parameter of the <code>geom</code>, like color or linetype and is a fixed quantity, don’t need <code>aes()</code>
+</aside>
+</section><section id="scatter-plot-combinations" class="slide level2">
+<h2>Scatter plot combinations</h2>
+<pre class="sourceCode r" id="cb34"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope, </a>
+<a class="sourceLine" id="cb34-2" data-line-number="2">                       <span class="dt">group =</span> Class.attribute, <span class="dt">color =</span> Class.attribute))<span class="op">+</span></a>
+<a class="sourceLine" id="cb34-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> Pelvic.slope))</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-43-1.png" width="768" height="500px" /></p>
+</section><section id="scatter-plot-with-lines" class="slide level2">
+<h2>Scatter plot with lines</h2>
+<pre class="sourceCode r" id="cb35"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope, </a>
+<a class="sourceLine" id="cb35-2" data-line-number="2">                       <span class="dt">group =</span> Class.attribute, <span class="dt">color=</span>Class.attribute))<span class="op">+</span></a>
+<a class="sourceLine" id="cb35-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb35-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&#39;lm&#39;</span>)</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-44-1.png" width="576" height="500px" /></p>
+</section><section id="scatter-plot-with-lines-1" class="slide level2">
+<h2>Scatter plot with lines</h2>
+<pre class="sourceCode r" id="cb36"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope))<span class="op">+</span></a>
+<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb36-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Class.attribute), <span class="dt">method=</span><span class="st">&#39;lm&#39;</span>)</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-45-1.png" width="576" height="500px" /></p>
+</section></section>
+<section><section id="facetting" class="title-slide slide level1"><h1>Facetting</h1></section><section id="facetting-1" class="slide level2">
+<h2>Facetting</h2>
+<p>Facetted graphs are a panel of graphs, each of which corresponds to a particular subgroup of the data.</p>
+</section><section id="facetted-scatter-plot" class="slide level2">
+<h2>Facetted scatter plot</h2>
+<pre class="sourceCode r" id="cb37"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope))<span class="op">+</span></a>
+<a class="sourceLine" id="cb37-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb37-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_wrap</span>( <span class="op">~</span><span class="st"> </span>Class.attribute, <span class="dt">nrow=</span><span class="dv">1</span>)</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-46-1.png" width="768" height="500px" /></p>
+</section><section id="facetted-scatter-plot-with-lines" class="slide level2">
+<h2>Facetted scatter plot with lines</h2>
+<pre class="sourceCode r" id="cb38"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">ggplot</span>(data_spine, <span class="kw">aes</span>(<span class="dt">x =</span> Lumbar.lordosis.angle, <span class="dt">y =</span> Sacral.slope))<span class="op">+</span></a>
+<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&#39;lm&#39;</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb38-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_wrap</span>( <span class="op">~</span><span class="st"> </span>Class.attribute, <span class="dt">nrow=</span><span class="dv">1</span>)</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-47-1.png" width="768" height="500px" /></p>
+</section></section>
+<section><section id="manhattan-plot-1" class="title-slide slide level1"><h1>Manhattan plot</h1></section><section id="manhattan-plot-2" class="slide level2">
+<h2>Manhattan plot</h2>
+<pre class="sourceCode r" id="cb39"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">library</span>(qqman)</a>
+<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="kw">data</span>(gwasResults)</a>
+<a class="sourceLine" id="cb39-3" data-line-number="3"><span class="kw">head</span>(gwasResults)</a></code></pre>
+<pre><code>#     SNP CHR BP         P
+#   1 rs1   1  1 0.9148060
+#   2 rs2   1  2 0.9370754
+#   3 rs3   1  3 0.2861395
+#   4 rs4   1  4 0.8304476
+#   5 rs5   1  5 0.6417455
+#   6 rs6   1  6 0.5190959</code></pre>
+<pre class="sourceCode r" id="cb41"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">gwasResults &lt;-<span class="st"> </span>gwasResults <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">x_position =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">n</span>())</a></code></pre>
+<aside class="notes">
+<p>This is a summary of the results of a GWAS. <code>P</code> gives the nominal p-values</p>
+The function <code>n()</code> gives the number of observations in the current data set
+</aside>
+</section><section id="manhattan-plot-3" class="slide level2">
+<h2>Manhattan plot</h2>
+<pre class="sourceCode r" id="cb42"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">ggplot</span>(gwasResults, <span class="kw">aes</span>(<span class="dt">x =</span> x_position, <span class="dt">y =</span> <span class="op">-</span><span class="kw">log</span>(P, <span class="dt">base=</span><span class="dv">10</span>)))<span class="op">+</span></a>
+<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="fl">0.2</span>)</a></code></pre>
+<img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-49-1.png" width="768" height="500px" />
+<aside class="notes">
+We transform the p-values to -log<sub>10</sub>(p-value), and make the point size small
+</aside>
+</section><section id="manhattan-plot-4" class="slide level2">
+<h2>Manhattan plot</h2>
+<pre class="sourceCode r" id="cb43"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">ggplot</span>(gwasResults, <span class="kw">aes</span>(<span class="dt">x =</span> x_position, <span class="dt">y =</span> <span class="op">-</span><span class="kw">log</span>(P, <span class="dt">base=</span><span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb43-2" data-line-number="2">                        <span class="dt">group=</span>CHR, <span class="dt">color=</span>CHR))<span class="op">+</span></a>
+<a class="sourceLine" id="cb43-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="fl">0.2</span>)</a></code></pre>
+<img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-50-1.png" width="768" height="500px" />
+<aside class="notes">
+Oops!! We wanted points colored by chromosome. But that didn’t happen because we put CHR in as numeric. Need to convert to factor, i.e., discrete
+</aside>
+</section><section id="manhattan-plot-5" class="slide level2">
+<h2>Manhattan plot</h2>
+<pre class="sourceCode r" id="cb44"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">ggplot</span>(gwasResults, <span class="kw">aes</span>(<span class="dt">x =</span> x_position, <span class="dt">y =</span> <span class="op">-</span><span class="kw">log</span>(P, <span class="dt">base=</span><span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb44-2" data-line-number="2">                        <span class="dt">group=</span><span class="kw">factor</span>(CHR), <span class="dt">color=</span><span class="kw">factor</span>(CHR)))<span class="op">+</span></a>
+<a class="sourceLine" id="cb44-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="fl">0.2</span>)</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-51-1.png" width="768" height="500px" /></p>
+</section><section id="manhattan-plot-6" class="slide level2">
+<h2>Manhattan plot</h2>
+<pre class="sourceCode r" id="cb45"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">ggplot</span>(gwasResults, <span class="kw">aes</span>(<span class="dt">x =</span> x_position, <span class="dt">y =</span> <span class="op">-</span><span class="kw">log</span>(P, <span class="dt">base=</span><span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb45-2" data-line-number="2">                        <span class="dt">group=</span><span class="kw">factor</span>(CHR), <span class="dt">color=</span><span class="kw">factor</span>(CHR)))<span class="op">+</span></a>
+<a class="sourceLine" id="cb45-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="fl">0.2</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb45-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">8</span>, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">linetype=</span><span class="dv">2</span>)</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/unnamed-chunk-52-1.png" width="768" height="500px" /></p>
+</section><section id="manhattan-plot-exploded" class="slide level2">
+<h2>Manhattan plot, exploded</h2>
+<pre class="sourceCode r" id="cb46"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="kw">ggplot</span>(gwasResults, <span class="kw">aes</span>(<span class="dt">x =</span> BP, <span class="dt">y =</span> <span class="op">-</span><span class="kw">log</span>(P, <span class="dt">base=</span><span class="dv">10</span>)))<span class="op">+</span></a>
+<a class="sourceLine" id="cb46-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="fl">0.2</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb46-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>CHR, <span class="dt">nrow=</span><span class="dv">4</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb46-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">8</span>, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">linetype=</span><span class="dv">2</span>)</a></code></pre>
+<p><img src="lecture4_visualization_files/figure-revealjs/exploded-1.png" width="768" height="500px" /></p>
+</section><section id="manhattan-plot-exploded-1" class="slide level2">
+<h2>Manhattan plot, exploded</h2>
+<p><img src="lecture4_visualization_files/figure-revealjs/exploded1-1.png" width="768" height="500px" /></p>
+</section></section>
+    </div>
+  </div>
+
+  <script src="lecture4_visualization_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="lecture4_visualization_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Transition style
+        transition: 'convex', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+        menu: {
+          titleSelector: 'h1',
+          hideMissingTitles: true,
+          custom: false,
+          themes: false,
+          transitions: false
+        },
+
+
+
+        chalkboard: {
+        },
+
+        keyboard: {
+          67: function() { RevealChalkboard.toggleNotesCanvas() },    // toggle notes canvas when 'c' is pressed
+          66: function() { RevealChalkboard.toggleChalkboard() }, // toggle chalkboard when 'b' is pressed
+          46: function() { RevealChalkboard.clear() },    // clear chalkboard when 'DEL' is pressed
+           8: function() { RevealChalkboard.reset() },    // reset chalkboard data on current slide when 'BACKSPACE' is pressed
+          68: function() { RevealChalkboard.download() }, // downlad recorded chalkboard drawing when 'd' is pressed
+        },
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'lecture4_visualization_files/reveal.js-3.3.0.1/plugin/notes/notes.js', async: true },
+          { src: 'lecture4_visualization_files/reveal.js-3.3.0.1/plugin/chalkboard/chalkboard.js', async: true },
+          { src: 'lecture4_visualization_files/reveal.js-3.3.0.1/plugin/menu/menu.js', async: true },
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>

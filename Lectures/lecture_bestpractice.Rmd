@@ -1,0 +1,423 @@
+---
+title: "Project Organization"
+author: "Abhijit Dasgupta"
+date: "December 5, 2017"
+output: ioslides_presentation
+---
+
+
+
+# Why organize?
+
+## Common Objectives
+
++ Maximize
+    + Time to think about a project
+    + Reliability/Reproducibility
++ Minimize
+    + Data errors
+    + Programmer/Analyst errors
+    + Programming Time
+    + Re-orientation time when revisiting
+    
+## Our inclination
+
++ Once we get a data set
+    + Dig in!!
+    + Start "playing" with tables and figures
+    + Try models on-the-fly
+    + Cut-and-paste into reports and presentations
+
+## Our inclination
+
++ Once we get a data set
+    + Dig in!!
+    + Start "playing" with tables and figures
+    + Try models on-the-fly
+    + Cut-and-paste into reports and presentations
+    
+<p style="color:red;font-size:180%;text-align:center;">
+DON'T DO THIS!!
+</p>
+
+# Abhijit's story
+
+## Seven years ago
+
++ 25 year study of rheumatoid arthritis
++ 5600 individuals
++ Several cool survival analysis models
++ Needed data cleaning, validation and munging, and some custom computations
++ Lots of visualizations
+
+## Seven years ago
+
++ Resulted in a muddle of 710 files (starting from 4 data files)
++ Unwanted cyclic dependencies for intermediate data creation
++ Lots of ad hoc decisions and function creation with scripts
++ Almost impossible to re-factor and clean up
++ Had to return to this project for 3 research papers and revision cycles!!!
+
+# Who is the most likely consumer of your work?
+
+##
++ Yourself in 
+    + 3 months
+    + 1 year
+    + 5 years
++ Can't send your former self e-mail asking what the f**k you did.
+
+##
+
+Biggest reason for good practices is 
+
+
+<p style="font-size:200%; text-align: center" > YOUR OWN SANITY </p>
+
+
+# RStudio Projects
+
+## RStudio Projects
+
+```{r,  echo=F, message=F, warning=F}
+library(magick)
+plt <- image_read('Lecture14_data/project1.png')
+image_scale(plt, "1600")
+```
+
+## RStudio Projects
+```{r, echo=F, message=F, warning=F}
+plt <- image_read('Lecture14_data/project2.png')
+image_scale(plt, "1600")
+```
+
+## RStudio Projects
+```{r,  echo=F, message=F, warning=F}
+plt <- image_read('Lecture14_data/project3.png')
+image_scale(plt, "1600")
+```
+
+## RStudio Projects
+```{r,  echo=F, message=F, warning=F}
+plt <- image_read('Lecture14_data/project4.png')
+image_scale(plt, "1600")
+```
+
+## RStudio Projects
+```{r,  echo=F, message=F, warning=F}
+plt <- image_read('Lecture14_data/project5.png')
+image_scale(plt, "1600")
+```
+
+## RStudio Projects
+```{r,  echo=F, message=F, warning=F}
+plt <- image_read('Lecture14_data/project6.png')
+image_scale(plt, "1600")
+```
+
+## RStudio Projects
+```{r,  echo=F, message=F, warning=F}
+plt <- image_read('Lecture14_data/project7.png')
+image_scale(plt, "1600")
+```
+
+## RStudio Projects
+
+When you create a Project, the following obvious things happen:
+
+1. RStudio puts you into the right directory/folder
+2. Creates a .Rproj file containing project options
+    + You can double-click on the .Rproj file to open the project in RStudio
+3. Displays the project name in the project toolbar (right top of the window)
+
+## RStudio Projects
+
+The following not-so-obvious things happen:
+
+1. A new R session (process) is started
+2. The .Rprofile file in the project’s main directory (if any) is sourced by R
+3. The .RData file in the project’s main directory is loaded (this can be controlled by an option).
+4. The .Rhistory file in the project’s main directory is loaded into the RStudio History pane (and used for Console Up/Down arrow command history).
+5. The current working directory is set to the project directory.
+6. Previously edited source documents are restored into editor tabs, and
+7. Other RStudio settings (e.g. active tabs, splitter positions, etc.) are restored to where they were the last time the project was closed.
+
+## RStudio Projects
+
+I use [Projects]() so that:
+
+1. I'm always in the right directory for the project
+2. I don't contaminate one project's analysis with another (different sandboxes)
+3. I can access different projects quickly
+4. I can version control them (Git) easily (topic for beyond this class)
+5. I can customize options per project
+
+## RStudio Projects
+```{r, echo=F}
+plt <- image_read('Lecture14_data/project8.png')
+image_scale(plt, "1600")
+```
+
+# Project organization
+
+## Project structure
+
+I always work with RStudio Projects to encapsulate my projects.  
+
+However, each project needs to maintain a file structure to know where to find things
+
+## Use a template to organize each project
+
++ Before you even get data
++ Set up a particular folder structure where
+    + You know what goes where
+    + You already have canned scripts/packages set up
++ Make sure it's the same structure __every time__
++ Next time you visit, you don't need to go into desperate search mode
+
+-----
+
+```{r, echo=F}
+plt <- image_read('Lecture14_data/best_practices_structure.png')
+image_scale(plt, '1600x')
+```
+
+## File structure
+
+You can certainly choose your own organization for files  
+
+I have a suggested way:
+
+```{r, eval=FALSE}
+# install.packages('devtools')
+devtools::install_github('webbedfeet/ProjTemplate')
+ProjTemplate::useTemplate()
+```
+
+-----
+
+```{r, echo=F}
+plt <- image_read('Lecture14_data/ProjTemplate.png')
+image_scale(plt, '1700x')
+```
+
+## File naming
+
++ Use descriptive file names
++ Be explicit
+    + File1.R, File4.R won't help you
+    + DataMunging.R, RegressionModels.R will
++ Well-chosen names saves a lot of time and heartache
+
+## Documentation
+
++ Create at least a README file to describe what the project is about.
++ I've started creating a "lab notebook" for data analyses
+    + Usually named `Notebook.Rmd`
+    + Either a straight R Markdown file or a R Notebook
+    + Keep notes on
+        + What products (data sets, tables, figures) I've created
+        + What new scripts I've written
+        + What new functions I've written
+        + Notes from discussions with colleagues on decisions regarding data, analyses, final products
+  
+## Documentation
+
++ Document your code as much as you can
+    + Copious comments to state what you're doing and why
++ If you write functions
+    + Use [Roxygen](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) to document the inputs, outputs, what the function does and an example
+
+_____
+
+```{r, echo=F}
+plt <- image_read('Lecture14_data/roxygen.png')
+image_scale(plt, '1700')
+```
+
+_____
+
+```{r, echo=F}
+plt <- image_read('Lecture14_data/roxygen2.png')
+image_scale(plt, '1700')
+```
+
+_____
+
+```{r, echo=F}
+plt <- image_read('Lecture14_data/roxygen3.png')
+image_scale(plt, '1700')
+```
+
+## Package sanity
+
+You can load different packages in different scripts  
+
+Then you run a particular script and realize it needed a package you loaded in another script  
+
+You didn't realize it because the packae was already loaded when you developed the script  
+
+So I started putting all the package calls in a single place, in 'lib/pkgs.yml'  
+
+What's this `pkgs.yml`?!!!
+
+----
+
+```{r, echo=F}
+plt <- image_read('Lecture14_data/pkgs.png')
+image_scale(plt, '1600x')
+```
+
+## Package sanity
+
++ The name `pkgs.yml` is specific if you use my `ProjTemplate` pkg, which expects a `lib/pkgs.yml`  
+
++ You can also start it using, for example,  `ProjTemplate::add_package(c('tidyverse','ggplot2'))`
+
++ You can load all the packages using `ProjTemplate::load_packages()`. This will install packages if they're not already installed, and then load them into the current namespace
+
+
+#Function sanity
+
+## The computer follows direction really well
+
++ Use scripts/functions to derive quantities you need  for other functions
++ Don't hard-code numbers
+
+```{r, eval=F}
+runif(n = nrow(dat), min = min(dat$age), max = max(dat$age))
+```
+rather than
+```{r, eval=F}
+runif(n = 135, min = 18, max = 80)
+```
+
++ This reduces potential errors in data transcription
+    + These are really hard to catch
+
+## Create functions rather than copy-paste code
++ If you're doing the same thing more than twice, write a function (_DRY principle_)
++ Put the function in its own file, stored in a particular place
+    + I store them in `lib/R`.
+    + Don't hide them in general script files where other stuff is happening
+    + Name the file so you know what's in it
+    + One function or a few related functions per file
++ Write the basic documentation __NOW__!
+
+## Loading your functions
+
+If you're using `ProjTemplate`:
+
+1. Store all functions you will need as files in `lib/R` sub-directory of your main directory
+2. Use `ProjTemplate::reload()` to load all the functions into a separate environment
+    + Design choice so it doesn't clutter up your namespace
+3. `reload` will also load packages at the same time.
+
+Otherwise:
+```{r, eval=T}
+funcfiles <- dir('lib/R', pattern = '.R')
+for(f in funcfiles){
+  source(f)
+}
+```
+
+## Ancillary benefit of ProjTemplate
+
+The directory structure created and the way files are stored makes the `lib` folder easily convertible into an R package.  
+
+It has almost the right structure, just needs to become a package  
+
+See Hadley's book "R Packages", available for FREE [here](http://r-pkgs.had.co.nz/)  
+
+See also, [here](https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/), [here](https://www.rstudio.com/products/rpackages/devtools/) and [here](http://stat545.com/packages00_index.html)  
+
+> You can also create a package structure using RStudio Projects; just choose "R Package" instead of "New Project". It gets you exactly the right file structure
+
+# General considerations
+
+##
+```{r, echo=F}
+plt <- image_read('Lecture14_data/pipeline.png')
+image_scale(plt, '1600x')
+```
+
+## Manipulate data with care
++ Keep a pristine copy of the data
++ Use scripts to manipulate data for reproducibility
+    + Can catch analyst mistakes and fix
++ Systematically verify and clean
+    + Create your own Standard Operating Plan
++ Document what you find
+    + Lab notebook ([example](http://www.carlboettiger.info/lab-notebook.html))
+
+## Manipulate data with care
++ The laws of unintended consequences are vicious and unforgiving, and appear all too frequenty at the data munging stage
++ For example, data types can change (factor to integer)
++ Test your data at each stage to make sure you still have what you think you have
+
+## Track data provenance through the pipeline
++ Typically:
+
+> Raw data >> Intermediate data >> Final data >> data for sub-analyses >> data for final tables and figures
+
++ Catalog and track where you create data, and where you ingest it
++ Make sure there are no loops!!
+
+## Share preliminary analysis for a sniff
++ Share initial explorations with colleagues so they pass a "sniff" test
+    + Are data types what you expect
+    + Are data ranges what you expect
+    + Are distributions what you expect
+    + Are relationships what you expect
+
+## Share preliminary analysis for a sniff
++ Are anomalies you find reasonable?
+    + Instrument error
+    + Data recording error
+    + True outlier
+    + Wrong study design
++ This stuff is important and requires deliberate brain power
++ May require feedback loop and more thinking about the problem
+
+## A general pipeline
+```{r, echo=F}
+plt <- image_read('Lecture14_data/tidypipeline.jpg')
+image_scale(plt, '1600x')
+```
+<p style="text-align:right; font-size:70%"> David Robinson, 2016</p>
+
+## Know where final tables and figures come from
++ I create separate files for creating figures and tables for a paper
+    + They're called `FinalTables.R` and `FinalFigures.R`. Duh!
++ This provides final check that right data are used, and can be updated easily during revision cycle
+
++ It's a long road to this point, so make sure things are good. 
+
+# Closing thoughts
+
+## Use R
+
+The only way to learn R is to __use R__
+
++ There are plenty of resources online
+    + [R-Bloggers](http://www.r-bloggers.com)
++ There are user groups locally (the ones in DC is "Statistical Programming DC" and "R-Ladies DC")
++ "Steal" code, modify it, and make it yours (All hail the glories of open source)
++ Teach others
+
+## Final administration
+
+Send talks to your instructor before class starts
+
++ 5-6 slides
++ Demonstrates entire pipeline, from data ingestion to reporting
++ Preferably from your own work, but other data is fine too if you can't share your own data
++ I propose to put final slides as zip file on website, so we can all see what others are doing. If you don't want your slide up there, drop Abhijit a line (adasgupta@araastat.com)
++ Slide file should be named "FirstName_LastName_BIOF339.pdf"
+
+# Hope you learned something !!
++ 
+
+
+
+
