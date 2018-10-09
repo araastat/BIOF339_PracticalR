@@ -36,7 +36,7 @@ Supplemental Material
 
 <a href="Lectures/lecture3_tidyverse.html" target = "_blank">Presentation</a>
 
-<a href="Lectures/lecture3_files/Lecture3_2018_Practicum.html" target="_blank">Practicum</a>
+<a href="Lectures/lecture3tidyverse_files/Lecture3_2018_Practicum.html" target="_blank">Practicum</a> ([Solution](Lectures/lecture3tidyverse_files/Lecture3_2018_Practicum_Solutions.html){target="_blank"})
 
 Supplemental material
 
