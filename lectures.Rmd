@@ -52,11 +52,11 @@ Supplemental material
 
 #### Online resources
 
-+ The ggplot [website](http://docs.ggplot2.org) has many resources to help create visualizations
++ The ggplot [website](http://docs.ggplot2.org){target="_blank"} has many resources to help create visualizations
 + [Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf){target="_blank"}
 + The [R Graph Gallery](https://www.r-graph-gallery.com/){target="_blank"}
 + There are a lot of blogs showing many capabilities of ggplot2
-+ [StackOverflow](http://www.stackoverflow.org) is the place for Q & A. 
++ [StackOverflow](https://stackoverflow.com/questions/tagged/r) is the place for Q & A. Their tag is `r`. They also have tags `ggplot2`, `ggpubr` and `cowplot`. 
 
 #### Other packages
 
