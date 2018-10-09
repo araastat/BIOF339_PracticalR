@@ -24,7 +24,7 @@ In-built datasets in R: `data()`
 
 ### Lecture 2
 
-<a href="Lectures/lecture2a_dataframe.html" target="_blank">Presentation</a>
+<a href="Lectures/lecture2a_dataframe.html" target="_blank">Presentation</a> ([PDF](Lectures/lecture2a_dataframe.pdf){target="_blank"})
 
 <a href="Lectures/lecture2dataframe_files/lecture2_practicum.html" target="_blank">Practicum</a> (<a href="Lectures/lecture2dataframe_files/lecture2_practicum_solutions.html" target="_blank">Solution</a>)
 
@@ -34,7 +34,7 @@ Supplemental Material
 
 ### Lecture 3
 
-<a href="Lectures/lecture3_tidyverse.html" target = "_blank">Presentation</a>
+<a href="Lectures/lecture3_tidyverse.html" target = "_blank">Presentation</a> ([PDF](Lectures/lecture3_tidyverse.pdf){target="_blank"})
 
 <a href="Lectures/lecture3tidyverse_files/Lecture3_2018_Practicum.html" target="_blank">Practicum</a> ([Solution](Lectures/lecture3tidyverse_files/Lecture3_2018_Practicum_Solutions.html){target="_blank"})
 
@@ -44,7 +44,7 @@ Supplemental material
 
 ### Lecture 4
 
-<a href="Lectures/lecture4_visualization.html" target = "_blank">Presentation</a>
+<a href="Lectures/lecture4_visualization.html" target = "_blank">Presentation</a> ([PDF](Lectures/lecture4_visualization.pdf){target="_blank"})
 
 [R Markdown file](Lectures/lecture4_visualization.Rmd){target="_blank"} | [PDF](https://www.dropbox.com/s/7bobrpz4cv9n0jw/lecture4_visualization.pdf?dl=0){target="_blank"}
 
