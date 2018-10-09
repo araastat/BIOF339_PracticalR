@@ -18,7 +18,11 @@ navbar:
       href: events.html
     - text: Blog
       href: blog/public/index.html
-    - text: GitHub
+    - icon: fa-slack
+      text: Slack
+      href: https://biof339practicalr.slack.com/
+    - icon: fa-github
+      text: GitHub
       href: https://github.com/araastat/BIOF339_PracticalR/tree/gh-pages
 output:
   html_document:

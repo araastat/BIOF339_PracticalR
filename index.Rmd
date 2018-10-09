@@ -18,6 +18,8 @@ Contact info:
 - Abhijit Dasgupta: <a href = "mailto:adasgupta@araastat.com">adasgupta@araastat.com</a>
 - Eugen Buehler: <a href = "mailto:eugencbuehler@gmail.com">eugencbuehler@gmail.com</a>
 
+> There is a Slack Channel associated with this class. Please contact Joe Jessee (<a href="mailto:jjessee1@jhu.edu">jjessee1@jhu.edu</a>) if you want access
+
 
 <a href="http://www.r-project.org" target="_blank">R</a> is one of the most popular programming languages for 
 data science and statistics. It is a free and open source language available for 

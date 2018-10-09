@@ -9,11 +9,19 @@ output: html_document
 ### Instructors
 
 <table style="width:80%;">
-<tr><td>Abhijit Dasgupta, PhD </td><td>Phone: (301) 385-3067 (Office)</td></tr>
+<tr><td width="30%">Abhijit Dasgupta, PhD </td><td>Phone: (301) 385-3067 (Office)</td></tr>
 <tr><td></td><td>Email: <a href="mailto:adasgupta+biof339@araastat.com">adasgupta@araastat.com</a></td></tr>
-<tr><td>Eugen Buehler, PhD </td><td>Phone: (301) 637-9774 (Office)</td></tr>
+<tr><td width="30%">Eugen Buehler, PhD </td><td>Phone: (301) 637-9774 (Office)</td></tr>
 <tr><td></td><td>Email: <a href="mailto:eugencbuehler@gmail.com">eugencbuehler@gmail.com</a></td></tr>
 </table>
+
+### Teaching assistant
+<table style="width:80%;margin-bottom: 10px;">
+<tr>
+<td width="30%">Joe Jessee </td><td>Email: <a href="mailto:jjessee1@jhu.edu">jjessee1@jhu.edu</a></td></tr>
+</table>
+
+Contact Joe if you want access to the Slack Channel for the class.
 
 -----
 
@@ -59,7 +67,7 @@ topics <- c('Introduction to R and RStudio. Basic Data Types',
             'Introduction to Tidy Data and the Tidyverse: Data Munging',
           'Exploring Data through Visualization.' ,
           'Basic Statistical Analysis with R: Summary statistics, Hypothesis tests',
-          'Building Statistical Models with R: Linear Regression, Formula" interface ' ,
+          'Building Statistical Models with R: Linear Regression, Formula interface ' ,
           'R Packages. Importing & exporting data. "Apply" family of functions'  ,
           'Importing and exporting data. Data manipulation. “Apply” family of functions. Missing data ' ,
           'Tidyverse II:  Data manipulation with purrr and *apply',
