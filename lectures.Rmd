@@ -8,7 +8,7 @@ Last updated: `r format(Sys.time(), '%b %d, %Y (%I:%M%p %Z)')`
 
 ------
 
-### Lecture 1
+### Lecture 1 : Introduction
 
 [Presentation](Lectures/lecture_intro.pdf){target="_blank"}
 
@@ -22,7 +22,7 @@ Supplemental Material
 
 In-built datasets in R: `data()`
 
-### Lecture 2
+### Lecture 2 : Data Frames and other structures
 
 <a href="Lectures/lecture_dataframe.html" target="_blank">Presentation</a> ([PDF](Lectures/lecture_dataframe.pdf){target="_blank"})
 
@@ -32,7 +32,7 @@ Supplemental Material
 
 + [A primer on R Notebooks](Lectures/lecturedataframe_files/RNotebook.html){target="_blank"}
 
-### Lecture 3
+### Lecture 3 : Introduction to the tidyverse
 
 <a href="Lectures/lecture_tidyverse.html" target = "_blank">Presentation</a> ([PDF](Lectures/lecture_tidyverse.pdf){target="_blank"})
 
@@ -42,7 +42,7 @@ Supplemental material
 
 + [`dplyr` cheatsheet](https://www.rstudio.com/resources/cheatsheets/#dplyr)
 
-### Lecture 4
+### Lecture 4 : Data Visualization
 
 <a href="Lectures/lecture_visualization.html" target = "_blank">Presentation</a> ([PDF](Lectures/lecture_visualization.pdf){target="_blank"})
 
