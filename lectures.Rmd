@@ -10,7 +10,7 @@ Last updated: `r format(Sys.Date(), '%B %d, %Y')`
 
 ### Lecture 1
 
-[Presentation](Lectures/lecture_intro.pdf)
+[Presentation](Lectures/lecture_intro.pdf){target="_blank"}
 
 <a href="Lectures/lecture_intro_files/lecture_intro_Exercises.html" target="_blank">Practice Exercises for Lecture 1</a> (<a href="Lectures/lecture_intro_files/lecture_intro_ExercisesSolution.html" target="_blank">Solutions</a>)
 
@@ -30,11 +30,11 @@ In-built datasets in R: `data()`
 
 Supplemental Material
 
-+ [A primer on R Notebooks](Lectures/lecturedataframe_files/RNotebook.html)
++ [A primer on R Notebooks](Lectures/lecturedataframe_files/RNotebook.html){target="_blank"}
 
 ### Lecture 3
 
-<a href="Lectures/lecture3_tidyverse.html" target = "_blank">Presentation</a> ([PDF](Lectures/lecture3_tidyverse.pdf){target="_blank"})
+<a href="Lectures/lecture_tidyverse.html" target = "_blank">Presentation</a> ([PDF](Lectures/lecture_tidyverse.pdf){target="_blank"})
 
 <a href="Lectures/lecturetidyverse_files/lecture_tidyverse_Practicum.html" target="_blank">Practicum</a> ([Solution](Lectures/lecturetidyverse_files/lecture_tidyverse_Practicum_Solutions.html){target="_blank"})
 
