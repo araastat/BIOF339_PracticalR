@@ -4,7 +4,7 @@ date: "Fall 2018"
 output: html_document
 ---
 
-Last updated: `r format(Sys.Date(), '%B %d, %Y')`
+Last updated: `r format(Sys.time(), '%b %d, %Y (%I:%M%p %Z)')`
 
 ------
 
