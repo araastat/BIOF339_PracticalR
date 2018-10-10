@@ -61,3 +61,9 @@ Supplemental material
 #### Other packages
 
 + The [`cowplot`](http://cran.rstudio.com/package=cowplot) and [`ggpubr`](https://cran.r-project.org/package=ggpubr) packages provide several improvements on ggplot2, including more themes and an easy way to put several graphs together in a panel
+
+### Lecture 5 : Statistics
+
+<a href="Lectures/lecture_summaries.html" target = "_blank">Presentation</a> ([PDF](Lectures/lecture_summaries.pdf){target="_blank"})
+
+<a href="Lectures/lecture_summaries_files/lecture_summaries_Practicum.html" target="_blank">Practicum</a> ([Solution](Lectures/lecture_summaries_files/lecture_summaries_PracticumSolution.html){target="_blank"})
