@@ -1,7 +1,7 @@
 ---
 title: "Local Events"
 author: "BIOF 339"
-date: "9/12/2018"
+date: "`r format(Sys.Date(),'%B %e, %Y')`"
 output: html_document
 ---
 
@@ -10,9 +10,18 @@ greater DC area that might involve R, including events in the NIH community.
 
 For a more comprehensive calendar of data science related events, you can bookmark the [Data Community DC Calendar](http://www.datacommunitydc.org/calendar/)
 
+```{r, message=F, warning=F, echo = F}
+library(tidyverse)
+d <- tribble(
+  ~dts, ~Event, ~Location,~Link,
+  '2018-10-17','R-Ladies DC: Lecture on Interactive Data Visualization in R', 'GWU Gelman Library','https://www.meetup.com/rladies-dc/events/255309143/',
+  '2018-11-08','DC R conference','Ronald Reagan Building','http://dc.rstats.ai',
+  '2018-12-08','SatRday R Community Meeting', 'GWU Jack Morton Auditorium', 'https://dc2018.satrdays.org/'
+)
+d <- d %>% mutate(dts = format(as.Date(dts), '%b %e, %Y')) %>% 
+  rename(Date = dts)
+knitr::kable(d)
+```
 
-Date          | Event
-------------- | ------------------------------
-November 8-9  | DC R conference ([link](http://dc.rstats.ai))
 
-
+> Dr. Dasgupta is a speaker at the [DC R Conference](http://dc.rstats.ai){target="_blank"}, along with many brighter stars of the R universe. 
