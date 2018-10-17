@@ -71,3 +71,5 @@ Supplemental material
 ### Lecture 6 : Data Input and Output
 
 <a href="Lectures/lecture_dataio.html" target = "_blank">Presentation</a> ([PDF](Lectures/lecture_dataio.pdf){target="_blank"})
+
+<a href="Lectures/lecture7_files/Lecture7Practicum.html" target="_blank">Practicum</a> ([Solution](Lectures/lecture7_files/Lecture7PracticumSolution.html){target="_blank"})
