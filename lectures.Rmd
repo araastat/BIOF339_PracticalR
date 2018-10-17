@@ -72,4 +72,4 @@ Supplemental material
 
 <a href="Lectures/lecture_dataio.html" target = "_blank">Presentation</a> ([PDF](Lectures/lecture_dataio.pdf){target="_blank"})
 
-<a href="Lectures/lecture7_files/Lecture7Practicum.html" target="_blank">Practicum</a> ([Solution](Lectures/lecture7_files/Lecture7PracticumSolution.html){target="_blank"})
+<a href="Lectures/lecturedataio_files/lecture_dataio_Practicum.html" target="_blank">Practicum</a> ([Solution](Lectures/lecturedataio_files/lecture_dataio_PracticumSolution.html){target="_blank"})
