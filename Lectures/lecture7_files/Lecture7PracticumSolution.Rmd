@@ -1,7 +1,7 @@
 ---
-title: "Lecture 7 Practicum"
-author: "Eugen Buehler"
-date: "October 24, 2017"
+title: "Data IO Practicum Solution"
+author: "EB & AD"
+date: "October 17, 2018"
 output: html_document
 ---
 

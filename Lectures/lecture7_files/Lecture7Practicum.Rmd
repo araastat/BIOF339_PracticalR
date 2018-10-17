@@ -1,7 +1,7 @@
 ---
-title: "Lecture 7 Practicum"
-author: "Eugen Buehler"
-date: "October 24, 2017"
+title: "Data IO Practicum"
+author: "EB & AD"
+date: "October 17, 2018"
 output: html_document
 ---
 
@@ -51,7 +51,7 @@ names(full_dat) <- make.names(names(full_dat)) # gets rid of spaces in names
 names(full_dat)[7] <- 'Normalized.Cell.Count' # Less crazy
 ```
 
-5. Using the "reshape2" package, melt the new single data set so that measured experimental attributes are in a single column.
+5. Using the "reshape2" or "tidyverse" packages, melt the new single data set so that measured experimental attributes are in a single column.
 ```{r}
 library(reshape2)
 melted_data <- melt(full_dat, id.vars = 1:5)
@@ -65,7 +65,7 @@ ggplot(melted_data, aes(value))+
   facet_wrap(~variable, nrow=2, scales='free')
 ```
 
-7. Use aggregate or dcast to find the median value of both readouts for each gene (Gene Symbol) and put this aggregation into a new table.  Save that table as a csv file and try opening it in Excel.  Did you get the results you expected?  Try modifying the arguments to write.csv so you get what you would want if you were giving this to a collaborator.
+7. Use aggregate, dcast or tidyr to find the median value of both readouts for each gene (Gene Symbol) and put this aggregation into a new table.  Save that table as a csv file and try opening it in Excel.  Did you get the results you expected?  Try modifying the arguments to write.csv so you get what you would want if you were giving this to a collaborator.
 ```{r}
 output <- dcast(melted_data, `Gene.Symbol`~variable, median)
 # output <- aggregate(cbind(Percent.Positive.Virus, Normalized.Cell.Count)~Gene.Symbol, full_dat, median)
