@@ -1,0 +1,379 @@
+---
+title: "Data Import and Export"
+author: "Eugen Buehler"
+date: "October 17, 2018"
+output:
+  beamer_presentation: default
+  slidy_presentation: default
+  ioslides_presentation: default
+---
+
+## Importing Data to R from a file
+
+- CSV (comma separated value)
+- tab delimited files
+- Excel formats (xls, xlsx)
+- SPSS/SAS/Stata
+- RStudio will tell you if you need to load packages
+- This is not a complete list.  If it is a popular file format, chances are there is a way for R to read it.
+
+## New and Improved with Tidyverse!
+
+This lecture has been adapted from when we first gave it two years ago, to prefer using tidy syntax and import methods when possible.  So first things first, we have to load the tidyverse packages!
+
+```{r}
+library(tidyverse)
+```
+
+
+## Problems to watch for after data import
+
+- Data type (R may encode columns as strings that should be numbers)
+- Missing values (how many are there and can we leave them be)
+
+## Fixing type problems after import
+
+R will usually try to guess the type (numeric, character, etc) that it should use to represent your data.  But it makes mistakes!  You can use the "as" functions to convert between many types.  For example:
+
+```{r eval=FALSE, echo=TRUE}
+myTable <- myTable %>% mutate(column4 = as.numeric(column4)) %>%
+           mutate(column3 = as.character(column3)) %>%
+           mutate(column2 = as.factor(column2))
+```
+
+## Core R import functions vs. Tidy R
+
+Tidy R import functions usually include an underscore, as opposed to a dot.  The tidy R functions (from readr library and included in tidyverse) will produce a tibble, which will allow you to keep column names with their original characters and won't turn a column of characters into a factor by default.
+
+```{r}
+myTitanicDataFrame <- read.csv("test.csv")
+myTitanicTibble <- read_csv("test.csv")
+```
+
+
+## Checking for missing values
+
+Once importing a data set, you can use "anyNA" to check if there are any missing values.
+```{r}
+anyNA(myTitanicTibble)
+```
+
+## Using Apply
+
+The apply function allows you to apply a function 1 each row or column or a matrix or data frame.  For data frames, it usually only makes sense to apply functions to each column (where everything has the same type)
+
+```{r eval = FALSE}
+apply(myTable, 2, sum)
+apply(myMatrix, 1, mean)
+```
+
+## Finding the distribution of missing values
+
+Once you know there are missing values, you can start checking for where they occur.  is.na will return TRUE if a value is NA and FALSE otherwise.  Applied to a vector, it will return an equal sized vector of TRUE/FALSE.  You can then "sum" that vector to see how many "NAs" you have.
+
+```{r}
+apply(myTitanicTibble, 2, function(x) sum(is.na(x)))
+```
+
+## Excluding observations with missing values
+
+If you have a lot of data, it might be OK to just exclude observations (rows) that having missing data.
+
+```{r}
+fixedTitanic <- myTitanicTibble[! apply(myTitanicTibble,1, anyNA), ]
+anyNA(fixedTitanic)
+```
+
+Bear in mind that excluding rows with missing data could bias your results.  What if ages were missing more for poor people than for rich people?
+
+## Excluding missing value rows (the tidy way)
+
+```{r}
+fixedTitanic <- myTitanicTibble %>% drop_na()
+anyNA(fixedTitanic)
+```
+
+If you only want to filter out NAs in certain columns, you can do that by supplying the column names to drop_na().
+
+## Imputing Missing Data
+
+Imputing essentially means filling in missing values with educated guesses.  The guesses could be based on models formed between the variables to try and predict the missing values, or could use a "k-nearest" neighbor approach.
+
+Imputation is a big subject and there are numerous packages in R to do it.  Just remember that if you choose to use imputed data, make sure that you can justify the method used and the underlying statistical assumptions, and that you never pass the imputed data off as "real" data.
+
+## Joining Tables
+
+Recall that if tables have the same format (same columns or the same number of rows), we can join them easily.
+
+```{r eval=FALSE}
+newTable <- rbind(table1, table2)
+newTable <- cbind(table1, table2)
+```
+
+Sometimes our two tables might not have exactly the same columns, in which case we could tell R to subset just on columns they both have.
+
+```{r eval=FALSE}
+commonColumns <- intersect(colnames(table1), colnames(table2))
+rbind(table1[,commonColumns], table2[,commonColumns])
+```
+## Aggregating Data (with TidyR)
+
+```{r}
+meanWeightByFeed <- chickwts %>%
+                    group_by(feed) %>%
+                    summarize(meanWeight = mean(weight))
+meanWeightByFeed
+```
+
+## Aggregating Data (with aggregate)
+
+Frequently we want to summarize the data in a way that combines several observations into one.  Examples would include take the average of all replicates, taking the average microarray readout for all probes against a given gene, etc.  We can use the aggregate function to do this.
+
+```{r}
+meanWeightByFeed <- aggregate(weight ~ feed, data = chickwts, mean)
+meanWeightByFeed <- aggregate(chickwts[,"weight"],
+                              list(FeedType = chickwts$feed), mean)
+```
+
+Both versions of the above command will create a table of mean weights for each feed type.  The first formula interface is easier to type when dealing with small numbers of things to aggregate.  The second form can be convenient when we want to aggregate on a large set of columns.  Not that here we specified the mean, but we could just as easily use any other function (median, sd, sum, etc)
+
+## The reshape package
+
+ We will now use the "melt" and "cast" functions from the "reshape" package to manipulate the ChickWeight data frame.
+
+```{r}
+ChickWeight[1:5,]
+```
+
+## Melted Chicks
+First, let's melt the chick weight table
+
+```{r}
+library(reshape2)
+chick.melt <- melt(ChickWeight, id=2:4, na.rm=TRUE)
+chick.melt[1:5,]
+```
+
+## Casting Melted Chicks
+
+```{r}
+chick.time <- dcast(chick.melt, Diet + Chick ~ Time)
+chick.time[1:5,]
+```
+
+Notice the NAs!  If each combination of Diet and Chick does not have a value for all possible times, it will be filled in with an NA!
+
+## Casting Melted Chicks 2
+
+```{r}
+chick.diet <- dcast(chick.melt, Time + Chick ~ Diet)
+chick.diet[1:5,]
+```
+
+## Casting Melted Chicks 3
+
+```{r}
+chick.time <- dcast(chick.melt, Time ~ variable)
+chick.time[1:5,]
+```
+
+## Corrected cast with agregation method
+
+```{r}
+chick.time <- dcast(chick.melt, Time ~ variable, fun.aggregate = mean)
+chick.time[1:5,]
+```
+
+## Reshape vs. TidyR's gather and spread
+
+In Tidy R, gather does much the same thing as melt and spread does something very similar to cast.  In general, you will find it much easier to use the Tidy R functions.  Occasionally, reshape will allow you to have more power when you want to spread things out using multiple variables (via cast).
+
+```{r}
+ChickWeight %>% as.tibble() %>% 
+    spread(Time, weight) %>%
+    head()
+```
+
+
+## Sample Workflow - Introduction
+
+In the following slides, I'll demonstrate how these functions would be used together to merge, reshape, plot and analyze two replicate experiments with multiple data readouts.  The ability to do this kind of analysis easily (once you know what you're doing) is what separates R from Excel.
+
+The data used in these examples is siRNA screening data.  The data is "high content", meaning that computers generate multiple numeric features based on automated microscopy of each well of a 384 well plate.
+
+## Merging the data with rbind
+
+Because our data sets have all of the same columns, we can use rbind to put them together.  But before we do that, we create a new column in each called "replicate" so that we can keep track of where each data row came from.
+
+```{r}
+kinome1 <- read_csv("kinome1.csv")
+kinome2 <- read_csv("kinome2.csv")
+kinome1$replicate <- "Rep1"
+kinome2$replicate <- "Rep2"
+kinome <- rbind(kinome1,kinome2)
+```
+
+## Checking out the Data
+
+Before melting the data, we need to make some intelligent decisions about what to keep.  We can use View() or str() to take a look:
+
+```{r}
+str(kinome[,1:10])
+```
+
+## Checking out the Data 2
+
+```{r}
+str(kinome[,11:25])
+```
+
+## Melting the Data
+
+Let's keep the siRNA ID (so we know when we have different siRNAs against the same gene), the gene symbol, the replicate, and all of the measurements for each well.
+
+```{r}
+kinome.tidy <- kinome %>%
+  select(VPLATE_CATNUM,
+         SYMBOL,replicate,
+         cells.raw:integrated.intensity.gH2AX.neg.norm) %>%
+  gather(Readout, Value, cells.raw:integrated.intensity.gH2AX.neg.norm)  
+kinome.tidy %>% head()
+```
+
+## Data distribution for each readout
+
+```{r}
+library(ggplot2)
+ggplot(kinome.tidy, aes(x=Value)) + geom_density(alpha=0.5, color="blue") +
+  facet_wrap(~ Readout, scales = "free")
+```
+
+## Data distribution per readout, color replicates
+
+```{r}
+ggplot(kinome.tidy, aes(x=Value, color=replicate)) + geom_density(alpha=0.5) +
+  facet_wrap(~ Readout, scales = "free")
+```
+
+## Spreading out the kinome
+
+We would like to be able to plot the replicates opposite each other, but for that we need them in two separate columns.  
+
+```{r}
+kinome.reps <- kinome.tidy %>% spread(replicate, Value)
+kinome.reps[1:3,]
+```
+
+## Scatterplots of replicates
+
+```{r}
+ggplot(kinome.reps, aes(x=Rep1, y=Rep2)) + geom_point(alpha=0.5) + 
+  facet_wrap(~ Readout, scales="free")
+```
+
+## Evaluating the Correlation of Replicates
+
+```{r}
+kinome.reps %>% 
+  group_by(Readout) %>%
+  summarize(Correlation = cor(Rep1, Rep2, method = "spearman")) %>%
+  head()
+```
+
+## Casting the Data for Collaborators (Part 1)
+
+We can reform the data so that replicates of each readout are side by side in a table.  This is an example of where "cast" will give you more flexibility than "spread".
+
+```{r}
+kinome.output <- dcast(kinome.tidy, VPLATE_CATNUM + SYMBOL ~ Readout + replicate)
+kinome.output[1,]
+```
+
+## Casting the Data for Collaborators (Part 2)
+
+Alternatively, we can leave the replicate out by taking the mean of the Readouts before we spread.
+
+```{r}
+kinome.output2 <- kinome.tidy %>%
+                  group_by(VPLATE_CATNUM, SYMBOL, Readout) %>%
+                  summarize(Value = mean(Value)) %>%
+                  spread(Readout, Value)
+kinome.output2[1,]
+```
+
+## Aggregating Further
+
+If we want to take the average of the two replicates and then further aggregate to the gene level, we can:
+
+```{r}
+kinome.output3 <- kinome.tidy %>%
+                  group_by(VPLATE_CATNUM, SYMBOL, Readout) %>%
+                  summarize(Value = mean(Value)) %>%
+                  group_by(SYMBOL, Readout) %>%
+                  summarize(Value = median(Value)) %>%
+                  spread(Readout, Value)
+kinome.output3[1,]
+```
+
+## Exporting Data to other R users
+
+If you want to share all of your work in R with someone, you can just give them the ".RData" file that will be automatically saved when you quit R.  Or you can manually save to that file at any time with the "save.image" function.
+
+```{r eval=FALSE, echo=TRUE}
+save.image()
+```
+
+You can also save a subset of your work to an RData file to share with others, by listing the R objects you want to be stored in the file:
+
+```{r eval=FALSE, echo=TRUE}
+save(myTable, myList, myFunction, file="dataToShare.RData")
+```
+
+Your collaborator would then just use "load" to load the data file you provide:
+
+```{r eval=FALSE, echo=TRUE}
+load("dataToShare.RData")
+```
+
+## Exporting Individual R Objects
+
+```{r eval=FALSE, echo=TRUE}
+saveRDS(myTable, file="myTable.rds")
+# some other time...
+thatTable <- readRDS("myTable.rds")
+```
+
+## Exporting Data for Excel (CSV)
+
+Perhaps the most common platform for analyzing data is Excel.  You could export data in CSV (comma separated value format), which Excel can read.
+
+```{r eval=FALSE, echo=TRUE}
+myTable %>% write_csv(file="myTable.csv")
+```
+
+Note that write_csv is faster than write.csv and has better default behavior (like not writing row names). 
+
+## Exporting Data Using Rio
+
+Rio is a very handy package (short for R input/output).  A very nice feature of rio is the export function, which will figure out what kind of file you want to export based on the file extension that you use.
+
+```{r eval=FALSE, echo=TRUE}
+library(rio)
+myTable %>% export("myTable.xlsx") # writes an Excel file
+myTable %>% export("myTable.csv") # writes a CSV file
+myGeneInfo %>% export("myTable.xlsx", which="Genes")
+mySirnaInfo %>% exort("myTable.xlsx", which="Sirnas", overwrite=FALSE)
+```
+
+Rio let's you forget largely about what package is doing the work.  It can save things in Matlab format, SAS, JSON, XML, SPSS, and more.
+## Exporting Graphics
+
+If you want to save a graph that you have generated in RStudio, there is an "Export" button that will allow you to save your results as a PDF.  However, the pdf function gives us a little more power to do things like generate multi-page graphs.
+
+```{r eval=FALSE, echo=TRUE}
+pdf(file = "histograms.pdf", width=10.5, height=8)
+sapply(colnames(iris)[1:4], function (x) hist(iris[,x], main=x))
+dev.off()
+```
+
+The pdf command creates a new graphical output which is a pdf file.  The sapply command then generates four different histograms, one for each numeric column in the iris dataset.  They will each be on a separate page of the pdf.  The "dev.off()" command closes the output and finishes creating the pdf.  You won't be able to use the pdf until you run dev.off()!
