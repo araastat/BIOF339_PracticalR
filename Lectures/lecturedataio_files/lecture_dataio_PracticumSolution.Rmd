@@ -52,13 +52,13 @@ names(full_dat) <- make.names(names(full_dat)) # gets rid of spaces in names
 names(full_dat)[7] <- 'Normalized.Cell.Count' # Less crazy
 ```
 
-5. Using the "reshape2" package, melt the new single data set so that measured experimental attributes are in a single column.
+5. Using the `reshape2` package, melt the new single data set so that measured experimental attributes are in a single column.
 ```{r}
 library(reshape2)
 melted_data <- melt(full_dat, id.vars = 1:5)
 ```
 
-6. Use ggplot to plot density curves for the two assay readouts (percent positive virus and cell count) simultaneuously.
+6. Use `ggplot` to plot density curves for the two assay readouts (percent positive virus and cell count) simultaneuously.
 ```{r}
 library(ggplot2)
 ggplot(melted_data, aes(value))+
@@ -66,7 +66,7 @@ ggplot(melted_data, aes(value))+
   facet_wrap(~variable, nrow=2, scales='free')
 ```
 
-7. Use aggregate or dcast to find the median value of both readouts for each gene (Gene Symbol) and put this aggregation into a new table.  Save that table as a csv file and try opening it in Excel.  Did you get the results you expected?  Try modifying the arguments to write.csv so you get what you would want if you were giving this to a collaborator.
+7. Use `aggregate` or `dcast` to find the median value of both readouts for each gene (Gene Symbol) and put this aggregation into a new table.  Save that table as a csv file and try opening it in Excel.  Did you get the results you expected?  Try modifying the arguments to write.csv so you get what you would want if you were giving this to a collaborator.
 ```{r}
 output <- dcast(melted_data, `Gene.Symbol`~variable, median)
 # output <- aggregate(cbind(Percent.Positive.Virus, Normalized.Cell.Count)~Gene.Symbol, full_dat, median)
@@ -87,7 +87,7 @@ top_10_genes <-  dplyr::arrange(output, desc(Percent.Positive.Virus))[1:10,'Gene
 top_10_genes <- dplyr::top_n(output, 10, Percent.Positive.Virus)$Gene.Symbol
 ```
 
-9. Make a table that is a subset of the single data table from step 4, keeping only rows in which a gene was in the top 10 (hint: use the %in% operator).
+9. Make a table that is a subset of the single data table from step 4, keeping only rows in which a gene was in the top 10 (hint: use the `%in%` operator).
 ```{r}
 new_table <-  dplyr::filter(full_dat, Gene.Symbol %in% top_10_genes)
 ```
@@ -101,7 +101,7 @@ ggplot(new_table, aes(Percent.Positive.Virus, Normalized.Cell.Count))+
 ```
 
 
-11. Label the points on the graph from step 10 with the Gene Symbol associated with each data point (using aes(label = ) and geom_text)
+11. Label the points on the graph from step 10 with the Gene Symbol associated with each data point (using `aes(label = )` and `geom_text`)
 ```{r}
 ggplot(new_table, aes(Percent.Positive.Virus, Normalized.Cell.Count, label = Gene.Symbol))+
   geom_point()+geom_text(hjust=0.5,vjust=0)+
@@ -109,7 +109,7 @@ ggplot(new_table, aes(Percent.Positive.Virus, Normalized.Cell.Count, label = Gen
 ```
 
 
-12. Extra Credit: Download and install the package "ggrepel".  Read its documentation and use it to make it so your labels in step 11 aren't so ovelapping and messy.
+12. Extra Credit: Download and install the package `ggrepel`.  Read its documentation and use it to make it so your labels in step 11 aren't so ovelapping and messy.
 ```{r}
 library(ggrepel)
 ggplot(new_table, aes(Percent.Positive.Virus, Normalized.Cell.Count, label = Gene.Symbol))+
@@ -119,7 +119,7 @@ ggplot(new_table, aes(Percent.Positive.Virus, Normalized.Cell.Count, label = Gen
 ```
 
 
-13. Extra Credit: Use the pdf command to open graphical output to a pdf file.  Generate the two versions of the graph (from 11 and 12) again (from your command history), so that their output goes to the pdf file.  Close the pdf file using (dev.off()).  Now open the pdf file on your computer to see that the two graphs are on seperate pages.
+13. Extra Credit: Use the pdf command to open graphical output to a pdf file.  Generate the two versions of the graph (from 11 and 12) again (from your command history), so that their output goes to the pdf file.  Close the pdf file using `dev.off()`.  Now open the pdf file on your computer to see that the two graphs are on seperate pages.
 ```{r}
 plt1 <- ggplot(new_table, aes(Percent.Positive.Virus, Normalized.Cell.Count, 
                               label = Gene.Symbol))+
