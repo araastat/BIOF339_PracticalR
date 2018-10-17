@@ -3,10 +3,13 @@ title: "Data Import and Export"
 author: "Eugen Buehler"
 date: "October 17, 2018"
 output:
+  ioslides_presentation: default
   beamer_presentation: default
   slidy_presentation: default
-  ioslides_presentation: default
 ---
+```{r setup, include=F}
+knitr::opts_chunk$set(message = F, warning = F)
+```
 
 ## Importing Data to R from a file
 
@@ -366,6 +369,7 @@ mySirnaInfo %>% exort("myTable.xlsx", which="Sirnas", overwrite=FALSE)
 ```
 
 Rio let's you forget largely about what package is doing the work.  It can save things in Matlab format, SAS, JSON, XML, SPSS, and more.
+
 ## Exporting Graphics
 
 If you want to save a graph that you have generated in RStudio, there is an "Export" button that will allow you to save your results as a PDF.  However, the pdf function gives us a little more power to do things like generate multi-page graphs.
