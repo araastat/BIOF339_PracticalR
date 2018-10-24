@@ -15,6 +15,13 @@ output:
 
 ---
 
+layout: true
+
+<div class="my-header">
+<span>BIOF 339, Fall 2018</span></div>
+
+---
+
 ```{r setup, include=FALSE, message = F, warning = F}
 knitr::opts_chunk$set(echo = FALSE, message = F, warning = F, comment="")
 library(tidyverse)
@@ -67,6 +74,7 @@ class: inverse, middle, center
     - Personal health data across different healthcare entities
 
 ---
+
 # Joining data sets
 
 We already talked about `cbind` and `rbind`:
@@ -85,6 +93,7 @@ knitr::include_graphics('lecture_joins_sac_data/addrow.png')
 ]
 
 ---
+
 # Joining data sets
 
 .pull-left[
@@ -124,6 +133,7 @@ We will assume:
 The "join condition" are the common variables in the two datasets, i.e. rows are selected if the values of the common variables in the left dataset matches the values of the common variables in the right dataset
 
 ---
+
 ## Data example
 
 ```{r, echo=T}
@@ -148,6 +158,7 @@ proteome
 ]
 
 ---
+
 ## Data example
 
 ```{r, eval = F, echo=T}
@@ -337,6 +348,7 @@ final_data2
 ```
 
 ---
+
 # Split-apply-combine
 
 ```{r}
@@ -344,6 +356,7 @@ knitr::include_graphics('lecture_joins_sac_data/split-apply-combine.png')
 ```
 
 ---
+
 ## Splitting data by protein
 
 There are two ways of doing this:
@@ -496,6 +509,7 @@ my_test(final_data2_nest$data[[2]])
     - Extract the element `ER_Status` from each element of `data`
 
 ---
+
 ## Pipelining this process
 
 ```{r, echo=T}
@@ -603,6 +617,7 @@ knitr::kable(d, format = 'html', digits=3)
 ```
 
 ---
+
 # False discovery rates (FDR)
 
 The FDR is 
@@ -621,6 +636,7 @@ significance on a sliding scale. The adjusted values here are often referred to 
 FDR control procedures retain more statistical power than  Bonferroni corrections. There are other variants of this like the Benjamini-Yeukitili (BY) procedure
 
 ---
+
 # An example
 
 If we see 10 heads in a row, we can statistically test whether the coin is biased or not. 
@@ -631,6 +647,7 @@ prop.test(x = 10, n = 10, p = 0.5) # x = heads, n = tosses
 
 
 ---
+
 ### P-value adjustment
 
 .small[Suppose we want to test if pennies in circulation are biased (i.e. chance of a head is not 0.5). We collect 20,000 pennies and flip each of then 100 times, recording the number of heads. We can simulate this experiment in R using the `rbinom` function, use the `prop.test`
@@ -640,8 +657,8 @@ function to test our hypothesis, and then get adjusted p-values using the `p.adj
 set.seed(1243) # Initialize the random number generator
 coinTable <- tibble(heads = rbinom(n = 20000, size = 100, prob = 0.5))
 coinTable <- coinTable %>% mutate(pvals = map_dbl(heads, ~prop.test(., 100, 0.5)$p.value))
-coinTable <- coinTable %>% mutate(bonf = p.adjust(pvals, method = 'bonferroni')) %>% 
-  mutate(q_value = p.adjust(pvals, method = 'fdr'))
+{{coinTable <- coinTable %>% mutate(bonf = p.adjust(pvals, method = 'bonferroni')) %>% 
+  mutate(q_value = p.adjust(pvals, method = 'fdr'))}}
 ```
 ```{r}
 coinTable
@@ -656,6 +673,7 @@ coinTable %>% summarize_at(vars(-heads), funs(mean(. < 0.05)))
 + Note that `map` can take a vector as input, since a vector is converted internally into a list of numbers
 
 ---
+
 ### P-value adjustment
 
 If the coins are truly biased, we can see that the Bonferroni misses most of them whereas the q-value doesn't.

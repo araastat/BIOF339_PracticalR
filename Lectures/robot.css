@@ -113,3 +113,21 @@ li{
 .small {
   font-size: 80%;
 }
+
+div.my-header {
+  background-color: #272822;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 30px;
+  width: 100%;
+  text-align: left;
+}
+
+div.my-header span{
+  font-size: 12pt;
+  color: #F7F8FA;
+  position: absolute;
+  left: 15px;
+  bottom: 2px;
+}
