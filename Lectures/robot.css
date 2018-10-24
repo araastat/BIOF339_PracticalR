@@ -40,7 +40,7 @@ a:hover, a:hover > code {
   padding-right: 4em;
   font-size: 90%;
 }
-.remark-code-line-highlighted { background-color: #ffaaff; }
+.remark-code-line-highlighted { background-color: green; } /* modified */
 
 .inverse {
   background-color: #4c4c4c;

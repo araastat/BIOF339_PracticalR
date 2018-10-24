@@ -137,18 +137,18 @@ proteome &lt;- read_excel('lecture_joinsmodels2_data/BreastCancer_Expression.xls
 
 ```
 # A tibble: 105 x 30
-   Complete_TCGA_ID Gender Age_at_Initial_… ER_Status PR_Status
-   &lt;chr&gt;            &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;    
- 1 TCGA-A2-A0T2     FEMALE               66 Negative  Negative 
- 2 TCGA-A2-A0CM     FEMALE               40 Negative  Negative 
- 3 TCGA-BH-A18V     FEMALE               48 Negative  Negative 
- 4 TCGA-BH-A18Q     FEMALE               56 Negative  Negative 
- 5 TCGA-BH-A0E0     FEMALE               38 Negative  Negative 
- 6 TCGA-A7-A0CE     FEMALE               57 Negative  Negative 
- 7 TCGA-D8-A142     FEMALE               74 Negative  Negative 
- 8 TCGA-A2-A0D0     FEMALE               60 Negative  Negative 
- 9 TCGA-AO-A0J6     FEMALE               61 Negative  Negative 
-10 TCGA-A2-A0YM     FEMALE               67 Negative  Negative 
+   Complete_TCGA_ID Gender Age_at_Initial_Pathologic_… ER_Status PR_Status
+   &lt;chr&gt;            &lt;chr&gt;                        &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;    
+ 1 TCGA-A2-A0T2     FEMALE                          66 Negative  Negative 
+ 2 TCGA-A2-A0CM     FEMALE                          40 Negative  Negative 
+ 3 TCGA-BH-A18V     FEMALE                          48 Negative  Negative 
+ 4 TCGA-BH-A18Q     FEMALE                          56 Negative  Negative 
+ 5 TCGA-BH-A0E0     FEMALE                          38 Negative  Negative 
+ 6 TCGA-A7-A0CE     FEMALE                          57 Negative  Negative 
+ 7 TCGA-D8-A142     FEMALE                          74 Negative  Negative 
+ 8 TCGA-A2-A0D0     FEMALE                          60 Negative  Negative 
+ 9 TCGA-AO-A0J6     FEMALE                          61 Negative  Negative 
+10 TCGA-A2-A0YM     FEMALE                          67 Negative  Negative 
 # ... with 95 more rows, and 25 more variables: HER2_Final_Status &lt;chr&gt;,
 #   Tumor &lt;chr&gt;, Tumor_T1_Coded &lt;chr&gt;, Node &lt;chr&gt;, Node_Coded &lt;chr&gt;,
 #   Metastasis &lt;chr&gt;, Metastasis_Coded &lt;chr&gt;, AJCC_Stage &lt;chr&gt;,
@@ -166,18 +166,18 @@ proteome &lt;- read_excel('lecture_joinsmodels2_data/BreastCancer_Expression.xls
 
 ```
 # A tibble: 83 x 11
-   TCGA_ID NP_958782 NP_958785 NP_958786 NP_000436 NP_958781 NP_958780
-   &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
- 1 TCGA-A…     1.10      1.11      1.11      1.11      1.12      1.11 
- 2 TCGA-C…     2.61      2.65      2.65      2.65      2.65      2.65 
- 3 TCGA-A…    -0.660    -0.649    -0.654    -0.632    -0.640    -0.654
- 4 TCGA-B…     0.195     0.215     0.215     0.205     0.215     0.215
- 5 TCGA-C…    -0.494    -0.504    -0.501    -0.510    -0.504    -0.504
- 6 TCGA-C…     2.77      2.78      2.78      2.80      2.79      2.78 
- 7 TCGA-E…     0.863     0.870     0.870     0.866     0.870     0.870
- 8 TCGA-C…     1.41      1.41      1.41      1.41      1.41      1.41 
- 9 TCGA-A…     1.19      1.19      1.19      1.19      1.20      1.19 
-10 TCGA-A…     1.10      1.10      1.10      1.10      1.09      1.10 
+   TCGA_ID     NP_958782 NP_958785 NP_958786 NP_000436 NP_958781 NP_958780
+   &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+ 1 TCGA-AO-A1…     1.10      1.11      1.11      1.11      1.12      1.11 
+ 2 TCGA-C8-A1…     2.61      2.65      2.65      2.65      2.65      2.65 
+ 3 TCGA-AO-A1…    -0.660    -0.649    -0.654    -0.632    -0.640    -0.654
+ 4 TCGA-BH-A1…     0.195     0.215     0.215     0.205     0.215     0.215
+ 5 TCGA-C8-A1…    -0.494    -0.504    -0.501    -0.510    -0.504    -0.504
+ 6 TCGA-C8-A1…     2.77      2.78      2.78      2.80      2.79      2.78 
+ 7 TCGA-E2-A1…     0.863     0.870     0.870     0.866     0.870     0.870
+ 8 TCGA-C8-A1…     1.41      1.41      1.41      1.41      1.41      1.41 
+ 9 TCGA-A2-A0…     1.19      1.19      1.19      1.19      1.20      1.19 
+10 TCGA-AO-A1…     1.10      1.10      1.10      1.10      1.09      1.10 
 # ... with 73 more rows, and 4 more variables: NP_958783 &lt;dbl&gt;,
 #   NP_958784 &lt;dbl&gt;, NP_112598 &lt;dbl&gt;, NP_001611 &lt;dbl&gt;
 ```
@@ -244,6 +244,65 @@ We see that both have the same ID variable, but with different names and differe
 Let's keep only the first two columns so we can see the ID variable
 
 ---
+
+## Data example
+
+Let's make sure that the ID's are truly IDs, i.e. each row has a unique value
+
+
+```r
+length(unique(clinical$Complete_TCGA_ID)) == nrow(clinical)
+```
+
+```
+[1] TRUE
+```
+--
+
+
+```r
+length(unique(proteome$TCGA_ID)) == nrow(proteome)
+```
+
+```
+[1] FALSE
+```
+
+
+--
+&lt;div style="height:25%;margins:auto;"&gt;
+&lt;img style="display:block; margin:0 auto; height: 70%;" src="https://twitchy.com/wp-content/uploads/2015/04/screen-shot-2015-04-13-at-2-06-38-pm-300x300.png"/&gt;
+&lt;/div&gt;
+
+???
+
+We need the ID variables to be unique for each row. If we use multiple columns to define the "ID" then each row needs to have a unique set of values for those columns. Otherwise the joins get confused about 
+which rows go with which rows. 
+
+---
+## Data example
+
+For convenience we'll keep the first instance for each ID in the `proteome` data
+
+
+```r
+proteome &lt;- proteome %&gt;% filter(!duplicated(TCGA_ID))
+```
+
+&gt; `duplicated` = TRUE if a previous row contains the same value
+
+--
+
+
+```r
+length(unique(proteome$TCGA_ID)) == nrow(proteome)
+```
+
+```
+[1] TRUE
+```
+
+---
 ## Inner join
 
 
@@ -252,20 +311,20 @@ common_rows &lt;- inner_join(clinical[,1:6], proteome, by=c('Complete_TCGA_ID'='
 ```
 
 ```
-# A tibble: 80 x 16
-   Complete_TCGA_ID Gender Age_at_Initial_… ER_Status PR_Status
-   &lt;chr&gt;            &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;    
- 1 TCGA-A2-A0CM     FEMALE               40 Negative  Negative 
- 2 TCGA-BH-A18Q     FEMALE               56 Negative  Negative 
- 3 TCGA-A7-A0CE     FEMALE               57 Negative  Negative 
- 4 TCGA-D8-A142     FEMALE               74 Negative  Negative 
- 5 TCGA-AO-A0J6     FEMALE               61 Negative  Negative 
- 6 TCGA-A2-A0YM     FEMALE               67 Negative  Negative 
- 7 TCGA-A2-A0D2     FEMALE               45 Negative  Negative 
- 8 TCGA-A2-A0SX     FEMALE               48 Negative  Negative 
- 9 TCGA-AO-A0JL     FEMALE               59 Negative  Negative 
-10 TCGA-AO-A12F     FEMALE               36 Negative  Negative 
-# ... with 70 more rows, and 11 more variables: HER2_Final_Status &lt;chr&gt;,
+# A tibble: 77 x 16
+   Complete_TCGA_ID Gender Age_at_Initial_Pathologic_… ER_Status PR_Status
+   &lt;chr&gt;            &lt;chr&gt;                        &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;    
+ 1 TCGA-A2-A0CM     FEMALE                          40 Negative  Negative 
+ 2 TCGA-BH-A18Q     FEMALE                          56 Negative  Negative 
+ 3 TCGA-A7-A0CE     FEMALE                          57 Negative  Negative 
+ 4 TCGA-D8-A142     FEMALE                          74 Negative  Negative 
+ 5 TCGA-AO-A0J6     FEMALE                          61 Negative  Negative 
+ 6 TCGA-A2-A0YM     FEMALE                          67 Negative  Negative 
+ 7 TCGA-A2-A0D2     FEMALE                          45 Negative  Negative 
+ 8 TCGA-A2-A0SX     FEMALE                          48 Negative  Negative 
+ 9 TCGA-AO-A0JL     FEMALE                          59 Negative  Negative 
+10 TCGA-AO-A12F     FEMALE                          36 Negative  Negative 
+# ... with 67 more rows, and 11 more variables: HER2_Final_Status &lt;chr&gt;,
 #   NP_958782 &lt;dbl&gt;, NP_958785 &lt;dbl&gt;, NP_958786 &lt;dbl&gt;, NP_000436 &lt;dbl&gt;,
 #   NP_958781 &lt;dbl&gt;, NP_958780 &lt;dbl&gt;, NP_958783 &lt;dbl&gt;, NP_958784 &lt;dbl&gt;,
 #   NP_112598 &lt;dbl&gt;, NP_001611 &lt;dbl&gt;
@@ -273,7 +332,7 @@ common_rows &lt;- inner_join(clinical[,1:6], proteome, by=c('Complete_TCGA_ID'='
 
 --
 
-Note that we have all the columns from both datasets, but only 80 rows, which is the common set of IDs from the two datasets
+Note that we have all the columns from both datasets, but only 77 rows, which is the common set of IDs from the two datasets
 --
 
 &gt; If you don't include the `by` option, R will attempt to match values of any columns with the same names
@@ -286,23 +345,474 @@ left_rows &lt;- left_join(clinical[,1:6], proteome, by=c('Complete_TCGA_ID'='TCG
 ```
 
 ```
+# A tibble: 105 x 16
+  Complete_TCGA_ID Gender Age_at_Initial_Pathologic_Diagnosis ER_Status
+  &lt;chr&gt;            &lt;chr&gt;                                &lt;dbl&gt; &lt;chr&gt;    
+1 TCGA-A2-A0T2     FEMALE                                  66 Negative 
+2 TCGA-A2-A0CM     FEMALE                                  40 Negative 
+3 TCGA-BH-A18V     FEMALE                                  48 Negative 
+  PR_Status HER2_Final_Status NP_958782 NP_958785 NP_958786 NP_000436
+  &lt;chr&gt;     &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 Negative  Negative             NA        NA        NA        NA    
+2 Negative  Negative              0.683     0.694     0.698     0.687
+3 Negative  Negative             NA        NA        NA        NA    
+  NP_958781 NP_958780 NP_958783 NP_958784 NP_112598 NP_001611
+      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1    NA        NA        NA        NA         NA       NA    
+2     0.687     0.698     0.698     0.698     -2.65    -0.984
+3    NA        NA        NA        NA         NA       NA    
+# ... with 102 more rows
+```
+
+We get 105 rows, which is all the rows of `clinical`, combined with the rows of `proteome` with common IDs. The rest of the rows get `NA` for the proteome columns.
+
+---
+## Right join
+
+```r
+right_rows &lt;- right_join(clinical[,1:6], proteome, by=c('Complete_TCGA_ID'='TCGA_ID'))
+```
+
+```
+# A tibble: 80 x 16
+  Complete_TCGA_ID Gender Age_at_Initial_Pathologic_Diagnosis ER_Status
+  &lt;chr&gt;            &lt;chr&gt;                                &lt;dbl&gt; &lt;chr&gt;    
+1 TCGA-AO-A12D     FEMALE                                  43 Negative 
+2 TCGA-C8-A131     FEMALE                                  82 Negative 
+3 TCGA-AO-A12B     FEMALE                                  63 Positive 
+  PR_Status HER2_Final_Status NP_958782 NP_958785 NP_958786 NP_000436
+  &lt;chr&gt;     &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 Negative  Positive              1.10      1.11      1.11      1.11 
+2 Negative  Negative              2.61      2.65      2.65      2.65 
+3 Positive  Negative             -0.660    -0.649    -0.654    -0.632
+  NP_958781 NP_958780 NP_958783 NP_958784 NP_112598 NP_001611
+      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1     1.12      1.11      1.11      1.11     -1.52      0.483
+2     2.65      2.65      2.65      2.65      3.91     -1.05 
+3    -0.640    -0.654    -0.649    -0.649    -0.618     1.22 
+# ... with 77 more rows
+```
+
+--
+
+Here we get 80 rows, which is all the rows of `proteome`, along with the rows of `clinical` with common IDs, but with the columns of `clinical` appearing first.
+
+---
+## Outer/Full Join
+
+
+```r
+full_rows &lt;- full_join(clinical[,1:6], proteome, by=c('Complete_TCGA_ID'='TCGA_ID'))
+```
+
+```
 # A tibble: 108 x 16
-   Complete_TCGA_ID Gender Age_at_Initial_… ER_Status PR_Status
-   &lt;chr&gt;            &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;    
- 1 TCGA-A2-A0T2     FEMALE               66 Negative  Negative 
- 2 TCGA-A2-A0CM     FEMALE               40 Negative  Negative 
- 3 TCGA-BH-A18V     FEMALE               48 Negative  Negative 
- 4 TCGA-BH-A18Q     FEMALE               56 Negative  Negative 
- 5 TCGA-BH-A0E0     FEMALE               38 Negative  Negative 
- 6 TCGA-A7-A0CE     FEMALE               57 Negative  Negative 
- 7 TCGA-D8-A142     FEMALE               74 Negative  Negative 
- 8 TCGA-A2-A0D0     FEMALE               60 Negative  Negative 
- 9 TCGA-AO-A0J6     FEMALE               61 Negative  Negative 
-10 TCGA-A2-A0YM     FEMALE               67 Negative  Negative 
-# ... with 98 more rows, and 11 more variables: HER2_Final_Status &lt;chr&gt;,
-#   NP_958782 &lt;dbl&gt;, NP_958785 &lt;dbl&gt;, NP_958786 &lt;dbl&gt;, NP_000436 &lt;dbl&gt;,
-#   NP_958781 &lt;dbl&gt;, NP_958780 &lt;dbl&gt;, NP_958783 &lt;dbl&gt;, NP_958784 &lt;dbl&gt;,
-#   NP_112598 &lt;dbl&gt;, NP_001611 &lt;dbl&gt;
+  Complete_TCGA_ID Gender Age_at_Initial_Pathologic_Diagnosis ER_Status
+  &lt;chr&gt;            &lt;chr&gt;                                &lt;dbl&gt; &lt;chr&gt;    
+1 TCGA-A2-A0T2     FEMALE                                  66 Negative 
+2 TCGA-A2-A0CM     FEMALE                                  40 Negative 
+3 TCGA-BH-A18V     FEMALE                                  48 Negative 
+  PR_Status HER2_Final_Status NP_958782 NP_958785 NP_958786 NP_000436
+  &lt;chr&gt;     &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 Negative  Negative             NA        NA        NA        NA    
+2 Negative  Negative              0.683     0.694     0.698     0.687
+3 Negative  Negative             NA        NA        NA        NA    
+  NP_958781 NP_958780 NP_958783 NP_958784 NP_112598 NP_001611
+      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1    NA        NA        NA        NA         NA       NA    
+2     0.687     0.698     0.698     0.698     -2.65    -0.984
+3    NA        NA        NA        NA         NA       NA    
+# ... with 105 more rows
+```
+
+--
+
+Here we obtain 108 rows and 16 columns. So we've expanded the data in both rows and columns, putting missing values in where needed.
+
+---
+# Joins
+
+In each of `inner_join`, `left_join`, `right_join` and `full_join`, the number of columns always increases 
+
+There are also two joins where the number of columns don't increase. They aren't really "joins" in that sense, but really fancy filters on a dataset
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Join &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Use &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Description &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; semi_join &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; semi_join(A,B) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Keep rows in A where ID matches some ID value in B &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; anti_join &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; anti_join(A,B) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Keep rows in A where ID does NOT match any ID value in B &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+These just filter the rows of `A` without adding any columns of `B`.
+
+---
+class: inverse, middle, center
+
+## Are there protein expression differences between ER +ve and ER -ve breast cancers
+
+---
+
+# Create analytic dataset
+
+
+```r
+final_data &lt;- clinical %&gt;% 
+  inner_join(proteome, by=c("Complete_TCGA_ID"="TCGA_ID")) %&gt;% 
+  filter(Gender =='FEMALE') %&gt;% 
+  select(Complete_TCGA_ID, Age_at_Initial_Pathologic_Diagnosis, ER_Status,
+         starts_with("NP")) # grabs all the protein data
+```
+
+```
+# A tibble: 75 x 13
+  Complete_TCGA_ID Age_at_Initial_Pathologic_Diagnosis ER_Status NP_958782
+  &lt;chr&gt;                                          &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;
+1 TCGA-A2-A0CM                                      40 Negative      0.683
+2 TCGA-BH-A18Q                                      56 Negative      0.195
+3 TCGA-A7-A0CE                                      57 Negative     -1.12 
+  NP_958785 NP_958786 NP_000436 NP_958781 NP_958780 NP_958783 NP_958784
+      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1     0.694     0.698     0.687     0.687     0.698     0.698     0.698
+2     0.215     0.215     0.205     0.215     0.215     0.215     0.215
+3    -1.12     -1.12     -1.13     -1.13     -1.12     -1.12     -1.12 
+  NP_112598 NP_001611
+      &lt;dbl&gt;     &lt;dbl&gt;
+1     -2.65    -0.984
+2     -1.04    -0.517
+3      2.24    -2.58 
+# ... with 72 more rows
+```
+
+---
+## Protein-specific analyses
+
+We want to analyze each protein separately, while maintaining alignment with ER status and age.
+
+--
+
+The R trick is to make this wide table long, so you can split on the rows 
+
+
+```r
+final_data2 &lt;- final_data %&gt;% gather(protein, expression, starts_with('NP')) %&gt;% 
+  arrange(Complete_TCGA_ID)
+```
+
+```
+# A tibble: 750 x 5
+  Complete_TCGA_ID Age_at_Initial_Pathologic_Diagnosis ER_Status protein  
+  &lt;chr&gt;                                          &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;    
+1 TCGA-A2-A0CM                                      40 Negative  NP_958782
+2 TCGA-A2-A0CM                                      40 Negative  NP_958785
+3 TCGA-A2-A0CM                                      40 Negative  NP_958786
+  expression
+       &lt;dbl&gt;
+1      0.683
+2      0.694
+3      0.698
+# ... with 747 more rows
+```
+
+---
+# Split-apply-combine
+
+&lt;img src="lecture_joinsmodels2_data/split-apply-combine.png" width="2956" /&gt;
+
+---
+## Splitting data by protein
+
+There are two ways of doing this:
+
+
+```r
+final_data2_grp &lt;- final_data2 %&gt;% group_by(protein)
+```
+or
+
+```r
+final_data2_nest &lt;- final_data2 %&gt;% nest(-protein)
+```
+
+--
+
+
+```
+# A tibble: 10 x 2
+   protein   data             
+   &lt;chr&gt;     &lt;list&gt;           
+ 1 NP_958782 &lt;tibble [75 × 4]&gt;
+ 2 NP_958785 &lt;tibble [75 × 4]&gt;
+ 3 NP_958786 &lt;tibble [75 × 4]&gt;
+ 4 NP_000436 &lt;tibble [75 × 4]&gt;
+ 5 NP_958781 &lt;tibble [75 × 4]&gt;
+ 6 NP_958780 &lt;tibble [75 × 4]&gt;
+ 7 NP_958783 &lt;tibble [75 × 4]&gt;
+ 8 NP_958784 &lt;tibble [75 × 4]&gt;
+ 9 NP_112598 &lt;tibble [75 × 4]&gt;
+10 NP_001611 &lt;tibble [75 × 4]&gt;
+```
+
+--
+
+This is an example of a `list-column`. We will actually use this form, since it's a bit clearer to understand
+
+???
+
+We've stored a list within a column, aligned to each protein.
+
+Advantages:
+
+1. Visual ease and alignment
+1. Can use `dplyr` verbs along with `purrr` functions
+
+---
+
+&lt;img src="lecture_joinsmodels2_data/split-apply-combine.png" width="2956" /&gt;
+
+???
+
+Now we have to apply some function to each split dataset that will get us the desired result
+
+---
+class: inverse, middle, center
+
+# Side note: Functions
+
+---
+
+# Functions
+
+Functions are **rules** written in R code that take some _input_ and give some _output_
+
+
+```r
+#' @param d A data.frame object
+#'
+#' @return The p-value for the 2-sided t-test comparing expression between ER_Status
+my_test &lt;- function(d){
+  ttest &lt;- t.test(expression ~ ER_Status, data = d)
+  return(ttest$p.value)
+}
+```
+
+This function takes in a `data.frame`, does some operations on it (runs a t-test, and extracts the p-value) and returns a value (the p-value).
+
+&gt; In general, a function can output any kind of R object. We'll learn by example, but for more details, see [this chapter](http://r4ds.had.co.nz/functions.html) in 
+_R for Data Science_ by Wickham &amp; Grolemund.
+
+We will **apply** this function to each split dataset in `final_data2_nest`
+
+---
+
+
+```
+# A tibble: 10 x 2
+   protein   data             
+   &lt;chr&gt;     &lt;list&gt;           
+ 1 NP_958782 &lt;tibble [75 × 4]&gt;
+ 2 NP_958785 &lt;tibble [75 × 4]&gt;
+ 3 NP_958786 &lt;tibble [75 × 4]&gt;
+ 4 NP_000436 &lt;tibble [75 × 4]&gt;
+ 5 NP_958781 &lt;tibble [75 × 4]&gt;
+ 6 NP_958780 &lt;tibble [75 × 4]&gt;
+ 7 NP_958783 &lt;tibble [75 × 4]&gt;
+ 8 NP_958784 &lt;tibble [75 × 4]&gt;
+ 9 NP_112598 &lt;tibble [75 × 4]&gt;
+10 NP_001611 &lt;tibble [75 × 4]&gt;
+```
+
+Let's take a look at an element in the `data` column
+
+```r
+final_data2_nest$data[[1]]
+```
+
+```
+# A tibble: 75 x 4
+  Complete_TCGA_ID Age_at_Initial_Pathologic_Diagnosis ER_Status
+  &lt;chr&gt;                                          &lt;dbl&gt; &lt;chr&gt;    
+1 TCGA-A2-A0CM                                      40 Negative 
+2 TCGA-A2-A0D2                                      45 Negative 
+3 TCGA-A2-A0EQ                                      64 Negative 
+  expression
+       &lt;dbl&gt;
+1      0.683
+2      0.107
+3     -0.913
+# ... with 72 more rows
+```
+
+---
+
+## Applying a function to each split dataset
+
+We will use the function `purrr::map` to do this:
+
+
+```r
+final_data2_nest %&gt;% mutate(pval = map(data, my_test))
+```
+
+```
+# A tibble: 10 x 3
+   protein   data              pval     
+   &lt;chr&gt;     &lt;list&gt;            &lt;list&gt;   
+ 1 NP_958782 &lt;tibble [75 × 4]&gt; &lt;dbl [1]&gt;
+ 2 NP_958785 &lt;tibble [75 × 4]&gt; &lt;dbl [1]&gt;
+ 3 NP_958786 &lt;tibble [75 × 4]&gt; &lt;dbl [1]&gt;
+ 4 NP_000436 &lt;tibble [75 × 4]&gt; &lt;dbl [1]&gt;
+ 5 NP_958781 &lt;tibble [75 × 4]&gt; &lt;dbl [1]&gt;
+ 6 NP_958780 &lt;tibble [75 × 4]&gt; &lt;dbl [1]&gt;
+ 7 NP_958783 &lt;tibble [75 × 4]&gt; &lt;dbl [1]&gt;
+ 8 NP_958784 &lt;tibble [75 × 4]&gt; &lt;dbl [1]&gt;
+ 9 NP_112598 &lt;tibble [75 × 4]&gt; &lt;dbl [1]&gt;
+10 NP_001611 &lt;tibble [75 × 4]&gt; &lt;dbl [1]&gt;
+```
+
+---
+&lt;img src="lecture_joinsmodels2_data/split-apply-combine.png" width="2956" /&gt;
+
+???
+
+Now we have to combine the results so that each protein gets a corresponding p-value
+
+---
+
+## Combining the split results
+
+
+```r
+final_data2_nest %&gt;% mutate(pval = map(data, my_test)) %&gt;% 
+  mutate(pval = unlist(pval))
+```
+
+```
+# A tibble: 10 x 3
+   protein   data                  pval
+   &lt;chr&gt;     &lt;list&gt;               &lt;dbl&gt;
+ 1 NP_958782 &lt;tibble [75 × 4]&gt; 0.924   
+ 2 NP_958785 &lt;tibble [75 × 4]&gt; 0.934   
+ 3 NP_958786 &lt;tibble [75 × 4]&gt; 0.940   
+ 4 NP_000436 &lt;tibble [75 × 4]&gt; 0.922   
+ 5 NP_958781 &lt;tibble [75 × 4]&gt; 0.926   
+ 6 NP_958780 &lt;tibble [75 × 4]&gt; 0.930   
+ 7 NP_958783 &lt;tibble [75 × 4]&gt; 0.931   
+ 8 NP_958784 &lt;tibble [75 × 4]&gt; 0.931   
+ 9 NP_112598 &lt;tibble [75 × 4]&gt; 0.908   
+10 NP_001611 &lt;tibble [75 × 4]&gt; 0.000432
+```
+
+--
+
+This could be done in one operation, as well
+
+```r
+final_data2_nest %&gt;% mutate(pval = map_dbl(data, my_test))
+```
+
+---
+
+# What's `map` doing?
+
+
+```r
+final_data2_nest %&gt;% mutate(pval = map_dbl(data, my_test)) %&gt;% head(3)
+```
+
+```
+# A tibble: 3 x 3
+  protein   data               pval
+  &lt;chr&gt;     &lt;list&gt;            &lt;dbl&gt;
+1 NP_958782 &lt;tibble [75 × 4]&gt; 0.924
+2 NP_958785 &lt;tibble [75 × 4]&gt; 0.934
+3 NP_958786 &lt;tibble [75 × 4]&gt; 0.940
+```
+
+--
+
+
+```r
+my_test(final_data2_nest$data[[1]])
+```
+
+```
+[1] 0.9238144
+```
+
+--
+
+
+```r
+my_test(final_data2_nest$data[[2]])
+```
+
+```
+[1] 0.9340165
+```
+
+---
+# The `map` function
+
+1. **`map(data, my_test)`**:
+    - `data` is a list of data.frames, and `my_test` is a function that takes a data.frame as input and produces some output, that is stored in a list
+1. **`map(data, ~t.test(expression ~ ER_Status, data = .))`**: 
+    - Apply an anonymous function to each element of `data`, where the `.` serves as a place holder for an element of `data`. The anonymous function must start with a `~`. Note that the result of the anonymous function is the output of a `t.test`, which is a kind of object in R
+1. **`map(data, "ER_Status")`**: 
+    - Extract the element `ER_Status` from each element of `data`
+
+---
+## Pipelining this process
+
+
+```r
+final_data2 %&gt;% nest(-protein) %&gt;% 
+  mutate(test = map(data,  ~t.test(expression ~ ER_Status, data = .))) %&gt;% 
+  mutate(pval = map_dbl(test, 'p.value')) %&gt;% head(3)
+```
+
+```
+# A tibble: 3 x 4
+  protein   data              test         pval
+  &lt;chr&gt;     &lt;list&gt;            &lt;list&gt;      &lt;dbl&gt;
+1 NP_958782 &lt;tibble [75 × 4]&gt; &lt;S3: htest&gt; 0.924
+2 NP_958785 &lt;tibble [75 × 4]&gt; &lt;S3: htest&gt; 0.934
+3 NP_958786 &lt;tibble [75 × 4]&gt; &lt;S3: htest&gt; 0.940
+```
+
+--
+
+Cleaning it up
+
+
+```r
+final_data2 %&gt;% nest(-protein) %&gt;% 
+  mutate(test = map(data,  ~t.test(expression ~ ER_Status, data = .))) %&gt;% 
+  mutate(pval = map_dbl(test, 'p.value')) %&gt;% 
+* select(protein, pval) %&gt;% head(3)
+```
+
+```
+# A tibble: 3 x 2
+  protein    pval
+  &lt;chr&gt;     &lt;dbl&gt;
+1 NP_958782 0.924
+2 NP_958785 0.934
+3 NP_958786 0.940
 ```
 
 
@@ -381,7 +891,134 @@ get **at least one false positive** is practically 1, i.e. a sure shot.
 
 ## Bonferroni correction
 
-If you have _n_ tests using the same data, then make sure that the Type I error is `\(0.05/n\)`
+If you have _n_ tests using the same data, then make sure that the Type I error is `\(0.05/n\)`. This means that for 100 tests, we'd reject the null hypothesis if the p-value was less than 0.0005 rather than 0.05.
+
+How does this help?
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Number of tests &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Nominal FP rate &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Corrected FP rate &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.050 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.050 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.098 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.049 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.226 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.049 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.401 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.049 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.994 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.049 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1000000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.049 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+The FP rate is the probability of getting at least one false positive. 
+
+--
+
+Realize that this is quite stringent, since we're not allowing any false positives.
+
+---
+
+# Bonferroni correction
+
+There is a price to pay for this stringency, in terms of 
+
+&gt; Statistical Power = Pr(Reject `\(H_0\)` | `\(H_0\)` is FALSE)
+&gt;
+&gt; This is usually set at 80%
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Number of tests &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Nominal FP rate &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Bonferroni-corrected FP rate &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Statistical power &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.050 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.050 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.800 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.098 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.049 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.706 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.226 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.049 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.573 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.401 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.049 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.474 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.994 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.049 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.212 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.049 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.076 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 10000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.049 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.023 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 100000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.049 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.006 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1000000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.049 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.001 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
     </textarea>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
@@ -424,7 +1061,7 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
 (function () {
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
   if (location.protocol !== 'file:' && /^https?:/.test(script.src))
     script.src  = script.src.replace(/^https?:/, '');
   document.getElementsByTagName('head')[0].appendChild(script);
