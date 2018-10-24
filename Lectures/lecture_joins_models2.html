@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Joins, Split-Apply-Combine &amp; MCPs</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Abhijit Dasgupta" />
+    <meta name="date" content="2018-10-24" />
+    <link href="lecture_joins_models2_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="robot.css" type="text/css" />
+    <link rel="stylesheet" href="robot-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Joins, Split-Apply-Combine &amp; MCPs
+### Abhijit Dasgupta
+### October 24, 2018
+
+---
+
+
+
+
+# Goals today 
+
++ Learn how to join data sets (merging)
++ Split-apply-combine
+    + Split a dataset into a list of several datasets
+    + Do something to each dataset
+    + Put the results back together
++ Use it for 
+    + Running tests for many variables
+    + Visualizing data with p-value annotation
++ Understand why we need multiple comparison procedures (MCP)
+    + Things to think about
+
+???
+
+We need to 
+
++ put datasets capturing different attributes together to find a complete picture
++ evaluate different attributes to see if they contribute to our understanding
++ hedge our bets to ensure we find 
+
+---
+    
+# Data
+
+This data set is taken from a breast cancer proteome database available [here](https://www.kaggle.com/piotrgrabo/breastcancerproteomes) and modified for this exercise.
+
++ Clinical data: [CSV](lecture_joinsmodels2_data/BreastCancer_Clinical.csv)|[XLSX](lecture_joinsmodels2_data/BreastCancer_Clinical.xlsx)
++ Proteome data: [CSV](lecture_joinsmodels2_data/BreastCancer_Expression.csv)|[XLSX](lecture_joinsmodels2_data/BreastCancer_Expression.xlsx)
+
+---
+class: inverse, middle, center
+
+# Joins
+
+---
+
+# Putting data sets together
+
++ Quite often, data on individuals lie in different tables
+    - Clinical, demographic and bioinformatic data
+--
+    - Drug, procedure, and payment data (think Medicare)
+--
+    - Personal health data across different healthcare entities
+
+---
+# Joining data sets
+
+We already talked about `cbind` and `rbind`:
+
+.pull-left[
+&lt;span style="text-align:center;"&gt;`cbind`&lt;/span&gt;
+&lt;img src="lecture_joinsmodels2_data/addcol.png" width="640" /&gt;
+]
+.pull-right[
+&lt;span style="text-align:center;"&gt;`rbind`&lt;/span&gt;
+&lt;img src="lecture_joinsmodels2_data/addrow.png" width="640" /&gt;
+]
+
+---
+# Joining data sets
+
+.pull-left[
+We will talk about more general ways of joining two datasets
+
+We will assume:
+
+1. We have two rectangular data sets (so `data.frame` or `tibble`)
+1. There is at least one variable (column) in common, even if they have different names
+    - ID number
+    - SSN (Social Security number)
+    - Identifiable information
+]
+
+.pull-right[
+&lt;img src="lecture_joinsmodels2_data/merge.png" height="10%"/&gt;
+]
+
+---
+
+# Joining data sets
+
+&lt;img width="100%" src="lecture_joinsmodels2_data/joins.png"/&gt;
+
+--
+
+&lt;table width="100%"&gt;
+&lt;tr&gt;
+&lt;td style="text-align:center;"&gt;inner_join&lt;/td&gt;
+&lt;td style="text-align:center;"&gt;left_join&lt;/td&gt;
+&lt;td style="text-align:center;"&gt;right_join&lt;/td&gt;
+&lt;td style="text-align:center;"&gt;outer_join&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;
+
+--
+
+The "join condition" are the common variables in the two datasets, i.e. rows are selected if the values of the common variables in the left dataset matches the values of the common variables in the right dataset
+
+---
+## Data example
+
+
+```r
+library(readxl)
+clinical &lt;- read_excel('lecture_joinsmodels2_data/BreastCancer_Clinical.xlsx') %&gt;% 
+  set_names(str_replace_all(names(.), '[ -]+', '_'))
+proteome &lt;- read_excel('lecture_joinsmodels2_data/BreastCancer_Expression.xlsx') %&gt;% 
+  set_names(str_replace_all(names(.), '[ -]+', '_'))
+```
+
+.pull-left[
+
+```
+# A tibble: 105 x 30
+   Complete_TCGA_ID Gender Age_at_Initial_… ER_Status PR_Status
+   &lt;chr&gt;            &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;    
+ 1 TCGA-A2-A0T2     FEMALE               66 Negative  Negative 
+ 2 TCGA-A2-A0CM     FEMALE               40 Negative  Negative 
+ 3 TCGA-BH-A18V     FEMALE               48 Negative  Negative 
+ 4 TCGA-BH-A18Q     FEMALE               56 Negative  Negative 
+ 5 TCGA-BH-A0E0     FEMALE               38 Negative  Negative 
+ 6 TCGA-A7-A0CE     FEMALE               57 Negative  Negative 
+ 7 TCGA-D8-A142     FEMALE               74 Negative  Negative 
+ 8 TCGA-A2-A0D0     FEMALE               60 Negative  Negative 
+ 9 TCGA-AO-A0J6     FEMALE               61 Negative  Negative 
+10 TCGA-A2-A0YM     FEMALE               67 Negative  Negative 
+# ... with 95 more rows, and 25 more variables: HER2_Final_Status &lt;chr&gt;,
+#   Tumor &lt;chr&gt;, Tumor_T1_Coded &lt;chr&gt;, Node &lt;chr&gt;, Node_Coded &lt;chr&gt;,
+#   Metastasis &lt;chr&gt;, Metastasis_Coded &lt;chr&gt;, AJCC_Stage &lt;chr&gt;,
+#   Converted_Stage &lt;chr&gt;, Survival_Data_Form &lt;chr&gt;, Vital_Status &lt;chr&gt;,
+#   Days_to_Date_of_Last_Contact &lt;dbl&gt;, Days_to_date_of_Death &lt;dbl&gt;,
+#   OS_event &lt;dbl&gt;, OS_Time &lt;dbl&gt;, PAM50_mRNA &lt;chr&gt;,
+#   SigClust_Unsupervised_mRNA &lt;dbl&gt;, SigClust_Intrinsic_mRNA &lt;dbl&gt;,
+#   miRNA_Clusters &lt;dbl&gt;, methylation_Clusters &lt;dbl&gt;, RPPA_Clusters &lt;chr&gt;,
+#   CN_Clusters &lt;dbl&gt;, `Integrated_Clusters_(with_PAM50)` &lt;dbl&gt;,
+#   `Integrated_Clusters_(no_exp)` &lt;dbl&gt;,
+#   `Integrated_Clusters_(unsup_exp)` &lt;dbl&gt;
+```
+]
+.pull-right[
+
+```
+# A tibble: 83 x 11
+   TCGA_ID NP_958782 NP_958785 NP_958786 NP_000436 NP_958781 NP_958780
+   &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+ 1 TCGA-A…     1.10      1.11      1.11      1.11      1.12      1.11 
+ 2 TCGA-C…     2.61      2.65      2.65      2.65      2.65      2.65 
+ 3 TCGA-A…    -0.660    -0.649    -0.654    -0.632    -0.640    -0.654
+ 4 TCGA-B…     0.195     0.215     0.215     0.205     0.215     0.215
+ 5 TCGA-C…    -0.494    -0.504    -0.501    -0.510    -0.504    -0.504
+ 6 TCGA-C…     2.77      2.78      2.78      2.80      2.79      2.78 
+ 7 TCGA-E…     0.863     0.870     0.870     0.866     0.870     0.870
+ 8 TCGA-C…     1.41      1.41      1.41      1.41      1.41      1.41 
+ 9 TCGA-A…     1.19      1.19      1.19      1.19      1.20      1.19 
+10 TCGA-A…     1.10      1.10      1.10      1.10      1.09      1.10 
+# ... with 73 more rows, and 4 more variables: NP_958783 &lt;dbl&gt;,
+#   NP_958784 &lt;dbl&gt;, NP_112598 &lt;dbl&gt;, NP_001611 &lt;dbl&gt;
+```
+
+]
+
+---
+## Data example
+
+
+```r
+library(readxl)
+clinical &lt;- read_excel('lecture_joinsmodels2_data/BreastCancer_Clinical.xlsx') %&gt;% 
+  set_names(str_replace_all(names(.), '[ -]+', '_'))
+proteome &lt;- read_excel('lecture_joinsmodels2_data/BreastCancer_Expression.xlsx') %&gt;% 
+  set_names(str_replace_all(names(.), '[ -]+', '_'))
+```
+
+.pull-left[
+
+```
+# A tibble: 105 x 2
+   Complete_TCGA_ID Gender
+   &lt;chr&gt;            &lt;chr&gt; 
+ 1 TCGA-A2-A0T2     FEMALE
+ 2 TCGA-A2-A0CM     FEMALE
+ 3 TCGA-BH-A18V     FEMALE
+ 4 TCGA-BH-A18Q     FEMALE
+ 5 TCGA-BH-A0E0     FEMALE
+ 6 TCGA-A7-A0CE     FEMALE
+ 7 TCGA-D8-A142     FEMALE
+ 8 TCGA-A2-A0D0     FEMALE
+ 9 TCGA-AO-A0J6     FEMALE
+10 TCGA-A2-A0YM     FEMALE
+# ... with 95 more rows
+```
+]
+.pull-right[
+
+```
+# A tibble: 83 x 2
+   TCGA_ID      NP_958782
+   &lt;chr&gt;            &lt;dbl&gt;
+ 1 TCGA-AO-A12D     1.10 
+ 2 TCGA-C8-A131     2.61 
+ 3 TCGA-AO-A12B    -0.660
+ 4 TCGA-BH-A18Q     0.195
+ 5 TCGA-C8-A130    -0.494
+ 6 TCGA-C8-A138     2.77 
+ 7 TCGA-E2-A154     0.863
+ 8 TCGA-C8-A12L     1.41 
+ 9 TCGA-A2-A0EX     1.19 
+10 TCGA-AO-A12D     1.10 
+# ... with 73 more rows
+```
+]
+
+--
+
+We see that both have the same ID variable, but with different names and different orders
+
+???
+
+Let's keep only the first two columns so we can see the ID variable
+
+---
+## Inner join
+
+
+```r
+common_rows &lt;- inner_join(clinical[,1:6], proteome, by=c('Complete_TCGA_ID'='TCGA_ID'))
+```
+
+```
+# A tibble: 80 x 16
+   Complete_TCGA_ID Gender Age_at_Initial_… ER_Status PR_Status
+   &lt;chr&gt;            &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;    
+ 1 TCGA-A2-A0CM     FEMALE               40 Negative  Negative 
+ 2 TCGA-BH-A18Q     FEMALE               56 Negative  Negative 
+ 3 TCGA-A7-A0CE     FEMALE               57 Negative  Negative 
+ 4 TCGA-D8-A142     FEMALE               74 Negative  Negative 
+ 5 TCGA-AO-A0J6     FEMALE               61 Negative  Negative 
+ 6 TCGA-A2-A0YM     FEMALE               67 Negative  Negative 
+ 7 TCGA-A2-A0D2     FEMALE               45 Negative  Negative 
+ 8 TCGA-A2-A0SX     FEMALE               48 Negative  Negative 
+ 9 TCGA-AO-A0JL     FEMALE               59 Negative  Negative 
+10 TCGA-AO-A12F     FEMALE               36 Negative  Negative 
+# ... with 70 more rows, and 11 more variables: HER2_Final_Status &lt;chr&gt;,
+#   NP_958782 &lt;dbl&gt;, NP_958785 &lt;dbl&gt;, NP_958786 &lt;dbl&gt;, NP_000436 &lt;dbl&gt;,
+#   NP_958781 &lt;dbl&gt;, NP_958780 &lt;dbl&gt;, NP_958783 &lt;dbl&gt;, NP_958784 &lt;dbl&gt;,
+#   NP_112598 &lt;dbl&gt;, NP_001611 &lt;dbl&gt;
+```
+
+--
+
+Note that we have all the columns from both datasets, but only 80 rows, which is the common set of IDs from the two datasets
+--
+
+&gt; If you don't include the `by` option, R will attempt to match values of any columns with the same names
+
+---
+## Left join
+
+```r
+left_rows &lt;- left_join(clinical[,1:6], proteome, by=c('Complete_TCGA_ID'='TCGA_ID'))
+```
+
+```
+# A tibble: 108 x 16
+   Complete_TCGA_ID Gender Age_at_Initial_… ER_Status PR_Status
+   &lt;chr&gt;            &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;    
+ 1 TCGA-A2-A0T2     FEMALE               66 Negative  Negative 
+ 2 TCGA-A2-A0CM     FEMALE               40 Negative  Negative 
+ 3 TCGA-BH-A18V     FEMALE               48 Negative  Negative 
+ 4 TCGA-BH-A18Q     FEMALE               56 Negative  Negative 
+ 5 TCGA-BH-A0E0     FEMALE               38 Negative  Negative 
+ 6 TCGA-A7-A0CE     FEMALE               57 Negative  Negative 
+ 7 TCGA-D8-A142     FEMALE               74 Negative  Negative 
+ 8 TCGA-A2-A0D0     FEMALE               60 Negative  Negative 
+ 9 TCGA-AO-A0J6     FEMALE               61 Negative  Negative 
+10 TCGA-A2-A0YM     FEMALE               67 Negative  Negative 
+# ... with 98 more rows, and 11 more variables: HER2_Final_Status &lt;chr&gt;,
+#   NP_958782 &lt;dbl&gt;, NP_958785 &lt;dbl&gt;, NP_958786 &lt;dbl&gt;, NP_000436 &lt;dbl&gt;,
+#   NP_958781 &lt;dbl&gt;, NP_958780 &lt;dbl&gt;, NP_958783 &lt;dbl&gt;, NP_958784 &lt;dbl&gt;,
+#   NP_112598 &lt;dbl&gt;, NP_001611 &lt;dbl&gt;
+```
+
+
+
+---
+class: inverse, middle, center
+
+# Multiple comparison procedures (MCP)
+
+---
+
+## Why do we need it?
+
++ Recall, in hypothesis tests, the Type I error (or false positive rate) is 
+`$$\Pr(Reject\ H_0 | H_0\ is\ true)$$`
+This is typically limited by the testing procedure to 5%.  
+    - For the more technically interested, this is from the _Neyman-Pearson lemma_
++ There is always a chance we are wrong!!
+
+---
+
+## Why do we need it?
+
+Imagine your test is like a biased coin, with heads being "Reject `\(H_0\)`" and tails being "Do not reject `\(H_0\)`"
+
+Now assume `\(H_0\)` is true, and you're doing multiple tests using the same data
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Number of tests &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Coin tosses &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Pr(at least one head) &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1 toss &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.05 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 tosses &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.10 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5 tosses &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.23 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 10 tosses &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.40 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 100 tosses &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.99 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1,000,000 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1 million tosses &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+--
+
+This means, if you're doing 1 million tests (like, e.g., a GWAS), the chance that you 
+get **at least one false positive** is practically 1, i.e. a sure shot.
+
+---
+
+## Bonferroni correction
+
+If you have _n_ tests using the same data, then make sure that the Type I error is `\(0.05/n\)`
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightLanguage": "R",
+"countIncrementalSlides": false,
+"highlightStyle": "zenburn",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

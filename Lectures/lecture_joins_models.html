@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc">
   <meta name="author" content="Abhijit Dasgupta" />
   <meta name="dcterms.date" content="2018-10-24" />
-  <title>Tests, Joins and Models</title>
+  <title>Joins, Split-Apply-Combine &amp; MCPs</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -453,11 +453,64 @@ document.getElementsByTagName('head')[0].appendChild(style);
     <div class="slides">
 
 <section>
-    <h1 class="title">Tests, Joins and Models</h1>
+    <h1 class="title">Joins, Split-Apply-Combine &amp; MCPs</h1>
     <h2 class="author">Abhijit Dasgupta</h2>
     <h3 class="date">October 24, 2018</h3>
 </section>
 
+<section><section id="goals-today" class="title-slide slide level1"><h1>Goals today</h1></section><section id="goals-today-1" class="slide level2">
+<h2>Goals today</h2>
+<ul>
+<li>Learn how to join data sets (merging)</li>
+<li>Split-apply-combine
+<ul>
+<li>Split a dataset into a list of several datasets</li>
+<li>Do something to each dataset</li>
+<li>Put the results back together</li>
+</ul></li>
+<li>Use it for
+<ul>
+<li>Running tests for many variables</li>
+<li>Visualizing data with p-value annotation</li>
+</ul></li>
+<li>Understand why we need multiple comparison procedures (MCP)
+<ul>
+<li>Things to think about</li>
+</ul></li>
+</ul>
+<aside>
+<p>We need to</p>
+<ul>
+<li>put datasets capturing different attributes together to find a complete picture</li>
+<li>evaluate different attributes to see if they contribute to our understanding</li>
+<li>hedge our bets to ensure we find</li>
+</ul>
+</aside>
+</section></section>
+<section><section id="data" class="title-slide slide level1"><h1>Data</h1></section></section>
+<section><section id="joins" class="title-slide slide level1"><h1>Joins</h1></section><section id="putting-data-sets-together" class="slide level2">
+<h2>Putting data sets together</h2>
+<ul>
+<li>Quite often, data on individuals lie in different tables
+<ul>
+<li>Clinical, demographic and bioinformatic data</li>
+<li>Drug, procedure, and payment data (think Mediare)</li>
+<li>Personal health data across different healthcare entities</li>
+</ul></li>
+</ul>
+</section><section id="joining-data-sets" class="slide level2">
+<h2>Joining data sets</h2>
+<p>We’ll assume that</p>
+<ul>
+<li>both datasets are rectangular</li>
+<li><p>there is at least one common variable between the two datasets</p>
+<ul>
+<li>ID number</li>
+<li>Social Security Number</li>
+<li>Identifiable information</li>
+</ul></li>
+</ul>
+</section></section>
 <section><section id="multiple-comparison-procedures-mcp" class="title-slide slide level1"><h1>Multiple comparison procedures (MCP)</h1></section><section id="why-do-we-need-it" class="slide level2">
 <h2>Why do we need it?</h2>
 <ul>

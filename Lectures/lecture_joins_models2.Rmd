@@ -1,0 +1,257 @@
+---
+title: "Joins, Split-Apply-Combine & MCPs"
+author: "Abhijit Dasgupta"
+date: "October 24, 2018"
+output:
+  xaringan::moon_reader:
+    css: [default, './robot.css', './robot-fonts.css']
+    #css: [default, metropolis, metropolis-fonts]
+    nature:
+      ratio: '16:9'
+      highlightLanguage: R
+      countIncrementalSlides: false
+      highlightStyle: zenburn
+      highlightLines: true
+
+---
+
+```{r setup, include=FALSE, message = F, warning = F}
+knitr::opts_chunk$set(echo = FALSE, message = F, warning = F, comment="")
+library(tidyverse)
+library(readxl)
+```
+
+# Goals today 
+
++ Learn how to join data sets (merging)
++ Split-apply-combine
+    + Split a dataset into a list of several datasets
+    + Do something to each dataset
+    + Put the results back together
++ Use it for 
+    + Running tests for many variables
+    + Visualizing data with p-value annotation
++ Understand why we need multiple comparison procedures (MCP)
+    + Things to think about
+
+???
+
+We need to 
+
++ put datasets capturing different attributes together to find a complete picture
++ evaluate different attributes to see if they contribute to our understanding
++ hedge our bets to ensure we find 
+
+---
+    
+# Data
+
+This data set is taken from a breast cancer proteome database available [here](https://www.kaggle.com/piotrgrabo/breastcancerproteomes) and modified for this exercise.
+
++ Clinical data: [CSV](lecture_joinsmodels2_data/BreastCancer_Clinical.csv)|[XLSX](lecture_joinsmodels2_data/BreastCancer_Clinical.xlsx)
++ Proteome data: [CSV](lecture_joinsmodels2_data/BreastCancer_Expression.csv)|[XLSX](lecture_joinsmodels2_data/BreastCancer_Expression.xlsx)
+
+---
+class: inverse, middle, center
+
+# Joins
+
+---
+
+# Putting data sets together
+
++ Quite often, data on individuals lie in different tables
+    - Clinical, demographic and bioinformatic data
+--
+    - Drug, procedure, and payment data (think Medicare)
+--
+    - Personal health data across different healthcare entities
+
+---
+# Joining data sets
+
+We already talked about `cbind` and `rbind`:
+
+.pull-left[
+<span style="text-align:center;">`cbind`</span>
+```{r, fig.caption = "`cbind`"}
+knitr::include_graphics('lecture_joinsmodels2_data/addcol.png')
+```
+]
+.pull-right[
+<span style="text-align:center;">`rbind`</span>
+```{r, fig.caption="`rbind`"}
+knitr::include_graphics('lecture_joinsmodels2_data/addrow.png')
+```
+]
+
+---
+# Joining data sets
+
+.pull-left[
+We will talk about more general ways of joining two datasets
+
+We will assume:
+
+1. We have two rectangular data sets (so `data.frame` or `tibble`)
+1. There is at least one variable (column) in common, even if they have different names
+    - ID number
+    - SSN (Social Security number)
+    - Identifiable information
+]
+
+.pull-right[
+<img src="lecture_joinsmodels2_data/merge.png" height="10%"/>
+]
+
+---
+
+# Joining data sets
+
+<img width="100%" src="lecture_joinsmodels2_data/joins.png"/>
+
+--
+
+<table width="100%">
+<tr>
+<td style="text-align:center;">inner_join</td>
+<td style="text-align:center;">left_join</td>
+<td style="text-align:center;">right_join</td>
+<td style="text-align:center;">outer_join</td>
+</tr></table>
+
+--
+
+The "join condition" are the common variables in the two datasets, i.e. rows are selected if the values of the common variables in the left dataset matches the values of the common variables in the right dataset
+
+---
+## Data example
+
+```{r, echo=T}
+library(readxl)
+clinical <- read_excel('lecture_joinsmodels2_data/BreastCancer_Clinical.xlsx') %>% 
+  set_names(str_replace_all(names(.), '[ -]+', '_'))
+proteome <- read_excel('lecture_joinsmodels2_data/BreastCancer_Expression.xlsx') %>% 
+  set_names(str_replace_all(names(.), '[ -]+', '_'))
+
+```
+
+.pull-left[
+```{r}
+clinical
+```
+]
+.pull-right[
+```{r}
+proteome
+```
+
+]
+
+---
+## Data example
+
+```{r, eval = F, echo=T}
+library(readxl)
+clinical <- read_excel('lecture_joinsmodels2_data/BreastCancer_Clinical.xlsx') %>% 
+  set_names(str_replace_all(names(.), '[ -]+', '_'))
+proteome <- read_excel('lecture_joinsmodels2_data/BreastCancer_Expression.xlsx') %>% 
+  set_names(str_replace_all(names(.), '[ -]+', '_'))
+
+```
+
+.pull-left[
+```{r}
+clinical[,1:2]
+```
+]
+.pull-right[
+```{r}
+proteome[,1:2]
+```
+]
+
+--
+
+We see that both have the same ID variable, but with different names and different orders
+
+???
+
+Let's keep only the first two columns so we can see the ID variable
+
+---
+## Inner join
+
+```{r, echo=T, eval=F}
+common_rows <- inner_join(clinical[,1:6], proteome, by=c('Complete_TCGA_ID'='TCGA_ID'))
+```
+```{r, echo=F, eval=T}
+common_rows <- inner_join(clinical[,1:6], proteome, by=c('Complete_TCGA_ID'='TCGA_ID'))
+common_rows
+```
+
+--
+
+Note that we have all the columns from both datasets, but only 80 rows, which is the common set of IDs from the two datasets
+--
+
+> If you don't include the `by` option, R will attempt to match values of any columns with the same names
+
+---
+## Left join
+```{r, echo=T, eval=F}
+left_rows <- left_join(clinical[,1:6], proteome, by=c('Complete_TCGA_ID'='TCGA_ID'))
+```
+```{r, echo=F, eval=T}
+left_rows <- left_join(clinical[,1:6], proteome, by=c('Complete_TCGA_ID'='TCGA_ID'))
+left_rows
+```
+
+
+
+---
+class: inverse, middle, center
+
+# Multiple comparison procedures (MCP)
+
+---
+
+## Why do we need it?
+
++ Recall, in hypothesis tests, the Type I error (or false positive rate) is 
+$$\Pr(Reject\ H_0 | H_0\ is\ true)$$
+This is typically limited by the testing procedure to 5%.  
+    - For the more technically interested, this is from the _Neyman-Pearson lemma_
++ There is always a chance we are wrong!!
+
+---
+
+## Why do we need it?
+
+Imagine your test is like a biased coin, with heads being "Reject $H_0$" and tails being "Do not reject $H_0$"
+
+Now assume $H_0$ is true, and you're doing multiple tests using the same data
+
+```{r}
+tbl <- tribble(~`Number of tests`, ~`Coin tosses` , ~`Pr(at least one head)`,
+               format(1, scientific = F), '1 toss', round(1-(0.95)^1,2),
+               format(2, scientific = F), '2 tosses', round(1-(0.95)^2, 2),
+               format(5, scientific=F), '5 tosses', round(1-(0.95)^5,2),
+               format(10, scientific = F), '10 tosses', round(1-(0.95)^10,2),
+               format(100, scientific = F), '100 tosses', round(1-(0.95)^100, 2),
+               format(1000000, big.mark=",", scientific = F), '1 million tosses', round(1-(0.95)^100000, 2))
+knitr::kable(tbl, format = 'html')
+```
+
+--
+
+This means, if you're doing 1 million tests (like, e.g., a GWAS), the chance that you 
+get **at least one false positive** is practically 1, i.e. a sure shot.
+
+---
+
+## Bonferroni correction
+
+If you have _n_ tests using the same data, then make sure that the Type I error is $0.05/n$
+
+

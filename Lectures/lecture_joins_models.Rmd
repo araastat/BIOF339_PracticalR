@@ -1,5 +1,5 @@
 ---
-title: "Tests, Joins and Models"
+title: "Joins, Split-Apply-Combine & MCPs"
 author: "Abhijit Dasgupta"
 date: "October 24, 2018"
 output:
@@ -19,6 +19,54 @@ knitr::opts_chunk$set(echo = FALSE, message = F, warning = F)
 library(tidyverse)
 ```
 
+# Goals today
+
+## Goals today 
+
++ Learn how to join data sets (merging)
++ Split-apply-combine
+    + Split a dataset into a list of several datasets
+    + Do something to each dataset
+    + Put the results back together
++ Use it for 
+    + Running tests for many variables
+    + Visualizing data with p-value annotation
++ Understand why we need multiple comparison procedures (MCP)
+    + Things to think about
+
+<aside>
+We need to 
+
++ put datasets capturing different attributes together to find a complete picture
++ evaluate different attributes to see if they contribute to our understanding
++ hedge our bets to ensure we find 
+
+</aside>
+    
+# Data
+
+
+    
+# Joins
+
+## Putting data sets together
+
++ Quite often, data on individuals lie in different tables
+    - Clinical, demographic and bioinformatic data
+    - Drug, procedure, and payment data (think Mediare)
+    - Personal health data across different healthcare entities
+
+## Joining data sets
+
+We'll assume that
+
++ both datasets are rectangular
++ there is at least one common variable between the two datasets
+
+    - ID number
+    - Social Security Number
+    - Identifiable information
+    
 # Multiple comparison procedures (MCP)
 
 ## Why do we need it?
