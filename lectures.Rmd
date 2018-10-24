@@ -80,3 +80,7 @@ Supplemental material
 + The [`openxlsx`](https://cran.r-project.org/web/packages/openxlsx/index.html){target="_blank"} package for writing to Excel directly. Read the vignettes in the middle of the page for examples of the power of this package
 + A comparison of the [`reshape2` and `tidyr` packages](http://www.milanor.net/blog/reshape-data-r-tidyr-vs-reshape2/){target="_blank"}
 + Hadley Wickham on ["Data analyis pipelines"](https://www.rstudio.com/resources/webinars/pipelines-for-data-analysis-in-r/){target="_blank"}
+
+### Lecture 7: Joins, Split-Apply-Combine, and MCPs
+
+[Presentation](Lectures/lecture_joins_sac.html){target="_blank"}
