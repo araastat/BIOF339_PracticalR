@@ -109,3 +109,7 @@ Additional styles by Abhijit Dasgupta
 li{
   padding-top: 1em;
 }
+
+.small {
+  font-size: 80%;
+}

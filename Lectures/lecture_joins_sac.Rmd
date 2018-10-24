@@ -1,0 +1,681 @@
+---
+title: "Joins, Split-Apply-Combine & MCPs"
+author: "Abhijit Dasgupta"
+date: "October 24, 2018"
+output:
+  xaringan::moon_reader:
+    css: [default, './robot.css', './robot-fonts.css']
+    #css: [default, metropolis, metropolis-fonts]
+    nature:
+      ratio: '16:9'
+      highlightLanguage: R
+      countIncrementalSlides: false
+      highlightStyle: zenburn
+      highlightLines: true
+
+---
+
+```{r setup, include=FALSE, message = F, warning = F}
+knitr::opts_chunk$set(echo = FALSE, message = F, warning = F, comment="")
+library(tidyverse)
+library(readxl)
+```
+
+# Goals today 
+
++ Learn how to join data sets (merging)
++ Split-apply-combine
+    + Split a dataset into a list of several datasets
+    + Do something to each dataset
+    + Put the results back together
++ Use it for 
+    + Running tests for many variables
+    + Visualizing data with p-value annotation
++ Understand why we need multiple comparison procedures (MCP)
+    + Things to think about
+
+???
+
+We need to 
+
++ put datasets capturing different attributes together to find a complete picture
++ evaluate different attributes to see if they contribute to our understanding
++ hedge our bets to ensure we find 
+
+---
+    
+# Data
+
+This data set is taken from a breast cancer proteome database available [here](https://www.kaggle.com/piotrgrabo/breastcancerproteomes) and modified for this exercise.
+
++ Clinical data: [CSV](lecture_joinsmodels2_data/BreastCancer_Clinical.csv)|[XLSX](lecture_joinsmodels2_data/BreastCancer_Clinical.xlsx)
++ Proteome data: [CSV](lecture_joinsmodels2_data/BreastCancer_Expression.csv)|[XLSX](lecture_joinsmodels2_data/BreastCancer_Expression.xlsx)
+
+---
+class: inverse, middle, center
+
+# Joins
+
+---
+
+# Putting data sets together
+
++ Quite often, data on individuals lie in different tables
+    - Clinical, demographic and bioinformatic data
+--
+    - Drug, procedure, and payment data (think Medicare)
+--
+    - Personal health data across different healthcare entities
+
+---
+# Joining data sets
+
+We already talked about `cbind` and `rbind`:
+
+.pull-left[
+<span style="text-align:center;">`cbind`</span>
+```{r, fig.caption = "`cbind`"}
+knitr::include_graphics('lecture_joinsmodels2_data/addcol.png')
+```
+]
+.pull-right[
+<span style="text-align:center;">`rbind`</span>
+```{r, fig.caption="`rbind`"}
+knitr::include_graphics('lecture_joinsmodels2_data/addrow.png')
+```
+]
+
+---
+# Joining data sets
+
+.pull-left[
+We will talk about more general ways of joining two datasets
+
+We will assume:
+
+1. We have two rectangular data sets (so `data.frame` or `tibble`)
+1. There is at least one variable (column) in common, even if they have different names
+    - ID number
+    - SSN (Social Security number)
+    - Identifiable information
+]
+
+.pull-right[
+<img src="lecture_joinsmodels2_data/merge.png" height="10%"/>
+]
+
+---
+
+# Joining data sets
+
+<img width="100%" src="lecture_joinsmodels2_data/joins.png"/>
+
+--
+
+<table width="100%">
+<tr>
+<td style="text-align:center;">inner_join</td>
+<td style="text-align:center;">left_join</td>
+<td style="text-align:center;">right_join</td>
+<td style="text-align:center;">outer_join</td>
+</tr></table>
+
+--
+
+The "join condition" are the common variables in the two datasets, i.e. rows are selected if the values of the common variables in the left dataset matches the values of the common variables in the right dataset
+
+---
+## Data example
+
+```{r, echo=T}
+library(readxl)
+clinical <- read_excel('lecture_joinsmodels2_data/BreastCancer_Clinical.xlsx') %>% 
+  set_names(str_replace_all(names(.), '[ -]+', '_'))
+proteome <- read_excel('lecture_joinsmodels2_data/BreastCancer_Expression.xlsx') %>% 
+  set_names(str_replace_all(names(.), '[ -]+', '_'))
+
+```
+
+.pull-left[
+```{r}
+clinical
+```
+]
+.pull-right[
+```{r}
+proteome
+```
+
+]
+
+---
+## Data example
+
+```{r, eval = F, echo=T}
+library(readxl)
+clinical <- read_excel('lecture_joinsmodels2_data/BreastCancer_Clinical.xlsx') %>% 
+  set_names(str_replace_all(names(.), '[ -]+', '_'))
+proteome <- read_excel('lecture_joinsmodels2_data/BreastCancer_Expression.xlsx') %>% 
+  set_names(str_replace_all(names(.), '[ -]+', '_'))
+
+```
+
+.pull-left[
+```{r}
+clinical[,1:2]
+```
+]
+.pull-right[
+```{r}
+proteome[,1:2]
+```
+]
+
+--
+
+We see that both have the same ID variable, but with different names and different orders
+
+???
+
+Let's keep only the first two columns so we can see the ID variable
+
+---
+
+## Data example
+
+Let's make sure that the ID's are truly IDs, i.e. each row has a unique value
+
+```{r, echo = T}
+length(unique(clinical$Complete_TCGA_ID)) == nrow(clinical)
+```
+--
+
+```{r, echo = T}
+length(unique(proteome$TCGA_ID)) == nrow(proteome)
+```
+
+
+--
+<div style="height:25%;margins:auto;">
+<img style="display:block; margin:0 auto; height: 70%;" src="https://twitchy.com/wp-content/uploads/2015/04/screen-shot-2015-04-13-at-2-06-38-pm-300x300.png"/>
+</div>
+
+???
+
+We need the ID variables to be unique for each row. If we use multiple columns to define the "ID" then each row needs to have a unique set of values for those columns. Otherwise the joins get confused about 
+which rows go with which rows. 
+
+---
+## Data example
+
+For convenience we'll keep the first instance for each ID in the `proteome` data
+
+```{r, echo = T}
+proteome <- proteome %>% filter(!duplicated(TCGA_ID))
+```
+
+> `duplicated` = TRUE if a previous row contains the same value
+
+--
+
+```{r, echo=T}
+length(unique(proteome$TCGA_ID)) == nrow(proteome)
+```
+
+---
+## Inner join
+
+```{r, echo=T, eval=F}
+common_rows <- inner_join(clinical[,1:6], proteome, by=c('Complete_TCGA_ID'='TCGA_ID'))
+```
+```{r, echo=F, eval=T}
+common_rows <- inner_join(clinical[,1:6], proteome, by=c('Complete_TCGA_ID'='TCGA_ID'))
+common_rows
+```
+
+--
+
+Note that we have all the columns from both datasets, but only `r nrow(common_rows)` rows, which is the common set of IDs from the two datasets
+--
+
+> If you don't include the `by` option, R will attempt to match values of any columns with the same names
+
+---
+## Left join
+```{r, echo=T, eval=F}
+left_rows <- left_join(clinical[,1:6], proteome, by=c('Complete_TCGA_ID'='TCGA_ID'))
+```
+```{r, echo=F, eval=T}
+options(tibble.print_min=3, dplyr.width=Inf)
+left_rows <- left_join(clinical[,1:6], proteome, by=c('Complete_TCGA_ID'='TCGA_ID'))
+left_rows
+```
+
+We get `r nrow(left_rows)` rows, which is all the rows of `clinical`, combined with the rows of `proteome` with common IDs. The rest of the rows get `NA` for the proteome columns.
+
+---
+## Right join
+```{r, echo=T, eval=F}
+right_rows <- right_join(clinical[,1:6], proteome, by=c('Complete_TCGA_ID'='TCGA_ID'))
+```
+```{r, echo=F, eval=T}
+options(tibble.print_min=3, dplyr.width=Inf)
+right_rows <- right_join(clinical[,1:6], proteome, by=c('Complete_TCGA_ID'='TCGA_ID'))
+right_rows
+```
+
+--
+
+Here we get `r nrow(right_rows)` rows, which is all the rows of `proteome`, along with the rows of `clinical` with common IDs, but with the columns of `clinical` appearing first.
+
+---
+## Outer/Full Join
+
+```{r, echo=T, eval=F}
+full_rows <- full_join(clinical[,1:6], proteome, by=c('Complete_TCGA_ID'='TCGA_ID'))
+```
+```{r, echo=F, eval=T}
+options(tibble.print_min=3, dplyr.width=Inf)
+full_rows <- full_join(clinical[,1:6], proteome, by=c('Complete_TCGA_ID'='TCGA_ID'))
+full_rows
+```
+
+--
+
+Here we obtain `r nrow(full_rows)` rows and `r ncol(full_rows)` columns. So we've expanded the data in both rows and columns, putting missing values in where needed.
+
+---
+# Joins
+
+In each of `inner_join`, `left_join`, `right_join` and `full_join`, the number of columns always increases 
+
+There are also two joins where the number of columns don't increase. They aren't really "joins" in that sense, but really fancy filters on a dataset
+
+```{r}
+tbl <- tribble(~Join,~Use,~Description,
+               "semi_join", "semi_join(A,B)", "Keep rows in A where ID matches some ID value in B",
+               'anti_join', 'anti_join(A,B)', 'Keep rows in A where ID does NOT match any ID value in B')
+knitr::kable(tbl, format='html')
+```
+
+These just filter the rows of `A` without adding any columns of `B`.
+
+---
+class: inverse, middle, center
+
+## Are there protein expression differences between ER +ve and ER -ve breast cancers
+
+---
+
+# Create analytic dataset
+
+```{r, echo=T}
+final_data <- clinical %>% 
+  inner_join(proteome, by=c("Complete_TCGA_ID"="TCGA_ID")) %>% 
+  filter(Gender =='FEMALE') %>% 
+  select(Complete_TCGA_ID, Age_at_Initial_Pathologic_Diagnosis, ER_Status,
+         starts_with("NP")) # grabs all the protein data
+```
+```{r, echo=F}
+final_data
+```
+
+---
+## Protein-specific analyses
+
+We want to analyze each protein separately, while maintaining alignment with ER status and age.
+
+--
+
+The R trick is to make this wide table long, so you can split on the rows 
+
+```{r, echo=T}
+final_data2 <- final_data %>% gather(protein, expression, starts_with('NP')) %>% 
+  arrange(Complete_TCGA_ID)
+```
+```{r, echo=F}
+final_data2
+```
+
+---
+# Split-apply-combine
+
+```{r}
+knitr::include_graphics('lecture_joinsmodels2_data/split-apply-combine.png')
+```
+
+---
+## Splitting data by protein
+
+There are two ways of doing this:
+
+```{r, eval=F, echo=T}
+final_data2_grp <- final_data2 %>% group_by(protein)
+```
+or
+```{r, echo=T}
+final_data2_nest <- final_data2 %>% nest(-protein)
+```
+
+--
+
+```{r, echo=F}
+final_data2_nest
+```
+
+--
+
+This is an example of a `list-column`. We will actually use this form, since it's a bit clearer to understand
+
+???
+
+We've stored a list within a column, aligned to each protein.
+
+Advantages:
+
+1. Visual ease and alignment
+1. Can use `dplyr` verbs along with `purrr` functions
+
+We know how to apply a function over elements of a list. The base R way is using `lapply`, while the tidyverse way is to use `map`. These two functions are essentially the same, but the `map_*` functions make it much clearer than `lapply` what the type of output is.
+
+---
+
+```{r}
+knitr::include_graphics('lecture_joinsmodels2_data/split-apply-combine.png')
+```
+
+???
+
+Now we have to apply some function to each split dataset that will get us the desired result
+
+---
+class: inverse, middle, center
+
+# Side note: Functions
+
+---
+
+# Functions
+
+Functions are **rules** written in R code that take some _input_ and give some _output_
+
+```{r, echo=T}
+#' @param d A data.frame object
+#'
+#' @return The p-value for the 2-sided t-test comparing expression between ER_Status
+my_test <- function(d){
+  ttest <- t.test(expression ~ ER_Status, data = d)
+  return(ttest$p.value)
+}
+```
+
+This function takes in a `data.frame`, does some operations on it (runs a t-test, and extracts the p-value) and returns a value (the p-value).
+
+> In general, a function can output any kind of R object. We'll learn by example, but for more details, see [this chapter](http://r4ds.had.co.nz/functions.html) in 
+_R for Data Science_ by Wickham & Grolemund.
+
+We will **apply** this function to each split dataset in `final_data2_nest`
+
+---
+
+```{r}
+final_data2_nest
+```
+
+Let's take a look at an element in the `data` column
+```{r, echo = T}
+final_data2_nest$data[[1]]
+```
+
+???
+
+Each element in the data column is just a tibble
+
+---
+
+## Applying a function to each split dataset
+
+We will use the function `purrr::map` to do this:
+
+```{r, echo=T}
+final_data2_nest %>% mutate(pval = map(data, my_test))
+```
+
+---
+```{r}
+knitr::include_graphics('lecture_joinsmodels2_data/split-apply-combine.png')
+```
+
+???
+
+Now we have to combine the results so that each protein gets a corresponding p-value
+
+---
+
+## Combining the split results
+
+```{r, echo=T}
+final_data2_nest %>% mutate(pval = map(data, my_test)) %>% 
+  mutate(pval = unlist(pval))
+```
+
+--
+
+This could be done in one operation, as well
+```{r, eval=F, echo=T}
+final_data2_nest %>% mutate(pval = map_dbl(data, my_test))
+```
+
+---
+
+# What's `map` doing?
+
+```{r,echo=T}
+final_data2_nest %>% mutate(pval = map_dbl(data, my_test)) %>% head(3)
+```
+
+--
+
+```{r, echo=T}
+my_test(final_data2_nest$data[[1]])
+```
+
+--
+
+```{r, echo=T}
+my_test(final_data2_nest$data[[2]])
+```
+
+---
+# The `map` function
+
+1. **`map(data, my_test)`**:
+    - `data` is a list of data.frames, and `my_test` is a function that takes a data.frame as input and produces some output, that is stored in a list
+1. **`map(data, ~t.test(expression ~ ER_Status, data = .))`**: 
+    - Apply an anonymous function to each element of `data`, where the `.` serves as a place holder for an element of `data`. The anonymous function must start with a `~`. Note that the result of the anonymous function is the output of a `t.test`, which is a kind of object in R
+1. **`map(data, "ER_Status")`**: 
+    - Extract the element `ER_Status` from each element of `data`
+
+---
+## Pipelining this process
+
+```{r, echo=T}
+final_data2 %>% nest(-protein) %>% 
+  mutate(test = map(data,  ~t.test(expression ~ ER_Status, data = .))) %>% 
+  mutate(pval = map_dbl(test, 'p.value')) %>% head(3)
+```
+
+--
+
+Cleaning it up
+
+```{r, echo=T}
+final_data2 %>% nest(-protein) %>% 
+  mutate(test = map(data,  ~t.test(expression ~ ER_Status, data = .))) %>% 
+  mutate(pval = map_dbl(test, 'p.value')) %>% 
+  select(protein, pval) %>% head(3) #<<
+```
+
+
+
+---
+class: inverse, middle, center
+
+# Multiple comparison procedures (MCP)
+
+---
+
+## Why do we need it?
+
++ Recall, in hypothesis tests, the Type I error (or false positive rate) is 
+$$\Pr(Reject\ H_0 | H_0\ is\ true)$$
+This is typically limited by the testing procedure to 5%.  
+    - For the more technically interested, this is from the _Neyman-Pearson lemma_
++ There is always a chance we are wrong!!
+
+---
+
+## Why do we need it?
+
+Imagine your test is like a biased coin, with heads being "Reject $H_0$" and tails being "Do not reject $H_0$"
+
+Now assume $H_0$ is true, and you're doing multiple tests using the same data
+
+```{r}
+tbl <- tribble(~`Number of tests`, ~`Coin tosses` , ~`Pr(at least one head)`,
+               format(1, scientific = F), '1 toss', round(1-(0.95)^1,2),
+               format(2, scientific = F), '2 tosses', round(1-(0.95)^2, 2),
+               format(5, scientific=F), '5 tosses', round(1-(0.95)^5,2),
+               format(10, scientific = F), '10 tosses', round(1-(0.95)^10,2),
+               format(100, scientific = F), '100 tosses', round(1-(0.95)^100, 2),
+               format(1000000, big.mark=",", scientific = F), '1 million tosses', round(1-(0.95)^100000, 2))
+knitr::kable(tbl, format = 'html')
+```
+
+--
+
+This means, if you're doing 1 million tests (like, e.g., a GWAS), the chance that you 
+get **at least one false positive** is practically 1, i.e. a sure shot.
+
+This requires some kind of multiple comparisons adjustment so we don't make excessive errors and get fooled into thinking we have significant results
+
+---
+
+## Bonferroni correction
+
+If you have _n_ tests using the same data, then make sure that the Type I error is $0.05/n$. This means that for 100 tests, we'd reject the null hypothesis if the p-value was less than 0.0005 rather than 0.05.
+
+How does this help?
+
+```{r}
+d <- tibble('N' = c(1,2,5,10,100,1000000)) %>% 
+  mutate('nom_p' = 1-(0.95)^N) %>% 
+  mutate('bonf_p' = 1-(1-(0.05/N))^N)
+d <- d %>% mutate(N = format(N, scientific=F)) %>% 
+  set_names(c('Number of tests','Nominal FP rate','Corrected FP rate'))
+knitr::kable(d, digits=3, format='html')
+```
+
+The FP rate is the probability of getting at least one false positive. 
+
+--
+
+Realize that this is quite stringent, since we're not allowing any false positives. The Bonferroni correction is thus quite comservative.
+
+---
+
+# Bonferroni correction
+
+There is a price to pay for this stringency, in terms of 
+
+> Statistical Power = Pr(Reject $H_0$ | $H_0$ is FALSE)
+>
+> This is the chance that the test will reject the null when the null hypothesis is wrong. We would like this to be high, so that we can detect true dfferences. This is usually set at 80%
+
+```{r}
+mu = power.t.test(n = 25, sd = 1, power = 0.8, sig.level = 0.05)$delta
+d <- tibble('n' = c(1,2,5,10,100, 1000, 10000, 100000, 1000000)) %>% 
+  mutate('nominal' = 1-0.95^n) %>% 
+  mutate('bonf' = 1 - (1-0.05/n)^n) %>% 
+  mutate('powr' = power.t.test(n = 25, delta = mu, sd = 1, sig.level = 0.05/n)$power) %>% 
+  mutate(n = format(n, scientific=F)) %>% 
+  set_names(c('Number of tests','Nominal FP rate', 'Bonferroni-corrected FP rate', 'Statistical power'))
+knitr::kable(d, format = 'html', digits=3)
+```
+
+---
+# False discovery rates (FDR)
+
+The FDR is 
+
+> the expected proportion of false positives (incorrectly rejected null hypotheses)
+
+So if we set our FDR threshold to 0.05 and we identify 100 positives (reject 100 tests), then on average 5 of those 100 will be false positives
+
+### Benjamini-Hochberg (BH) procedure
+
+This controls for FDR by ordering the p-values from highest to lowest and then judges their 
+significance on a sliding scale. The adjusted values here are often referred to as _q-values_. 
+
+--
+
+FDR control procedures retain more statistical power than  Bonferroni corrections. There are other variants of this like the Benjamini-Yeukitili (BY) procedure
+
+---
+# An example
+
+If we see 10 heads in a row, we can statistically test whether the coin is biased or not. 
+
+```{r, echo=T}
+prop.test(x = 10, n = 10, p = 0.5) # x = heads, n = tosses
+```
+
+
+---
+### P-value adjustment
+
+.small[Suppose we want to test if pennies in circulation are biased (i.e. chance of a head is not 0.5). We collect 20,000 pennies and flip each of then 100 times, recording the number of heads. We can simulate this experiment in R using the `rbinom` function, use the `prop.test`
+function to test our hypothesis, and then get adjusted p-values using the `p.adjust` function.]
+
+```{r, echo=T}
+set.seed(1243) # Initialize the random number generator
+coinTable <- tibble(heads = rbinom(n = 20000, size = 100, prob = 0.5))
+coinTable <- coinTable %>% mutate(pvals = map_dbl(heads, ~prop.test(., 100, 0.5)$p.value))
+coinTable <- coinTable %>% mutate(bonf = p.adjust(pvals, method = 'bonferroni')) %>% 
+  mutate(q_value = p.adjust(pvals, method = 'fdr'))
+```
+```{r}
+coinTable
+```
+.small[The proportion of p-values < 0.05 is:]
+```{r}
+coinTable %>% summarize_at(vars(-heads), funs(mean(. < 0.05)))
+```
+
+???
+
++ Note that `map` can take a vector as input, since a vector is converted internally into a list of numbers
+
+---
+### P-value adjustment
+
+If the coins are truly biased, we can see that the Bonferroni misses most of them whereas the q-value doesn't.
+
+```{r, echo=T}
+set.seed(1243) # Initialize the random number generator
+coinTable <- tibble(heads = rbinom(n = 20000, size = 100, prob = 0.7)) #<<
+coinTable <- coinTable %>% mutate(pvals = map_dbl(heads, ~prop.test(., 100, 0.5)$p.value))
+coinTable <- coinTable %>% mutate(bonf = p.adjust(pvals, method = 'bonferroni')) %>% 
+  mutate(q_value = p.adjust(pvals, method = 'fdr'))
+```
+```{r}
+coinTable
+```
+```{r, echo=T}
+coinTable %>% summarize_at(vars(-heads), funs(mean(. < 0.05)))
+```
+
+---
+class: middle, center
+
+# Next week: Statistical models in R
