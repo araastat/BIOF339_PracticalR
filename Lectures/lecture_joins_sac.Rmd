@@ -48,8 +48,8 @@ We need to
 
 This data set is taken from a breast cancer proteome database available [here](https://www.kaggle.com/piotrgrabo/breastcancerproteomes) and modified for this exercise.
 
-+ Clinical data: [CSV](lecture_joinsmodels2_data/BreastCancer_Clinical.csv)|[XLSX](lecture_joinsmodels2_data/BreastCancer_Clinical.xlsx)
-+ Proteome data: [CSV](lecture_joinsmodels2_data/BreastCancer_Expression.csv)|[XLSX](lecture_joinsmodels2_data/BreastCancer_Expression.xlsx)
++ Clinical data: [CSV](lecture_joins_sac_data/BreastCancer_Clinical.csv)|[XLSX](lecture_joins_sac_data/BreastCancer_Clinical.xlsx)
++ Proteome data: [CSV](lecture_joins_sac_data/BreastCancer_Expression.csv)|[XLSX](lecture_joins_sac_data/BreastCancer_Expression.xlsx)
 
 ---
 class: inverse, middle, center
@@ -75,13 +75,13 @@ We already talked about `cbind` and `rbind`:
 .pull-left[
 <span style="text-align:center;">`cbind`</span>
 ```{r, fig.caption = "`cbind`"}
-knitr::include_graphics('lecture_joinsmodels2_data/addcol.png')
+knitr::include_graphics('lecture_joins_sac_data/addcol.png')
 ```
 ]
 .pull-right[
 <span style="text-align:center;">`rbind`</span>
 ```{r, fig.caption="`rbind`"}
-knitr::include_graphics('lecture_joinsmodels2_data/addrow.png')
+knitr::include_graphics('lecture_joins_sac_data/addrow.png')
 ```
 ]
 
@@ -101,14 +101,14 @@ We will assume:
 ]
 
 .pull-right[
-<img src="lecture_joinsmodels2_data/merge.png" height="10%"/>
+<img src="lecture_joins_sac_data/merge.png" height="10%"/>
 ]
 
 ---
 
 # Joining data sets
 
-<img width="100%" src="lecture_joinsmodels2_data/joins.png"/>
+<img width="100%" src="lecture_joins_sac_data/joins.png"/>
 
 --
 
@@ -129,9 +129,9 @@ The "join condition" are the common variables in the two datasets, i.e. rows are
 
 ```{r, echo=T}
 library(readxl)
-clinical <- read_excel('lecture_joinsmodels2_data/BreastCancer_Clinical.xlsx') %>% 
+clinical <- read_excel('lecture_joins_sac_data/BreastCancer_Clinical.xlsx') %>% 
   set_names(str_replace_all(names(.), '[ -]+', '_'))
-proteome <- read_excel('lecture_joinsmodels2_data/BreastCancer_Expression.xlsx') %>% 
+proteome <- read_excel('lecture_joins_sac_data/BreastCancer_Expression.xlsx') %>% 
   set_names(str_replace_all(names(.), '[ -]+', '_'))
 
 ```
@@ -153,9 +153,9 @@ proteome
 
 ```{r, eval = F, echo=T}
 library(readxl)
-clinical <- read_excel('lecture_joinsmodels2_data/BreastCancer_Clinical.xlsx') %>% 
+clinical <- read_excel('lecture_joins_sac_data/BreastCancer_Clinical.xlsx') %>% 
   set_names(str_replace_all(names(.), '[ -]+', '_'))
-proteome <- read_excel('lecture_joinsmodels2_data/BreastCancer_Expression.xlsx') %>% 
+proteome <- read_excel('lecture_joins_sac_data/BreastCancer_Expression.xlsx') %>% 
   set_names(str_replace_all(names(.), '[ -]+', '_'))
 
 ```
@@ -341,7 +341,7 @@ final_data2
 # Split-apply-combine
 
 ```{r}
-knitr::include_graphics('lecture_joinsmodels2_data/split-apply-combine.png')
+knitr::include_graphics('lecture_joins_sac_data/split-apply-combine.png')
 ```
 
 ---
@@ -381,7 +381,7 @@ We know how to apply a function over elements of a list. The base R way is using
 ---
 
 ```{r}
-knitr::include_graphics('lecture_joinsmodels2_data/split-apply-combine.png')
+knitr::include_graphics('lecture_joins_sac_data/split-apply-combine.png')
 ```
 
 ???
@@ -443,7 +443,7 @@ final_data2_nest %>% mutate(pval = map(data, my_test))
 
 ---
 ```{r}
-knitr::include_graphics('lecture_joinsmodels2_data/split-apply-combine.png')
+knitr::include_graphics('lecture_joins_sac_data/split-apply-combine.png')
 ```
 
 ???

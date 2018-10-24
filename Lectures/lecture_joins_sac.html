@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="author" content="Abhijit Dasgupta" />
     <meta name="date" content="2018-10-24" />
-    <link href="lecture_joins_models2_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="lecture_joins_sac_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="robot.css" type="text/css" />
     <link rel="stylesheet" href="robot-fonts.css" type="text/css" />
   </head>
@@ -49,8 +49,8 @@ We need to
 
 This data set is taken from a breast cancer proteome database available [here](https://www.kaggle.com/piotrgrabo/breastcancerproteomes) and modified for this exercise.
 
-+ Clinical data: [CSV](lecture_joinsmodels2_data/BreastCancer_Clinical.csv)|[XLSX](lecture_joinsmodels2_data/BreastCancer_Clinical.xlsx)
-+ Proteome data: [CSV](lecture_joinsmodels2_data/BreastCancer_Expression.csv)|[XLSX](lecture_joinsmodels2_data/BreastCancer_Expression.xlsx)
++ Clinical data: [CSV](lecture_joins_sac_data/BreastCancer_Clinical.csv)|[XLSX](lecture_joins_sac_data/BreastCancer_Clinical.xlsx)
++ Proteome data: [CSV](lecture_joins_sac_data/BreastCancer_Expression.csv)|[XLSX](lecture_joins_sac_data/BreastCancer_Expression.xlsx)
 
 ---
 class: inverse, middle, center
@@ -75,11 +75,11 @@ We already talked about `cbind` and `rbind`:
 
 .pull-left[
 &lt;span style="text-align:center;"&gt;`cbind`&lt;/span&gt;
-&lt;img src="lecture_joinsmodels2_data/addcol.png" width="640" /&gt;
+&lt;img src="lecture_joins_sac_data/addcol.png" width="640" /&gt;
 ]
 .pull-right[
 &lt;span style="text-align:center;"&gt;`rbind`&lt;/span&gt;
-&lt;img src="lecture_joinsmodels2_data/addrow.png" width="640" /&gt;
+&lt;img src="lecture_joins_sac_data/addrow.png" width="640" /&gt;
 ]
 
 ---
@@ -98,14 +98,14 @@ We will assume:
 ]
 
 .pull-right[
-&lt;img src="lecture_joinsmodels2_data/merge.png" height="10%"/&gt;
+&lt;img src="lecture_joins_sac_data/merge.png" height="10%"/&gt;
 ]
 
 ---
 
 # Joining data sets
 
-&lt;img width="100%" src="lecture_joinsmodels2_data/joins.png"/&gt;
+&lt;img width="100%" src="lecture_joins_sac_data/joins.png"/&gt;
 
 --
 
@@ -127,9 +127,9 @@ The "join condition" are the common variables in the two datasets, i.e. rows are
 
 ```r
 library(readxl)
-clinical &lt;- read_excel('lecture_joinsmodels2_data/BreastCancer_Clinical.xlsx') %&gt;% 
+clinical &lt;- read_excel('lecture_joins_sac_data/BreastCancer_Clinical.xlsx') %&gt;% 
   set_names(str_replace_all(names(.), '[ -]+', '_'))
-proteome &lt;- read_excel('lecture_joinsmodels2_data/BreastCancer_Expression.xlsx') %&gt;% 
+proteome &lt;- read_excel('lecture_joins_sac_data/BreastCancer_Expression.xlsx') %&gt;% 
   set_names(str_replace_all(names(.), '[ -]+', '_'))
 ```
 
@@ -190,9 +190,9 @@ proteome &lt;- read_excel('lecture_joinsmodels2_data/BreastCancer_Expression.xls
 
 ```r
 library(readxl)
-clinical &lt;- read_excel('lecture_joinsmodels2_data/BreastCancer_Clinical.xlsx') %&gt;% 
+clinical &lt;- read_excel('lecture_joins_sac_data/BreastCancer_Clinical.xlsx') %&gt;% 
   set_names(str_replace_all(names(.), '[ -]+', '_'))
-proteome &lt;- read_excel('lecture_joinsmodels2_data/BreastCancer_Expression.xlsx') %&gt;% 
+proteome &lt;- read_excel('lecture_joins_sac_data/BreastCancer_Expression.xlsx') %&gt;% 
   set_names(str_replace_all(names(.), '[ -]+', '_'))
 ```
 
@@ -531,7 +531,7 @@ final_data2 &lt;- final_data %&gt;% gather(protein, expression, starts_with('NP'
 ---
 # Split-apply-combine
 
-&lt;img src="lecture_joinsmodels2_data/split-apply-combine.png" width="2956" /&gt;
+&lt;img src="lecture_joins_sac_data/split-apply-combine.png" width="2956" /&gt;
 
 ---
 ## Splitting data by protein
@@ -584,7 +584,7 @@ We know how to apply a function over elements of a list. The base R way is using
 
 ---
 
-&lt;img src="lecture_joinsmodels2_data/split-apply-combine.png" width="2956" /&gt;
+&lt;img src="lecture_joins_sac_data/split-apply-combine.png" width="2956" /&gt;
 
 ???
 
@@ -691,7 +691,7 @@ final_data2_nest %&gt;% mutate(pval = map(data, my_test))
 ```
 
 ---
-&lt;img src="lecture_joinsmodels2_data/split-apply-combine.png" width="2956" /&gt;
+&lt;img src="lecture_joins_sac_data/split-apply-combine.png" width="2956" /&gt;
 
 ???
 
