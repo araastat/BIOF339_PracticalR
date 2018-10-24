@@ -30,7 +30,6 @@ library(readxl)
     + Put the results back together
 + Use it for 
     + Running tests for many variables
-    + Visualizing data with p-value annotation
 + Understand why we need multiple comparison procedures (MCP)
     + Things to think about
 
