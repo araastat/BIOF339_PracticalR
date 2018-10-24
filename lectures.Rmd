@@ -83,4 +83,6 @@ Supplemental material
 
 ### Lecture 7: Joins, Split-Apply-Combine, and MCPs
 
-[Presentation](Lectures/lecture_joins_sac.html){target="_blank"}([PDF](Lectures/lecture_joins_sac.pdf){target='_blank"})
+[Presentation](Lectures/lecture_joins_sac.html){target="_blank"} ([PDF](Lectures/lecture_joins_sac.pdf){target='_blank"})
+
+[Practicum](Lectures/lecture_joins_sac_data/JoinsPracticum.html){target="_blank"} | [Solution](Lectures/lecture_joins_sac_data/JoinsPracticumSolution.html)

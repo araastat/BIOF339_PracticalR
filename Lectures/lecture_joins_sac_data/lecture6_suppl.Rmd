@@ -1,0 +1,170 @@
+---
+title: "Lecture 6 Supplement"
+output: 
+  html_document:
+    toc: true
+---
+
+```{r preamble, echo=F}
+knitr::opts_chunk$set(
+  comment = "> ",
+  cache=F
+)
+```
+
+# Reshaping a data frame
+## If there is more rows than I expect after a merge, how can I find out what's going on?
+
+
+```{r}
+library(readxl)
+
+expression_data <- read.csv('../lecture6_data/BreastCancer_Expression.csv', 
+                            stringsAsFactors=F)
+expression_data <- expression_data[,1:5]
+clinical_data <- read.csv('../lecture6_data/BreastCancer_Clinical.csv',
+                            stringsAsFactors=F)
+final_data <- merge(clinical_data, expression_data, 
+                    by.x = 'Complete.TCGA.ID', by.y = 'TCGA_ID')
+dim(clinical_data)
+dim(expression_data)
+dim(final_data)
+```
+
+The usual reason for this is that there are duplicates in the IDs, or there are duplicate rows. First of all, let's get rid of any possible duplicate rows
+
+```{r}
+final_data_unique <- unique(final_data)
+dim(final_data_unique)
+```
+
+So there are no duplicate rows. That means there are rows with the same ID but different data. We can look at the frequency of the IDs using `table`. 
+
+```{r}
+t1 <- table(final_data$Complete.TCGA.ID)
+t1[t1 > 1]
+```
+To get the id's, we just need to extract the names of the elements:
+
+```{r}
+questionable_ids <- names(t1[t1>1])
+questionable_ids
+```
+Now let's see the rows in the final data set with these ids. We can see all of them using the boolean function `%in%`. This will keep those elements on the left hand side that match at least one element on the right hand side. 
+
+```{r}
+dplyr::filter(final_data, Complete.TCGA.ID %in% questionable_ids)
+```
+To see data for one of these ids, 
+```{r}
+dplyr::filter(final_data, Complete.TCGA.ID == questionable_ids[1])
+```
+
+## Can we melt a data.frame without selecting columns first?
+
+Yes. The `melt` function has options by which you can specify which variables are melted. To replicate what we got in class, we could do the following:
+```{r, message=F, warning=F}
+library(reshape2)
+reshaped_data_new <- melt(final_data, 
+                          id.vars=c('Complete.TCGA.ID','ER.Status'), 
+                          measure.vars = 
+                            dplyr::starts_with('NP', vars = names(final_data)))
+head(reshaped_data_new,5)
+```
+
+Let's compare this with what we did in class
+```{r}
+selected_data <- dplyr::select(final_data, Complete.TCGA.ID, ER.Status, 
+                        dplyr::starts_with('NP'))
+reshaped_data <- melt(selected_data, 
+                      id.vars=c('Complete.TCGA.ID','ER.Status'))
+head(reshaped_data,5)
+```
+
+You could actually check if these two data sets are identical:
+```{r}
+identical(reshaped_data, reshaped_data_new)
+```
+
+## Ways of specifying variables in `melt`
+
+There are two ways of specifying variables in `melt`: by name or by location/column number. For example:
+
+```{r}
+dat1 <- melt(final_data, id.vars = c(1,4), measure.vars = 31:34)
+
+dat2 <- melt(final_data, id.vars = c('Complete.TCGA.ID','ER.Status'), 
+             measure.vars= grep('NP', names(final_data), value=T))
+
+dat3 <- melt(final_data, id.vars = c('Complete.TCGA.ID','ER.Status'),
+             measure.vars = dplyr::starts_with('NP',vars=names(final_data)))
+identical(dat1,dat2)
+identical(dat2,dat3)
+```
+
+> `grep` is the basic function for string searches within R, using [regular expressions](http://www.regular-expressions.info) . In the above, see what `grep('NP', names(final_data), value=T)` gives you. What happens if you change the option to `value=F`?
+
+## How do you reverse a `melt`, i.e. go from long to wide data?
+
+The reverse of "melt"-ing a data frame is "cast"-ing a data frame. In `reshape2` this function is called `dcast` (for casting into a data frame). 
+
+```{r}
+final_data2 <- final_data[-c(41,43,73),] # Got rid of one of the rows for each of the duplicated ids
+                                        # The - sign means, remove those elements
+reshaped_data2 <- melt(final_data2, id.vars = c(1,4), 
+                       measure.vars = 
+                         dplyr::starts_with('NP', vars=names(final_data2)))
+cast_data2 <- dcast(reshaped_data2, Complete.TCGA.ID + ER.Status ~ variable, 
+                    value.var='value')
+head(reshaped_data2,3)
+head(cast_data2,3)
+dim(reshaped_data2)
+dim(cast_data2)
+```
+
+> Casting syntax is always a bit confusing, even for me. I think about it as, the left side of the formula contains those variables that won't be converted into columns, or, in other words, those that would be part of the set of `id.vars` in `melt`. The right side is the name of the column containing the names which will become new column names.
+>   
+> This code only works if the variables represented in the formula have no duplicated values in the data set. 
+> 
+> A new package `tidyr` makes this process a bit easier, but you have to select the variables first
+
+```{r, message=F}
+library(tidyr)
+selected_data3 <- selected_data[-c(41,43,73),]
+reshaped_data3 <-  gather(selected_data3, variable, value, 
+                          -Complete.TCGA.ID, -ER.Status) 
+                           # These two variables are NOT melted
+
+cast_data3 <- spread(reshaped_data3, variable, value)
+```
+> `cast_data3` and `selected_data3` are identical except for the fact that the columns are in different orders
+
+# Merging two data frames
+
+## Types of merges/joins
+
+Now, there are three kinds of merges or joins that are mainly used:
+
+Type                 Options in `merge`                     Keeps
+-------------------- -------------------------------------- ---------------------
+Inner join           `all = F` (or `all.x = F, all.y = F`)  Only rows with common identifiers
+Outer join           `all = T`                              All rows of both
+Left join            `all.x = T`                            All rows of first data, corresponding rows of 2nd
+
+If you don't want to remember these kinds of options, `dplyr` has some more direct functions. Instead of describing them here, I'll point you to the [excellent cheatsheet](http://stat545.com/bit001_dplyr-cheatsheet.html) on this developed by Dr. Jenny Bryan for her STAT 545 class at University of British Columbia
+
+I'll just note one thing for `dplyr` joins. First, they will join automatically on variables with common names in the two data frames. If you want to specify what goes with what, you can use the option `by = c('Complete.TCGA.ID'='TCGA_ID')`, for example, to be explicit. We'll first make sure we don't have issues with duplicated ids
+
+```{r}
+expression_data2 <- expression_data[-(1:3),] # Remove rows with duplicate ids
+final_data2 <- merge(clinical_data, expression_data2,
+                     by.x = 'Complete.TCGA.ID', by.y = 'TCGA_ID')
+final_data2_dplyr <- dplyr::inner_join(clinical_data, expression_data2, 
+                                      by=c('Complete.TCGA.ID'='TCGA_ID'))
+final_data2 <- dplyr::arrange(final_data2, Complete.TCGA.ID)
+final_data2_dplyr <- dplyr::arrange(final_data2_dplyr, Complete.TCGA.ID)
+identical(final_data2, final_data2_dplyr)
+```
+
+So the only difference between final_data2_dplyr and final_data2 (without the re-arrangement) is the row-ordering of each data set, which really doesn't matter. 
+
