@@ -81,6 +81,7 @@ img, video, iframe {
 blockquote {
   border-left: solid 5px lightgray;
   padding-left: 1em;
+  font-size: 90%;
 }
 table {
   margin: auto;
@@ -113,7 +114,9 @@ li{
 .small {
   font-size: 80%;
 }
-
+.tiny {
+  font-size: 60%;
+}
 div.my-header {
   background-color: #272822;
   position: absolute;

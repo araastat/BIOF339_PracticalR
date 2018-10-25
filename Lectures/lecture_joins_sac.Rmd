@@ -366,8 +366,9 @@ final_data2_grp <- final_data2 %>% group_by(protein)
 ```
 or
 ```{r, echo=T}
-final_data2_nest <- final_data2 %>% nest(-protein)
+final_data2_nest <- final_data2 %>% group_by(protein) %>% nest()
 ```
+.right[.tiny[Updated this thanks to https://www.brodrigues.co/blog/2017-03-29-make-ggplot2-purrr/]]
 
 --
 
