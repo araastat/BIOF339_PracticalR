@@ -90,3 +90,4 @@ Supplemental material
 #### Other resources
 + Jenny Bryan's [purrr tutorials](https://jennybc.github.io/purrr-tutorial/){target="_blank"}
 + Jenny Bryan's excellent talk on [list-columns](https://speakerdeck.com/jennybc/putting-square-pegs-in-round-holes-using-list-cols-in-your-dataframe){target="_blank"}
++ [A very nice listing of purrr-related posts](https://maraaverick.rbind.io/2017/09/-purrr-ty-posts/)
