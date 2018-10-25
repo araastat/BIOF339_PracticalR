@@ -4,7 +4,7 @@ date: "Fall 2018"
 output: html_document
 ---
 
-Last updated: `r format(Sys.time(), '%b %d, %Y (%I:%M%p %Z)')`
+Last updated: `r format(Sys.time(), '%b %d, %Y (%l:%M%p %Z)')`
 
 ------
 
@@ -44,7 +44,7 @@ Supplemental material
 
 ### Lecture 4 : Data Visualization
 
-<a href="Lectures/lecture_visualization.html" target = "_blank">Presentation</a> ([PDF](Lectures/lecture_visualization.pdf){target="_blank"})
+<a href="Lectures/lecture_visualization.html" target = "_blank">Presentation</a> | [PDF](Lectures/lecture_visualization.pdf){target="_blank"} | [Audio (partial)](https://www.dropbox.com/s/l9vsn7gcxnz3fza/DataViz_2018.MP3?dl=1)
 
 [R Markdown file](Lectures/lecture_visualization.Rmd){target="_blank"}
 
@@ -70,7 +70,7 @@ Supplemental material
 
 ### Lecture 6 : Data Input and Output
 
-<a href="Lectures/lecture_dataio.html" target = "_blank">Presentation</a> ([PDF](Lectures/lecture_dataio.pdf){target="_blank"})
+<a href="Lectures/lecture_dataio.html" target = "_blank">Presentation</a>  | [PDF](Lectures/lecture_dataio.pdf){target="_blank"} | [Audio](https://www.dropbox.com/s/knd5cegclbm352l/DataIO_2018.MP3?dl=1)
 
 <a href="Lectures/lecturedataio_files/lecture_dataio_Practicum.html" target="_blank">Practicum</a> ([Solution](Lectures/lecturedataio_files/lecture_dataio_PracticumSolution.html){target="_blank"})
 
@@ -86,3 +86,7 @@ Supplemental material
 [Presentation](Lectures/lecture_joins_sac.html){target="_blank"} ([PDF](Lectures/lecture_joins_sac.pdf){target='_blank"})
 
 [Practicum](Lectures/lecture_joins_sac_data/JoinsPracticum.html){target="_blank"} | [Solution](Lectures/lecture_joins_sac_data/JoinsPracticumSolution.html)
+
+#### Other resources
++ Jenny Bryan's [purrr tutorials](https://jennybc.github.io/purrr-tutorial/){target="_blank"}
++ Jenny Bryan's excellent talk on [list-columns](https://speakerdeck.com/jennybc/putting-square-pegs-in-round-holes-using-list-cols-in-your-dataframe){target="_blank"}
