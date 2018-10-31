@@ -8,6 +8,10 @@ Last updated: `r format(Sys.time(), '%b %d, %Y (%l:%M%p %Z)')`
 
 ------
 
+<div style="border:1pt solid red; color: red; font-family: Charter; font-style:italic; text-align:center; font-size: 16pt; margin: 1.5em; padding: 1em;">
+<b>Attention all members! Due to a combination of professor illness, our class sections being ahead of the material, and the holiday today, both sections of Practical R are cancelled for October 31, 2018.</b> 
+</div>
+
 ### Lecture 1 : Introduction
 
 [Presentation](Lectures/lecture_intro.pdf){target="_blank"}

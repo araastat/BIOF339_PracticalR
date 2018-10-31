@@ -20,6 +20,9 @@ Contact info:
 
 > There is a Slack Channel associated with this class. Please contact Joe Jessee (<a href="mailto:jjessee1@jhu.edu">jjessee1@jhu.edu</a>) if you want access
 
+<div style="border:1pt solid red; color: red; font-family: Charter; font-style:italic; text-align:center; font-size: 16pt; margin: 1.5em; padding: 1em;">
+<b>Attention all members! Due to a combination of professor illness, our class sections being ahead of the material, and the holiday today, both sections of Practical R are cancelled for October 31.</b> 
+</div>
 
 <a href="http://www.r-project.org" target="_blank">R</a> is one of the most popular programming languages for 
 data science and statistics. It is a free and open source language available for 
