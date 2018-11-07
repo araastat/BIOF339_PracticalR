@@ -134,3 +134,10 @@ div.my-header span{
   left: 15px;
   bottom: 2px;
 }
+
+.bigblockquote {
+  border-left: solid 5px lightgray;
+  padding-left: 1em;
+  font-size: 200%;
+  font-style: italic;
+}

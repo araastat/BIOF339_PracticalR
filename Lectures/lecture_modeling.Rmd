@@ -1,0 +1,536 @@
+---
+title: "Statistical Modeling"
+author: "Abhijit Dasgupta"
+date: "November 7, 2018"
+output:
+  xaringan::moon_reader:
+    css: [default, './robot.css', './robot-fonts.css']
+    #css: [default, metropolis, metropolis-fonts]
+    nature:
+      ratio: '16:9'
+      highlightLanguage: R
+      countIncrementalSlides: false
+      highlightStyle: zenburn
+      highlightLines: true
+
+---
+
+layout: true
+
+<div class="my-header">
+<span>BIOF 339, Fall 2018</span></div>
+
+---
+
+```{r setup, include=FALSE, message = F, warning = F}
+knitr::opts_chunk$set(echo = FALSE, message = F, warning = F, comment="", cache=T)
+library(tidyverse)
+library(broom)
+library(readxl)
+```
+
+# Goals today
+
+.pull-left[
++ Using data models
+    - Types and purpose
++ Common statistical models
+    - Linear models
+    - Logistic models
++ The "formula interface" in R to express models
+]
+.pull-right[
++ Learning to extract and use the results of models
+    - The `broom` package
+    - Graphical representations
++ What predictors/covariates are "important"
++ Model building and selection
++ Good practices
+]
+
+---
+class: inverse, middle, center
+
+
+.bigblockquote[All models are wrong, but some are useful]
+
+.right[G.E.P. Box]
+
+---
+
+# Models
+
+Models are our way of understanding nature, usually using some sort of mathematical expression
+
+Famous mathematical models include Newton's second law of motion, the laws of thermodynamics, the ideal gas law
+
+All probability distributions, like Gaussian, Binomial, Poisson, Gamma, are models
+
+Mendel's laws are models **that result in** particular mathematical models for inheritance and population prevalence
+
+---
+
+# Models
+
+We use models all the time to describe our understanding of different processes
+
++ Cause-and-effect relationships
+--
+
++ Supply-demand curves
+--
+
++ Financial planning
+--
+
++ Optimizing travel plans (perhaps including traffic like _Google Maps_)
+--
+
++ Understanding the effects of change
+    - Climate change
+    - Rule changes via Congress or companies
+    - Effect of a drug on disease outcomes
+    - Effect of education and behavioral patterns on future earnings
+    
+    
+---
+
+# Data-driven models
+
+> Can we use data collected on various aspects of a particular context to understand the relationships between the different aspects?
+
++ How does increased smoking affect your risk of getting lung cancer? (causality/association)
+    - Does genetics matter?
+    - Does the kind of smoking matter?
+    - Does gender matter?
+
+---
+
+# Data-driven models
+
+> Can we use data collected on various aspects of a particular context to understand the relationships between the different aspects?
+
++ What is your lifetime risk of breast cancer? (prediction)
+    - What if you have a sister with breast cancer?
+    - What if you had early menarche?
+    - What if you are of Ashkenazi Jewish heritage?
+    
+.right[[The Gail Model from NCI](https://bcrisktool.cancer.gov/)]
+
+---
+
+# Association models 
+
+These are more traditional, highly interpretative models that look at **how** different predictors
+affect outcome.
+
++ Linear regression
++ Logistic regression
++ Cox proportional hazards regression
++ Decision trees
+
+Since these models have a particular known structure determined by the modeler, they can 
+be used on relatively small datasets
+
+You can easily understand which predictors have more "weight" in influencing the outcome
+
+You can literally write down how a prediction would be made
+
+---
+
+# Predictive models
+
+These are more recent models that primarily look to provide good predictions of an outcome, and 
+the way the predictions are made is left opaque (often called a _black box_)
+
++ Deep Learning (or Neural Networks)
++ Random Forests
++ Support Vector Machines
++ Gradient Boosting Machines
+
+These models require data to both determine the structure of the model as well as make the predictions, so they require lots of data to _train_ on
+
+The relative "weight" of predictors in influencing the **predictions** can be obtained
+
+The effect of individual predictors is not easily interpretable, though this is changing
+
+They require a different **philosophic perspective** than traditional association models
+
+---
+
+# Datasets
+
+We will use the `pbc` data from the `survival` package, and the in-built `mtcars` dataset.
+
+```{r, echo=T}
+library(survival)
+data(pbc)
+str(pbc)
+```
+
+---
+class: inverse, middle, center
+
+# The formula interface
+
+---
+
+# Representing model relationships
+
+In R, there is a particularly convenient way to express models, where you have
+
+- one dependent variable
+- one or more independent variables, with possible transformations and interactions
+
+```
+y ~ x1 + x2 + x1:x2 + I(x3^2) + x4*x5
+```
+
+--
+
+`y` depends on ...
+--
+
+- `x1` and `x2` linearly
+--
+
+- the interaction of `x1` and `x2` (represented as `x1:x2`)
+--
+
+- the square of `x3` (the `I()` notation ensures that the `^` symbol is interpreted correctly)
+--
+
+- `x4`, `x5` and their interaction (same as `x4 + x5 + x4:x5`)
+
+---
+
+# Representing model relationships
+
+```
+y ~ x1 + x2 + x1:x2 + I(x3^2) + x4*x5
+```
+
+This interpretation holds for the vast majority of statistical models in R
+
+- For decision trees and random forests and neural networks, don't add interactions or transformations, since the model will try to figure those out on their own
+
+---
+
+# Our first model
+
+```{r, echo=T}
+myLinearModel <- lm(chol ~ bili, data = pbc)
+```
+
+Note that everything in R is an **object**, so you can store a model in a variable name.
+
+This statement runs the model and stored the fitted model in `myLinearModel`
+
+R does not interpret the model, evaluate the adequacy or appropriateness of the model, or comment on whether looking at the relationship between cholesterol and bilirubin makes any kind of sense.
+
+--
+
+.bigblockquote[It just fits the model it is given]
+
+---
+
+# Our first model
+
+```{r, echo=T}
+myLinearModel
+```
+
+> Not very informative, is it?
+
+---
+
+# Our first model
+
+```{r, echo=T}
+summary(myLinearModel)
+```
+
+> A little better
+
+???
+
+Talk about the different metrics in this slide
+
+
+---
+
+# Our first model
+
+```{r, echo=T}
+broom::tidy(myLinearModel)
+```
+
+```{r, echo=T}
+broom::glance(myLinearModel)
+```
+
+---
+
+# Our first model
+
+We do need some sense as to how well this model fit the data
+
+.pull-left[
+```{r, echo=T, eval=F}
+# install.packages('ggfortify')
+library(ggfortify)
+autoplot(myLinearModel)
+```
+]
+.pull-right[
+```{r, echo=F, eval=T}
+# install.packages('ggfortify')
+library(ggfortify)
+autoplot(myLinearModel)
+```
+]
+
+---
+
+# Our first model
+
+Let's see if we have some strangeness going on
+
+--
+.pull-left[
+```{r, echo=T, eval=F}
+ggplot(pbc, aes(x = bili))+geom_density()
+```
+
+We'd like this to be a bit more "Gaussian" for better behavior
+]
+.pull-right[
+```{r, echo=F, eval=T}
+ggplot(pbc, aes(x = bili))+geom_density()
+```
+
+]
+
+---
+
+# Our first model
+
+Let's see if we have some strangeness going on
+
+.pull-left[
+```{r, echo=T, eval=F}
+ggplot(pbc, aes(x = log(bili)))+geom_density()
+```
+
+]
+.pull-right[
+```{r, echo=F, eval=T}
+ggplot(pbc, aes(x = log(bili)))+geom_density()
+```
+
+]
+
+---
+
+# Our first model
+
+```{r, echo=T}
+myLinearModel2 <- lm(chol~log(bili), data = pbc)
+summary(myLinearModel2)
+```
+
+---
+
+# Our first model
+
+```{r}
+autoplot(myLinearModel2)
+```
+
+---
+
+# Just the residual plot, please
+
+```{r, echo=T}
+autoplot(myLinearModel2, which=1)
+```
+
+--
+
+> OR
+
+---
+
+# Just the residual plot, please
+
+```{r, echo=T}
+d <- broom::augment(myLinearModel2)
+d
+```
+
+---
+
+# Just the residual plot, please
+
+```{r, echo=T, fig.height=5}
+ggplot(d, aes(x = .fitted, y = .resid))+geom_point()+ geom_smooth(se=F)+
+  labs(x = 'Fitted values', y = 'Residual values')
+```
+
+
+---
+
+# Predictions
+
+```{r, echo=T}
+head(predict(myLinearModel2, newdata = pbc))
+```
+
+The `newdata` has to have the same format and components as the original data the model was trained on
+
+---
+
+# Categorical predictors
+
+```{r, echo=T}
+myLM3 <- lm(chol ~ log(bili) + sex, data = pbc)
+broom::tidy(myLM3)
+```
+
+R has a somewhat unfortunate notation for categorical varialbes here, as `{variable name}{level}`
+
+---
+class: inverse, middle, center
+
+# Logistic regression
+
+---
+
+# The logistic transformation
+
+For an outcome which is binary (0/1), what is really modeled is the **probability** that the outcome is 1, usually denoted by _p_.
+
+However, we know $0 \leq p \leq 1$, so what if the model gives a prediction outside this range!!
+
+The logistic transform takes _p_ to 
+
+$$
+\text{logit}(p) = \log\left(\frac{p}{1-p}\right)
+$$
+
+and we model _logit(p)_, which has a range from $-\infty$ to $\infty$
+
+---
+
+# Logistic regression
+
+Logistic regression is a special case of a **generalized linear model**, so the function we use to run a logistic regression is `glm`
+
+```{r, echo = T}
+myLR <- glm(spiders ~ albumin + bili + chol, data = pbc, family = binomial)
+myLR
+```
+
+- We have to add the `family = binomial` as an argument, since this is a special kind of GLM
+- All these models only use complete data; they kick out rows with missing data
+
+---
+
+# Logistic regression
+
+```{r, echo=T}
+broom::tidy(myLR)
+```
+--
+
+```{r, echo=T}
+broom::glance(myLR)
+```
+
+---
+
+# Predictions from logistic regression
+
+```{r, echo=T}
+head(predict(myLR))
+```
+--
+
+These are on the "wrong" scale. We would expect probabilities
+--
+
+```{r, echo=T}
+head(predict(myLR, type='response'))
+```
+
+--
+
+or you can use `plogis(predict(myLR))` for the inverse logistic transform
+
+---
+class: inverse, middle, center
+
+# Model selection
+
+---
+
+# How to get the "best" model
+
+Generally getting to the best model involves
+
+- looking at a lot of graphs
+- Fitting lots of models
+- Comparing the model fits to see what seems good
+
+Sometimes if you have two models that fit about the same, you take the smaller, less complex model (Occam's Razor)
+
+Generally it is not recommended that you use automated model selection methods. It screws up your error rates and may not be the right end result for your objectives
+
+--
+
+> Model building and selection is an art
+
+---
+
+# Clues to follow
+
+You can look at the relative weights (size of coefficient and its p-value) of different predictors
+
+- These weights will change once you change the model, so be aware of that
+
+--
+
+You can trim the number of variables based on collinearities
+
+- If several variables are essentially measuring the same thing, use one of them
+
+--
+
+You can look at residuals for clues about transformations
+
+--
+
+You can look at graphs, as well as science, for clues about interactions (synergies and antagonisms)
+
+---
+
+# Automated model selection
+
+```{r, echo=T}
+# install.packages('leaps')
+mtcars1 <- mtcars %>% mutate_at(vars(cyl, vs:carb), as.factor)
+all_subsets <- regsubsets(mpg~., data = mtcars1)
+all_subsets
+```
+
+---
+
+# Automated model selection
+
+Which has the best R^2^?
+
+```{r, echo=T}
+ind <- which.max(summary(all_subsets)$adjr2)
+summary(all_subsets)$which[ind,]
+```
+

@@ -8,9 +8,6 @@ Last updated: `r format(Sys.time(), '%b %d, %Y (%l:%M%p %Z)')`
 
 ------
 
-<div style="border:1pt solid red; color: red; font-family: Charter; font-style:italic; text-align:center; font-size: 16pt; margin: 1.5em; padding: 1em;">
-<b>Attention all members! Due to a combination of professor illness, our class sections being ahead of the material, and the holiday today, both sections of Practical R are cancelled for October 31, 2018.</b> 
-</div>
 
 ### Lecture 1 : Introduction
 
@@ -95,3 +92,9 @@ Supplemental material
 + Jenny Bryan's [purrr tutorials](https://jennybc.github.io/purrr-tutorial/){target="_blank"}
 + Jenny Bryan's excellent talk on [list-columns](https://speakerdeck.com/jennybc/putting-square-pegs-in-round-holes-using-list-cols-in-your-dataframe){target="_blank"}
 + [A very nice listing of purrr-related posts](https://maraaverick.rbind.io/2017/09/-purrr-ty-posts/)
+
+### Lecture 8: Statistical Modeling
+
+[Presentation](Lectures/lecture_modeling.html){target='_blank'}
+
+[Practicum](Lectures/lecture5_files/Practicum5.html){target="_blank"}
