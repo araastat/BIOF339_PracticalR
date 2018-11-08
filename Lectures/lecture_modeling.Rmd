@@ -527,7 +527,7 @@ all_subsets
 
 # Automated model selection
 
-Which has the best R^2^?
+Which has the best R<sup>2</sup>?
 
 ```{r, echo=T}
 ind <- which.max(summary(all_subsets)$adjr2)
