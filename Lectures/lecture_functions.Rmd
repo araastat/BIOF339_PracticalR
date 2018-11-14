@@ -6,7 +6,10 @@ output: ioslides_presentation
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, cache = T)
+library(tidyverse)
+library(broom)
+options(dplyr.width=Inf)
 ```
 
 ## R Functions are objects
@@ -47,6 +50,8 @@ myDumbFunction <- function() 42
 myDumbFunction()
 ```
 
+> This is a function with __no__ arguments. Usually functions have arguments, which we will see next. Here, `myDumbFunction` gives the same answer whenever it's called
+
 ## Creating a multi-statement function
 
 If there is more than one statement in a function, they should be enclosed in curly brackets:
@@ -54,12 +59,14 @@ If there is more than one statement in a function, they should be enclosed in cu
 ```{r}
 doubleIt <- function(x) {
   myResult <- x * 2
-  myResult
+  myResult # or, explicitly, return(myResult)
 }
 doubleIt(5)
 ```
 
 The last statement within the curly brackets will be the value returned by the function.
+
+> `x` is the function argument, in that it is a placeholder we can replace with an actual value when calling the function
 
 ## Functions live in their own little world
 
@@ -81,7 +88,7 @@ Hasson SA, Kane LA, Yamano K, Huang CH, Sliter DA, Buehler E, Wang C,
 Heman-Ackah SM, Hessa T, Guha R, Martin SE, Youle RJ.
 Nature. 2013.
 
-The data set will be available for download from the lectures portion of the class web page.
+The data set will be available for download from the lectures portion of the class web page, also [here](lecture_functions_data/nature.parkin.gw.xlsx). 
 
 ## Preview the Data
 
@@ -93,27 +100,32 @@ knitr::include_graphics("../Lectures/lecture_functions_files/excel.preview.png")
 
 ```{r echo=TRUE, cache=TRUE}
 library(readxl)
-ambion <- read_excel("lecture9_files/nature.parkin.gw.xlsx", skip = 3)
+ambion <- read_excel("lecture_functions_data/nature.parkin.gw.xlsx", skip = 3)
 str(ambion)
 ```
 
 ## Check for missing data
 
 ```{r}
-apply(ambion, 2, function(x) sum(is.na(x)))
+options(dplyr.width = Inf) # show all cols
+ambion %>% summarize_all(function(x) sum(is.na(x)))
+# apply(ambion, 2, function(x) sum(is.na(x)))
 ```
 
 ## Investigate Missing Data
 
 ```{r}
-ambion[is.na(ambion[,1]),][1,]
+#ambion[is.na(ambion[,1]),][1,]
+ambion %>% filter(is.na(.[,1])) %>% slice(1)
 ```
 
 ## Eliminate Missing Data
 
 ```{r}
-ambion <- ambion[! is.na(ambion[,2]), ]
-apply(ambion, 2, function(x) sum(is.na(x)))
+# ambion <- ambion[! is.na(ambion[,2]), ]
+ambion <- ambion %>% filter(!is.na(Sample))
+#apply(ambion, 2, function(x) sum(is.na(x)))
+ ambion %>% summarize_all(function(x) sum(is.na(x)))
 ```
 
 ## Simplify the Data
@@ -121,7 +133,8 @@ apply(ambion, 2, function(x) sum(is.na(x)))
 Often it will be helpful to create a new data frame with only the data we wish to analyze.
 
 ```{r}
-ambion.simple <- ambion[,c(19,25,1,21,7,13,17)]
+#ambion.simple <- ambion[,c(19,25,1,21,7,13,17)]
+ambion.simple <- select(ambion, 19,25,1,21,7,13,17)
 ambion.simple[1,]
 ```
 
@@ -132,6 +145,15 @@ library(knitr, quietly = TRUE)
 colnames(ambion.simple) <- c("GeneID","siRNA","Symbol","Description",
                              "PPT","Cells","Mitophagy")
 kable(head(ambion.simple, n=4), format = "markdown")
+```
+
+## Simplify our Column Names
+
+```{r}
+library(knitr, quietly = TRUE)
+ambion.simple <- ambion.simple %>% set_names(c("GeneID","siRNA","Symbol","Description",
+                             "PPT","Cells","Mitophagy")) 
+head(ambion.simple, n = 4) %>% kable(format='markdown')
 ```
 
 ## Evaluate how our variables interact
@@ -145,7 +167,8 @@ ggplot(ambion.simple, aes(x=PPT, y=Cells)) + geom_point(alpha=0.5)
 
 ```{r}
 ggplot(ambion.simple, aes(x=PPT, y=Cells)) + geom_point(alpha=0.5) +
-    geom_point(data = ambion.simple[ambion.simple$Symbol == "PARK2",],
+    geom_point(data = ambion.simple %>% filter(Symbol=='PARK2'), 
+               #ambion.simple[ambion.simple$Symbol == "PARK2",],
                color="blue")
 ```
 
@@ -153,7 +176,7 @@ ggplot(ambion.simple, aes(x=PPT, y=Cells)) + geom_point(alpha=0.5) +
 
 ```{r}
 ggplot(ambion.simple, aes(x=PPT, y=Cells)) + geom_density2d() +
-    geom_point(data = ambion.simple[ambion.simple$Symbol == "PARK2",],
+    geom_point(data = ambion.simple %>% filter(Symbol=='PARK2'),
                color="blue")
 ```
 
@@ -161,7 +184,7 @@ ggplot(ambion.simple, aes(x=PPT, y=Cells)) + geom_density2d() +
 
 ```{r}
 ggplot(ambion.simple, aes(x=PPT, y=Cells)) + geom_density2d() +
-    geom_point(data = ambion.simple[ambion.simple$Symbol == "PARK2",],
+    geom_point(data = ambion.simple %>% filter(Symbol=="PARK2"),
                color="red", shape=17, size =5) +
         ggtitle("PARK2")
 ```
@@ -179,7 +202,7 @@ myTitle
 
 ```{r}
 ggplot(ambion.simple, aes(x=PPT, y=Cells)) + geom_density2d() +
-    geom_point(data = ambion.simple[ambion.simple$Symbol == "PARK2",],
+    geom_point(data = ambion.simple %>% filter(Symbol == "PARK2"),
                color="red", shape=17, size =5) +
         ggtitle(myTitle)
 ```
@@ -207,7 +230,7 @@ graphGene <- function(gene) {
   description <- ambion.simple$Description[ambion.simple$Symbol == "PARK2"][1]
   myTitle <- paste("PARK2",description,sep=": ")
   ggplot(ambion.simple, aes(x=PPT, y=Cells)) + geom_density2d() +
-    geom_point(data = ambion.simple[ambion.simple$Symbol == "PARK2",],
+    geom_point(data = ambion.simple %>% filter(Symbol=="PARK2"),
                color="red", shape=17, size =5) +
     ggtitle(myTitle)
 }
@@ -220,7 +243,7 @@ graphGene <- function(gene) {
   description <- ambion.simple$Description[ambion.simple$Symbol == gene][1]
   myTitle <- paste(gene,description,sep=": ")
   ggplot(ambion.simple, aes(x=PPT, y=Cells)) + geom_density2d() +
-    geom_point(data = ambion.simple[ambion.simple$Symbol == gene,],
+    geom_point(data = ambion.simple %>% filter(Symbol == gene),
                color="red", shape=17, size =5) +
     ggtitle(myTitle)
 }
@@ -246,7 +269,7 @@ pdfGene <- function(gene, file=paste(gene,".pdf", sep="")) {
 
 We can use the ellipse notation (...) to indicate that extra arguments to our function should be passed on to a function that is inside our function (in this case pdf).
 
-```{r}
+```{r, message = F, eval = F}
 pdfGene <- function(gene, file=paste(gene,".pdf", sep=""), ...) {
     pdf(file, ...)
     graphGene(gene)
@@ -267,7 +290,7 @@ sillyFunction <- function(x) {
   else {
     returnValue <- x / 2
   }
-  returnValue
+  return(returnValue)
 }
 sillyFunction(12)
 ```
@@ -275,12 +298,10 @@ sillyFunction(12)
 ## Control of Flow: For
 
 ```{r, eval=FALSE}
-pdfGenes <- function(genes, file=paste(gene,".pdf", sep=""), ...) {
-    pdf(file, ...)
-    for (gene in genes) {
-      graphGene(gene)
+pdfGenes <- function(genes, ...) {
+    for (gene in genes) { # This will work through gene by gene
+      pdfGene(gene, file = paste0(gene, '.pdf'), ...)
     }
-    dev.off()
 }
 pdfGenes(c("PLK1","PINK1","BRCA1"))
 ```

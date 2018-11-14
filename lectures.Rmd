@@ -105,7 +105,7 @@ Supplemental material
 
 ### Lecture 9: Building Functions
 
-[Presentation](Lectures/lecture_functions.html){target='_blank'}
+[Presentation](Lectures/lecture_functions.html){target='_blank'} | [PDF](Lectures/lecture_functions.pdf){target="_blank"}
 
 Parkin Translocation siRNA Screening [Data from Lecture](Lectures/lecture_functions_data/nature.parkin.gw.xlsx)
 
