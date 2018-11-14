@@ -249,6 +249,21 @@ graphGene <- function(gene) {
 }
 ```
 
+## Function made generic, with checks
+
+```{r}
+graphGene <- function(gene) {
+  if(!is.character(gene)) stop("Need to provide a string")
+  if(!(gene %in% ambion.simple$Symbol)) stop("Need to provide a valid gene")
+  description <- ambion.simple$Description[ambion.simple$Symbol == gene][1]
+  myTitle <- paste(gene,description,sep=": ")
+  ggplot(ambion.simple, aes(x=PPT, y=Cells)) + geom_density2d() +
+    geom_point(data = ambion.simple %>% filter(Symbol == gene),
+               color="red", shape=17, size =5) +
+    ggtitle(myTitle)
+}
+```
+
 ## Our function in action
 
 ```{r}
