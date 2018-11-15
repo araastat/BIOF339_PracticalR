@@ -287,7 +287,7 @@ We can use the ellipse notation (...) to indicate that extra arguments to our fu
 ```{r, message = F, eval = F}
 pdfGene <- function(gene, file=paste(gene,".pdf", sep=""), ...) {
     pdf(file, ...)
-    graphGene(gene)
+    print(graphGene(gene))
     dev.off()
 }
 pdfGene("PINK1", width=10, height=10)
