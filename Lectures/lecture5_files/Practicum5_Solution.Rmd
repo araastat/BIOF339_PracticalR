@@ -11,34 +11,8 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-1. Install the plsgenomics package.  We will use a set of gene expression data from normal and tumor tissue in this package to practice using multiple comparison procedures.  To load the data and perform a wilcox test on each gene (is the median tumor gene expression significantly different than the median normal gene expresison?), execute the following commands:
 
-```{r warning=FALSE}
-library(plsgenomics)
-data(Colon)
-colon.pvals <- sapply(1:length(Colon$X[1,]), 
-                      function(x) wilcox.test(Colon$X[,x] ~ Colon$Y)$p.value)
-```
-
-Don't worry if the use of "sapply" seems complicated.  We will cover this powerful command in another lecture.  Now we have 2000 p-values from 2000 wilcox tests on 2000 different genes.  How many appear signficant at an alpha of 0.01?
-
-```{r}
-sum(colon.pvals < 0.01)
-```
-
-After applying a bonferonni correction, how many are still significant at the same alpha?
-
-```{r}
-sum(p.adjust(colon.pvals, method="bonferroni") < 0.01)
-```
-
-If we wish instead to use a false discovery rate of 1 in 100 (0.01), how many genes would pass this test?
-
-```{r}
-sum(p.adjust(colon.pvals, method="fdr") < 0.01)
-```
-
-2. Create a linear model from the "swiss" data set (in the datasets package), predicting Fertility based on Agriculture.
+1. Create a linear model from the "swiss" data set (in the datasets package), predicting Fertility based on Agriculture.
 
 ```{r}
 library(datasets)
@@ -77,7 +51,7 @@ summary(stepModel)
 
 Note that only one variable gets dropped from the model.
 
-3. Using the "read.csv" function, read in a data frame of data about graduate students acceptance (https://stats.idre.ucla.edu/stat/data/binary.csv).  Build a logistic regression model that predicts acceptance based on the predictive variable GRE and GPA.  Do these two predictive variable seem to have equal importance in the prediction?  How do you know?  (Adapted from the web tutorial at https://stats.idre.ucla.edu/r/dae/logit-regression/)
+2. Using the "read.csv" function, read in a data frame of data about graduate students acceptance (https://stats.idre.ucla.edu/stat/data/binary.csv).  Build a logistic regression model that predicts acceptance based on the predictive variable GRE and GPA.  Do these two predictive variable seem to have equal importance in the prediction?  How do you know?  (Adapted from the web tutorial at https://stats.idre.ucla.edu/r/dae/logit-regression/)
 
 ```{r}
 gradData <- read.csv("https://stats.idre.ucla.edu/stat/data/binary.csv")

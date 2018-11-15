@@ -97,7 +97,7 @@ Supplemental material
 
 [Presentation](Lectures/lecture_modeling.html){target='_blank'}
 
-[Practicum](Lectures/lecture5_files/Practicum5.html){target="_blank"}
+[Practicum](Lectures/lecture5_files/Practicum5.html){target="_blank"} | [Solution](Lecures/lecture5_files/Practicum5_Solution.html){target="_blank"}
 
 #### Other resources
 
