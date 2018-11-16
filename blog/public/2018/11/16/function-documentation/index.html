@@ -113,6 +113,25 @@ summaries &lt;- function(x) {
   md &lt;- median(x, na.rm=T)
   return(tibble(&#39;mean&#39; = mn, &#39;median&#39; = md))
 }</code></pre>
+<p>The <code>roxygen</code> documentation lines start with <code>#'</code>, which R treats like a line of comments and ignores. The scaffolding provides a particular format to the documentation. The first line should be the title of the documentation, then you can skip one line (keeping the <code>#'</code> on that line) and then write paragraphs describing the function. The <code>@param</code> fields are auto-filled with the explicit arguments in your function, and you can then describe what those arguments mean. The <code>@return</code> field describes what the result of your function is. The <code>@export</code> tag is useful when you’re building packages, and indicates that the function will be part of the main package functions. Lastly, <code>@examples</code> asks you to optionally provide an example of how the function works. So, for the example I’m using here, we might fill out the documentation like this:</p>
+<pre class="r"><code>#&#39; Summarizing data
+#&#39; 
+#&#39; This function summarizes the data in a numerical vector by computing the mean and median of
+#&#39; the data
+#&#39;
+#&#39; @param x A numeric vector
+#&#39;
+#&#39; @return A tibble that gives the mean and median of the data in `x`, 
+#&#39; @export
+#&#39;
+#&#39; @examples
+#&#39; summaries(mtcars$mpg)
+summaries &lt;- function(x) {
+  mn &lt;- mean(x, na.rm=T)
+  md &lt;- median(x, na.rm=T)
+  return(tibble(&#39;mean&#39; = mn, &#39;median&#39; = md))
+}</code></pre>
+<p>More detail about roxygen, and it’s role in documenting functions within packages, are available from Karl Broman’s excellent <a href="https://kbroman.org/pkg_primer/pages/docs.html" target="_blank">primer</a></p>
 </div>
 
         </div>
