@@ -26,7 +26,7 @@
 
     <link href="http://gmpg.org/xfn/11" rel="profile">
     
-    <meta name="generator" content="Hugo 0.31" />
+    <meta name="generator" content="Hugo 0.40.1" />
 </head>
 
 
@@ -80,8 +80,11 @@
         <div class="article-entry" itemprop="articleBody">
             <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>There are several R packages that link to or use Java, and so there exists a link between R and Java throught the <code>rJava</code> package. The <code>rJava</code> package is notoriously finicky to install in R, given the quirks of the Mac OS X system, Java, and R. In fact general advice is that, if you can avoid using rJava, do. It is a conundrum that even the most experienced R hands would like to avoid.</p>
-<p>I recently went through the process of installing rJava on a new MacBook Pro, using advice from the web. I’ll document the process I followed, with the following software:</p>
+<p>There are several R packages that link to or use Java, and so there exists a link between R and Java
+throught the <code>rJava</code> package. The <code>rJava</code> package is notoriously finicky to install in R, given
+the quirks of the Mac OS X system, Java, and R. In fact general advice is that, if you can avoid using rJava, do. It is a conundrum that even the most experienced R hands would like to avoid.</p>
+<p>I recently went through the process of installing
+rJava on a new MacBook Pro, using advice from the web. I’ll document the process I followed, with the following software:</p>
 <ul>
 <li>Mac OS X Sierra (version 10.12.6)</li>
 <li>Java JDK version 9.0.1</li>
@@ -93,7 +96,9 @@
 <h2>Setting the groundwork</h2>
 <p>First, we need to install the Xcode command line tools using the code</p>
 <pre><code>xcode-select --install</code></pre>
-<p>Next we install both Java 6 and the current Java version. Java 6 is apparently needed for some scaffolding and functions not present in the current version. All commands below need to be run in a Terminal.</p>
+<p>Next we install both Java 6 and the current Java version. Java 6 is apparently needed for some
+scaffolding and functions not present in the current version. All commands below need to be run
+in a Terminal.</p>
 <div id="java-6" class="section level3">
 <h3>Java 6</h3>
 <pre><code>curl -#ROL https://support.apple.com/downloads/DL1572/en_US/javaforosx.dmg
@@ -123,8 +128,11 @@ Java HotSpot(TM) 64-Bit Server VM (build 9.0.1+11, mixed mode)</code></pre>
 </div>
 <div id="setting-up-clang-and-other-required-software" class="section level2">
 <h2>Setting up clang and other required software</h2>
-<p>I installed <a href="https://github.com/coatless/r-macos-clang">r-macos-clang</a> using the installer available <a href="https://uofi.box.com/v/r-macos-clang-pkg">here</a>. This took care of installing the version of the clang compiler compatible with the current R version.</p>
-<p>This still had some problems in terms of finding some files. I then ran the following lines in the Terminal:</p>
+<p>I installed <a href="https://github.com/coatless/r-macos-clang">r-macos-clang</a> using the installer available
+<a href="https://uofi.box.com/v/r-macos-clang-pkg">here</a>. This took care of installing the version of
+the clang compiler compatible with the current R version.</p>
+<p>This still had some problems in terms of finding some files. I then ran the following lines
+in the Terminal:</p>
 <pre><code>sudo ln -f -s $(/usr/libexec/java_home)/jre/lib/server/libjvm.dylib /usr/local/lib
 sudo ln -s /usr/local/clang4/lib/libomp.dylib /usr/local/lib/libomp.dylib</code></pre>
 </div>
@@ -210,6 +218,12 @@ R CMD javareconf</code></pre>
     </div>
     <nav id="article-nav">
     
+    <a href="/BIOF339_PracticalR/blog/public/2018/11/16/function-documentation/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            Function documentation
+        </div>
+    </a>
+    
     
     <a href="/BIOF339_PracticalR/blog/public/2017/11/22/summarize-outcomes-into-new-variables/" id="article-nav-older" class="article-nav-link-wrap">
         <div class="article-nav-title">Summarize outcomes into new variables&nbsp;<span>&gt;</span></div>
@@ -223,7 +237,7 @@ R CMD javareconf</code></pre>
     <footer id="footer">
     <div class="outer">
         <div id="footer-info" class="inner">
-            &copy; 2017 Abhijit Dasgupta&nbsp;
+            &copy; 2018 Abhijit Dasgupta&nbsp;
             Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
         </div>
     </div>

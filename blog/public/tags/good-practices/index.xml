@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Good Practices on BIOF339 Blog</title>
+    <link>http://www.araastat.com/BIOF339_PracticalR/blog/public/tags/good-practices/</link>
+    <description>Recent content in Good Practices on BIOF339 Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 16 Nov 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://www.araastat.com/BIOF339_PracticalR/blog/public/tags/good-practices/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Function documentation</title>
+      <link>http://www.araastat.com/BIOF339_PracticalR/blog/public/2018/11/16/function-documentation/</link>
+      <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.araastat.com/BIOF339_PracticalR/blog/public/2018/11/16/function-documentation/</guid>
+      <description>Writing functions We learned how to write functions in class this week. As a reminder, a function takes a particular structure, starting with the keyword function. In RStudio, if you type fun [TAB] (i.e., type fun and then hit the tab key), you get the following function scaffolding:
+name &amp;lt;- function(variables) { } name is the name of the function, the inputs/arguments go inside the (), and the lines of code that comprise the function go between the {} in separate lines.</description>
+    </item>
+    
+  </channel>
+</rss>

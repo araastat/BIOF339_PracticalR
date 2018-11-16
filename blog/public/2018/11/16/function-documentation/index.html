@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Summarize outcomes into new variables // BIOF339 Blog</title>
+    <title>Function documentation // BIOF339 Blog</title>
 
         <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -9,11 +9,11 @@
     <meta name="description" content="Blogging about R issues arising from the class">
     <meta name="keywords" content="">
     <meta name="author" content="">
-        <meta property="og:title" content="Summarize outcomes into new variables" />
+        <meta property="og:title" content="Function documentation" />
     <meta property="og:description" content="Blogging about R issues arising from the class" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:url" content="http://www.araastat.com/BIOF339_PracticalR/blog/public/2017/11/22/summarize-outcomes-into-new-variables/" />
+    <meta property="og:url" content="http://www.araastat.com/BIOF339_PracticalR/blog/public/2018/11/16/function-documentation/" />
     
 
     <link href="" rel="alternate" type="application/rss+xml" title="BIOF339 Blog" />
@@ -57,12 +57,12 @@
         
         <header class="article-header">
             <h2 class="article-author">Abhijit Dasgupta</h2>
-            <h1 class="article-title" itemprop="name">Summarize outcomes into new variables</h1>
+            <h1 class="article-title" itemprop="name">Function documentation</h1>
         </header>
         
         <div class="article-meta">
-            <a href="/BIOF339_PracticalR/blog/public/2017/11/22/summarize-outcomes-into-new-variables/" class="article-date">
-                <time datetime='2017-11-22T00:00:00.000&#43;00:00' itemprop="datePublished">2017-11-22</time>
+            <a href="/BIOF339_PracticalR/blog/public/2018/11/16/function-documentation/" class="article-date">
+                <time datetime='2018-11-16T00:00:00.000&#43;00:00' itemprop="datePublished">2018-11-16</time>
             </a>
             
             
@@ -78,44 +78,41 @@
             
         </div>
         <div class="article-entry" itemprop="articleBody">
-            <div id="an-example" class="section level2">
-<h2>An example</h2>
-<p>Suppose you have a fairly detailed set of outcomes for cause of death. You want to summarize these
-outcomes into categories and create new variables indicating whether a person’s death could be
-attributed to a particular category or not. For example, suppose deaths from fentanyl are recorded as
-one of:</p>
-<ul>
-<li>Fentanyl Intoxication</li>
-<li>Fentanyl and Morphine Intoxication</li>
-<li>Combined Drug Intoxication (Heroin, Cocaine and Fentanyl)</li>
-<li>Fentanyl-involved</li>
-</ul>
-<p>These are all possiblities in your dataset under a variable <code>Cause_of_death</code>. We will create a new
-variable, <code>Fentanyl</code>, that is a boolean variable which is <code>TRUE</code> if the person’s death is fentanyl-related
-and <code>FALSE</code> if it isn’t.</p>
+            <div id="writing-functions" class="section level2">
+<h2>Writing functions</h2>
+<p>We learned how to write functions in class this week. As a reminder, a function takes a
+particular structure, starting with the keyword <code>function</code>. In RStudio, if you type <code>fun [TAB]</code> (i.e., type <code>fun</code> and then hit the tab key), you get the following function scaffolding:</p>
+<pre class="r"><code>name &lt;- function(variables) {
+  
+}</code></pre>
+<p><code>name</code> is the name of the function, the inputs/arguments go inside the <code>()</code>, and the lines of
+code that comprise the function go between the <code>{}</code> in separate lines. A simplistic function might be to get the mean and median of a vector of numbers:</p>
+<pre class="r"><code>summaries &lt;- function(x) {
+  mn &lt;- mean(x, na.rm=T)
+  md &lt;- median(x, na.rm=T)
+  return(tibble(&#39;mean&#39; = mn, &#39;median&#39; = md))
+}</code></pre>
+<blockquote>
+<p>I always recommend putting whatever the function returns within the <code>return</code> function, so there is no confusion about what the results/output of the function is</p>
+</blockquote>
 </div>
-<div id="approach-1" class="section level2">
-<h2>Approach 1</h2>
-<p>This is a general approach. First make a vector of all the possible ways fentanyl-related deaths are
-records:</p>
-<pre class="r"><code>fentanyl_related &lt;- c(&#39;Fentanyl Intoxication&#39;, &#39;Fentanyl and Morphine Intoxication&#39;,
-                      &#39;Combined Drug Intoxication (Heroin, Cocaine and Fentanyl)&#39;,
-                      &#39;Fentanyl-involved&#39;)</code></pre>
-<p>We then can create the new variable quite easily as</p>
-<pre class="r"><code>dat &lt;- dat %&gt;% mutate(Fentanyl = Cause_of_death %in% fentanyl_related)</code></pre>
-</div>
-<div id="approach-2" class="section level2">
-<h2>Approach 2</h2>
-<p>This approach leverages the text processing capabilities of the <code>stringr</code> package. We note that all
-the outcomes in <code>fentanyl_related</code> have the word “Fentanyl” in it. So we can create the <code>Fentanyl</code>
-variable using the following code:</p>
-<pre class="r"><code>dat &lt;- dat %&gt;% 
-  mutate(Fentanyl = stringr::str_detect(Cause_of_death, &#39;Fentanyl&#39;))</code></pre>
-<p>We could also protect ourselves against possible recording errors (in terms of capitalization) by making
-all the entries lower-case and then testing for the lower-case “fentanyl”. This avoids the issues with
-<code>ignore.case</code> that are required for the <code>grep</code> family of functions.</p>
-<pre class="r"><code>dat &lt;- dat %&gt;% 
-  mutate(Fentanyl = stringr::str_detect(tolower(Cause_of_death), &#39;fentanyl&#39;))</code></pre>
+<div id="documenting-your-function" class="section level2">
+<h2>Documenting your function</h2>
+<p>In a simple function like this, it is straightforward to understand what is going on. But you’ll soon be writing more complex functions, where you need the input(s) to be of a certain type and the resulting output to be of some type, and you also want to remind yourself in 3 months or a year what this function was written for. There is a very nice package called <code>roxygen2</code> that allows the documentation to stay with the function. Though the package was built to help document functions that are part of R packages, it can be useful for <em>ad hoc</em> functions within your analysis project as well. And best of all, it is baked in to RStudio!.</p>
+<p>To create the documentation scaffolding, put your cursor on the first line of the function, and then either type <code>Ctrl-Alt-Shift-R</code> (Win/Linux) or <code>Cmd-Alt-Shift-R</code> (Mac) or, from the menu, <code>Code &gt; Insert Roxygen Skeleton</code>. This is what that scaffolding looks like:</p>
+<pre class="r"><code>#&#39; Title
+#&#39;
+#&#39; @param x 
+#&#39;
+#&#39; @return
+#&#39; @export
+#&#39;
+#&#39; @examples
+summaries &lt;- function(x) {
+  mn &lt;- mean(x, na.rm=T)
+  md &lt;- median(x, na.rm=T)
+  return(tibble(&#39;mean&#39; = mn, &#39;median&#39; = md))
+}</code></pre>
 </div>
 
         </div>
@@ -170,7 +167,7 @@ all the entries lower-case and then testing for the lower-case “fentanyl”. T
             <ul class="article-tag-list">
                 
                 <li class="article-tag-list-item">
-                    <a class="article-tag-list-link" href="http://www.araastat.com/BIOF339_PracticalR/blog/public//tags/data-munging">Data munging
+                    <a class="article-tag-list-link" href="http://www.araastat.com/BIOF339_PracticalR/blog/public//tags/good-practices">Good Practices
                     </a>
                 </li>
                 
@@ -180,12 +177,10 @@ all the entries lower-case and then testing for the lower-case “fentanyl”. T
     </div>
     <nav id="article-nav">
     
-    <a href="/BIOF339_PracticalR/blog/public/2017/11/26/installing-rjava-for-r-on-the-mac/" id="article-nav-newer" class="article-nav-link-wrap">
-        <div class="article-nav-title"><span>&lt;</span>&nbsp;
-            Installing rJava for R on the Mac
-        </div>
-    </a>
     
+    <a href="/BIOF339_PracticalR/blog/public/2017/11/26/installing-rjava-for-r-on-the-mac/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Installing rJava for R on the Mac&nbsp;<span>&gt;</span></div>
+    </a>
     
 </nav>
 </article>

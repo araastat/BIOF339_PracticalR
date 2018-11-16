@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Data Types on BIOF339 Blog</title>
-    <link>/BIOF339_PracticalR/blog/public/tags/data-types/</link>
+    <link>http://www.araastat.com/BIOF339_PracticalR/blog/public/tags/data-types/</link>
     <description>Recent content in Data Types on BIOF339 Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 23 Nov 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/BIOF339_PracticalR/blog/public/tags/data-types/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://www.araastat.com/BIOF339_PracticalR/blog/public/tags/data-types/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Working with dates in R</title>
-      <link>/BIOF339_PracticalR/blog/public/2017/11/23/working-with-dates-in-r/</link>
+      <link>http://www.araastat.com/BIOF339_PracticalR/blog/public/2017/11/23/working-with-dates-in-r/</link>
       <pubDate>Thu, 23 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>/BIOF339_PracticalR/blog/public/2017/11/23/working-with-dates-in-r/</guid>
+      <guid>http://www.araastat.com/BIOF339_PracticalR/blog/public/2017/11/23/working-with-dates-in-r/</guid>
       <description>The Date class R provides a Date class, which represents dates internally as number of days since January 1, 1970. Date objects are typically created from character strings that represent dates, but require specifying the format. The default format is YYYY-MM-DD.
 dt &amp;lt;- as.Date(&amp;#39;2017-11-23&amp;#39;) dt &amp;lt;- as.Date(&amp;#39;11/23/17&amp;#39;, format = &amp;#39;%m/%d/%y&amp;#39;) # Gives the same answer You can also format dates for printing into most formats:
 format(dt, &amp;#39;%B %d, %Y&amp;#39;) ## [1] &amp;quot;November 23, 2017&amp;quot; format(dt, &amp;#39;%b %d, %Y&amp;#39;) ## [1] &amp;quot;Nov 23, 2017&amp;quot; format(dt, &amp;#39;%m/%d/%y&amp;#39;) ## [1] &amp;quot;11/23/17&amp;quot; format(dt, &amp;#39;%d/%m/%y&amp;#39;) ## [1] &amp;quot;23/11/17&amp;quot; format(dt, &amp;#39;%Y-%m-%d&amp;#39;) ## [1] &amp;quot;2017-11-23&amp;quot; The numeric representation of this date can be seen by using the as.</description>
