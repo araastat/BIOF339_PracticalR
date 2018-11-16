@@ -20,6 +20,15 @@ Contact info:
 
 > There is a Slack Channel associated with this class. Please contact Joe Jessee (<a href="mailto:jjessee1@jhu.edu">jjessee1@jhu.edu</a>) if you want access
 
+-------
+
+<div style = 'border: 1px solid black;vertical-align:center;padding-top: 1em;padding-left:1em;'>
+New blog post (2018/11/16): [Function documentation](blog/public/2018/11/16/function-documentation/index.html)
+</div>
+
+-------
+
+
 <a href="http://www.r-project.org" target="_blank">R</a> is one of the most popular programming languages for 
 data science and statistics. It is a free and open source language available for 
 all major operating systems. It is extensible through a packaging system that has resulted

@@ -8,6 +8,11 @@ Last updated: `r format(Sys.time(), '%b %d, %Y (%l:%M%p %Z)')`
 
 ------
 
+<div style = 'border: 1px solid black;vertical-align:center;padding-top: 1em;padding-left:1em;'>
+New blog post (2018/11/16): [Function documentation](blog/public/2018/11/16/function-documentation/index.html)
+</div>
+
+-------
 
 ### Lecture 1 : Introduction
 
