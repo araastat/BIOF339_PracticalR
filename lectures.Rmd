@@ -116,3 +116,7 @@ Parkin Translocation siRNA Screening [Data from Lecture](Lectures/lecture_functi
 
 [Practicum](Lectures/lecture_functions_files/Practicum_Functions.html){target="_blank"} |
 [Solution]((Lectures/lecture_functions_files/Practicum_Functions_Solution.html){target="_blank"})
+
+### Lecture 10: Project organization
+
+[Presentation](Lectures/lecture_bestpractice.html){target='_blank')}

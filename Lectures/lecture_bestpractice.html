@@ -1,33 +1,33 @@
----
-title: "Project Organization"
-author: "Abhijit Dasgupta"
-date: "November 28, 2018"
-output:
-  xaringan::moon_reader:
-    css: [default, './robot.css', './robot-fonts.css']
-    #css: [default, metropolis, metropolis-fonts]
-    nature:
-      ratio: '16:9'
-      highlightLanguage: R
-      countIncrementalSlides: false
-      highlightStyle: zenburn
-      highlightLines: true
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Project Organization</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Abhijit Dasgupta" />
+    <meta name="date" content="2018-11-28" />
+    <link href="lecture_bestpractice_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="robot.css" type="text/css" />
+    <link rel="stylesheet" href="robot-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Project Organization
+### Abhijit Dasgupta
+### November 28, 2018
 
 ---
+
 
 layout: true
 
-<div class="my-header">
-<span>BIOF 339, Fall 2018</span></div>
+&lt;div class="my-header"&gt;
+&lt;span&gt;BIOF 339, Fall 2018&lt;/span&gt;&lt;/div&gt;
 
 ---
 
-```{r setup, include=FALSE, message = F, warning = F}
-knitr::opts_chunk$set(echo = FALSE, message = F, warning = F, comment="", 
-                      cache = T)
-library(tidyverse)
-library(readxl)
-```
+
 
 # Objectives today
 
@@ -63,9 +63,9 @@ library(readxl)
 
 --
 
-<p style="color:red;font-size:180%;text-align:center;">
+&lt;p style="color:red;font-size:180%;text-align:center;"&gt;
 DON'T DO THIS!!
-</p>
+&lt;/p&gt;
 
 ---
 class: inverse, middle, center
@@ -112,7 +112,7 @@ class: inverse, middle, center
 ## Biggest reason for good practices is 
 
 
-<p style="font-size:200%; text-align: center; color: yellow;" > YOUR OWN SANITY </p>
+&lt;p style="font-size:200%; text-align: center; color: yellow;" &gt; YOUR OWN SANITY &lt;/p&gt;
 
 ---
 class: inverse, middle, center
@@ -123,59 +123,37 @@ class: inverse, middle, center
 
 ## RStudio Projects
 
-```{r,  echo=F, message=F, warning=F}
-library(magick)
-plt <- image_read('Lecture14_data/project1.png')
-image_scale(plt, "1600")
-```
+&lt;img src="lecture_bestpractice_files/figure-html/unnamed-chunk-1-1.png" width="2133" /&gt;
 
 ---
 
 ## RStudio Projects
-```{r, echo=F, message=F, warning=F}
-plt <- image_read('Lecture14_data/project2.png')
-image_scale(plt, "1600")
-```
+&lt;img src="lecture_bestpractice_files/figure-html/unnamed-chunk-2-1.png" width="2133" /&gt;
 
 ---
 
 ## RStudio Projects
-```{r,  echo=F, message=F, warning=F}
-plt <- image_read('Lecture14_data/project3.png')
-image_scale(plt, "1600")
-```
+&lt;img src="lecture_bestpractice_files/figure-html/unnamed-chunk-3-1.png" width="2133" /&gt;
 
 ---
 
 ## RStudio Projects
-```{r,  echo=F, message=F, warning=F}
-plt <- image_read('Lecture14_data/project4.png')
-image_scale(plt, "1600")
-```
+&lt;img src="lecture_bestpractice_files/figure-html/unnamed-chunk-4-1.png" width="2133" /&gt;
 
 ---
 
 ## RStudio Projects
-```{r,  echo=F, message=F, warning=F}
-plt <- image_read('Lecture14_data/project5.png')
-image_scale(plt, "1600")
-```
+&lt;img src="lecture_bestpractice_files/figure-html/unnamed-chunk-5-1.png" width="2133" /&gt;
 
 ---
 
 ## RStudio Projects
-```{r,  echo=F, message=F, warning=F}
-plt <- image_read('Lecture14_data/project6.png')
-image_scale(plt, "1600")
-```
+&lt;img src="lecture_bestpractice_files/figure-html/unnamed-chunk-6-1.png" width="2133" /&gt;
 
 ---
 
 ## RStudio Projects
-```{r,  echo=F, message=F, warning=F}
-plt <- image_read('Lecture14_data/project7.png')
-image_scale(plt, "1600")
-```
+&lt;img src="lecture_bestpractice_files/figure-html/unnamed-chunk-7-1.png" width="2133" /&gt;
 
 ---
 
@@ -217,10 +195,7 @@ I use [Projects]() so that:
 ---
 
 ## RStudio Projects
-```{r, echo=F}
-plt <- image_read('Lecture14_data/project8.png')
-image_scale(plt, "1600")
-```
+&lt;img src="lecture_bestpractice_files/figure-html/unnamed-chunk-8-1.png" width="2133" /&gt;
 
 ---
 class: inverse, middle, center
@@ -249,10 +224,7 @@ However, each project needs to maintain a file structure to know where to find t
 ---
 class: center
 
-```{r, echo=F}
-plt <- image_read('Lecture14_data/best_practices_structure.png')
-image_scale(plt, '600x')
-```
+&lt;img src="lecture_bestpractice_files/figure-html/unnamed-chunk-9-1.png" width="800" /&gt;
 
 ---
 
@@ -289,24 +261,15 @@ image_scale(plt, '600x')
 
 ---
 
-```{r, echo=F}
-plt <- image_read('Lecture14_data/roxygen.png')
-image_scale(plt, '1700')
-```
+&lt;img src="lecture_bestpractice_files/figure-html/unnamed-chunk-10-1.png" width="2267" /&gt;
 
 ---
 
-```{r, echo=F}
-plt <- image_read('Lecture14_data/roxygen2.png')
-image_scale(plt, '1700')
-```
+&lt;img src="lecture_bestpractice_files/figure-html/unnamed-chunk-11-1.png" width="2267" /&gt;
 
 ----
 
-```{r, echo=F}
-plt <- image_read('Lecture14_data/roxygen3.png')
-image_scale(plt, '1700')
-```
+&lt;img src="lecture_bestpractice_files/figure-html/unnamed-chunk-12-1.png" width="2267" /&gt;
 
 ---
 
@@ -317,11 +280,13 @@ image_scale(plt, '1700')
 + Use scripts/functions to derive quantities you need  for other functions
 + Don't hard-code numbers
 
-```{r, echo = T, eval=F}
+
+```r
 runif(n = nrow(dat), min = min(dat$age), max = max(dat$age))
 ```
 rather than
-```{r, echo=T, eval=F}
+
+```r
 runif(n = 135, min = 18, max = 80)
 ```
 
@@ -343,8 +308,9 @@ runif(n = 135, min = 18, max = 80)
 
 ## Loading your functions
 
-```{r, echo = T, eval=T}
-funcfiles <- dir('lib/R', pattern = '.R')
+
+```r
+funcfiles &lt;- dir('lib/R', pattern = '.R')
 for(f in funcfiles){
   source(f)
 }
@@ -358,12 +324,18 @@ Suppose you need to load a bunch of packages and aren't sure whether they
 are installed on your system or not. You can certainly look in `installed.packages`, but if you have 1000s of packages, this can be slow.
 
 You can use `require`:
-```{r echo = T, eval = T}
-x <- require(ggiraph)
+
+```r
+x &lt;- require(ggiraph)
 x
 ```
+
+```
+[1] FALSE
+```
 A more elegant solution is using the `pacman` package
-```{r echo=T, eval = F}
+
+```r
 if (!require("pacman")) install.packages("pacman") # make sure pacman is installed
 pacman::p_load(ggiraph, stargazer, kableExtra)
 ```
@@ -392,7 +364,7 @@ This will install the package if it's not installed, and then load it up.
 ## Track data provenance through the pipeline
 + Typically:
 
-> Raw data >> Intermediate data >> Final data >> data for sub-analyses >> data for final tables and figures
+&gt; Raw data &gt;&gt; Intermediate data &gt;&gt; Final data &gt;&gt; data for sub-analyses &gt;&gt; data for final tables and figures
 
 + Catalog and track where you create data, and where you ingest it
 + Make sure there are no loops!!
@@ -414,11 +386,8 @@ This will install the package if it's not installed, and then load it up.
 ---
 
 ## A general pipeline
-```{r, echo=F}
-plt <- image_read('Lecture14_data/tidypipeline.jpg')
-image_scale(plt, '1600x')
-```
-<p style="text-align:right; font-size:70%"> David Robinson, 2016</p>
+&lt;img src="lecture_bestpractice_files/figure-html/unnamed-chunk-18-1.png" width="2133" /&gt;
+&lt;p style="text-align:right; font-size:70%"&gt; David Robinson, 2016&lt;/p&gt;
 
 ---
 
@@ -455,34 +424,27 @@ Take any RMarkdown document, and pass it through the function `knitr::purl`, and
 ---
 class: center
 
-```{r, echo=F}
-plt <- image_read('Lecture14_data/rmd.png')
-image_scale(plt, '400x')
-```
+&lt;img src="lecture_bestpractice_files/figure-html/unnamed-chunk-19-1.png" width="533" /&gt;
 
-> [https://webbedfeet.netlify.com/post/interchanging-rmarkdown-and-spinnable-r/](https://webbedfeet.netlify.com/post/interchanging-rmarkdown-and-spinnable-r/)
+&gt; [https://webbedfeet.netlify.com/post/interchanging-rmarkdown-and-spinnable-r/](https://webbedfeet.netlify.com/post/interchanging-rmarkdown-and-spinnable-r/)
 
 ---
 class: center
 
-```{r eval=F, echo=T}
+
+```r
 knitr::purl('finding-my-dropbox.Rmd', documentation=2)
 ```
-```{r, echo=F}
-plt <- image_read('Lecture14_data/purl.png')
-image_scale(plt, '600x')
-```
+&lt;img src="lecture_bestpractice_files/figure-html/unnamed-chunk-21-1.png" width="800" /&gt;
 
 ---
 class:center
 
-```{r echo=T, eval=F}
+
+```r
 knitr::spin('finding-my-dropbox.R', knit = F, format='Rmd')
 ```
-```{r, echo=F}
-plt <- image_read('Lecture14_data/rmd.png')
-image_scale(plt, '600x')
-```
+&lt;img src="lecture_bestpractice_files/figure-html/unnamed-chunk-23-1.png" width="800" /&gt;
 
 ---
 class: inverse, center, middle
@@ -512,7 +474,7 @@ class: inverse, center, middle
     - The `flexdashboard` package
 + Books
     - The `bookdown` package
-+ Websites & Blogs
++ Websites &amp; Blogs
     - RMarkdown
     - `blogdown` package
 
@@ -673,13 +635,11 @@ This is my second slide
 - Several packages provide RMarkdown templates
 - You can include citations
     - EndNote, MEDLINE, RIS, BibTeX formats for references
-    - See <a href="https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html">https://rmarkdown.rstudio.com/
-    authoring_bibliographies_and_citations.html</a>
+    - See &lt;a href="https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html"&gt;https://rmarkdown.rstudio.com/
+    authoring_bibliographies_and_citations.html&lt;/a&gt;
 ]
 .pull-right[
-```{r}
-knitr::include_graphics('Lecture14_data/templates.png')
-```
+&lt;img src="Lecture14_data/templates.png" width="708" /&gt;
 
 ]
 
@@ -687,32 +647,72 @@ knitr::include_graphics('Lecture14_data/templates.png')
 
 ## Resources
 
-<table>
-<tr>
-<td rowspan=2>
-<a href="https://bookdown.org/yihui/rmarkdown" target='_blank'>
-```{r}
-plt <- image_read('Lecture14_data/rmdcover.png')
-image_scale(plt, '200')
-```
-</a>
-</td>
-<td>
-<a href = "https://bookdown.org/yihui/bookdown" target='_blank'>
-```{r}
-plt = image_read("Lecture14_data/bookdowncover.jpg")
-image_scale(plt, "100")
-```
-</a></td>
-</tr>
-<tr>
-<td>
-<a href = "https://bookdown.org/yihui/blogdown" target='_blank'>
-```{r}
-plt = image_read("Lecture14_data/blogdowncover.png")
-image_scale(plt, "100")
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td rowspan=2&gt;
+&lt;a href="https://bookdown.org/yihui/rmarkdown" target='_blank'&gt;
+&lt;img src="lecture_bestpractice_files/figure-html/unnamed-chunk-25-1.png" width="267" /&gt;
+&lt;/a&gt;
+&lt;/td&gt;
+&lt;td&gt;
+&lt;a href = "https://bookdown.org/yihui/bookdown" target='_blank'&gt;
+&lt;img src="lecture_bestpractice_files/figure-html/unnamed-chunk-26-1.png" width="133" /&gt;
+&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;a href = "https://bookdown.org/yihui/blogdown" target='_blank'&gt;
+&lt;img src="lecture_bestpractice_files/figure-html/unnamed-chunk-27-1.png" width="133" /&gt;
+&lt;/a&gt;
+&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightLanguage": "R",
+"countIncrementalSlides": false,
+"highlightStyle": "zenburn",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
 
-```
-</a>
-</td>
-</tr></table>
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
