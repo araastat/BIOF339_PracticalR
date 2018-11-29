@@ -115,7 +115,7 @@ Supplemental material
 Parkin Translocation siRNA Screening [Data from Lecture](Lectures/lecture_functions_data/nature.parkin.gw.xlsx)
 
 [Practicum](Lectures/lecture_functions_files/Practicum_Functions.html){target="_blank"} |
-[Solution](Lectures/lecture_functions_files/Practicum_Functions_Solution.html){target="_blank"})
+[Solution](Lectures/lecture_functions_files/Practicum_Functions_Solution.html){target="_blank"}
 
 ### Lecture 10: Project organization
 
