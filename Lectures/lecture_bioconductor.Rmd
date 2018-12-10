@@ -1,7 +1,7 @@
 ---
-title: "Lecture 11"
+title: "Bioconductor"
 author: "BIOF 339"
-date: "November 22, 2017"
+date: "December 11th, 2018"
 output: ioslides_presentation
 ---
 
@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE,
 
 ## Bioconductor
 
-Bioconductor provides tools for the analysis and comprehension of high-throughput genomic data, using R.
+Bioconductor provides tools for the analysis and comprehension of high-throughput genomic and biological data, using R.
 
 + 1476 packages
 + Covers the bioinformatic pipeline
@@ -31,11 +31,18 @@ Bioconductor provides tools for the analysis and comprehension of high-throughpu
 
 ## Installing Bioconductor packages
 
-This is different from the usual `install.packages`
+This is different from the usual `install.packages`.  If you are using a version of R less than 3.5, the method is:
 
 ```{r, eval=F}
 source('http://bioconductor.org/biocLite.R')
 biocLite(c('Biobase','limma','hgu95av2.db','Biostrings'))
+```
+
+Otherwise (for R version 3.5 and later):
+
+```{r, eval=F}
+install.packages("BiocManager")
+BiocManager::install(c('Biobase','limma','hgu95av2.db','Biostrings'))
 ```
 
 ## DNA sequences
@@ -63,7 +70,7 @@ letterFrequency(phiX174Phage, 'GC', as.prob=TRUE)
 
 ## Data in Bioconductor
 
-The basic structure in a Bioconductor pipeline is the `ExpressionSet`
+The basic structure for expression data in a Bioconductor pipeline is the `ExpressionSet`
 
 ```{r, eval=T}
 library(Biobase)
