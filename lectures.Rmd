@@ -120,3 +120,7 @@ Parkin Translocation siRNA Screening [Data from Lecture](Lectures/lecture_functi
 ### Lecture 10: Project organization
 
 [Presentation](Lectures/lecture_bestpractice.html){target='_blank'}
+
+### Lecture 11: Bioconductor
+
+[Presentation](Lectures/lecture_bioconductor.html){target='_blank'}

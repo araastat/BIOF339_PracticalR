@@ -107,6 +107,62 @@ pData(sample.ExpressionSet)
 ```{r , eval=T}
 head(exprs(sample.ExpressionSet))
 ```
+
+## Accessing Features (probes)
+
+```{r, eval=T}
+affyIDs <- rownames(sample.ExpressionSet@featureData)
+affyIDs[200:203]
+```
+
+The IDs for affy probes are singularly unhelpful if we wish to analyze our expression data with respect to genes or transcripts.  To address this problem here (and in other data sets) we can turn to the "biomaRt" library.
+
+# BiomaRt
+
+## BiomaRt
+
+"The biomaRt package, provides an interface to a growing collection of databases implementing the BioMart software suite." 
+
+To use the biomaRt package, we will have to first select a BioMart database and a dataset from thata database to query.
+
+## Selecting a Database
+
+```{r}
+library("biomaRt")
+ensemblDatabase <- useMart("ensembl")
+```
+
+## Selecting a Dataset
+
+```{r}
+searchDatasets(mart = ensemblDatabase, pattern = "Human")
+```
+
+```{r}
+ensemblHumanData <- useMart("ensembl",dataset="hsapiens_gene_ensembl")
+```
+
+## Identifying Attributes
+
+```{r}
+searchAttributes(mart = ensemblHumanData, pattern = "affy")
+```
+
+## Identifying Attributes (Part 2)
+
+```{r}
+searchAttributes(mart = ensemblHumanData, pattern = "hgnc")
+```
+
+## Querying the Dataset
+
+```{r}
+getBM(attributes = c('affy_hg_u95av2', 'hgnc_symbol'),
+      filters = "affy_hg_u95av2",
+      values = affyIDs[200:203],
+      mart = ensemblHumanData)
+```
+
 # Bioconductor ecosystem
 
 ## 
@@ -141,7 +197,6 @@ library(airway)
 data(airway)
 se <- airway
 head(assay(se))
-
 ```
 
 ## Metadata for experiment
