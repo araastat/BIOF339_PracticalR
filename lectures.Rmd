@@ -123,7 +123,7 @@ Parkin Translocation siRNA Screening [Data from Lecture](Lectures/lecture_functi
 
 ### Lecture 11: Bioconductor
 
-[Presentation](Lectures/lecture_bioconductor.html){target='_blank'}
+[Presentation](Lectures/lecture_bioconductor.html){target='_blank'} | [PDF](Lectures/lecture_bioconductor.pdf)
 
 [Practicum](Lectures/practicum_bioconductor.html){target="_blank"} |
 [Solution](Lectures/practicum_bioconductor_solution.html){target="_blank"}
