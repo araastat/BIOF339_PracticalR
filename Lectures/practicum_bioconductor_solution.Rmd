@@ -1,0 +1,43 @@
+---
+title: "Bioconductor Practicum"
+author: "Eugen Buehler"
+date: "December 11, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Exercises
+
+1. Install the "ALL" Bioconductor package.
+
+```{r eval=FALSE}
+BiocManager::install(c("ALL"))
+```
+
+2. Use library(ALL) and data(ALL) to load the ALL ExpresssionSet.
+
+```{r}
+library(ALL)
+data(ALL)
+```
+
+3. Use pData to examine the phenotype data.
+
+```{r}
+str(pData(ALL))
+```
+
+4. Load and experiment with the Heatplus library to make heatmaps.  
+
+```{r}
+# find the 128 most variant genes
+top128 <- order(apply(exprs(ALL),1,var, na.rm=TRUE), decreasing = TRUE)[1:128]
+ALL.top <- ALL[top128,]
+library(Heatplus)
+myMap <- regHeatmap(exprs(ALL.top))
+plot(myMap)
+```
+

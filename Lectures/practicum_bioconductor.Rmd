@@ -1,0 +1,17 @@
+---
+title: "Bioconductor Practicum"
+author: "Eugen Buehler"
+date: "December 11, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Exercises
+
+1. Install the "ALL" Bioconductor package.
+2. Use library(ALL) and data(ALL) to load the ALL ExpresssionSet.
+3. Use pData to examine the phenotype data.
+4. Load and experiment with the Heatplus library to make heatmaps.  
