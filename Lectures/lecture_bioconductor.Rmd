@@ -123,11 +123,12 @@ The IDs for affy probes are singularly unhelpful if we wish to analyze our expre
 
 "The biomaRt package, provides an interface to a growing collection of databases implementing the BioMart software suite." 
 
-To use the biomaRt package, we will have to first select a BioMart database and a dataset from thata database to query.
+To use the biomaRt package, we will have to first select a BioMart database and a dataset from that database to query.
 
 ## Selecting a Database
 
 ```{r}
+# BiocManager::install('biomaRt')
 library("biomaRt")
 ensemblDatabase <- useMart("ensembl")
 ```
@@ -193,6 +194,7 @@ target="_blank">Morgan's Bioconductor Tutorial</a></p>
 
 ## Start with prepared SummarizedExperiment
 ```{r}
+# BiocManager::install('airway')
 library(airway)
 data(airway)
 se <- airway
@@ -213,6 +215,7 @@ rowRanges(se)
 ## Create a DESeqDataSet
 
 ```{r}
+# BiocManager::install('DESeq2')
 library("DESeq2")
 dds <- DESeqDataSet(se, design = ~ cell + dex)
 dds
@@ -226,7 +229,7 @@ dds$dex <- relevel(dds$dex, "untrt")
 
 ## Run differential expression pipeline
 
-```{r}
+```{r, message = T}
 dds <- DESeq(dds)
 ```
 
@@ -245,6 +248,7 @@ summary(res)
 ```{r}
 library(tidyverse)
 as.data.frame(res) %>% 
+  rownames_to_column(var = 'ID') %>% 
   filter(padj < 0.1) %>% 
   arrange(desc(abs(log2FoldChange))) %>% head()
 ```
@@ -253,8 +257,8 @@ as.data.frame(res) %>%
 
 ```{r, fig.height=3, fig.width=6}
 topGene <- rownames(res)[which.min(res$padj)]
-data <- plotCounts(dds, gene=topGene, intgroup=c("dex"), returnData=TRUE)
-ggplot(data, aes(x = dex, y = count, fill=dex))+
+dat <- plotCounts(dds, gene=topGene, intgroup=c("dex"), returnData=TRUE)
+ggplot(dat, aes(x = dex, y = count, fill=dex))+
   geom_dotplot(binaxis='y', stackdir='center')+
   scale_y_log10()
 ```
@@ -271,11 +275,11 @@ plotMA(res, ylim=c(-5,5))
 
 There are several ways of doing heatmaps in R:
 
-+ [http://sebastianraschka.com/Articles/heatmaps_in_r.html](http://sebastianraschka.com/Articles/heatmaps_in_r.html)
-+ [https://plot.ly/r/heatmaps/](https://plot.ly/r/heatmaps/)
-+ [http://moderndata.plot.ly/interactive-heat-maps-for-r/](http://moderndata.plot.ly/interactive-heat-maps-for-r/)
-+ [http://www.siliconcreek.net/r/simple-heatmap-in-r-with-ggplot2](http://www.siliconcreek.net/r/simple-heatmap-in-r-with-ggplot2)
-+ [https://rud.is/b/2016/02/14/making-faceted-heatmaps-with-ggplot2/](https://rud.is/b/2016/02/14/making-faceted-heatmaps-with-ggplot2/)
++ [http://sebastianraschka.com/Articles/heatmaps_in_r.html](http://sebastianraschka.com/Articles/heatmaps_in_r.html){target="_blank"}
++ [https://plot.ly/r/heatmaps/](https://plot.ly/r/heatmaps/){target="_blank"}
++ [http://moderndata.plot.ly/interactive-heat-maps-for-r/](http://moderndata.plot.ly/interactive-heat-maps-for-r/){target="_blank"}
++ [http://www.siliconcreek.net/r/simple-heatmap-in-r-with-ggplot2](http://www.siliconcreek.net/r/simple-heatmap-in-r-with-ggplot2){target="_blank"}
++ [https://rud.is/b/2016/02/14/making-faceted-heatmaps-with-ggplot2/](https://rud.is/b/2016/02/14/making-faceted-heatmaps-with-ggplot2/){target="_blank"}
 
 ## Some example data
 
@@ -302,6 +306,7 @@ biocLite('Heatplus')
 ---
 
 ```{r, echo=T, fig.width=6, fig.height=6, eval=F}
+# BiocManager::install('Heatplus')
 library(Heatplus)
 reg1 <- regHeatmap(exprs(exdat2), legend=2, col=heat.colors, 
                    breaks=-3:3)
@@ -331,7 +336,7 @@ plot(reg2)
 
 ---
 
-```{r, echo=F, eval=T, fig.width=7}
+```{r, echo=F, eval=T, fig.width=6, fig.height = 6}
 corrdist <- function(x) as.dist(1-cor(t(x)))
 hclust.avl <-  function(x) hclust(x, method='average')
 reg2 <- regHeatmap(exprs(exdat2), legend=2, col=heat.colors,
@@ -343,14 +348,14 @@ plot(reg2)
 ---
 
 ```{r, echo=T, eval=F}
-ann1 <- annHeatmap(exprs(exdat2), ann=pData(exdat2))
+ann1 <- annHeatmap(exprs(exdat2), ann=pData(exdat2), col = heat.colors)
 plot(ann1)
 ```
 
 ---
 
 ```{r, echo=F, eval=T, fig.width=7, fig.height=6}
-ann1 <- annHeatmap(exprs(exdat2), ann=pData(exdat2))
+ann1 <- annHeatmap(exprs(exdat2), ann=pData(exdat2), col = heat.colors)
 plot(ann1)
 ```
 
@@ -358,7 +363,7 @@ plot(ann1)
 
 
 ```{r, echo=T, eval=F, fig.width=7, fig.height=6}
-ann2 <- annHeatmap(exprs(exdat2), ann=pData(exdat2),
+ann2 <- annHeatmap(exprs(exdat2), ann=pData(exdat2), col = heat.colors,
                    cluster = list(cuth=7500,
                                   label=c('Control-like','Case-like')))
 plot(ann2)
@@ -367,7 +372,7 @@ plot(ann2)
 ---
 
 ```{r, echo=F, eval=T, fig.height=6, fig.width=7}
-ann2 <- annHeatmap(exprs(exdat2), ann=pData(exdat2),
+ann2 <- annHeatmap(exprs(exdat2), ann=pData(exdat2), col = heat.colors,
                    cluster = list(cuth=7500,
                                   label=c('Control-like','Case-like')))
 plot(ann2)
@@ -378,6 +383,7 @@ plot(ann2)
 Put your mouse over each point :)
 
 ```{r, fig.height=5, fig.width=6}
+# install.packages('d3heatmap')
 library(d3heatmap)
 d3heatmap(exprs(exdat2), distfun = corrdist, 
           hclustfun = hclust.avl, scale='row')
