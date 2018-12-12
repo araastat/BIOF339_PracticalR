@@ -128,6 +128,10 @@ Parkin Translocation siRNA Screening [Data from Lecture](Lectures/lecture_functi
 [Practicum](Lectures/practicum_bioconductor.html){target="_blank"} |
 [Solution](Lectures/practicum_bioconductor_solution.html){target="_blank"}
 
+#### Other resources
+
+[Cluster Analysis tutorial](https://www.dropbox.com/s/brmjh3v3eqeqa17/index.html?dl=0)
+
 ### Lecture 12: Publication-ready graphics
 
 [Presentation](Lectures/lecture_pubgraphics.html){target="_blank"}
