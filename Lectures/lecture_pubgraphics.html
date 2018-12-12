@@ -516,7 +516,7 @@ Chances are that you will continue to refine your graph during the manuscript pr
 
 ## Multiple Graphs
 
-The packages `cowplot` and `ggpubr` make putting different graphs on the same panel pretty straightforward.
+The packages `cowplot` and [`ggpubr`](https://rpkgs.datanovia.com/ggpubr/index.html) make putting different graphs on the same panel pretty straightforward.
 
 
 ```r
@@ -555,6 +555,33 @@ plot_grid(plots[[1]], bottom_row, labels = c("A"), ncol = 1)
 
 ---
 
+## Multiple plots
+
+.pull-left[
+
+```r
+library(ggpubr)
+data("ToothGrowth")
+df &lt;- ToothGrowth
+df$dose &lt;- as.factor(df$dose)
+
+# Create some plots
+# ::::::::::::::::::::::::::::::::::::::::::::::::::
+# Box plot
+bxp &lt;- ggboxplot(df, x = "dose", y = "len",
+    color = "dose", palette = "jco")
+# Dot plot
+dp &lt;- ggdotplot(df, x = "dose", y = "len",
+    color = "dose", palette = "jco")
+ggarrange(bxp, dp,  common.legend = TRUE)
+```
+]
+.pull-right[
+![](lecture_pubgraphics_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+]
+
+---
+
 ## Fine-tuning the theme
 
 
@@ -578,7 +605,7 @@ plt &lt;- ggplot(bl, aes(x = estimate)) + geom_histogram(bins = 50)+#geom_densit
 
 ---
 
-&lt;img src="lecture_pubgraphics_data/Figure2a.png" width="1200" /&gt;
+&lt;img src="lecture_pubgraphics_data/Figure2a.png" width="2400" /&gt;
 
 ---
 

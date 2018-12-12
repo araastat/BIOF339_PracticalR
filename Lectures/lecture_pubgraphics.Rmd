@@ -442,7 +442,7 @@ knitr::include_graphics("script.png")
 
 ## Multiple Graphs
 
-The packages `cowplot` and `ggpubr` make putting different graphs on the same panel pretty straightforward.
+The packages `cowplot` and [`ggpubr`](https://rpkgs.datanovia.com/ggpubr/index.html) make putting different graphs on the same panel pretty straightforward.
 
 ```{r, echo = T, fig.align = 'center', eval = F}
 # install.packages('cowplot')
@@ -505,6 +505,49 @@ bottom_row <- plot_grid(plots[[2]], plots[[3]], legend, labels = c("B", "C"), re
 plot_grid(plots[[1]], bottom_row, labels = c("A"), ncol = 1)
 
 ```
+
+---
+
+## Multiple plots
+
+.pull-left[
+```{r, eval = F, warning=F, message=F, echo = T}
+library(ggpubr)
+data("ToothGrowth")
+df <- ToothGrowth
+df$dose <- as.factor(df$dose)
+
+# Create some plots
+# ::::::::::::::::::::::::::::::::::::::::::::::::::
+# Box plot
+bxp <- ggboxplot(df, x = "dose", y = "len",
+    color = "dose", palette = "jco")
+# Dot plot
+dp <- ggdotplot(df, x = "dose", y = "len",
+    color = "dose", palette = "jco")
+ggarrange(bxp, dp,  common.legend = TRUE)
+
+```
+]
+.pull-right[
+```{r, echo = F, eval = T, warning=F, message=F}
+library(ggpubr)
+data("ToothGrowth")
+df <- ToothGrowth
+df$dose <- as.factor(df$dose)
+
+# Create some plots
+# ::::::::::::::::::::::::::::::::::::::::::::::::::
+# Box plot
+bxp <- ggboxplot(df, x = "dose", y = "len",
+    color = "dose", palette = "jco")
+# Dot plot
+dp <- ggdotplot(df, x = "dose", y = "len",
+    color = "dose", palette = "jco")
+ggarrange(bxp, dp,  common.legend = TRUE)
+
+```
+]
 
 ---
 
