@@ -535,6 +535,23 @@ knitr::include_graphics('lecture_pubgraphics_data/Figure2a.png')
 ```
 
 ---
+
+## Directly creating PowerPoints
+
+You can now use RMarkdown to create PowerPoint presentations [reference](https://bookdown.org/yihui/rmarkdown/powerpoint-presentation.html){target="_blank"}
+
+```
+---
+title: "Your Presentation"
+author" "James T. Kirk"
+output: powerpoint_presentation
+---
+```
+
+This might be useful if you want to copy slides into different presentations directly.
+
+
+---
 class: inverse, center, middle
 
 ## Final Presentations
