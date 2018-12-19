@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://www.araastat.com/BIOF339_PracticalR/blog/public/2018/12/19/fixing-humpty-dumpty-breaking-and-repairing-a-data-set/</loc>
+    <lastmod>2018-12-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.araastat.com/BIOF339_PracticalR/blog/public/2018/12/19/running-many-t-tests/</loc>
     <lastmod>2018-12-19T00:00:00+00:00</lastmod>
   </url>
@@ -41,7 +46,7 @@
   
   <url>
     <loc>http://www.araastat.com/BIOF339_PracticalR/blog/public/tags/data-munging/</loc>
-    <lastmod>2017-11-22T00:00:00+00:00</lastmod>
+    <lastmod>2018-12-19T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

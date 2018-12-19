@@ -6,10 +6,20 @@
     <description>Recent content in Data Munging on BIOF339 Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 22 Nov 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 19 Dec 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://www.araastat.com/BIOF339_PracticalR/blog/public/tags/data-munging/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Fixing Humpty Dumpty: Breaking and repairing a data set</title>
+      <link>http://www.araastat.com/BIOF339_PracticalR/blog/public/2018/12/19/fixing-humpty-dumpty-breaking-and-repairing-a-data-set/</link>
+      <pubDate>Wed, 19 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.araastat.com/BIOF339_PracticalR/blog/public/2018/12/19/fixing-humpty-dumpty-breaking-and-repairing-a-data-set/</guid>
+      <description>Context This is an exercise in breaking up and putting a data set back together. The second part is what I want to show, but the first part is an interesting exercise by itself
+Breaking up a data set We want to take a dataset, and split it up into separate datasets, each of which will contain the index column and another column, and will be named after the name of this second column.</description>
+    </item>
     
     <item>
       <title>Summarize outcomes into new variables</title>
