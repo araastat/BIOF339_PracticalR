@@ -320,7 +320,7 @@ cars %&gt;% group_by(speed) %&gt;% summarize(meanDist = mean(dist),
 
 
 ```r
-sem &lt;- function(x) sqrt(var(x)/length(x))
+sem &lt;- function(x) sqrt(var(x, na.rm=T)/sum(!is.na(x)))
 cars %&gt;% group_by(speed) %&gt;% summarize(meanDist = mean(dist),
                                        semDist = sem(dist)) %&gt;% 
 ggplot(aes(x=speed, y=meanDist)) + geom_bar(stat="identity") +

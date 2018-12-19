@@ -57,6 +57,62 @@
                 
                 
                 <header class="article-header">
+                    <h1 itemprop="name"><a class="article-title" href="/BIOF339_PracticalR/blog/public/2018/12/19/running-many-t-tests/">Running many t-tests</a></h1>
+                </header>
+                
+                <div class="article-meta">
+                    <a href="/BIOF339_PracticalR/blog/public/2018/12/19/running-many-t-tests/" class="article-date">
+                        <time datetime='2018-12-19T00:00:00.000&#43;00:00' itemprop="datePublished">2018-12-19</time>
+                    </a>
+                    
+                    
+                    <div class="post-categories">
+                        <div class="article-category">
+                            
+                            
+                            <a class="article-category-link" href="http://www.araastat.com/BIOF339_PracticalR/blog/public//categories/r">R</a>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="article-entry" itemprop="articleBody">
+                    <p>
+                        
+                    Suppose you have an expression dataset, and want to run t-tests for several genes/probes comparing two conditions. We can use tidyverse concepts to do this. First, let’s get some data.
+library(tidyverse) library(broom) library(affy) # BiocManager::install(&#39;affydata&#39;) data(Dilution, package = &#39;affydata&#39;) eset &lt;- mas5(Dilution) # pre-proccessing ## background correction: mas ## PM/MM correction : mas ## expression values: mas ## background correcting...done. ## 12625 ids to be processed ## | | ## |####################| dat &lt;- exprs(eset) # extract expressions Dat &lt;- as.
+                    </p>
+                    <p class="article-more-link">
+                        <a href="/BIOF339_PracticalR/blog/public/2018/12/19/running-many-t-tests/">Read More</a>
+                    </p>
+                </div>
+
+                
+                <footer class="article-footer">
+                    <ul class="article-tag-list">
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="http://www.araastat.com/BIOF339_PracticalR/blog/public//tags/tidyverse">tidyverse
+                            </a>
+                        </li>
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="http://www.araastat.com/BIOF339_PracticalR/blog/public//tags/modeling">modeling
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </footer>
+                
+            </div>
+        </article>
+        
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+            <div class="article-inner">
+                
+                
+                <header class="article-header">
                     <h1 itemprop="name"><a class="article-title" href="/BIOF339_PracticalR/blog/public/2018/11/16/function-documentation/">Function documentation</a></h1>
                 </header>
                 

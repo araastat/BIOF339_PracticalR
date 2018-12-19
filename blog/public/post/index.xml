@@ -6,10 +6,20 @@
     <description>Recent content in Posts on BIOF339 Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 16 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 19 Dec 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://www.araastat.com/BIOF339_PracticalR/blog/public/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Running many t-tests</title>
+      <link>http://www.araastat.com/BIOF339_PracticalR/blog/public/2018/12/19/running-many-t-tests/</link>
+      <pubDate>Wed, 19 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.araastat.com/BIOF339_PracticalR/blog/public/2018/12/19/running-many-t-tests/</guid>
+      <description>Suppose you have an expression dataset, and want to run t-tests for several genes/probes comparing two conditions. We can use tidyverse concepts to do this. First, let’s get some data.
+library(tidyverse) library(broom) library(affy) # BiocManager::install(&amp;#39;affydata&amp;#39;) data(Dilution, package = &amp;#39;affydata&amp;#39;) eset &amp;lt;- mas5(Dilution) # pre-proccessing ## background correction: mas ## PM/MM correction : mas ## expression values: mas ## background correcting...done. ## 12625 ids to be processed ## | | ## |####################| dat &amp;lt;- exprs(eset) # extract expressions Dat &amp;lt;- as.</description>
+    </item>
     
     <item>
       <title>Function documentation</title>

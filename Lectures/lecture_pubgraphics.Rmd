@@ -272,7 +272,7 @@ cars %>% group_by(speed) %>% summarize(meanDist = mean(dist),
 ## Error Bar Example
 
 ```{r, warning=F, message=F, fig.height=5, fig.width=5}
-sem <- function(x) sqrt(var(x)/length(x))
+sem <- function(x) sqrt(var(x, na.rm=T)/sum(!is.na(x)))
 cars %>% group_by(speed) %>% summarize(meanDist = mean(dist),
                                        semDist = sem(dist)) %>% 
 ggplot(aes(x=speed, y=meanDist)) + geom_bar(stat="identity") +

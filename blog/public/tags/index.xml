@@ -38,5 +38,23 @@
       <description></description>
     </item>
     
+    <item>
+      <title>Modeling</title>
+      <link>http://www.araastat.com/BIOF339_PracticalR/blog/public/tags/modeling/</link>
+      <pubDate>Wed, 19 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.araastat.com/BIOF339_PracticalR/blog/public/tags/modeling/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tidyverse</title>
+      <link>http://www.araastat.com/BIOF339_PracticalR/blog/public/tags/tidyverse/</link>
+      <pubDate>Wed, 19 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.araastat.com/BIOF339_PracticalR/blog/public/tags/tidyverse/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
