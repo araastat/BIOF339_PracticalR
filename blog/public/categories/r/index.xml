@@ -28,7 +28,7 @@ Breaking up a data set We want to take a dataset, and split it up into separate 
       
       <guid>http://www.araastat.com/BIOF339_PracticalR/blog/public/2018/12/19/running-many-t-tests/</guid>
       <description>Suppose you have an expression dataset, and want to run t-tests for several genes/probes comparing two conditions. We can use tidyverse concepts to do this. First, let’s get some data.
-library(tidyverse) library(broom) library(affy) # BiocManager::install(&amp;#39;affydata&amp;#39;) data(Dilution, package = &amp;#39;affydata&amp;#39;) eset &amp;lt;- mas5(Dilution) # pre-proccessing ## background correction: mas ## PM/MM correction : mas ## expression values: mas ## background correcting...done. ## 12625 ids to be processed ## | | ## |####################| dat &amp;lt;- exprs(eset) # extract expressions Dat &amp;lt;- as.</description>
+# BiocManager::install(&amp;#39;affydata&amp;#39;) data(Dilution, package = &amp;#39;affydata&amp;#39;) eset &amp;lt;- mas5(Dilution) # pre-proccessing dat &amp;lt;- exprs(eset) # extract expressions Dat &amp;lt;- as.data.frame(t(dat)) %&amp;gt;% rownames_to_column(&amp;#39;sample&amp;#39;) %&amp;gt;% as_tibble() %&amp;gt;% mutate(scanner = as_factor(pData(Dilution)$scanner)) %&amp;gt;% # Add &amp;quot;scanner&amp;quot; from phenoData select(sample, scanner, everything()) # Re-order columns Now, this dataset has 12625 probesets, and we want to run a t-test on each one, comparing the scanner types (which are of two types).</description>
     </item>
     
     <item>
