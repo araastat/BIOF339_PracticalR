@@ -10,14 +10,14 @@ library(glue)
 set.seed(10848)
 
 presentation_dir <- 'Presentations2019B'
-presentation_files <- list.files(presentation_dir, full.names = T)
+presentation_files <- file.path(presentation_dir,list.files(presentation_dir))
 presentation_names <- list.files(presentation_dir)
 
 tbl <- tibble('Files' = as.character(glue('- [{presentation_names}]({presentation_files}){{target="_blank"}}'))) %>% 
   mutate("Names" = c('Rama Atitkar','Alexander Bell','Alexander Chassiakos','Marie Cronin','Larissa Erben','Neha Gupta','Sunhyun Lee','Hai Liang',"Allison O'Connell", 'optionals','Samantha Papal','Catherine Jaeger','Akshay Thaper','Yafeng He')) %>% 
   filter(Names != 'optionals') %>% 
   select(Names, Files)
-tbl <- rbind(tbl, c('Names' = 'Jake Noeker',Files = '[presentation](http://rpubs.com/jnoek24/452152){target="_blank"}'))
+tbl <- rbind(tbl, c('Names' = 'Jake Noeker',Files = '[- presentation](http://rpubs.com/jnoek24/452152){target="_blank"}'))
 tbl_ordered <- tbl[sample(1:nrow(tbl)),]
 ```
 
