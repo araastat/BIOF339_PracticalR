@@ -8,8 +8,8 @@ Last updated: `r format(Sys.time(), '%b %d, %Y (%l:%M%p %Z)')`
 
 ------
 
-<div style = 'border: 1px solid black;vertical-align:center;padding-top: 1em;padding-left:1em;'>
-New blog post (2018/11/16): [Function documentation](blog/public/2018/11/16/function-documentation/index.html)
+<div style = 'border: 1px solid red;vertical-align:center;padding-top: 1em;padding-left:1em;font-size:16pt;'>
+Final presentations for the 7-9pm section are available [here](Presentations19.html). 
 </div>
 
 -------
